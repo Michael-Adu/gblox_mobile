@@ -747,8 +747,7 @@
   </div>
   <script type="text/javascript">
     function updateCode() {
-      var code = Blockly.JavaScript.workspaceToCode(Workspace);
-      document.getElementById('total_code').innerHTML = code;
+      Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(`<xml xmlns="https://developers.google.com/blockly/xml"><block type="m_mainloop" x="430" y="150"></block></xml>`), Blockly.mainWorkspace)
     }
     const block_styles = {
       "logic_blocks": {
@@ -837,6 +836,7 @@
         zoom:
         {
           wheel: true,
+          control: true,
           startScale: 0.5,
           maxScale: 3,
           minScale: 0.3,
@@ -848,6 +848,7 @@
         theme: dark_theme
       });
     Workspace.addChangeListener(updateCode);
+
 
   </script>
   <script src="scripts/main.js"></script>
