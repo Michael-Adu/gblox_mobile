@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arduino Test</title>
+  <script src="../../blockly_compressed.js"></script>
+  <script src="../../blocks_compressed.js"></script>
+  <script src="../../javascript_compressed.js"></script>
+  <script src="../../msg/js/en.js"></script>
+  <script type="text/javascript">
+    var peripheral_PreDeclarations = "";
+    var peripheral_BulkFunctions = "";
+    var peripheral_SetupCode = "";
+
+    var US_Trigger;
+    var US_Echo;
+    var Servo_Pin;
+
+    function clearvars() {
+      peripheral_PreDeclarations = "";
+      peripheral_BulkFunctions = "";
+      peripheral_SetupCode = "";
+    }
+
+    var IR_Loop = ``;
+
+    Blockly.Blocks['n_ultra_read'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage("https://www.clipartmax.com/png/full/1-17510_radio-waves-clip-art-radio-wave.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Read Ultrasonic Sensor Value (cm)")
+        this.setOutput(true, "Number");
+        this.setColour(230);
+        this.setTooltip("Read Ultrasonic Sensor Value in centimeters");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_servo_rotate'] = {
+      init: function () {
+        this.appendValueInput("degrees")
+          .setCheck("Number")
+          .appendField(new Blockly.FieldImage("https://static.thenounproject.com/png/1230725-200.png", 40, 40, { alt: "*ServoMotorIcon", flipRtl: "FALSE" }))
+          .appendField("Rotate Servo Motor to ");
+        this.appendDummyInput()
+          .appendField("Degrees");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(0);
+        this.setTooltip("Rotates Servo Motor to specified number of degrees");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_led_state'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage("https://www.nicepng.com/png/full/92-920070_led-lamp-clipart-led-lights-png.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Switch LED")
+          .appendField(new Blockly.FieldDropdown([["On", "HIGH"], ["Off", "LOW"]]), "led_state");
+        this.setColour(230);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setTooltip("Turns the LED ON or OFF depending on the assigned WriteState");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_buzzer_play_note'] = {
+      init: function () {
+        this.appendValueInput("frequency")
+          .setCheck("MusicNote")
+          .appendField(new Blockly.FieldImage("https://i.kisscc0.com/20180813/rue/kisscc0-buzzer-computer-icons-electronics-sound-piezoelect-buzzer-5b714095dc7ed2.9012614415341487579032.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Play note ");
+        this.appendDummyInput();
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(60);
+        this.setTooltip("Plays a music note indefinitely.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_buzzer_play_note_def'] = {
+      init: function () {
+        this.appendValueInput("frequency")
+          .setCheck("MusicNote")
+          .appendField(new Blockly.FieldImage("https://i.kisscc0.com/20180813/rue/kisscc0-buzzer-computer-icons-electronics-sound-piezoelect-buzzer-5b714095dc7ed2.9012614415341487579032.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Play note ");
+        this.appendValueInput("seconds")
+          .setCheck("Number")
+          .appendField("for");
+        this.appendDummyInput()
+          .appendField("milliseconds");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(60);
+        this.setTooltip("Plays a note for a specified number of milliseconds.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_note'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField("Music Note:")
+          .appendField(new Blockly.FieldDropdown([["C6", "1047"], ["C#6", "1109"], ["D6", "1175"], ["Eb6", "1245"], ["E6", "1319"], ["F6", "1397"], ["F#6", "1480"], ["G6", "1568"], ["G#6", "1661"], ["A6", "1760"], ["Bb6", "1865"], ["B6", "1976"], ["C7", "2093"], ["C#7", "2217"], ["D7", "2349"], ["Eb7", "2489"], ["E7", "2637"], ["F7", "2794"], ["F#7", "2960"], ["G7", "3136"], ["G#7", "3322"], ["A7", "3520"], ["Bb7", "3729"], ["B7", "3951"], ["C8", "4186"]]), "note");
+        this.setOutput(true, "MusicNote");
+        this.setColour(300);
+        this.setTooltip("Delays the program for a number of seconds.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_buzzer_stop'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage("https://i.kisscc0.com/20180813/rue/kisscc0-buzzer-computer-icons-electronics-sound-piezoelect-buzzer-5b714095dc7ed2.9012614415341487579032.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Stop the Buzzer");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(60);
+        this.setTooltip("Stops the buzzer from playing a note.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_buzzer_play'] = {
+      init: function () {
+        this.appendValueInput("frequency")
+          .setCheck("Number")
+          .appendField(new Blockly.FieldImage("https://i.kisscc0.com/20180813/rue/kisscc0-buzzer-computer-icons-electronics-sound-piezoelect-buzzer-5b714095dc7ed2.9012614415341487579032.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Play note at frequency of");
+        this.appendDummyInput()
+          .appendField("Hz");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(60);
+        this.setTooltip("Plays a note at a particular frequency indefinitely.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['n_buzzer_play_def'] = {
+      init: function () {
+        this.appendValueInput("frequency")
+          .setCheck("Number")
+          .appendField(new Blockly.FieldImage("https://i.kisscc0.com/20180813/rue/kisscc0-buzzer-computer-icons-electronics-sound-piezoelect-buzzer-5b714095dc7ed2.9012614415341487579032.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("Play note at frequency of");
+        this.appendDummyInput()
+          .appendField("Hz");
+        this.appendValueInput("seconds")
+          .setCheck("Number")
+          .appendField("for");
+        this.appendDummyInput()
+          .appendField("milliseconds");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(60);
+        this.setTooltip("Plays a note at a particular frequency for a specified number of milliseconds.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.JavaScript['n_ultra_read'] = function (block) {
+      var code = "\tread_ultrasonic(" + US_Trigger + "," + US_Echo + ")\n";
+      if (peripheral_PreDeclarations.includes(`int US_Trigger = ${US_Trigger};\nint US_Echo = ${US_Echo};\n\n`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          peripheral_PreDeclarations += `int US_Trigger = ${US_Trigger};\nint US_Echo = ${US_Echo};\n\n`;
+          peripheral_SetupCode += `\tpinMode(${US_Trigger}, OUTPUT);\n\tpinMode(${US_Echo}, INPUT);\n`;
+          peripheral_BulkFunctions += `\nint read_ultrasonic(int trigger, int echo){
+            digitalWrite(trigger, LOW);
+            delayMicroseconds(2);
+            digitalWrite(trigger, HIGH);
+            delayMicroseconds(10);
+            digitalWrite(trigger, LOW);
+            int duration = pulseIn(echo, HIGH);
+            int distance = duration * 0.034 / 2;
+            return distance;
+        }`
+        }
+      }
+      return [code, Blockly.JavaScript.ORDER_NONE];
+    };
+
+    Blockly.JavaScript['n_servo_rotate'] = function (block) {
+      if (peripheral_PreDeclarations.includes("#include <Servo.h>\n Servo ServoA\n") == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          peripheral_PreDeclarations += "#include <Servo.h>\n Servo ServoA\n";
+        }
+      }
+      if (peripheral_SetupCode.includes(`\tServoA.attach(${Servo_Pin});\n`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          peripheral_SetupCode += `\tServoA.attach(${Servo_Pin});\n`;
+        }
+      }
+      var value_degrees = Blockly.JavaScript.valueToCode(block, 'degrees', Blockly.JavaScript.ORDER_ATOMIC);
+      var code = '\n\tServoA.write(' + value_degrees + ');\n';
+      return code;
+    };
+
+    Blockly.JavaScript['n_led_state'] = function (block) {
+      var value_led_value = block.getFieldValue("led_state");
+      // TODO: Assemble JavaScript into code variable.
+      if (peripheral_SetupCode.includes(`\tpinMode(LED_BUILTIN, OUTPUT)\n`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          peripheral_SetupCode += `\tpinMode(LED_BUILTIN, OUTPUT);\n`;
+        }
+      }
+      var code = `\n\tdigitalWrite(LED_BUILTIN,${value_led_value});\n`;
+      return code;
+    };
+
+    Blockly.JavaScript['n_buzzer_play'] = function (block) {
+      var value_frequency = Blockly.JavaScript.valueToCode(block, 'frequency', Blockly.JavaScript.ORDER_ATOMIC);
+      // TODO: Assemble JavaScript into code variable.
+      var code = '\ntone(Buzzer_Pin,' + value_frequency + ');';
+      return code;
+    };
+
+    Blockly.JavaScript['n_buzzer_stop'] = function (block) {
+      // TODO: Assemble JavaScript into code variable.
+      var code = '\nnoTone(Buzzer_Pin);';
+      return code;
+    };
+
+    Blockly.JavaScript['n_buzzer_play_def'] = function (block) {
+      var value_frequency = Blockly.JavaScript.valueToCode(block, 'frequency', Blockly.JavaScript.ORDER_ATOMIC);
+      var value_seconds = Blockly.JavaScript.valueToCode(block, 'seconds', Blockly.JavaScript.ORDER_ATOMIC);
+      // TODO: Assemble JavaScript into code variable.
+      var code = '\ntone(Buzzer_Pin,' + value_frequency + ');\ndelay(' + value_seconds + ');\nnoTone(Buzzer_Pin);';
+      return code;
+    };
+
+    Blockly.JavaScript['n_note'] = function (block) {
+      var dropdown_note = block.getFieldValue('note');
+      // TODO: Assemble JavaScript into code variable.
+      var code = dropdown_note;
+      // TODO: Change ORDER_NONE to the correct strength.
+      return [code, Blockly.JavaScript.ORDER_NONE];
+    };
+
+    Blockly.JavaScript['n_delay'] = function (block) {
+      var value_seconds = Blockly.JavaScript.valueToCode(block, 'seconds', Blockly.JavaScript.ORDER_ATOMIC);
+      // TODO: Assemble JavaScript into code variable.
+      var code = '\ndelay(' + value_seconds + ');';
+      return code;
+    };
+
+    Blockly.JavaScript['n_buzzer_play_note'] = function (block) {
+      var value_frequency = Blockly.JavaScript.valueToCode(block, 'frequency', Blockly.JavaScript.ORDER_ATOMIC);
+      // TODO: Assemble JavaScript into code variable.
+      var code = '\ntone(Buzzer_Pin,' + value_frequency + ');';
+      return code;
+    };
+
+    Blockly.JavaScript['n_buzzer_play_note_def'] = function (block) {
+      var value_frequency = Blockly.JavaScript.valueToCode(block, 'frequency', Blockly.JavaScript.ORDER_ATOMIC);
+      var value_seconds = Blockly.JavaScript.valueToCode(block, 'seconds', Blockly.JavaScript.ORDER_ATOMIC);
+      // TODO: Assemble JavaScript into code variable.
+      var code = '\ntone(Buzzer_Pin,' + value_frequency + ');\ndelay(' + value_seconds + ');\nnoTone(Buzzer_Pin);';
+      return code;
+    };
+    Blockly.Blocks['m_mainloop'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField(new Blockly.FieldImage("https://www.clipartmax.com/png/full/219-2194283_open-green-flag-sprite.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
+          .appendField("When " + globalToolboxName + " starts,", "MainField");
+        this.appendDummyInput()
+          .appendField("Run Forever")
+          .appendField(new Blockly.FieldCheckbox("TRUE"), "LOOP");
+        this.appendStatementInput("mainLoop")
+          .setCheck(null);
+        this.setColour("#4C97FF");
+        this.setTooltip("The Main Loop of the program.");
+        this.setHelpUrl("");
+      },
+
+    };
+
+    Blockly.Blocks['delay_core'] = {
+      init: function () {
+        this.appendValueInput("seconds")
+          .setCheck("Number")
+          .appendField("delay for");
+        this.appendDummyInput()
+          .appendField("seconds");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setStyle("loop_blocks");
+        this.setTooltip("Delays the program for a number of seconds.");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['communication_serial_print'] = {
+      init: function () {
+        this.appendValueInput("Serial_Print")
+          .setCheck(null)
+          .appendField("Print");
+        this.appendDummyInput()
+          .appendField(" to Serial Monitor");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setStyle("communication_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['communication_serial_read'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField("Read From Serial Monitor");
+        this.setInputsInline(true);
+        this.setOutput(true, null);
+        this.setStyle("communication_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['arduino_digital_write'] = {
+      init: function () {
+        this.appendValueInput("Digital Pin Number")
+          .setCheck("Number")
+          .appendField("Set Digital Pin");
+        this.appendDummyInput()
+          .appendField("to")
+          .appendField(new Blockly.FieldDropdown([["On", "HIGH"], ["Off", "LOW"]]), "On/Off");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setStyle("digital_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+    Blockly.Blocks['arduino_digital_read'] = {
+      init: function () {
+        this.appendValueInput("Digital Pin")
+          .setCheck(null)
+          .appendField("Read Digital Pin");
+        this.setInputsInline(true);
+        this.setOutput(true, null);
+        this.setStyle("digital_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+    Blockly.Blocks['arduino_analog_write'] = {
+      init: function () {
+        this.appendValueInput("analog pin")
+          .setCheck("String")
+          .appendField("Set Analog Pin");
+        this.appendValueInput("output")
+          .setCheck("Number")
+          .appendField("to");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setStyle("analog_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+    Blockly.Blocks['arduino_analog_read'] = {
+      init: function () {
+        this.appendValueInput("analog pin")
+          .setCheck(null)
+          .appendField("Read Analog Pin");
+        this.setInputsInline(true);
+        this.setOutput(true, null);
+        this.setStyle("analog_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.Blocks['variable_set'] = {
+      init: function () {
+        var input = this.appendDummyInput()
+          .appendField("Set Variable")
+          .appendField(new Blockly.FieldDropdown(this.generateOptions), `variables_set`);
+        this.appendValueInput("value")
+          .setCheck(["Number", "String"])
+          .appendField("to");
+        this.setInputsInline(true);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setStyle("variable_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+
+      },
+      generateOptions: function () {
+        var options = []
+        options = variables_set;
+        return options;
+      }
+    };
+
+    Blockly.Blocks['variable_get'] = {
+      init: function () {
+        var input = this.appendDummyInput()
+          .appendField("Get Variable")
+          .appendField(new Blockly.FieldDropdown(this.generateOptions), `variables_set`)
+          .appendField("'s value");
+        this.setInputsInline(true);
+        this.setOutput(true, null);
+        this.setStyle("variable_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      },
+      generateOptions: function () {
+        var options = []
+        options = variables_set;
+        return options;
+      }
+    };
+
+    Blockly.Blocks['for_loop'] = {
+      init: function () {
+        this.appendDummyInput()
+          .appendField("Repeat for")
+          .appendField(new Blockly.FieldNumber(0, 0), "loop amount")
+          .appendField("Times");
+        this.appendStatementInput("for loop")
+          .setCheck(null);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setStyle("loop_blocks");
+        this.setTooltip("");
+        this.setHelpUrl("");
+      }
+    };
+
+    Blockly.JavaScript['m_mainloop'] = function (block) {
+      getPeripherals();
+      block.setDeletable(false);
+      block.setMovable(false);
+      block.setFieldValue("When " + globalToolboxName + " starts,", "MainField")
+
+      var statements_mainloop = Blockly.JavaScript.statementToCode(block, 'mainLoop');
+      if (createdVariables.length != 0) {
+        variables_set = createdVariables;
+        varcheck = createdVariables
+        for (var i = 0; i < variables_set.length; i++) {
+          Total_PreDeclarations += `${variables_set[i][0]};\n`;
+        }
+      }
+
+      var checkbox_loop = block.getFieldValue("LOOP");
+      try {
+        Total_PreDeclarations += peripherals.peripheral_PreDeclarations;
+        Total_SetupCode += peripherals.peripheral_SetupCode;
+        Total_BulkFunctions += peripherals.peripheral_BulkFunctions;
+        if (peripherals.IR_Loop !== ``) {
+          statements_mainloop += `\tif(IrReceiver.decode()){\n\t\t${peripherals.IR_Loop}\nIrReceiver.resume();\n}`;
+        }
+      }
+      catch (e) {
+      }
+      var code = ""
+      if (checkbox_loop == "TRUE") {
+        code = `${Total_PreDeclarations} ${Total_SetupCode} \n}\n\nvoid loop(){\n ${statements_mainloop}\n} \n ${Total_BulkFunctions}`;
+      }
+      else {
+        code = `${Total_PreDeclarations} \nint runOnce;\n ${Total_SetupCode} \nrunOnce = 0;\n}\n\nvoid loop(){\n\tif(runOnce == 0){\n${statements_mainloop}\nrunOnce = 1;}\n}\n${Total_BulkFunctions}`;
+      }
+      Total_PreDeclarations = "";
+      Total_SetupCode = "\nvoid setup(){\n";
+      Total_BulkFunctions = "";
+
+      try {
+        peripherals.clearvars();
+      }
+      catch (e) { }
+      mainLoopCode = code;
+      return code;
+    };
+
+    Blockly.JavaScript['delay_core'] = function (block) {
+      var value_seconds = Blockly.JavaScript.valueToCode(block, 'seconds', Blockly.JavaScript.ORDER_ATOMIC);
+      var code = `\ndelay(${value_seconds * 1000});\n`;
+      return code;
+    };
+
+    Blockly.JavaScript['communication_serial_print'] = function (block) {
+      var value_serial_print = Blockly.JavaScript.valueToCode(block, 'Serial_Print', Blockly.JavaScript.ORDER_ATOMIC);
+      if (value_serial_print[0] == `'`) {
+        value_serial_print = value_serial_print.replaceAll(`'`, `"`);
+      }
+      if (Total_SetupCode.includes(`Serial.begin(9600);`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          Total_SetupCode += `\tSerial.begin(9600);\n`;
+        }
+      }
+      var code = `\tSerial.println(${value_serial_print});\n`;
+      return code;
+    };
+
+    Blockly.JavaScript['communication_serial_read'] = function (block) {
+      if (Total_SetupCode.includes(`Serial.begin(9600);`) == 0) {
+        Total_SetupCode += `\tSerial.begin(9600);\n`;
+      }
+      var code = ""
+      if (block.getRootBlock().type == "m_mainloop") {
+
+        code = `Serial.read()`;
+        console.log(code)
+      }
+      return [code, Blockly.JavaScript.ORDER_NONE];
+    };
+
+    Blockly.JavaScript['variable_set'] = function (block) {
+      var text_varname = block.getFieldValue('variables_set');
+      var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+
+      var code = '';
+      code = `${text_varname} = ${value_value};\n`
+      return code;
+    };
+
+    Blockly.JavaScript['variable_get'] = function (block) {
+      var text_varname = block.getFieldValue('variables_set');
+      var code = '...';
+      code = `${text_varname}`
+      return [code, Blockly.JavaScript.ORDER_NONE];
+    };
+
+    Blockly.JavaScript['for_loop'] = function (block) {
+      var number_loop_amount = block.getFieldValue('loop amount');
+      var statements_for_loop = Blockly.JavaScript.statementToCode(block, 'for loop');
+      // TODO: Assemble JavaScript into code variable.
+      var code = 'for (int i = 0;i<' + number_loop_amount + ';i++) {\n' + statements_for_loop + '};\n';
+      return code;
+    };
+
+    Blockly.JavaScript['arduino_digital_write'] = function (block) {
+      var value_digital_pin_number = Blockly.JavaScript.valueToCode(block, 'Digital Pin Number', Blockly.JavaScript.ORDER_ATOMIC);
+      var dropdown_on_off = block.getFieldValue('On/Off');
+      if (Total_SetupCode.includes(`pinMode(${value_digital_pin_number}, OUTPUT)`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          Total_SetupCode += `pinMode(${value_digital_pin_number}, OUTPUT);\n`
+        }
+      }
+      var code = `digitalWrite(${value_digital_pin_number},${dropdown_on_off});\n`;
+      return code;
+    };
+    Blockly.JavaScript['arduino_digital_read'] = function (block) {
+      var value_digital_pin_number = Blockly.JavaScript.valueToCode(block, 'Digital Pin', Blockly.JavaScript.ORDER_ATOMIC);
+      if (Total_SetupCode.includes(`pinMode(${value_digital_pin_number}, INPUT)`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          Total_SetupCode += `pinMode(${value_digital_pin_number}, INPUT);\n`
+        }
+      }
+      var code = `digitalRead(${value_digital_pin_number})`;
+      // TODO: Change ORDER_NONE to the correct strength.
+      return [code, Blockly.JavaScript.ORDER_NONE];
+    };
+    Blockly.JavaScript['arduino_analog_write'] = function (block) {
+      var value_analog_pin_number = Blockly.JavaScript.valueToCode(block, 'analog pin', Blockly.JavaScript.ORDER_ATOMIC);
+      var value_output = Blockly.JavaScript.valueToCode(block, 'output', Blockly.JavaScript.ORDER_ATOMIC);
+      if (Total_SetupCode.includes(`pinMode(${value_analog_pin_number}, OUTPUT)`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          Total_SetupCode += `pinMode(${value_analog_pin_number}, OUTPUT);\n`
+        }
+      }
+      var code = `analogWrite(${value_analog_pin_number},${value_output});\n`;
+      return code;
+    };
+    Blockly.JavaScript['arduino_analog_read'] = function (block) {
+      var value_analog_pin_number = Blockly.JavaScript.valueToCode(block, 'analog pin', Blockly.JavaScript.ORDER_ATOMIC);
+      // TODO: Assemble JavaScript into code variable.
+      if (Total_SetupCode.includes(`pinMode(${value_analog_pin_number}, INPUT)`) == 0) {
+        if (block.getRootBlock().type == "m_mainloop") {
+          Total_SetupCode += `pinMode(${value_analog_pin_number}, INPUT);\n`
+        }
+      }
+
+      var code = `analogRead(${value_analog_pin_number})`;
+      // TODO: Change ORDER_NONE to the correct strength.
+      return [code, Blockly.JavaScript.ORDER_NONE];
+    };
+  </script>
+</head>
+
+<body>
+  <pre id="total_code"></pre>
+  <div id="blocklyDiv" style="height: calc(100vh - 50px); width: 100%; border: 1px solid red"></div>
+  <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
+    <category css-icon="customIcon fa fa-cog" name="Logic">
+      <block type="m_mainloop"></block>
+      <block type="controls_if"></block>
+      <block type="logic_compare">
+        <field name="OP">EQ</field>
+      </block>
+      <block type="logic_operation">
+        <field name="OP">AND</field>
+      </block>
+      <block type="logic_negate"></block>
+      <block type="logic_boolean">
+        <field name="BOOL">TRUE</field>
+      </block>
+    </category>
+    <category name="Loops">
+      <block type="for_loop">
+      </block>
+      <block type="controls_whileUntil">
+        <field name="MODE">WHILE</field>
+      </block>
+      <block type="delay_core">
+        <value name="seconds">
+          <shadow type="math_number">
+            <field name="seconds">1</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category css-icon="customIcon fa fa-cog" name="Math">
+      <block type="math_number">
+        <field name="NUM">0</field>
+      </block>
+      <block type="math_arithmetic">
+        <field name="OP">ADD</field>
+        <value name="A">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+        <value name="B">
+          <shadow type="math_number">
+            <field name="NUM">1</field>
+          </shadow>
+        </value>
+      </block>
+      <block type="math_number_property">
+        <mutation divisor_input="false"></mutation>
+        <field name="PROPERTY">EVEN</field>
+        <value name="NUMBER_TO_CHECK">
+          <shadow type="math_number">
+            <field name="NUM">0</field>
+          </shadow>
+        </value>
+      </block>
+    </category>
+    <category css-icon="customIcon fa fa-cog" name="Text">
+      <block type="text">
+        <field name="TEXT"></field>
+      </block>
+      <block type="text_join">
+        <mutation items="2"></mutation>
+      </block>
+    </category>
+    <category name="Digital">
+      <block type="arduino_digital_write">
+        <field name="On/Off">HIGH</field>
+        <value name="Digital Pin Number">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+      <block type="arduino_digital_read">
+        <value name="Digital Pin">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category name="Analog">
+      <block type="arduino_analog_read">
+        <value name="analog pin">
+          <block type="text">
+            <field name="A1"></field>
+          </block>
+        </value>
+      </block>
+      <block type="arduino_analog_write">
+        <value name="analog pin">
+          <block type="text">
+            <field name="A1"></field>
+          </block>
+        </value>
+        <value name="output">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category name="Sensors">
+      <block type="arduino_ultrasonic_read">
+        <value name="trigger">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="echo">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category name="Actuators">
+      <block type="arduino_servo_write">
+        <value name="Servo Pin">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="Servo Position">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
+    </category>
+    <category css-icon="customIcon fa fa-cog" name="COM">
+      <category name="Serial">
+        <block type="communication_serial_print">
+          <value name="Serial_Print">
+            <block type="text">
+              <field name="A1"></field>
+            </block>
+          </value>
+        </block>
+        <block type="communication_serial_read"></block>
+      </category>
+    </category>
+    <category name="Variables">
+      <button text="Create New Variable" callbackKey="createvar"></button>
+      <block type="variable_get"></block>
+      <block type="variable_set"></block>
+    </category>
+  </xml>
+  </div>
+
+  </div>
+  <script type="text/javascript">
+    function updateCode() {
+      var code = Blockly.JavaScript.workspaceToCode(Workspace);
+      document.getElementById('total_code').innerHTML = code;
+    }
+    const block_styles = {
+      "logic_blocks": {
+        "colourPrimary": "#4C97FF",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "loop_blocks": {
+        "colourPrimary": "#DD0A18",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "text_blocks": {
+        "colourPrimary": "#16CE9C",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "math_blocks": {
+        "colourPrimary": "#8D00E8",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "actuator_blocks": {
+        "colourPrimary": "#FE8013",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "sensor_blocks": {
+        "colourPrimary": "#40BF4A",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "communication_blocks": {
+        "colourPrimary": "#D51CD5",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "led_blocks": {
+        "colourPrimary": "#EFCA0F",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "sound_blocks": {
+        "colourPrimary": "#FA857B",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "variable_blocks": {
+        "colourPrimary": "#878787",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "digital_blocks": {
+        "colourPrimary": "#1F5D00",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      },
+      "analog_blocks": {
+        "colourPrimary": "#FF00BB",
+        "colourSecondary": "#FFFFFF",
+        "colourTertiary": "#FFFFFF"
+      }
+
+    }
+    const font_styles = {
+      "family": "Baloo2-Regular",
+      "size": 14
+    }
+    const dark_component_styles = {
+      "workspaceBackgroundColour": "#060841",
+      "flyoutBackgroundColour": "#0B0533",
+      "toolboxBackgroundColour": "#0B0533",
+      "toolboxForegroundColour": "#FFFFFF"
+    }
+
+    var dark_theme = Blockly.Theme.defineTheme('dark_theme', {
+      'blockStyles': block_styles,
+      'fontStyle': font_styles,
+      'componentStyles': dark_component_styles,
+      'startHats': true
+    })
+    var Workspace = Blockly.inject('blocklyDiv',
+      {
+        media: "../../media/",
+        toolbox: document.getElementById('toolbox'),
+        zoom:
+        {
+          wheel: true,
+          startScale: 0.5,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2,
+          pinch: true
+        },
+        renderer: "zelos",
+        trashcan: false,
+        theme: dark_theme
+      });
+    Workspace.addChangeListener(updateCode);
+
+  </script>
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>
