@@ -21,23 +21,40 @@ class Controller extends StatelessWidget {
               backgroundColor: Colors.transparent),
           body:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            JoystickView(onDirectionChanged:
-                (double degrees, double distanceFromCenter) {
-              varDegress = degrees;
-              varDistance = distanceFromCenter;
-              print("Degrees: " + varDegress.toString());
-              print("Distance: " + varDistance.toString());
-            }),
+            JoystickView(
+              onDirectionChanged: (double degrees, double distanceFromCenter) {
+                varDegress = degrees;
+                varDistance = distanceFromCenter;
+                print("Degrees: " + varDegress.toString());
+                print("Distance: " + varDistance.toString());
+              },
+              backgroundColor: const Color(0xff0000DC),
+              innerCircleColor: Colors.white,
+              iconsColor: Colors.white,
+            ),
             Container(
               width: 200,
             ),
             PadButtonsView(
-              backgroundPadButtonsColor: Colors.blue,
+              backgroundPadButtonsColor: const Color(0xff0000DC),
               buttons: const [
-                PadButtonItem(index: 1, backgroundColor: Colors.red),
-                PadButtonItem(index: 2, backgroundColor: Colors.yellow),
-                PadButtonItem(index: 3, backgroundColor: Colors.green),
-                PadButtonItem(index: 4, backgroundColor: Colors.blue),
+                PadButtonItem(
+                    index: 1,
+                    backgroundColor: Colors.red,
+                    buttonIcon: Icon(Icons.arrow_forward, color: Colors.white)),
+                PadButtonItem(
+                    index: 2,
+                    backgroundColor: Colors.yellow,
+                    buttonIcon:
+                        Icon(Icons.arrow_downward, color: Colors.white)),
+                PadButtonItem(
+                    index: 3,
+                    backgroundColor: Colors.green,
+                    buttonIcon: Icon(Icons.arrow_back, color: Colors.white)),
+                PadButtonItem(
+                    index: 4,
+                    backgroundColor: Colors.blue,
+                    buttonIcon: Icon(Icons.arrow_upward, color: Colors.white)),
               ],
               buttonsPadding: 10,
             ),

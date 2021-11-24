@@ -3,8 +3,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
 class Blockly extends StatelessWidget {
-  @override
   const Blockly({Key? key}) : super(key: key);
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(

@@ -39,17 +39,40 @@ class GbloxApp extends StatelessWidget {
         home: Builder(
             builder: (context) => Scaffold(
                 appBar: AppBar(
-                  title: const Text('gBlox Mobile Home'),
-                  centerTitle: true,
-                  backgroundColor: Colors.transparent,
-                ),
+                    title: const Text('gBlox Mobile Home'),
+                    centerTitle: true,
+                    backgroundColor: Colors.transparent,
+                    leading: Builder(
+                      builder: (context) {
+                        return IconButton(
+                          icon: Icon(Icons.menu),
+                          onPressed: () {
+                            Scaffold.of(context).openDrawer();
+                          },
+                        );
+                      },
+                    ),
+                    actions: <Widget>[
+                      Builder(
+                        builder: (context) {
+                          return IconButton(
+                            icon: Icon(Icons.settings),
+                            onPressed: () {
+                              Scaffold.of(context).openEndDrawer();
+                            },
+                          );
+                        },
+                      )
+                    ]),
                 drawer: Drawer(
                     child: Container(
+                  padding: const EdgeInsets.fromLTRB(10, 40, 0, 0),
                   color: const Color(0xff0B0533),
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
                       ListTile(
+                        enableFeedback: true,
                         title: const Text('Blockly'),
                         onTap: () {
                           Navigator.push(
@@ -60,6 +83,7 @@ class GbloxApp extends StatelessWidget {
                         },
                       ),
                       ListTile(
+                        enableFeedback: true,
                         title: const Text('Controller'),
                         onTap: () {
                           Navigator.push(
@@ -70,6 +94,7 @@ class GbloxApp extends StatelessWidget {
                         },
                       ),
                       ListTile(
+                          enableFeedback: true,
                           title: const Text('Piano'),
                           onTap: () {
                             Navigator.push(
@@ -78,6 +103,30 @@ class GbloxApp extends StatelessWidget {
                                   builder: (context) => const PianoApp()),
                             );
                           })
+                    ],
+                  ),
+                )),
+                endDrawer: Drawer(
+                    child: Container(
+                  padding: const EdgeInsets.fromLTRB(10, 40, 0, 0),
+                  color: const Color(0xff0B0533),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      ListTile(
+                        enableFeedback: true,
+                        title: const Text('Change Theme'),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                        enableFeedback: true,
+                        title: const Text('Change Language'),
+                        onTap: () {},
+                      ),
+                      ListTile(
+                          enableFeedback: true,
+                          title: const Text('Help'),
+                          onTap: () {})
                     ],
                   ),
                 )),
