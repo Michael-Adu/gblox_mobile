@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './components/blockly.dart';
 import './components/controller.dart';
 import './components/piano.dart';
@@ -6,7 +7,11 @@ import './components/recent_projects.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
-  runApp(const GbloxApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+      .then((_) {
+    runApp(const GbloxApp());
+  });
 }
 
 class GbloxApp extends StatelessWidget {
@@ -24,8 +29,8 @@ class GbloxApp extends StatelessWidget {
             ),
           )),
           textTheme: const TextTheme(
-            bodyText1: TextStyle(fontFamily: "Baloo 2 Regular"),
-            bodyText2: TextStyle(),
+            bodyText1: TextStyle(fontFamily: "Baloo 2"),
+            bodyText2: TextStyle(fontFamily: "Baloo 2"),
           ).apply(
             bodyColor: Colors.white,
             displayColor: Colors.blue,
@@ -95,7 +100,7 @@ class GbloxApp extends StatelessWidget {
 </svg>
 
                   '''),
-                    RecentProjects()
+                    Center(child: RecentProjects())
                   ],
                 ))));
   }

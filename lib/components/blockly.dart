@@ -9,20 +9,21 @@ class Blockly extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xff0B0533),
-          cardTheme: const CardTheme(
-              shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          )),
         ),
         home: Scaffold(
             appBar: AppBar(
-                title: Text("Blockly"),
+                title: const Text("Blockly"),
                 centerTitle: true,
                 backgroundColor: Colors.transparent),
             body: WebViewPlus(
               javascriptMode: JavascriptMode.unrestricted,
+              javascriptChannels: Set.from([
+                JavascriptChannel(
+                    name: 'Print',
+                    onMessageReceived: (JavascriptMessage message) {
+                      print(message.message);
+                    })
+              ]),
               initialUrl:
                   'assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html',
               onWebViewCreated: (controller) {

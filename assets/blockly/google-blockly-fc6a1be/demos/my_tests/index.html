@@ -269,7 +269,7 @@
       init: function () {
         this.appendDummyInput()
           .appendField(new Blockly.FieldImage("https://www.clipartmax.com/png/full/219-2194283_open-green-flag-sprite.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
-          .appendField("When " + globalToolboxName + " starts,", "MainField");
+          .appendField("When " + " starts,", "MainField");
         this.appendDummyInput()
           .appendField("Run Forever")
           .appendField(new Blockly.FieldCheckbox("TRUE"), "LOOP");
@@ -441,35 +441,14 @@
     };
 
     Blockly.JavaScript['m_mainloop'] = function (block) {
-      block.setFieldValue("When " + globalToolboxName + " starts,", "MainField")
 
       var statements_mainloop = Blockly.JavaScript.statementToCode(block, 'mainLoop');
       var checkbox_loop = block.getFieldValue("LOOP");
-      try {
-        Total_PreDeclarations += peripherals.peripheral_PreDeclarations;
-        Total_SetupCode += peripherals.peripheral_SetupCode;
-        Total_BulkFunctions += peripherals.peripheral_BulkFunctions;
-        if (peripherals.IR_Loop !== ``) {
-          statements_mainloop += `\tif(IrReceiver.decode()){\n\t\t${peripherals.IR_Loop}\nIrReceiver.resume();\n}`;
-        }
-      }
-      catch (e) {
-      }
-      var code = ""
-      if (checkbox_loop == "TRUE") {
-        code = `${Total_PreDeclarations} ${Total_SetupCode} \n}\n\nvoid loop(){\n ${statements_mainloop}\n} \n ${Total_BulkFunctions}`;
-      }
-      else {
-        code = `${Total_PreDeclarations} \nint runOnce;\n ${Total_SetupCode} \nrunOnce = 0;\n}\n\nvoid loop(){\n\tif(runOnce == 0){\n${statements_mainloop}\nrunOnce = 1;}\n}\n${Total_BulkFunctions}`;
-      }
-      Total_PreDeclarations = "";
-      Total_SetupCode = "\nvoid setup(){\n";
-      Total_BulkFunctions = "";
 
-      try {
-        peripherals.clearvars();
-      }
-      catch (e) { }
+      var code = ""
+
+      code = `void setup(){\n}\n\nvoid loop(){\n ${statements_mainloop}\n}`;
+
       mainLoopCode = code;
       return code;
     };
@@ -585,7 +564,7 @@
   <div id="blocklyDiv" style="height: calc(100vh - 50px); width: 100%; border: 1px solid red"></div>
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category css-icon="customIcon fa fa-cog" name="Logic">
-      
+
       <block type="controls_if"></block>
       <block type="logic_compare">
         <field name="OP">EQ</field>
@@ -611,6 +590,7 @@
           </shadow>
         </value>
       </block>
+      <block type="m_mainloop"></block>
     </category>
     <category css-icon="customIcon fa fa-cog" name="Math">
       <block type="math_number">
@@ -807,6 +787,11 @@
       "flyoutBackgroundColour": "#0B0533",
       "toolboxBackgroundColour": "#0B0533",
       "toolboxForegroundColour": "#FFFFFF"
+    }
+
+    function updateCode() {
+      var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
+      Print.postMessage(code);
     }
 
     var dark_theme = Blockly.Theme.defineTheme('dark_theme', {

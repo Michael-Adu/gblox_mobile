@@ -8,16 +8,10 @@ class PianoApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xff0B0533),
-          cardTheme: const CardTheme(
-              shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          )),
         ),
         home: Scaffold(
           appBar: AppBar(
-            title: Text("Piano"),
+            title: const Text("Piano"),
             centerTitle: true,
             backgroundColor: Colors.transparent,
           ),

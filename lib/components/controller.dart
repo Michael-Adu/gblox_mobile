@@ -13,43 +13,33 @@ class Controller extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: const Color(0xff0B0533),
-          cardTheme: const CardTheme(
-              shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
-            ),
-          )),
         ),
         home: Scaffold(
           appBar: AppBar(
-              title: Text("Controller"),
+              title: const Text("Controller"),
               centerTitle: true,
               backgroundColor: Colors.transparent),
           body:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-            Container(
-              child: JoystickView(onDirectionChanged:
-                  (double degrees, double distanceFromCenter) {
-                varDegress = degrees;
-                varDistance = distanceFromCenter;
-                print(varDegress.toString());
-                print(varDistance.toString());
-              }),
-            ),
+            JoystickView(onDirectionChanged:
+                (double degrees, double distanceFromCenter) {
+              varDegress = degrees;
+              varDistance = distanceFromCenter;
+              print("Degrees: " + varDegress.toString());
+              print("Distance: " + varDistance.toString());
+            }),
             Container(
               width: 200,
             ),
-            Container(
-              child: PadButtonsView(
-                backgroundPadButtonsColor: Colors.blue,
-                buttons: const [
-                  PadButtonItem(index: 1, backgroundColor: Colors.red),
-                  PadButtonItem(index: 2, backgroundColor: Colors.yellow),
-                  PadButtonItem(index: 3, backgroundColor: Colors.green),
-                  PadButtonItem(index: 4, backgroundColor: Colors.blue),
-                ],
-                buttonsPadding: 10,
-              ),
+            PadButtonsView(
+              backgroundPadButtonsColor: Colors.blue,
+              buttons: const [
+                PadButtonItem(index: 1, backgroundColor: Colors.red),
+                PadButtonItem(index: 2, backgroundColor: Colors.yellow),
+                PadButtonItem(index: 3, backgroundColor: Colors.green),
+                PadButtonItem(index: 4, backgroundColor: Colors.blue),
+              ],
+              buttonsPadding: 10,
             ),
           ]),
         ));
