@@ -7,8 +7,20 @@ class Blockly extends StatelessWidget {
   const Blockly({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return MaterialApp(
+        theme: ThemeData(
+          scaffoldBackgroundColor: const Color(0xff0B0533),
+          cardTheme: const CardTheme(
+              shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(8.0),
+            ),
+          )),
+        ),
         home: Scaffold(
-            appBar: AppBar(title: Text("Blockly"), centerTitle: true),
+            appBar: AppBar(
+                title: Text("Blockly"),
+                centerTitle: true,
+                backgroundColor: Colors.transparent),
             body: WebViewPlus(
               javascriptMode: JavascriptMode.unrestricted,
               initialUrl:

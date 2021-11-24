@@ -441,20 +441,9 @@
     };
 
     Blockly.JavaScript['m_mainloop'] = function (block) {
-      getPeripherals();
-      block.setDeletable(false);
-      block.setMovable(false);
       block.setFieldValue("When " + globalToolboxName + " starts,", "MainField")
 
       var statements_mainloop = Blockly.JavaScript.statementToCode(block, 'mainLoop');
-      if (createdVariables.length != 0) {
-        variables_set = createdVariables;
-        varcheck = createdVariables
-        for (var i = 0; i < variables_set.length; i++) {
-          Total_PreDeclarations += `${variables_set[i][0]};\n`;
-        }
-      }
-
       var checkbox_loop = block.getFieldValue("LOOP");
       try {
         Total_PreDeclarations += peripherals.peripheral_PreDeclarations;
@@ -596,7 +585,7 @@
   <div id="blocklyDiv" style="height: calc(100vh - 50px); width: 100%; border: 1px solid red"></div>
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category css-icon="customIcon fa fa-cog" name="Logic">
-      <block type="m_mainloop"></block>
+      
       <block type="controls_if"></block>
       <block type="logic_compare">
         <field name="OP">EQ</field>
@@ -746,9 +735,6 @@
 
   </div>
   <script type="text/javascript">
-    function updateCode() {
-      Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(`<xml xmlns="https://developers.google.com/blockly/xml"><block type="m_mainloop" x="430" y="150"></block></xml>`), Blockly.mainWorkspace)
-    }
     const block_styles = {
       "logic_blocks": {
         "colourPrimary": "#4C97FF",
@@ -848,7 +834,7 @@
         theme: dark_theme
       });
     Workspace.addChangeListener(updateCode);
-
+    Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(`<xml xmlns="https://developers.google.com/blockly/xml"><block type="m_mainloop" x="430" y="150"></block></xml>`), Workspace)
 
   </script>
   <script src="scripts/main.js"></script>
