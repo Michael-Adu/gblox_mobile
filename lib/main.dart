@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:easy_localization/easy_localization.dart';
 import './components/blockly.dart';
 import './components/controller.dart';
 import './components/piano.dart';
 import './components/recent_projects.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import './components/device_select.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
       .then((_) {
-    runApp(const GbloxApp());
+    runApp(EasyLocalization(
+        supportedLocales: [const Locale('en'), const Locale('fr')],
+        path: 'assets/languages',
+        fallbackLocale: Locale('en'),
+        child: const GbloxApp()));
   });
 }
 
-class GbloxApp extends StatelessWidget {
+class GbloxApp extends StatefulWidget {
   const GbloxApp({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _GbloxApp();
+  }
+}
+
+class _GbloxApp extends State<GbloxApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
         theme: ThemeData(
           primaryColor: const Color(0xff0B0533),
           fontFamily: "Baloo 2",
@@ -41,7 +59,7 @@ class GbloxApp extends StatelessWidget {
         home: Builder(
             builder: (context) => Scaffold(
                 appBar: AppBar(
-                    title: const Text('gBlox Mobile Home'),
+                    title: const Text('applicationName').tr(),
                     centerTitle: true,
                     backgroundColor: Colors.transparent,
                     leading: Builder(
@@ -87,7 +105,7 @@ class GbloxApp extends StatelessWidget {
                       ),
                       ListTile(
                         enableFeedback: true,
-                        title: const Text('Controller'),
+                        title: const Text('controller_drawer').tr(),
                         onTap: () {
                           Navigator.push(
                             context,
@@ -98,12 +116,22 @@ class GbloxApp extends StatelessWidget {
                       ),
                       ListTile(
                           enableFeedback: true,
-                          title: const Text('Piano'),
+                          title: const Text('piano_drawer').tr(),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => const PianoApp()),
+                            );
+                          }),
+                      ListTile(
+                          enableFeedback: true,
+                          title: const Text('device_select_drawer').tr(),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const DiscoveryPage()),
                             );
                           })
                     ],
@@ -118,17 +146,25 @@ class GbloxApp extends StatelessWidget {
                     children: [
                       ListTile(
                         enableFeedback: true,
-                        title: const Text('Change Theme'),
+                        title: const Text('change_theme_settings').tr(),
                         onTap: () {},
                       ),
                       ListTile(
                         enableFeedback: true,
-                        title: const Text('Change Language'),
-                        onTap: () {},
+                        title: const Text('change_language_settings').tr(),
+                        onTap: () {
+                          {
+                            if (context.locale == const Locale("en")) {
+                              context.setLocale(const Locale("fr"));
+                            } else {
+                              context.setLocale(const Locale("en"));
+                            }
+                          }
+                        },
                       ),
                       ListTile(
                           enableFeedback: true,
-                          title: const Text('Help'),
+                          title: const Text('help_settings').tr(),
                           onTap: () {})
                     ],
                   ),

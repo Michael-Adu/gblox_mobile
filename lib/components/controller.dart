@@ -76,7 +76,7 @@ class Controller extends StatelessWidget {
                   }
                 }
               },
-              buttonsPadding: 10,
+              buttonsPadding: 0,
             ),
           ]),
         ));

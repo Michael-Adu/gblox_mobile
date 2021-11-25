@@ -1,0 +1,10 @@
+{
+    "applicationName": "gBlox Application mobile",
+    "projectsHeader": "Les projets récents",
+    "controller_drawer" : "Manette",
+    "piano_drawer" : "Piano",
+    "device_select_drawer" : "Sélectionnez l'appareil",
+    "change_theme_settings" : "Change le thème",
+    "change_language_settings" : "Changer de langue",
+    "help_settings" : "Aider"
+}

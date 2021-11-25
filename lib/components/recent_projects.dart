@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 import './blockly.dart';
 import 'dart:math' as math;
 
@@ -22,17 +23,15 @@ class _RecentProjectsState extends State<RecentProjects> {
     return Container(
         child: Column(children: [
       Row(children: [
-        const Card(
-          child: Padding(
-              padding: EdgeInsets.fromLTRB(50, 5, 50, 5),
-              child: Text(
-                "Recent Projects",
-                style: TextStyle(
-                    fontFamily: "Baloo 2",
-                    color: Color(0xff0000DC),
-                    fontSize: 20),
-              )),
-        ),
+        Card(
+            child: Padding(
+          padding: EdgeInsets.fromLTRB(50, 5, 50, 5),
+          child: const Text(
+            "projectsHeader",
+            style: TextStyle(
+                fontFamily: "Baloo 2", color: Color(0xff0000DC), fontSize: 20),
+          ).tr(),
+        )),
         CircleAvatar(
             radius: 20,
             backgroundColor: Colors.white,
