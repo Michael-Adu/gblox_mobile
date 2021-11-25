@@ -8,7 +8,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  SystemChrome.setPreferredOrientations(
+          [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
       .then((_) {
     runApp(const GbloxApp());
   });
@@ -20,17 +22,17 @@ class GbloxApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
+          primaryColor: const Color(0xff0B0533),
           fontFamily: "Baloo 2",
           scaffoldBackgroundColor: const Color(0xff0B0533),
           cardTheme: const CardTheme(
               shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(8.0),
+              Radius.circular(16.0),
             ),
           )),
           textTheme: const TextTheme(
             bodyText1: TextStyle(fontFamily: "Baloo 2"),
-            bodyText2: TextStyle(fontFamily: "Baloo 2"),
           ).apply(
             bodyColor: Colors.white,
             displayColor: Colors.blue,
@@ -45,7 +47,7 @@ class GbloxApp extends StatelessWidget {
                     leading: Builder(
                       builder: (context) {
                         return IconButton(
-                          icon: Icon(Icons.menu),
+                          icon: const Icon(Icons.menu, color: Colors.white),
                           onPressed: () {
                             Scaffold.of(context).openDrawer();
                           },
@@ -56,7 +58,8 @@ class GbloxApp extends StatelessWidget {
                       Builder(
                         builder: (context) {
                           return IconButton(
-                            icon: Icon(Icons.settings),
+                            icon:
+                                const Icon(Icons.settings, color: Colors.white),
                             onPressed: () {
                               Scaffold.of(context).openEndDrawer();
                             },
@@ -147,7 +150,6 @@ class GbloxApp extends StatelessWidget {
     </g>
   </g>
 </svg>
-
                   '''),
                     Center(child: RecentProjects())
                   ],

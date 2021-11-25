@@ -11,25 +11,21 @@ class Blockly extends StatelessWidget {
           scaffoldBackgroundColor: const Color(0xff0B0533),
         ),
         home: Scaffold(
-            appBar: AppBar(
-                title: const Text("Blockly"),
-                centerTitle: true,
-                backgroundColor: Colors.transparent),
             body: WebViewPlus(
-              javascriptMode: JavascriptMode.unrestricted,
-              javascriptChannels: Set.from([
-                JavascriptChannel(
-                    name: 'Print',
-                    onMessageReceived: (JavascriptMessage message) {
-                      print(message.message);
-                    })
-              ]),
-              initialUrl:
-                  'assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html',
-              onWebViewCreated: (controller) {
-                controller.loadUrl(
-                    'assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html');
-              },
-            )));
+          javascriptMode: JavascriptMode.unrestricted,
+          javascriptChannels: Set.from([
+            JavascriptChannel(
+                name: 'Print',
+                onMessageReceived: (JavascriptMessage message) {
+                  print(message.message);
+                })
+          ]),
+          initialUrl:
+              'assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html',
+          onWebViewCreated: (controller) {
+            controller.loadUrl(
+                'assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html');
+          },
+        )));
   }
 }

@@ -584,7 +584,7 @@
 
 <body>
   <pre id="total_code"></pre>
-  <div id="blocklyDiv" style="height: calc(100vh - 25px); width: 100%; border: 1px solid red"></div>
+  <div id="blocklyDiv" style="height: 100vh; width: 100%; border: 1px solid red; margin-Top: -10px;"></div>
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category css-icon="customIcon fa fa-cog" name="Logic">
 
@@ -689,7 +689,7 @@
       </block>
     </category>
     <category name="Sensors">
-      <block type="arduino_ultrasonic_read">
+      <block type="n_ultra_read">
         <value name="trigger">
           <block type="math_number">
             <field name="NUM">0</field>
@@ -703,7 +703,7 @@
       </block>
     </category>
     <category name="Actuators">
-      <block type="arduino_servo_write">
+      <block type="n_servo_rotate">
         <value name="Servo Pin">
           <block type="math_number">
             <field name="NUM">0</field>

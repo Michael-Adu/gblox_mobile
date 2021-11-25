@@ -56,6 +56,26 @@ class Controller extends StatelessWidget {
                     backgroundColor: Colors.blue,
                     buttonIcon: Icon(Icons.arrow_upward, color: Colors.white)),
               ],
+              padButtonPressedCallback: (buttonIndex, gesture) {
+                {
+                  switch (buttonIndex) {
+                    case 1:
+                      print("I pressed 1");
+                      break;
+                    case 2:
+                      print("I pressed 2");
+                      break;
+                    case 3:
+                      print("I pressed 3");
+                      break;
+                    case 4:
+                      print("I pressed 4");
+                      break;
+                    default:
+                      break;
+                  }
+                }
+              },
               buttonsPadding: 10,
             ),
           ]),
