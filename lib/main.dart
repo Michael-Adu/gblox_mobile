@@ -87,7 +87,7 @@ class _GbloxApp extends State<GbloxApp> {
                     ]),
                 drawer: Drawer(
                     child: Container(
-                  padding: const EdgeInsets.fromLTRB(10, 40, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                   color: const Color(0xff0B0533),
                   child: ListView(
                     padding: EdgeInsets.zero,
@@ -139,7 +139,7 @@ class _GbloxApp extends State<GbloxApp> {
                 )),
                 endDrawer: Drawer(
                     child: Container(
-                  padding: const EdgeInsets.fromLTRB(10, 40, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                   color: const Color(0xff0B0533),
                   child: ListView(
                     padding: EdgeInsets.zero,

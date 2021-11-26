@@ -583,8 +583,7 @@
 </head>
 
 <body>
-  <pre id="total_code"></pre>
-  <div id="blocklyDiv" style="height: 100vh; width: 100%; border: 1px solid red; margin-Top: -10px;"></div>
+  <div id="blocklyDiv" style="position: absolute; height: 100%; width: 100%; top: 0; left: 0;"></div>
   <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox" style="display: none">
     <category css-icon="customIcon fa fa-cog" name="Logic">
 
@@ -734,8 +733,6 @@
       <block type="variable_set"></block>
     </category>
   </xml>
-  </div>
-
   </div>
   <script type="text/javascript">
     const block_styles = {

@@ -8,17 +8,34 @@ import 'bluetooth_device_list_entry.dart';
 class DiscoveryPage extends StatefulWidget {
   /// If true, discovery starts on page start, otherwise user must press action button.
   final bool start;
+  final bool checkAvailable;
 
-  const DiscoveryPage({this.start = true});
+  const DiscoveryPage({this.start = true, this.checkAvailable = true});
 
   @override
   _DiscoveryPage createState() => _DiscoveryPage();
+}
+
+enum _DeviceAvailability {
+  no,
+  maybe,
+  yes,
+}
+
+class _DeviceWithAvailability {
+  BluetoothDevice device;
+  int? rssi;
+  _DeviceAvailability availability;
+
+  _DeviceWithAvailability(this.device, this.availability, [this.rssi]);
 }
 
 class _DiscoveryPage extends State<DiscoveryPage> {
   StreamSubscription<BluetoothDiscoveryResult>? _streamSubscription;
   List<BluetoothDiscoveryResult> results =
       List<BluetoothDiscoveryResult>.empty(growable: true);
+  List<_DeviceWithAvailability> allDevices =
+      List<_DeviceWithAvailability>.empty(growable: true);
   bool isDiscovering = false;
 
   _DiscoveryPage();
@@ -31,6 +48,22 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     if (isDiscovering) {
       _startDiscovery();
     }
+    FlutterBluetoothSerial.instance
+        .getBondedDevices()
+        .then((List<BluetoothDevice> bondedDevices) {
+      setState(() {
+        allDevices = bondedDevices
+            .map(
+              (device) => _DeviceWithAvailability(
+                device,
+                widget.checkAvailable
+                    ? _DeviceAvailability.maybe
+                    : _DeviceAvailability.yes,
+              ),
+            )
+            .toList();
+      });
+    });
   }
 
   void _restartDiscovery() {
@@ -40,6 +73,23 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     });
 
     _startDiscovery();
+
+    FlutterBluetoothSerial.instance
+        .getBondedDevices()
+        .then((List<BluetoothDevice> bondedDevices) {
+      setState(() {
+        allDevices = bondedDevices
+            .map(
+              (device) => _DeviceWithAvailability(
+                device,
+                widget.checkAvailable
+                    ? _DeviceAvailability.maybe
+                    : _DeviceAvailability.yes,
+              ),
+            )
+            .toList();
+      });
+    });
   }
 
   void _startDiscovery() {
@@ -56,6 +106,10 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     });
 
     _streamSubscription!.onDone(() {
+      allDevices.addAll(results
+          .map((device) => _DeviceWithAvailability(
+              device.device, _DeviceAvailability.maybe, device.rssi))
+          .toList());
       setState(() {
         isDiscovering = false;
       });
@@ -96,16 +150,60 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         ],
       ),
       body: ListView.builder(
-        itemCount: results.length,
+        itemCount: allDevices.length,
         itemBuilder: (BuildContext context, index) {
-          BluetoothDiscoveryResult result = results[index];
+          _DeviceWithAvailability result = allDevices[index];
           final device = result.device;
           final address = device.address;
           return BluetoothDeviceListEntry(
             device: device,
             rssi: result.rssi,
-            onTap: () {
-              Navigator.of(context).pop(result.device);
+            enabled: result.availability == _DeviceAvailability.maybe,
+            onTap: () async {
+              bool bonded = false;
+              try {
+                if (device.isBonded) {
+                  await BluetoothConnection.toAddress(address);
+                } else {
+                  bonded = (await FlutterBluetoothSerial.instance
+                      .bondDeviceAtAddress(address))!;
+                  await BluetoothConnection.toAddress(address);
+                }
+                setState(() {
+                  allDevices[allDevices.indexOf(result)] =
+                      _DeviceWithAvailability(
+                          BluetoothDevice(
+                            name: device.name ?? '',
+                            address: address,
+                            type: device.type,
+                            bondState: bonded
+                                ? BluetoothBondState.bonded
+                                : BluetoothBondState.none,
+                          ),
+                          result.availability,
+                          result.rssi);
+                  print(bonded
+                      ? BluetoothBondState.bonded
+                      : BluetoothBondState.none);
+                });
+              } catch (ex) {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Error occured while bonding'),
+                        content: Text("${ex.toString()}"),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text("Close"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    });
+              }
             },
             onLongPress: () async {
               try {
@@ -123,16 +221,18 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                       'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
                 }
                 setState(() {
-                  results[results.indexOf(result)] = BluetoothDiscoveryResult(
-                      device: BluetoothDevice(
-                        name: device.name ?? '',
-                        address: address,
-                        type: device.type,
-                        bondState: bonded
-                            ? BluetoothBondState.bonded
-                            : BluetoothBondState.none,
-                      ),
-                      rssi: result.rssi);
+                  allDevices[allDevices.indexOf(result)] =
+                      _DeviceWithAvailability(
+                          BluetoothDevice(
+                            name: device.name ?? '',
+                            address: address,
+                            type: device.type,
+                            bondState: bonded
+                                ? BluetoothBondState.bonded
+                                : BluetoothBondState.none,
+                          ),
+                          result.availability,
+                          result.rssi);
                 });
               } catch (ex) {
                 showDialog(
@@ -157,6 +257,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
           );
         },
       ),
+      // ListView(children: list)
     );
   }
 }

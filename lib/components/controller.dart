@@ -33,8 +33,30 @@ class Controller extends StatelessWidget {
               iconsColor: Colors.white,
             ),
             Container(
-              width: 200,
-            ),
+                width: 220,
+                margin: EdgeInsets.fromLTRB(0, 150, 0, 0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        child: Container(
+                            child: Icon(Icons.speaker, color: Colors.black),
+                            width: 100,
+                            color: Colors.white),
+                        onTap: () {
+                          print("Speaker");
+                        },
+                      ),
+                      InkWell(
+                        child: Container(
+                            child: Icon(Icons.light, color: Colors.black),
+                            width: 100,
+                            color: Colors.white),
+                        onTap: () {
+                          print("Lights");
+                        },
+                      )
+                    ])),
             PadButtonsView(
               backgroundPadButtonsColor: const Color(0xff0000DC),
               buttons: const [
@@ -76,7 +98,7 @@ class Controller extends StatelessWidget {
                   }
                 }
               },
-              buttonsPadding: 0,
+              buttonsPadding: 10,
             ),
           ]),
         ));

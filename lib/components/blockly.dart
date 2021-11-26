@@ -15,10 +15,11 @@ class Blockly extends StatelessWidget {
           javascriptMode: JavascriptMode.unrestricted,
           javascriptChannels: Set.from([
             JavascriptChannel(
-                name: 'Print',
-                onMessageReceived: (JavascriptMessage message) {
-                  print(message.message);
-                })
+              name: 'Print',
+              onMessageReceived: (JavascriptMessage message) {
+                print(message.message);
+              },
+            )
           ]),
           initialUrl:
               'assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html',
