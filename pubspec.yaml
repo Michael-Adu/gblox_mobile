@@ -89,6 +89,10 @@ flutter:
     - family: Baloo 2
       fonts:
         - asset: assets/fonts/Baloo2-Regular.ttf
+    - family:  GBloxCustomSVGs
+      fonts:
+        - asset: assets/fonts/GBloxCustomSVGs.ttf
+        
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

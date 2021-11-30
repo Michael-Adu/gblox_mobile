@@ -131,7 +131,7 @@ class _GbloxApp extends State<GbloxApp> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const DiscoveryPage()),
+                                  builder: (context) => DiscoveryPage()),
                             );
                           })
                     ],

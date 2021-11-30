@@ -1,16 +1,15 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-
 import 'bluetooth_device_list_entry.dart';
+import 'global_variables.dart' as global;
 
 class DiscoveryPage extends StatefulWidget {
   /// If true, discovery starts on page start, otherwise user must press action button.
   final bool start;
   final bool checkAvailable;
 
-  const DiscoveryPage({this.start = true, this.checkAvailable = true});
+  DiscoveryPage({this.start = true, this.checkAvailable = true});
 
   @override
   _DiscoveryPage createState() => _DiscoveryPage();
@@ -50,7 +49,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     }
     FlutterBluetoothSerial.instance
         .getBondedDevices()
-        .then((List<BluetoothDevice> bondedDevices) {
+        .then((List<BluetoothDevice> bondedDevices) async {
       setState(() {
         allDevices = bondedDevices
             .map(
@@ -63,6 +62,20 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             )
             .toList();
       });
+      for (var device in bondedDevices) {
+        if (device.isConnected == true) {
+          try {
+            global.activeConnection =
+                await BluetoothConnection.toAddress(device.address)
+                    .catchError((onError) async {
+              global.activeConnection.finish();
+              global.activeConnection =
+                  await BluetoothConnection.toAddress(device.address);
+            });
+          } catch (ex) {}
+        }
+      }
+      ;
     });
   }
 
@@ -163,11 +176,13 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               bool bonded = false;
               try {
                 if (device.isBonded) {
-                  await BluetoothConnection.toAddress(address);
+                  global.activeConnection =
+                      await BluetoothConnection.toAddress(address);
                 } else {
                   bonded = (await FlutterBluetoothSerial.instance
                       .bondDeviceAtAddress(address))!;
-                  await BluetoothConnection.toAddress(address);
+                  global.activeConnection =
+                      await BluetoothConnection.toAddress(address);
                 }
                 setState(() {
                   allDevices[allDevices.indexOf(result)] =
@@ -187,22 +202,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                       : BluetoothBondState.none);
                 });
               } catch (ex) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: const Text('Error occured while bonding'),
-                        content: Text("${ex.toString()}"),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text("Close"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    });
+                print(ex);
               }
             },
             onLongPress: () async {
