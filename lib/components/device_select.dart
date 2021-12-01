@@ -62,15 +62,30 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             )
             .toList();
       });
-      for (var device in bondedDevices) {
-        if (device.isConnected == true) {
+      for (int i = 0; i < bondedDevices.length; i++) {
+        if (bondedDevices[i].isConnected == true) {
           try {
             global.activeConnection =
-                await BluetoothConnection.toAddress(device.address)
+                await BluetoothConnection.toAddress(bondedDevices[i].address)
                     .catchError((onError) async {
               global.activeConnection.finish();
-              global.activeConnection =
-                  await BluetoothConnection.toAddress(device.address);
+              setState(() {
+                allDevices[allDevices.indexOf(allDevices[i])] =
+                    _DeviceWithAvailability(
+                        BluetoothDevice(
+                          name: bondedDevices[i].name ?? '',
+                          address: bondedDevices[i].address,
+                          type: bondedDevices[i].type,
+                          bondState: bondedDevices[i].isBonded
+                              ? BluetoothBondState.bonded
+                              : BluetoothBondState.none,
+                        ),
+                        allDevices[i].availability,
+                        allDevices[i].rssi);
+                print(bondedDevices[i].isBonded
+                    ? BluetoothBondState.bonded
+                    : BluetoothBondState.none);
+              });
             });
           } catch (ex) {}
         }

@@ -43,6 +43,7 @@ dependencies:
   piano: ^1.0.3+1
   flutter_bluetooth_serial: ^0.4.0
   easy_localization: ^3.0.0
+  flutter_midi: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
     - assets/blockly/google-blockly-fc6a1be/
     - assets/blockly/google-blockly-fc6a1be/demos/my_tests/index.html
     - assets/languages/
+    - assets/sounds/Piano.SF2
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
