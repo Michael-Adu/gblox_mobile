@@ -29,25 +29,94 @@ class Controller extends StatelessWidget {
             body: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-              JoystickView(
-                onDirectionChanged:
-                    (double degrees, double distanceFromCenter) {
-                  varDegress = degrees;
-                  varDistance = distanceFromCenter;
-                  print("Degrees: " + varDegress.toString());
-                  print("Distance: " + varDistance.toString());
-                },
-                backgroundColor: const Color(0xff0000DC),
-                innerCircleColor: Colors.white,
-                iconsColor: Colors.white,
-              ),
-              Container(
-                  width: 300,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Speedometer(speed: 14),
-                        GBloxButtons(
+                  JoystickView(
+                    onDirectionChanged:
+                        (double degrees, double distanceFromCenter) {
+                      varDegress = degrees;
+                      varDistance = distanceFromCenter;
+                      print("Degrees: " + varDegress.toString());
+                      print("Distance: " + varDistance.toString());
+                    },
+                    backgroundColor: const Color(0xff0000DC),
+                    innerCircleColor: Colors.white,
+                    iconsColor: Colors.white,
+                  ),
+                  Container(
+                      width: 250,
+                      margin: const EdgeInsets.fromLTRB(0, 150, 0, 0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GBloxButtons(
+                              buttonType: "controller_square",
+                              icon: const Icon(GBloxCustomSVGs.path_72,
+                                  color: Color(0xffE2D424), size: 30),
+                              pressed: () {
+                                print("Horn Pressed");
+                                try {
+                                  global.activeConnection.output.add(
+                                      Uint8List.fromList(utf8.encode("a")));
+                                  print(global.activeConnection);
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                              buttonColor: 0xE2D424,
+                            ),
+                            GBloxButtons(
+                              buttonType: "controller_square",
+                              icon: const Icon(GBloxCustomSVGs.group_26,
+                                  color: Color(0xffE2D424), size: 30),
+                              pressed: () {
+                                print("Lights Toggled");
+                                try {
+                                  global.activeConnection.output.add(
+                                      Uint8List.fromList(utf8.encode("led 1 0 0")));
+                                  print(global.activeConnection);
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                              buttonColor: 0xE2D424,
+                            )
+                          ])),
+                  Container(
+                    alignment: Alignment.center,
+                    width: 200,
+                    height: 150,
+                    child: Stack(clipBehavior: Clip.none, children: [
+                      Positioned(
+                        child: GBloxButtons(
+                            buttonType: "controller_circle",
+                            icon: const Icon(GBloxCustomSVGs.group_22,
+                                color: Colors.white),
+                            pressed: printval,
+                            buttonColor: 0xffDB8000),
+                        top: 0,
+                        right: 75,
+                      ),
+                      Positioned(
+                        child: GBloxButtons(
+                            buttonType: "controller_circle",
+                            icon: const Icon(GBloxCustomSVGs.group_21,
+                                color: Colors.white),
+                            pressed: printval,
+                            buttonColor: 0xff1F81E5),
+                        top: 50,
+                        right: 140,
+                      ),
+                      Positioned(
+                        child: GBloxButtons(
+                            buttonType: "controller_circle",
+                            icon: const Icon(GBloxCustomSVGs.group_23,
+                                color: Colors.white),
+                            pressed: printval,
+                            buttonColor: 0xff3EA52C),
+                        top: 100,
+                        left: 60,
+                      ),
+                      Positioned(
+                        child: GBloxButtons(
                             buttonType: "controller_circle",
                             icon: const Icon(GBloxCustomSVGs.gBloxLogo,
                                 color: Color(0xff3E3B73), size: 30),
