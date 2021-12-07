@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../Button/buttons.dart';
 import '../g_blox_custom_s_v_gs_icons.dart';
+import 'sketch_shapes.dart';
 
 class SketcherWidget extends StatefulWidget {
-  SketcherWidget({Key? key}) : super(key: key);
+  const SketcherWidget({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _SketcherState();
@@ -17,10 +18,10 @@ class _SketcherState extends State<SketcherWidget> {
   @override
   Widget build(BuildContext context) {
     final Container sketchArea = Container(
-      margin: const EdgeInsets.all(1.0),
+      margin: const EdgeInsets.all(10.0),
       alignment: Alignment.topLeft,
       decoration: const BoxDecoration(
-          color: Colors.black,
+          color: Color(0xff060841),
           borderRadius: BorderRadius.all(Radius.circular(5))),
       child: CustomPaint(
         painter: Sketcher(points),
@@ -36,17 +37,16 @@ class _SketcherState extends State<SketcherWidget> {
             title: const Text('draw_and_follow_drawer').tr(),
             centerTitle: true,
             backgroundColor: Colors.transparent,
-            // leading: Builder(builder: (context) {
-            //   return IconButton(
-            //       icon: const Icon(Icons.arrow_back, color: Colors.white),
-            //       onPressed: () {
-            //         Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //                 builder: (context) => const GbloxApp()));
-            //       });
-            // },
-            // ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SketchShapes()));
+                  },
+                  icon: const Icon(Icons.arrow_upward))
+            ],
           ),
           body: Stack(clipBehavior: Clip.none, children: [
             Container(
@@ -74,10 +74,10 @@ class _SketcherState extends State<SketcherWidget> {
               left: 660,
               child: GBloxButtons(
                   buttonType: "controller_circle",
-                  icon: const Icon(GBloxCustomSVGs.gBloxLogo,
+                  icon: const Icon(Icons.play_arrow,
                       color: Color(0xffffffff), size: 30),
                   pressed: () {},
-                  buttonColor: 0xff1D184B),
+                  buttonColor: 0xff3EA52C),
             )
           ]),
           floatingActionButton: FloatingActionButton(

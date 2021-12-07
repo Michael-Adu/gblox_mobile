@@ -20,6 +20,8 @@ class Controller extends StatefulWidget {
 }
 
 class _ControllerState extends State<Controller> {
+  _ControllerState();
+
   void printval() {
     print("Test");
   }
@@ -74,7 +76,7 @@ class _ControllerState extends State<Controller> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Speedometer(speed: 15),
+                        Speedometer(speed: 10),
                         GBloxButtons(
                             buttonType: "controller_circle",
                             icon: Icon(GBloxCustomSVGs.gBloxLogo,

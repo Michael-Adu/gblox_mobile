@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class GBloxCards extends StatefulWidget {
   @required
@@ -60,33 +61,41 @@ class _GBloxCardsState extends State<GBloxCards> {
     super.initState();
 
     card = InkWell(
-        borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0)),
+        customBorder: const BeveledRectangleBorder(
+            side: BorderSide(color: Colors.red, width: 50),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                bottomRight: Radius.circular(20.0))),
         onTap: () {
           widget.pressed!();
         },
-        child: SizedBox(
+        child: Container(
           height: 200,
           width: 200,
           child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Material(
+              child: Card(
                   clipBehavior: Clip.antiAlias,
+                  borderOnForeground: false,
+                  color: Color(widget.backgroundColor),
                   shape: const BeveledRectangleBorder(
+                      side: BorderSide(color: Colors.red, width: 50),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20.0),
                           bottomRight: Radius.circular(20.0))),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Color(widget.backgroundColor),
-                        border: Border.all(
-                            color: const Color(0xff0000DC), width: 3)),
+                      color: Color(widget.backgroundColor),
+                      // border: Border.all(
+                      //     color: const Color(0xff0000DC), width: 3),
+                    ),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
                               margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              color: Color(widget.backgroundColor),
                               child: SvgPicture.string(
                                 widget.svg,
                                 width: 200,
@@ -102,7 +111,7 @@ class _GBloxCardsState extends State<GBloxCards> {
                               child: Text(
                                 widget.text,
                                 style: const TextStyle(color: Colors.white),
-                              ))
+                              ).tr())
                         ]),
                   ))),
         ));

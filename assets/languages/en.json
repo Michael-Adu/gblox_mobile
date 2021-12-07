@@ -10,5 +10,16 @@
     "draw_and_follow_drawer": "Draw and follow",
     "select_device_page": "Select Device",
     "mode_select_page": "Select Mode",
-    "play_select_page": "Play"
+    "play_select_page": "Play",
+    "code_mode": "Code",
+    "play_mode": "Play",
+    "build_mode": "Build",
+    "drive_play": "Drive",
+    "path_play": "Path Finder",
+    "light_play": "Light Detector",
+    "piano_play": "Piano",
+    "drawFollow_play": "Draw and Follow",
+    "connect_to_device": "Connecting to Device",
+    "shapes_page": "Shapes"
+
 }

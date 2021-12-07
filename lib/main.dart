@@ -3,13 +3,9 @@ import 'package:flutter/services.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import './components/global_variables.dart' as global;
-import './components/blockly.dart';
-import './components/controller.dart';
-import './components/piano.dart';
 import './components/recent_projects.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import './components/device_select.dart';
-import './components/SketchingTool/sketcher.dart';
 import './components/ModeSelector/mode_select.dart';
 
 void main() async {
@@ -22,7 +18,7 @@ void main() async {
     runApp(EasyLocalization(
         supportedLocales: [const Locale('en'), const Locale('fr')],
         path: 'assets/languages',
-        fallbackLocale: Locale('en'),
+        fallbackLocale: const Locale('en'),
         child: const GbloxApp()));
   });
 }

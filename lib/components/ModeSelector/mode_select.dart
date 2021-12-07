@@ -24,7 +24,7 @@ class _ModeSelector extends State<ModeSelector> {
         ),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("select_device_page").tr(),
+              title: const Text("mode_select_page").tr(),
               backgroundColor: Colors.transparent,
               centerTitle: true,
             ),
@@ -43,7 +43,7 @@ class _ModeSelector extends State<ModeSelector> {
                       children: [
                         GBloxCards(
                           svg: svgs.codeMode,
-                          text: "Code",
+                          text: "code_mode",
                           textBackgroundColor: Colors.orange,
                           pressed: () {
                             Navigator.push(
@@ -55,7 +55,7 @@ class _ModeSelector extends State<ModeSelector> {
                         ),
                         GBloxCards(
                           svg: svgs.playMode,
-                          text: "Play",
+                          text: "play_mode",
                           textBackgroundColor: Colors.purple,
                           pressed: () {
                             Navigator.push(
@@ -67,7 +67,7 @@ class _ModeSelector extends State<ModeSelector> {
                         ),
                         GBloxCards(
                           svg: svgs.buildMode,
-                          text: "Build",
+                          text: "build_mode",
                           textBackgroundColor: const Color(0xffFA857B),
                         ),
                       ]))

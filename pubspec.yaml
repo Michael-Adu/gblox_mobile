@@ -43,6 +43,7 @@ dependencies:
   piano: ^1.0.3+1
   flutter_bluetooth_serial: ^0.4.0
   easy_localization: ^3.0.0
+  flutter_launcher_icons: ^0.9.2
 
 dev_dependencies:
   flutter_test:
@@ -57,6 +58,11 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: "assets/icon/logo.png"
 
 # The following section is specific to Flutter.
 flutter:
