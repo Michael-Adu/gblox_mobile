@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:control_pad/models/pad_button_item.dart';
-import 'package:control_pad/views/circle_view.dart';
+import 'dart:async';
 import 'package:control_pad/control_pad.dart';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -12,14 +11,43 @@ import 'speedmeter.dart';
 double varDegress = 0.0;
 double varDistance = 0.0;
 
-class Controller extends StatelessWidget {
-  @override
+class Controller extends StatefulWidget {
   const Controller({Key? key}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() {
+    return _ControllerState();
+  }
+}
 
+class _ControllerState extends State<Controller> {
   void printval() {
     print("Test");
   }
 
+  bool _connectedDevice = false;
+  Color _connectedColor = const Color(0xff3E3B73);
+
+  void initState() {
+    super.initState();
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      try {
+        if (global.activeConnection.isConnected) {
+          setState(() {
+            _connectedDevice = true;
+            _connectedColor = const Color(0xffffffff);
+          });
+        } else {
+          setState(() {
+            _connectedDevice = false;
+            _connectedColor = const Color(0xff3E3B73);
+          });
+        }
+      } catch (e) {}
+      print(global.activeConnection.isConnected);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
@@ -46,11 +74,14 @@ class Controller extends StatelessWidget {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Speedometer(speed: 14),
+                        Speedometer(speed: 15),
                         GBloxButtons(
                             buttonType: "controller_circle",
-                            icon: const Icon(GBloxCustomSVGs.gBloxLogo,
-                                color: Color(0xff3E3B73), size: 30),
+                            icon: Icon(GBloxCustomSVGs.gBloxLogo,
+                                color: _connectedDevice
+                                    ? Color(0xffffffff)
+                                    : Color(0xffff0000),
+                                size: 30),
                             pressed: () {},
                             buttonColor: 0xff1D184B),
                         Row(

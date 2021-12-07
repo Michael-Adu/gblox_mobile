@@ -6,5 +6,9 @@
     "device_select_drawer" : "Sélectionnez l'appareil",
     "change_theme_settings" : "Change le thème",
     "change_language_settings" : "Changer de langue",
-    "help_settings" : "Aider"
+    "help_settings" : "Aider",
+    "draw_and_follow_drawer": "Dessiner et suivre",
+    "select_device_page": "Sélectionnez l'appareil",
+    "mode_select_page": "Sélectionnez le mode",
+    "play_select_page": "Jouer"
 }

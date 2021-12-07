@@ -15,7 +15,24 @@ class Speedometer extends StatefulWidget {
 
 class _SpeedometerState extends State<Speedometer> {
   late Widget meter;
-  late List<int> enabledBars = [0];
+  late List<int> enabledBars = [];
+  List<double> barHeight = [
+    10,
+    12,
+    15,
+    18,
+    20,
+    24,
+    28,
+    33,
+    38,
+    45,
+    55,
+    67,
+    78,
+    89,
+    100
+  ];
   _SpeedometerState();
   void initState() {
     super.initState();
@@ -27,25 +44,25 @@ class _SpeedometerState extends State<Speedometer> {
         width: 200,
         child: Stack(children: [
           Container(
-              margin: const EdgeInsets.fromLTRB(18, 18, 0, 0),
-              height: 75,
+              margin: const EdgeInsets.fromLTRB(17, 56, 0, 0),
               child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: enabledBars
                       .map((bar) => Container(
                           width: 11.2,
+                          height: bar * 50,
                           child: SvgPicture.string(
                             '''<svg xmlns="http://www.w3.org/2000/svg" width="21.255" height="208.821" viewBox="0 0 21.255 208.821">
   <path id="Path_120" data-name="Path 120" d="M1551.224,145.084V352.457h-20.255V158.615Q1541.17,151.973,1551.224,145.084Z" transform="translate(-1530.469 -144.136)" fill="#4a4f68" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
 </svg>
 ''',
-                            width: 25,
-                            height: 200,
+                            width: 200,
+                            fit: BoxFit.scaleDown,
                             color: Colors.green,
                           )))
                       .toList())),
           SvgPicture.string(
-              '''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="713.787" height="357.065" viewBox="0 0 713.787 357.065">
+            '''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="713.787" height="357.065" viewBox="0 0 713.787 357.065">
   <defs>
     <filter id="Path_120" x="0" y="0" width="713.787" height="357.065" filterUnits="userSpaceOnUse">
       <feOffset dy="-6" input="SourceAlpha"/>
@@ -73,7 +90,9 @@ class _SpeedometerState extends State<Speedometer> {
     <path id="Path_120-6" data-name="Path 120" d="M-4066.658,238.494h-652.787V173.622c.091.007,10.5.791,28.729.791,44.939,0,137.177-4.65,250.007-35.8C-4301.645,100.231-4175.8,34.415-4066.658-57V238.493Zm-30.1-237.052c-6.88,4.706-13.694,9.258-20.253,13.529V208.815h20.253V1.443Zm-40.519,26.44c-6.583,4.1-13.4,8.231-20.253,12.287V208.815h20.253V27.883Zm-40.518,24c-6.618,3.744-13.436,7.5-20.264,11.164V208.815h20.264V51.884Zm-40.519,21.776h0c-6.406,3.276-13.224,6.673-20.264,10.1V208.815h20.264V73.659Zm-40.529,19.684c-6.8,3.13-13.619,6.182-20.253,9.073v106.4h20.253Zm-40.519,17.683h0c-6.854,2.834-13.672,5.571-20.264,8.135v89.654h20.264V111.027Zm-40.518,15.8h0c-6.547,2.419-13.365,4.855-20.264,7.239v74.751h20.264V126.825Zm-40.519,14.022h0c-6.773,2.2-13.591,4.333-20.264,6.351v61.617h20.264V140.847Zm-40.528,12.288c-6.577,1.861-13.392,3.716-20.253,5.512v50.167h20.253v-55.68Zm-40.52,10.622h0c-6.628,1.6-13.442,3.187-20.254,4.7v40.355h20.255V163.757Zm-40.518,9c-7.021,1.422-13.839,2.736-20.265,3.905v32.151h20.264V172.759Zm-40.52,7.426c-6.532,1.081-13.349,2.14-20.263,3.146v25.484h20.263v-28.63Zm-40.529,5.9c-6.319.806-12.944,1.587-20.253,2.388v20.345h20.253V186.083Zm-40.518,4.388c-6.5.591-13.313,1.142-20.265,1.638v16.706h20.265V190.471Zm-40.52,2.909c-6.526.354-13.344.657-20.264.9v14.536h20.264V193.38Z" transform="translate(4749.945 94.071)" fill="none" stroke="rgba(0,0,0,0)" stroke-width="1"/>
   </g>
 </svg>
-'''),
+''',
+            color: const Color(0xff1D184B),
+          ),
         ]));
   }
 

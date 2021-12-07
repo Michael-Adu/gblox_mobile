@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:easy_localization/easy_localization.dart';
+import './components/global_variables.dart' as global;
 import './components/blockly.dart';
 import './components/controller.dart';
 import './components/piano.dart';
 import './components/recent_projects.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import './components/device_select.dart';
+import './components/SketchingTool/sketcher.dart';
+import './components/ModeSelector/mode_select.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +42,7 @@ class _GbloxApp extends State<GbloxApp> {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
+        navigatorKey: global.navigatorKey,
         theme: ThemeData(
           primaryColor: const Color(0xff0B0533),
           fontFamily: "Baloo 2",
@@ -93,35 +97,13 @@ class _GbloxApp extends State<GbloxApp> {
                     padding: EdgeInsets.zero,
                     children: [
                       ListTile(
-                        enableFeedback: true,
-                        title: const Text('Blockly'),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Blockly()),
-                          );
-                        },
-                      ),
-                      ListTile(
-                        enableFeedback: true,
-                        title: const Text('controller_drawer').tr(),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Controller()),
-                          );
-                        },
-                      ),
-                      ListTile(
                           enableFeedback: true,
-                          title: const Text('piano_drawer').tr(),
+                          title: const Text('mode_select_page').tr(),
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const PianoApp()),
+                                  builder: (context) => ModeSelector()),
                             );
                           }),
                       ListTile(
@@ -133,7 +115,7 @@ class _GbloxApp extends State<GbloxApp> {
                               MaterialPageRoute(
                                   builder: (context) => DiscoveryPage()),
                             );
-                          })
+                          }),
                     ],
                   ),
                 )),

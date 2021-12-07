@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:piano/piano.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_midi/flutter_midi.dart';
 
 class PianoApp extends StatefulWidget {
   const PianoApp({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _PianoAppState();
   }
 }
 
 class _PianoAppState extends State<PianoApp> {
   _PianoAppState();
-  late FlutterMidi playSound;
+
   @override
   void initState() {
     super.initState();
@@ -22,11 +19,7 @@ class _PianoAppState extends State<PianoApp> {
     load();
   }
 
-  void load() async {
-    // FlutterMidi().unmute;
-    ByteData _byte = await rootBundle.load("assets/sounds/Piano.SF2");
-    // FlutterMidi().prepare(sf2: _byte);
-  }
+  void load() async {}
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -50,8 +43,6 @@ class _PianoAppState extends State<PianoApp> {
             ]),
             onNotePositionTapped: (position) {
               print(position.pitch);
-              // playSound.playMidiNote(midi: position.pitch);
-              // Use an audio library like flutter_midi to play the sound
             },
           ),
         ));
