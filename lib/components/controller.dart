@@ -111,7 +111,8 @@ class _ControllerState extends State<Controller> {
                                   print("Lights Toggled");
                                   try {
                                     global.activeConnection.output.add(
-                                        Uint8List.fromList(utf8.encode("b")));
+                                        Uint8List.fromList(
+                                            utf8.encode("led 1 0 0")));
                                     print(global.activeConnection);
                                   } catch (e) {
                                     print(e);
