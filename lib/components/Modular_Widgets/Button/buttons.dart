@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../g_blox_custom_s_v_gs_icons.dart';
+import '../../g_blox_custom_s_v_gs_icons.dart';
 
 ///Creates a gBlox button widget
 ///

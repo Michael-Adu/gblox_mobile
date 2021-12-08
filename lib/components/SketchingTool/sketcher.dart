@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../Button/buttons.dart';
+import '../Modular_Widgets/Button/buttons.dart';
 import '../g_blox_custom_s_v_gs_icons.dart';
 import 'sketch_shapes.dart';
 
@@ -37,6 +37,11 @@ class _SketcherState extends State<SketcherWidget> {
             title: const Text('draw_and_follow_drawer').tr(),
             centerTitle: true,
             backgroundColor: Colors.transparent,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back)),
             actions: [
               IconButton(
                   onPressed: () {
@@ -54,6 +59,9 @@ class _SketcherState extends State<SketcherWidget> {
                 child: ClipRect(
                     child: GestureDetector(
                   behavior: HitTestBehavior.translucent,
+                  onPanStart: (details) {
+                    points.clear();
+                  },
                   onPanUpdate: (DragUpdateDetails details) {
                     setState(() {
                       RenderBox box = context.findRenderObject() as RenderBox;

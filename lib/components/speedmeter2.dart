@@ -3,27 +3,38 @@ import './g_blox_custom_s_v_gs_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Speedometer extends StatefulWidget {
+class Speedometer2 extends StatefulWidget {
   @required
   late int speed;
-  Speedometer({Key? key, this.speed = 0});
+  Speedometer2({Key? key, this.speed = 0});
   @override
   State<StatefulWidget> createState() {
-    return _SpeedometerState();
+    return _Speedometer2State();
   }
 }
 
-class _SpeedometerState extends State<Speedometer> {
+class _Speedometer2State extends State<Speedometer2> {
   late Widget meter;
   late List<int> enabledBars = [];
-  _SpeedometerState();
-  void initState() {
-    super.initState();
+
+  void addbars() {
     for (int i = 0; i < widget.speed; i++) {
       enabledBars.add(1);
     }
     displayToast(widget.speed.toInt().toString());
-    meter = Container(
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    addbars();
+  }
+
+  void updateValue() {}
+
+  @override
+  Widget build(BuildContext context) {
+    return (SizedBox(
         height: 100,
         width: 200,
         child: Stack(children: [
@@ -54,14 +65,7 @@ class _SpeedometerState extends State<Speedometer> {
             painter: ForwardPainter(),
             child: Container(width: 400),
           ))
-        ]));
-  }
-
-  void updateValue() {}
-
-  @override
-  Widget build(BuildContext context) {
-    return ((meter));
+        ])));
   }
 
   void displayToast(String message) {

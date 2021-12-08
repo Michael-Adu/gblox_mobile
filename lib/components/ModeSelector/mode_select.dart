@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../Cards/cards.dart';
+import '../Modular_Widgets/Cards/cards.dart';
 import '../svgs/svgs.dart' as svgs;
 import '../blockly.dart';
 import '../PlaySelector/play_select.dart';
@@ -24,10 +24,14 @@ class _ModeSelector extends State<ModeSelector> {
         ),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("mode_select_page").tr(),
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-            ),
+                title: const Text("mode_select_page").tr(),
+                backgroundColor: Colors.transparent,
+                centerTitle: true,
+                leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back))),
             body: Stack(children: [
               SvgPicture.string(
                 '''<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="421.913" viewBox="0 0 2400 421.913">

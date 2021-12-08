@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../Cards/cards.dart';
+import '../Modular_Widgets/Cards/cards.dart';
 import '../svgs/svgs.dart' as svgs;
 import '../controller.dart';
 import '../piano.dart';
@@ -27,10 +27,14 @@ class _PlaySelector extends State<PlaySelector> {
         ),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("play_select_page").tr(),
-              backgroundColor: Colors.transparent,
-              centerTitle: true,
-            ),
+                title: const Text("play_select_page").tr(),
+                backgroundColor: Colors.transparent,
+                centerTitle: true,
+                leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back))),
             body: Stack(children: [
               SvgPicture.string(
                 svgs.pageCityBackground,

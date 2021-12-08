@@ -32,10 +32,14 @@ class _PianoAppState extends State<PianoApp> {
         ),
         home: Scaffold(
           appBar: AppBar(
-            title: const Text("Piano"),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-          ),
+              title: const Text("Piano"),
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back))),
           body: InteractivePiano(
             naturalColor: Colors.white,
             accidentalColor: Colors.black,

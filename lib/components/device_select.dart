@@ -130,14 +130,16 @@ class _DiscoveryPage extends State<DiscoveryPage> {
           results[existingIndex] = r;
         else
           results.add(r);
+        allDevices.add(_DeviceWithAvailability(
+            r.device, _DeviceAvailability.maybe, r.rssi));
       });
     });
 
     _streamSubscription!.onDone(() {
-      allDevices.addAll(results
-          .map((device) => _DeviceWithAvailability(
-              device.device, _DeviceAvailability.maybe, device.rssi))
-          .toList());
+      // allDevices.addAll(results
+      //     .map((device) => _DeviceWithAvailability(
+      //         device.device, _DeviceAvailability.maybe, device.rssi))
+      //     .toList());
       setState(() {
         isDiscovering = false;
       });
@@ -156,123 +158,170 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: isDiscovering
-            ? Text('Discovering devices')
-            : Text('Discovered devices'),
-        actions: <Widget>[
-          isDiscovering
-              ? FittedBox(
-                  child: Container(
-                    margin: new EdgeInsets.all(16.0),
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  ),
-                )
-              : IconButton(
-                  icon: Icon(Icons.replay),
-                  onPressed: _restartDiscovery,
-                )
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: allDevices.length,
-        itemBuilder: (BuildContext context, index) {
-          _DeviceWithAvailability result = allDevices[index];
-          final device = result.device;
-          final address = device.address;
-          return BluetoothDeviceListEntry(
-            device: device,
-            rssi: result.rssi,
-            enabled: result.availability == _DeviceAvailability.maybe,
-            onTap: () async {
-              bool bonded = false;
-              try {
-                if (device.isBonded) {
-                  global.activeConnection =
-                      await BluetoothConnection.toAddress(address);
-                } else {
-                  bonded = (await FlutterBluetoothSerial.instance
-                      .bondDeviceAtAddress(address))!;
-                  global.activeConnection =
-                      await BluetoothConnection.toAddress(address);
-                }
-                setState(() {
-                  allDevices[allDevices.indexOf(result)] =
-                      _DeviceWithAvailability(
-                          BluetoothDevice(
-                            name: device.name ?? '',
-                            address: address,
-                            type: device.type,
-                            bondState: bonded
-                                ? BluetoothBondState.bonded
-                                : BluetoothBondState.none,
-                          ),
-                          result.availability,
-                          result.rssi);
-                  print(bonded
-                      ? BluetoothBondState.bonded
-                      : BluetoothBondState.none);
-                });
-              } catch (ex) {
-                print(ex);
-              }
-            },
-            onLongPress: () async {
-              try {
-                bool bonded = false;
-                if (device.isBonded) {
-                  print('Unbonding from ${device.address}...');
-                  await FlutterBluetoothSerial.instance
-                      .removeDeviceBondWithAddress(address);
-                  print('Unbonding from ${device.address} has succed');
-                } else {
-                  print('Bonding with ${device.address}...');
-                  bonded = (await FlutterBluetoothSerial.instance
-                      .bondDeviceAtAddress(address))!;
-                  print(
-                      'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
-                }
-                setState(() {
-                  allDevices[allDevices.indexOf(result)] =
-                      _DeviceWithAvailability(
-                          BluetoothDevice(
-                            name: device.name ?? '',
-                            address: address,
-                            type: device.type,
-                            bondState: bonded
-                                ? BluetoothBondState.bonded
-                                : BluetoothBondState.none,
-                          ),
-                          result.availability,
-                          result.rssi);
-                });
-              } catch (ex) {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Error occured while bonding'),
-                      content: Text("${ex.toString()}"),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text("Close"),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
+    return MaterialApp(
+        theme: ThemeData(
+          primaryColor: const Color(0xff0B0533),
+          fontFamily: "Baloo 2",
+          scaffoldBackgroundColor: const Color(0xff0B0533),
+        ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: isDiscovering
+                ? Text('Discovering devices')
+                : Text('Discovered devices'),
+            backgroundColor: Colors.transparent,
+            centerTitle: true,
+            actions: <Widget>[
+              isDiscovering
+                  ? FittedBox(
+                      child: Container(
+                        margin: const EdgeInsets.all(16.0),
+                        child: const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
-                      ],
-                    );
+                      ),
+                    )
+                  : IconButton(
+                      icon: Icon(Icons.replay),
+                      onPressed: _restartDiscovery,
+                    )
+            ],
+          ),
+          body: ListView.builder(
+            itemCount: allDevices.length,
+            itemBuilder: (BuildContext context, index) {
+              _DeviceWithAvailability result = allDevices[index];
+              final device = result.device;
+              final address = device.address;
+              if (device.name?.contains('HC') == true) {
+                return BluetoothDeviceListEntry(
+                  device: device,
+                  rssi: result.rssi,
+                  enabled: result.availability == _DeviceAvailability.maybe,
+                  onTap: () async {
+                    bool bonded = false;
+                    try {
+                      if (device.isBonded) {
+                        global.activeConnection =
+                            await BluetoothConnection.toAddress(address)
+                                .whenComplete(() => setState(() {
+                                      allDevices[allDevices.indexOf(result)] =
+                                          _DeviceWithAvailability(
+                                              BluetoothDevice(
+                                                name: device.name ?? '',
+                                                address: address,
+                                                type: device.type,
+                                                bondState: bonded
+                                                    ? BluetoothBondState.bonded
+                                                    : BluetoothBondState.none,
+                                              ),
+                                              result.availability,
+                                              result.rssi);
+                                      print(bonded
+                                          ? BluetoothBondState.bonded
+                                          : BluetoothBondState.none);
+                                    }));
+                      } else {
+                        bonded = (await FlutterBluetoothSerial.instance
+                            .bondDeviceAtAddress(address))!;
+                        global.activeConnection =
+                            await BluetoothConnection.toAddress(address)
+                                .whenComplete(() => setState(() {
+                                      allDevices[allDevices.indexOf(result)] =
+                                          _DeviceWithAvailability(
+                                              BluetoothDevice(
+                                                name: device.name ?? '',
+                                                address: address,
+                                                type: device.type,
+                                                bondState: bonded
+                                                    ? BluetoothBondState.bonded
+                                                    : BluetoothBondState.none,
+                                              ),
+                                              result.availability,
+                                              result.rssi);
+                                      print(bonded
+                                          ? BluetoothBondState.bonded
+                                          : BluetoothBondState.none);
+                                    }));
+                      }
+                      setState(() {
+                        allDevices[allDevices.indexOf(result)] =
+                            _DeviceWithAvailability(
+                                BluetoothDevice(
+                                  name: device.name ?? '',
+                                  address: address,
+                                  type: device.type,
+                                  bondState: bonded
+                                      ? BluetoothBondState.bonded
+                                      : BluetoothBondState.none,
+                                ),
+                                result.availability,
+                                result.rssi);
+                        print(bonded
+                            ? BluetoothBondState.bonded
+                            : BluetoothBondState.none);
+                      });
+                    } catch (ex) {
+                      print(ex);
+                    }
+                  },
+                  onLongPress: () async {
+                    try {
+                      bool bonded = false;
+                      if (device.isBonded) {
+                        print('Unbonding from ${device.address}...');
+                        await FlutterBluetoothSerial.instance
+                            .removeDeviceBondWithAddress(address);
+                        print('Unbonding from ${device.address} has succed');
+                      } else {
+                        print('Bonding with ${device.address}...');
+                        bonded = (await FlutterBluetoothSerial.instance
+                            .bondDeviceAtAddress(address))!;
+                        print(
+                            'Bonding with ${device.address} has ${bonded ? 'succed' : 'failed'}.');
+                      }
+                      setState(() {
+                        allDevices[allDevices.indexOf(result)] =
+                            _DeviceWithAvailability(
+                                BluetoothDevice(
+                                  name: device.name ?? '',
+                                  address: address,
+                                  type: device.type,
+                                  bondState: bonded
+                                      ? BluetoothBondState.bonded
+                                      : BluetoothBondState.none,
+                                ),
+                                result.availability,
+                                result.rssi);
+                      });
+                    } catch (ex) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Error occured while bonding'),
+                            content: Text("${ex.toString()}"),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    }
                   },
                 );
+              } else {
+                return (Container());
               }
             },
-          );
-        },
-      ),
-      // ListView(children: list)
-    );
+          ),
+          // ListView(children: list)
+        ));
   }
 }
