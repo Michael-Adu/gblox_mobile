@@ -76,40 +76,41 @@ class _GBloxCardsState extends State<GBloxCards> {
               padding: const EdgeInsets.all(8.0),
               child: Card(
                   clipBehavior: Clip.antiAlias,
-                  borderOnForeground: false,
                   color: Color(widget.backgroundColor),
                   shape: const BeveledRectangleBorder(
-                      side: BorderSide(color: Colors.red, width: 50),
+                      side: BorderSide(color: Color(0xff0000dc), width: 1),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20.0),
                           bottomRight: Radius.circular(20.0))),
                   child: Container(
+                    width: 200,
                     decoration: BoxDecoration(
                       color: Color(widget.backgroundColor),
-                      // border: Border.all(
-                      //     color: const Color(0xff0000DC), width: 3),
                     ),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
+                              alignment: Alignment.center,
                               margin: const EdgeInsets.fromLTRB(0, 30, 0, 0),
                               padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                               color: Color(widget.backgroundColor),
-                              child: SvgPicture.string(
-                                widget.svg,
-                                width: 200,
-                                height: 100,
-                              )),
+                              child: SvgPicture.string(widget.svg,
+                                  height: 120,
+                                  clipBehavior: Clip.none,
+                                  fit: BoxFit.cover)),
                           Container(
                               clipBehavior: Clip.antiAlias,
                               width: 500,
                               alignment: Alignment.center,
+                              height: 40,
                               decoration: BoxDecoration(
                                   color: widget.textBackgroundColor,
                                   border: Border.all(color: Colors.blueAccent)),
                               child: Text(
                                 widget.text,
+                                textAlign: TextAlign.center,
                                 style: const TextStyle(color: Colors.white),
                               ).tr())
                         ]),

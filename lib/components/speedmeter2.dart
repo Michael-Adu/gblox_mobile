@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './g_blox_custom_s_v_gs_icons.dart';
+import 'svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

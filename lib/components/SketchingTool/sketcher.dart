@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../Modular_Widgets/Button/buttons.dart';
-import '../g_blox_custom_s_v_gs_icons.dart';
+import '../svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'sketch_shapes.dart';
 
 class SketcherWidget extends StatefulWidget {
@@ -18,13 +18,14 @@ class _SketcherState extends State<SketcherWidget> {
   @override
   Widget build(BuildContext context) {
     final Container sketchArea = Container(
-      margin: const EdgeInsets.all(10.0),
+      margin: const EdgeInsets.all(0.0),
       alignment: Alignment.topLeft,
       decoration: const BoxDecoration(
           color: Color(0xff060841),
           borderRadius: BorderRadius.all(Radius.circular(5))),
       child: CustomPaint(
         painter: Sketcher(points),
+        child: Container(),
       ),
     );
 
@@ -82,8 +83,7 @@ class _SketcherState extends State<SketcherWidget> {
               left: 660,
               child: GBloxButtons(
                   buttonType: "controller_circle",
-                  icon: const Icon(Icons.play_arrow,
-                      color: Color(0xffffffff), size: 30),
+                  icon: Icons.play_arrow,
                   pressed: () {},
                   buttonColor: 0xff3EA52C),
             )

@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import '../../g_blox_custom_s_v_gs_icons.dart';
+import '../../svgs/g_blox_custom_s_v_gs_icons.dart';
 
 ///Creates a gBlox button widget
 ///
@@ -7,14 +9,14 @@ class GBloxButtons extends StatefulWidget {
   @required
   late final String buttonType;
   @required
-  late final Icon icon;
+  late final IconData icon;
   @required
   late final Function? pressed;
   late final int buttonColor;
   GBloxButtons(
       {Key? key,
       this.buttonType = "controller_square",
-      this.icon = const Icon(GBloxCustomSVGs.rotateMovement),
+      this.icon = GBloxCustomSVGs.rotateMovement,
       this.pressed,
       this.buttonColor = 0xffDB8000});
   @override
@@ -26,10 +28,11 @@ class GBloxButtons extends StatefulWidget {
 class _GBloxButtons extends State<GBloxButtons> {
   late Widget button = Container();
   List<Color> gradient = [const Color(0xffDB8000), const Color(0xffFFC178)];
-  Color containerColor = const Color(0xffE2D424);
+  late Color _toggledContainerColor;
+  late Color _untoggledContainerColor;
   late List<Color> _toggledColor;
   late List<Color> _untoggledColor;
-  late List<Color> _activeColor;
+  bool _toggledState = false;
   _GBloxButtons();
 
   @override
@@ -40,118 +43,136 @@ class _GBloxButtons extends State<GBloxButtons> {
         Color(widget.buttonColor).withOpacity(1.0),
         Color(widget.buttonColor).withOpacity(0.8)
       ];
-      _toggledColor = [gradient[0].withAlpha(50), gradient[1].withAlpha(50)];
-      _untoggledColor = [
-        gradient[1].withAlpha(255),
-        gradient[0].withAlpha(255)
+      _toggledColor = [
+        HSLColor.fromColor(gradient[0]).withLightness(0.3).toColor(),
+        HSLColor.fromColor(gradient[1]).withLightness(0.3).toColor()
       ];
-      containerColor = Color(widget.buttonColor).withOpacity(0);
-      _activeColor = _untoggledColor;
+      _untoggledColor = [gradient[1], gradient[0]];
+      _toggledContainerColor = Color(widget.buttonColor);
+      _untoggledContainerColor = Color(0xffE2D424);
     } catch (e) {}
+  }
 
+  @override
+  Widget build(BuildContext context) {
     switch (widget.buttonType) {
       case "controller_square":
-        button = InkWell(
-            borderRadius: const BorderRadius.all(Radius.circular(15)),
+        return (InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
+          child: AnimatedContainer(
+            width: 100,
+            height: 50,
+            duration: const Duration(seconds: 1),
             child: AnimatedContainer(
-              width: 100,
-              height: 50,
-              duration: const Duration(seconds: 1),
-              padding: const EdgeInsets.all(7.535),
-              child: Container(
-                child: widget.icon,
-                decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    border:
-                        Border.all(width: 2, color: const Color(0xffE6DA2F)),
-                    boxShadow: [
-                      BoxShadow(
-                          color: containerColor, blurRadius: 2, spreadRadius: 0)
-                    ]),
-              ),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
-                boxShadow: [
-                  BoxShadow(
-                      color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 0)
-                ],
-              ),
+              duration: const Duration(milliseconds: 10),
+              child: Icon(widget.icon,
+                  color: _toggledState
+                      ? _toggledContainerColor
+                      : _untoggledContainerColor,
+                  size: 25),
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 2, color: const Color(0xffE6DA2F)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: _toggledState
+                            ? _untoggledContainerColor
+                            : _toggledContainerColor,
+                        blurRadius: 2,
+                        spreadRadius: 0)
+                  ]),
             ),
-            onTap: () {
-              widget.pressed!();
-              setState(() {
-                containerColor = Color(widget.buttonColor).withOpacity(1);
-              });
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              boxShadow: [
+                BoxShadow(
+                    color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 0)
+              ],
+            ),
+          ),
+          onTap: () {
+            widget.pressed!();
+            setState(() {
+              _toggledState = false;
             });
+          },
+          onTapDown: (TapDownDetails) {
+            setState(() {
+              _toggledState = true;
+            });
+          },
+          onTapCancel: () {
+            setState(() {
+              _toggledState = false;
+            });
+          },
+        ));
         break;
       case "controller_circle":
-        button = InkWell(
+        return (InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(60)),
-          child: AnimatedContainer(
-              child: AnimatedContainer(
+          child: Container(
+            child: Container(
+                height: 60,
+                width: 60,
+                padding: const EdgeInsets.all(3),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: gradient)),
+                child: AnimatedContainer(
                   height: 60,
                   width: 60,
-                  duration: const Duration(seconds: 1),
-                  padding: const EdgeInsets.all(3),
+                  child: Icon(widget.icon, color: Colors.white),
+                  duration: const Duration(milliseconds: 10),
                   decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
-                          colors: _activeColor)),
-                  child: Container(
-                    height: 60,
-                    width: 60,
-                    child: widget.icon,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                            colors: _toggledColor)),
-                  )),
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 0)
-                ],
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(5),
-              duration: const Duration(seconds: 1)),
+                          colors:
+                              _toggledState ? _toggledColor : _untoggledColor)),
+                )),
+            decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 0)
+              ],
+              shape: BoxShape.circle,
+            ),
+            padding: const EdgeInsets.all(5),
+          ),
           radius: 0,
           onTap: () {
             widget.pressed!();
             setState(() {
-              print("Setting to untoggled State");
+              _toggledState = false;
             });
           },
           onTapDown: (TapDownDetails) async {
-            print(TapDownDetails.kind);
-            _activeColor = _toggledColor;
-          },
-          onHighlightChanged: (param) {
             setState(() {
-              print("Setting to toggled State");
-              _activeColor = _toggledColor;
+              _toggledState = true;
             });
           },
-        );
+          onTapCancel: () {
+            setState(() {
+              _toggledState = false;
+            });
+          },
+        ));
         break;
       default:
-        button = InkWell(
+        return (InkWell(
           child: Container(
             child: Container(
-              child: widget.icon,
+              child: Icon(widget.icon),
             ),
           ),
-        );
+        ));
         break;
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return (button);
   }
 }

@@ -1,12 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import './g_blox_custom_s_v_gs_icons.dart';
+import 'svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Speedometer extends StatefulWidget {
   @required
-  late int speed;
-  Speedometer({Key? key, this.speed = 0});
+  late final ValueNotifier<double>? speed;
+  Speedometer({Key? key, this.speed});
   @override
   State<StatefulWidget> createState() {
     return _SpeedometerState();
@@ -19,32 +20,45 @@ class _SpeedometerState extends State<Speedometer> {
   _SpeedometerState();
   void initState() {
     super.initState();
-    for (int i = 0; i < widget.speed; i++) {
+    displayToast(widget.speed!.value.toInt().toString());
+  }
+
+  void updateValue() {
+    enabledBars.clear();
+    for (int i = 0; i < widget.speed!.value; i++) {
       enabledBars.add(1);
     }
-    displayToast(widget.speed.toInt().toString());
-    meter = Container(
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return (Container(
         height: 100,
         width: 200,
         child: Stack(children: [
-          Container(
-              margin: const EdgeInsets.fromLTRB(14, 28, 0, 0),
-              child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: enabledBars
-                      .map((bar) => Container(
-                          width: 11.5,
-                          height: bar * 65,
-                          child: SvgPicture.string(
-                            '''<svg xmlns="http://www.w3.org/2000/svg" width="21.255" height="208.821" viewBox="0 0 21.255 208.821">
+          ValueListenableBuilder(
+              valueListenable: widget.speed!,
+              builder: (context, value, widget) {
+                updateValue();
+                return Container(
+                    margin: const EdgeInsets.fromLTRB(14, 28, 0, 0),
+                    child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: enabledBars
+                            .map((bar) => Container(
+                                width: 11.5,
+                                height: bar * 65,
+                                child: SvgPicture.string(
+                                  '''<svg xmlns="http://www.w3.org/2000/svg" width="21.255" height="208.821" viewBox="0 0 21.255 208.821">
   <path id="Path_120" data-name="Path 120" d="M1551.224,145.084V352.457h-20.255V158.615Q1541.17,151.973,1551.224,145.084Z" transform="translate(-1530.469 -144.136)" fill="#4a4f68" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
 </svg>
 ''',
-                            width: 480,
-                            // fit: BoxFit.scaleDown,
-                            color: Colors.green,
-                          )))
-                      .toList())),
+                                  width: 480,
+                                  // fit: BoxFit.scaleDown,
+                                  color: Colors.green,
+                                )))
+                            .toList()));
+              }),
           CustomPaint(
             painter: BackgroundPainter(),
             child: Container(width: 200),
@@ -54,14 +68,7 @@ class _SpeedometerState extends State<Speedometer> {
             painter: ForwardPainter(),
             child: Container(width: 400),
           ))
-        ]));
-  }
-
-  void updateValue() {}
-
-  @override
-  Widget build(BuildContext context) {
-    return ((meter));
+        ])));
   }
 
   void displayToast(String message) {

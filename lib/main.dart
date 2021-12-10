@@ -5,8 +5,8 @@ import 'package:easy_localization/easy_localization.dart';
 import './components/global_variables.dart' as global;
 import './components/recent_projects.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import './components/device_select.dart';
-import './components/ModeSelector/mode_select.dart';
+import 'components/Bluetooth/device_select.dart';
+import './components/Menus/ModeSelector/mode_select.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
