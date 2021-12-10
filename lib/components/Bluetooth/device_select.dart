@@ -27,8 +27,9 @@ enum _DeviceAvailability {
 class _DeviceWithAvailability {
   BluetoothDevice device;
   _DeviceAvailability availability;
+  String type;
 
-  _DeviceWithAvailability(this.device, this.availability);
+  _DeviceWithAvailability(this.device, this.availability, this.type);
 }
 
 class _DiscoveryPage extends State<DiscoveryPage> {
@@ -69,7 +70,13 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         for (int i = 0; i < bondedDevices.length; i++) {
           if (bondedDevices[i].name!.contains("HC")) {
             allDevices.add(_DeviceWithAvailability(
-                bondedDevices[i], _DeviceAvailability.maybe));
+                bondedDevices[i], _DeviceAvailability.maybe, "Arduino"));
+          } else if (bondedDevices[i].name!.contains("MELLO")) {
+            allDevices.add(_DeviceWithAvailability(
+                bondedDevices[i], _DeviceAvailability.maybe, "Mello"));
+          } else if (bondedDevices[i].name!.contains("MINGO")) {
+            allDevices.add(_DeviceWithAvailability(
+                bondedDevices[i], _DeviceAvailability.maybe, "Mingo"));
           }
         }
       });
@@ -91,11 +98,11 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         allDevices = bondedDevices
             .map(
               (device) => _DeviceWithAvailability(
-                device,
-                widget.checkAvailable
-                    ? _DeviceAvailability.maybe
-                    : _DeviceAvailability.yes,
-              ),
+                  device,
+                  widget.checkAvailable
+                      ? _DeviceAvailability.maybe
+                      : _DeviceAvailability.yes,
+                  device.name!),
             )
             .toList();
       });
@@ -114,9 +121,16 @@ class _DiscoveryPage extends State<DiscoveryPage> {
           results.add(r);
         // if (allDevices.any((e) => e.device.address == r.device.address)) {
         // } else {
-        //   if (r.device.name!.contains("HC")) {
-        allDevices
-            .add(_DeviceWithAvailability(r.device, _DeviceAvailability.maybe));
+        if (r.device.name!.contains("HC")) {
+          allDevices.add(_DeviceWithAvailability(
+              r.device, _DeviceAvailability.maybe, "Arudino"));
+        } else if (r.device.name!.contains("MELLO")) {
+          allDevices.add(_DeviceWithAvailability(
+              r.device, _DeviceAvailability.maybe, "Mello"));
+        } else if (r.device.name!.contains("MINGO")) {
+          allDevices.add(_DeviceWithAvailability(
+              r.device, _DeviceAvailability.maybe, "Mingo"));
+        }
         //   }
         // }
       });
@@ -156,6 +170,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             child: BluetoothCard(
               device: device,
               enabled: result.availability == _DeviceAvailability.maybe,
+              type: result.type,
               onTap: () async {
                 bool bonded = false;
                 try {
@@ -177,7 +192,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                                                   ? BluetoothBondState.bonded
                                                   : BluetoothBondState.none,
                                             ),
-                                            result.availability);
+                                            result.availability,
+                                            result.type);
                                     print(bonded
                                         ? BluetoothBondState.bonded
                                         : BluetoothBondState.none);
@@ -199,7 +215,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                                                 ? BluetoothBondState.bonded
                                                 : BluetoothBondState.none,
                                           ),
-                                          result.availability);
+                                          result.availability,
+                                          result.type);
                                   print(bonded
                                       ? BluetoothBondState.bonded
                                       : BluetoothBondState.none);
@@ -216,7 +233,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                                   ? BluetoothBondState.bonded
                                   : BluetoothBondState.none,
                             ),
-                            result.availability);
+                            result.availability,
+                            result.type);
                     print(bonded
                         ? BluetoothBondState.bonded
                         : BluetoothBondState.none);
@@ -251,7 +269,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                                   ? BluetoothBondState.bonded
                                   : BluetoothBondState.none,
                             ),
-                            result.availability);
+                            result.availability,
+                            result.type);
                   });
                 } catch (ex) {
                   showDialog(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../Modular_Widgets/Cards/cards.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
+import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
 import '../../controller.dart';

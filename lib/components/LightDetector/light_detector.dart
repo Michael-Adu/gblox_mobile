@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../Modular_Widgets/Button/buttons.dart';
 import '../Modular_Widgets/Switch/switch.dart';
 import '../svgs/g_blox_custom_s_v_gs_icons.dart';
 import '../svgs/svgs.dart' as svgs;
 import '../global_variables.dart' as global;
-import 'package:flutter_svg/flutter_svg.dart';
 
 class LightDetector extends StatefulWidget {
   @override
