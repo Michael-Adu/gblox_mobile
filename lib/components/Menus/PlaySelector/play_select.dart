@@ -82,7 +82,7 @@ class _PlaySelector extends State<PlaySelector> {
     return SizedBox(
         width: _cardSize,
         child: Container(
-            margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+            margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: GBloxCards(
                 svg: playCards[index].svg,
                 text: playCards[index].title,
@@ -104,7 +104,6 @@ class _PlaySelector extends State<PlaySelector> {
         home: Scaffold(
             appBar: AppBar(
                 title: const Text("play_select_page").tr(),
-                backgroundColor: Colors.transparent,
                 centerTitle: true,
                 leading: IconButton(
                     onPressed: () {

@@ -60,10 +60,12 @@ class _SpeedometerState extends State<Speedometer> {
                                 )))
                             .toList()));
               }),
-          CustomPaint(
-            painter: BackgroundPainter(),
-            child: Container(width: 200),
-          ),
+          Container(
+              margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+              child: CustomPaint(
+                painter: BackgroundPainter(),
+                child: Container(width: 200),
+              )),
           Container(
               child: CustomPaint(
             painter: ForwardPainter(),

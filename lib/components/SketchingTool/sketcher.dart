@@ -36,7 +36,6 @@ class _SketcherState extends State<SketcherWidget> {
           appBar: AppBar(
             title: const Text('draw_and_follow_drawer').tr(),
             centerTitle: true,
-            backgroundColor: Colors.transparent,
             leading: IconButton(
                 onPressed: () {
                   Navigator.pop(context);

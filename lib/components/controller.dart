@@ -52,7 +52,6 @@ class _ControllerState extends State<Controller> {
         home: Scaffold(
             appBar: AppBar(
                 title: const Text("controller_drawer").tr(),
-                backgroundColor: Colors.transparent,
                 centerTitle: true,
                 leading: IconButton(
                     onPressed: () {

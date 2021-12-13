@@ -23,7 +23,6 @@ class _LightDetectorState extends State<LightDetector> {
             appBar: AppBar(
               title: const Text('light_play').tr(),
               centerTitle: true,
-              backgroundColor: Colors.transparent,
               leading: IconButton(
                   onPressed: () {
                     Navigator.pop(context);

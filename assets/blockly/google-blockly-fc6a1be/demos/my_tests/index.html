@@ -809,9 +809,43 @@
       "toolboxForegroundColour": "#FFFFFF"
     }
 
+
+    function clickOnToolbox(item) {
+      Blockly.mainWorkspace.toolbox_.selectItemByPosition(item);
+    }
+
+    function returnToolbox() {
+      var toolbox_temp = [];
+      for (var i = 0; i < (Blockly.mainWorkspace.toolbox_.getToolboxItems()).length; i++) {
+        var items = Blockly.mainWorkspace.toolbox_.getToolboxItems();
+        var id = items[i].id_
+        var name = items[i].name_
+        if (items[i].subcategoriesDiv_ === undefined) {
+          toolbox_temp.push([name, id, "non-category"]);
+        }
+        else {
+          var category = Blockly.mainWorkspace.toolbox_.getToolboxItems()[i];
+          category.setExpanded(true)
+          var children_count = (category.getChildToolboxItems()).length
+          toolbox_temp.push([name, id, "category", children_count]);
+        }
+      }
+      console.log(toolbox_temp)
+      window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+        console.log(event)
+        window.flutter_inappwebview.callHandler('sendToFlutter', [1,2])
+      });
+    }
+
     function updateCode() {
       var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-      Print.postMessage(code);
+      window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+        console.log(event)
+        window.flutter_inappwebview.callHandler('sendToFlutter', code).then(function (result) {
+          // get result from Flutter side. It will be the number 64.
+          console.log(result);
+        });
+      });
     }
 
     var dark_theme = Blockly.Theme.defineTheme('dark_theme', {
@@ -838,6 +872,7 @@
         trashcan: false,
         theme: dark_theme
       });
+    Workspace.toolbox_.setVisible(false);
     Workspace.addChangeListener(updateCode);
     Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(`<xml xmlns="https://developers.google.com/blockly/xml"><block type="m_mainloop" x="430" y="150"></block></xml>`), Workspace)
 

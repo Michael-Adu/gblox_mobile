@@ -1,5 +1,7 @@
 library gblox_mobile.globals;
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -33,6 +35,13 @@ ThemeData darkTheme = ThemeData(
         onError: Colors.white,
         brightness: Brightness.light),
     fontFamily: "Baloo 2",
+    appBarTheme: const AppBarTheme(
+        iconTheme: IconThemeData(color: Colors.white),
+        titleTextStyle: TextStyle(
+            fontSize: 25,
+            backgroundColor: Colors.transparent,
+            fontFamily: "Baloo 2",
+            color: Colors.white)),
     backgroundColor: const Color(0xffDEDEF1),
     scaffoldBackgroundColor: const Color(0xff0B0533),
     cardTheme: const CardTheme(
@@ -66,6 +75,13 @@ ThemeData lightTheme = ThemeData(
       brightness: Brightness.light),
   backgroundColor: const Color(0xffDEDEF1),
   fontFamily: "Baloo 2",
+  appBarTheme: const AppBarTheme(
+      iconTheme: IconThemeData(color: Color(0xff0000DC)),
+      titleTextStyle: TextStyle(
+          fontSize: 25,
+          backgroundColor: Colors.transparent,
+          fontFamily: "Baloo 2",
+          color: Color(0xff0000DC))),
   scaffoldBackgroundColor: const Color(0xffDEDEF1),
   cardTheme: const CardTheme(
       shape: RoundedRectangleBorder(

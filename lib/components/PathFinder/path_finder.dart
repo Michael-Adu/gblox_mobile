@@ -21,7 +21,6 @@ class _PathFinderState extends State<PathFinder> {
             appBar: AppBar(
               title: const Text('path_play').tr(),
               centerTitle: true,
-              backgroundColor: Colors.transparent,
               leading: IconButton(
                   onPressed: () {
                     Navigator.pop(context);

@@ -99,11 +99,10 @@ class _GbloxApp extends State<GbloxApp> {
                 appBar: AppBar(
                     title: const Text('applicationName').tr(),
                     centerTitle: true,
-                    backgroundColor: Colors.transparent,
                     leading: Builder(
                       builder: (context) {
                         return IconButton(
-                          icon: const Icon(Icons.menu, color: Colors.white),
+                          icon: const Icon(Icons.menu),
                           onPressed: () {
                             Scaffold.of(context).openDrawer();
                           },
@@ -114,8 +113,7 @@ class _GbloxApp extends State<GbloxApp> {
                       Builder(
                         builder: (context) {
                           return IconButton(
-                            icon:
-                                const Icon(Icons.settings, color: Colors.white),
+                            icon: const Icon(Icons.settings),
                             onPressed: () {
                               Scaffold.of(context).openEndDrawer();
                             },
@@ -204,7 +202,7 @@ class _GbloxApp extends State<GbloxApp> {
                           height: _cardSize,
                           child: GBloxCards(
                               svg: svgs.playMode,
-                              text: "Select Mode",
+                              text: "mode_select_page",
                               textBackgroundColor: Colors.blue,
                               pressed: () {
                                 Navigator.push(
@@ -218,7 +216,7 @@ class _GbloxApp extends State<GbloxApp> {
                           height: _cardSize,
                           child: GBloxCards(
                               svg: svgs.mingo,
-                              text: "Select Device",
+                              text: "select_device_page",
                               textBackgroundColor: Colors.teal,
                               pressed: () {
                                 Navigator.push(

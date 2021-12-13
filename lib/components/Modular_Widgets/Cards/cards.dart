@@ -51,12 +51,11 @@ class _GBloxCardsState extends State<GBloxCards> {
               widget.pressed!();
             },
             child: Container(
-              height: 200,
+              height: 100,
               width: 200,
-              child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+              child: Container(
                   child: Card(
-                      clipBehavior: Clip.antiAlias,
+                      clipBehavior: Clip.hardEdge,
                       color: Theme.of(global.navigatorKey.currentContext!)
                           .primaryColor,
                       shape: const BeveledRectangleBorder(
@@ -72,13 +71,17 @@ class _GBloxCardsState extends State<GBloxCards> {
                         ),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Container(
+                                  width: 100,
+                                  height: 150,
                                   alignment: Alignment.center,
+                                  clipBehavior: Clip.none,
                                   margin: widget.compressSVG
-                                      ? const EdgeInsets.fromLTRB(0, 20, 0, 0)
-                                      : const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                                      ? const EdgeInsets.fromLTRB(0, 40, 0, 0)
+                                      : const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                   padding: widget.compressSVG
                                       ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
                                       : const EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -92,10 +95,10 @@ class _GBloxCardsState extends State<GBloxCards> {
                                           ? BoxFit.fitHeight
                                           : BoxFit.fitWidth)),
                               Container(
-                                  clipBehavior: Clip.antiAlias,
+                                  clipBehavior: Clip.none,
                                   width: 500,
                                   alignment: Alignment.center,
-                                  height: 40,
+                                  height: 42,
                                   decoration: BoxDecoration(
                                       color: widget.textBackgroundColor,
                                       border:

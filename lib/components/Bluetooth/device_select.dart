@@ -305,7 +305,6 @@ class _DiscoveryPage extends State<DiscoveryPage> {
               title: isDiscovering
                   ? Text('Discovering devices')
                   : Text('Discovered devices'),
-              backgroundColor: Colors.transparent,
               centerTitle: true,
               actions: <Widget>[
                 isDiscovering

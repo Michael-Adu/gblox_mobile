@@ -60,9 +60,10 @@ class _GBloxButtons extends State<GBloxButtons> {
         return (InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(15)),
           child: AnimatedContainer(
-            width: 100,
-            height: 50,
+            width: 105,
+            height: 55,
             duration: const Duration(seconds: 1),
+            padding: const EdgeInsets.all(5),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 10),
               child: Icon(widget.icon,
@@ -70,7 +71,7 @@ class _GBloxButtons extends State<GBloxButtons> {
                       ? _toggledContainerColor
                       : _untoggledContainerColor,
                   size: 25),
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   border: Border.all(width: 2, color: const Color(0xffE6DA2F)),
@@ -87,7 +88,7 @@ class _GBloxButtons extends State<GBloxButtons> {
               borderRadius: BorderRadius.all(Radius.circular(15)),
               boxShadow: [
                 BoxShadow(
-                    color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 0)
+                    color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 2)
               ],
             ),
           ),
