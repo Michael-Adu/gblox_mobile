@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
-import 'bluetooth_device_list_entry.dart';
-
 import 'bluetooth_card.dart';
 import '../global_variables.dart' as global;
 
@@ -165,7 +163,9 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     final address = device.address;
     return Container(
         width: _cardSize,
+        height: _cardSize,
         child: Container(
+            padding: const EdgeInsets.all(15),
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
             child: BluetoothCard(
               device: device,
@@ -299,11 +299,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          primaryColor: const Color(0xff0B0533),
-          fontFamily: "Baloo 2",
-          scaffoldBackgroundColor: const Color(0xff0B0533),
-        ),
+        theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
               title: isDiscovering

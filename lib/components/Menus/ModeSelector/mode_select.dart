@@ -69,22 +69,20 @@ class _ModeSelector extends State<ModeSelector> {
   @override
   Widget build(BuildContext context) {
     return (MaterialApp(
-        theme: ThemeData(
-          primaryColor: const Color(0xff0B0533),
-          fontFamily: "Baloo 2",
-          scaffoldBackgroundColor: const Color(0xff0B0533),
-        ),
+        theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-                title: const Text("mode_select_page").tr(),
-                backgroundColor: Colors.transparent,
-                centerTitle: true,
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back))),
-            body: Stack(children: [
+              title: const Text("mode_select_page").tr(),
+              backgroundColor: Colors.transparent,
+              centerTitle: true,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back)),
+            ),
+            body: Container(
+                child: Stack(children: [
               SvgPicture.string(
                 svgs.pageCityBackground,
                 alignment: Alignment.bottomCenter,
@@ -107,6 +105,6 @@ class _ModeSelector extends State<ModeSelector> {
                       ),
                     ),
                   ]))
-            ]))));
+            ])))));
   }
 }

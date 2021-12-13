@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import '../Modular_Widgets/Button/buttons.dart';
 import '../svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'sketch_shapes.dart';
+import '../global_variables.dart' as global;
 
 class SketcherWidget extends StatefulWidget {
   const SketcherWidget({Key? key}) : super(key: key);
@@ -30,9 +31,7 @@ class _SketcherState extends State<SketcherWidget> {
     );
 
     return MaterialApp(
-        theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xff0B0533),
-        ),
+        theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
           appBar: AppBar(
             title: const Text('draw_and_follow_drawer').tr(),

@@ -25,8 +25,10 @@ class _CardDetails {
   String title;
   Color textBackgroundColor;
   Function? pressed;
+  bool compressSVG;
 
-  _CardDetails(this.svg, this.title, this.textBackgroundColor, this.pressed);
+  _CardDetails(this.svg, this.title, this.textBackgroundColor, this.pressed,
+      this.compressSVG);
 }
 
 class _PlaySelector extends State<PlaySelector> {
@@ -36,52 +38,48 @@ class _PlaySelector extends State<PlaySelector> {
 
   void initState() {
     super.initState();
-    playCards.add(_CardDetails(
-      svgs.drivePlay,
-      "drive_play",
-      Colors.red,
-      () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Controller()),
-        );
-      },
-    ));
-    playCards.add(_CardDetails(
-      svgs.pathFinderPlay,
-      "path_play",
-      Colors.green,
-      () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PathFinder()),
-        );
-      },
-    ));
-    playCards.add(
-        _CardDetails(svgs.lightDetectorPlay, "light_play", Colors.orange, () {
+    playCards.add(_CardDetails(svgs.drivePlay, "drive_play", Colors.red, () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => LightDetector()),
+        MaterialPageRoute(builder: (context) => const Controller()),
       );
-    }));
+    }, true));
+    playCards
+        .add(_CardDetails(svgs.pathFinderPlay, "path_play", Colors.green, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PathFinder()),
+      );
+    }, true));
+    playCards.add(_CardDetails(
+      svgs.lightDetectorPlay,
+      "light_play",
+      Colors.orange,
+      () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => LightDetector()),
+        );
+      },
+      true,
+    ));
     playCards.add(_CardDetails(svgs.pianoPlay, "piano_play", Colors.purple, () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const PianoApp()),
       );
-    }));
+    }, true));
     playCards.add(_CardDetails(
         svgs.drawFollowPlay, "drawFollow_play", const Color(0xffFA857B), () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const SketcherWidget()),
       );
-    }));
+    }, false));
   }
 
   Widget _buildListItem(BuildContext context, int index) {
-    return Container(
+    return SizedBox(
         width: _cardSize,
         child: Container(
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
@@ -89,7 +87,8 @@ class _PlaySelector extends State<PlaySelector> {
                 svg: playCards[index].svg,
                 text: playCards[index].title,
                 textBackgroundColor: playCards[index].textBackgroundColor,
-                pressed: playCards[index].pressed)));
+                pressed: playCards[index].pressed,
+                compressSVG: playCards[index].compressSVG)));
   }
 
   void _onItemFocus(int index) {
@@ -101,11 +100,7 @@ class _PlaySelector extends State<PlaySelector> {
   @override
   Widget build(BuildContext context) {
     return (MaterialApp(
-        theme: ThemeData(
-          primaryColor: const Color(0xff0B0533),
-          fontFamily: "Baloo 2",
-          scaffoldBackgroundColor: const Color(0xff0B0533),
-        ),
+        theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
                 title: const Text("play_select_page").tr(),

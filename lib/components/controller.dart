@@ -48,9 +48,7 @@ class _ControllerState extends State<Controller> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xff0B0533),
-        ),
+        theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
                 title: const Text("controller_drawer").tr(),

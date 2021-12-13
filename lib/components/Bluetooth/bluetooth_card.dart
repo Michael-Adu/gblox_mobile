@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../svgs/svgs.dart' as svgs;
+import '../global_variables.dart' as global;
 
 class BluetoothCard extends StatefulWidget {
   @required
@@ -66,7 +67,9 @@ class _BluetoothCardState extends State<BluetoothCard> {
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                     clipBehavior: Clip.antiAlias,
-                    color: const Color(0xff060841),
+                    color: Theme.of(global.navigatorKey.currentContext!)
+                        .colorScheme
+                        .secondary,
                     shape: const BeveledRectangleBorder(
                         side: BorderSide(color: Color(0xff0000dc), width: 1),
                         borderRadius: BorderRadius.only(
@@ -74,8 +77,11 @@ class _BluetoothCardState extends State<BluetoothCard> {
                             bottomRight: Radius.circular(20.0))),
                     child: Container(
                         width: 200,
-                        decoration: const BoxDecoration(
-                          color: Color(0xff060841),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: Theme.of(global.navigatorKey.currentContext!)
+                              .colorScheme
+                              .primaryVariant,
                         ),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,9 +89,7 @@ class _BluetoothCardState extends State<BluetoothCard> {
                               Container(
                                   alignment: Alignment.center,
                                   margin:
-                                      const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      const EdgeInsets.fromLTRB(0, 35, 0, 0),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -96,17 +100,16 @@ class _BluetoothCardState extends State<BluetoothCard> {
                                         ),
                                         Column(children: [
                                           widget.device!.isConnected
-                                              ? Icon(Icons.import_export,
+                                              ? const Icon(Icons.import_export,
                                                   color: Colors.green)
                                               : Container(),
                                           widget.device!.isBonded
                                               ? const Icon(Icons.link,
                                                   color: Colors.white)
-                                              : Container(width: 0, height: 0),
+                                              : Container(),
                                         ])
                                       ])),
                               Container(
-                                  clipBehavior: Clip.antiAlias,
                                   width: 500,
                                   alignment: Alignment.center,
                                   height: 40,

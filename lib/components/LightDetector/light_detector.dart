@@ -18,9 +18,7 @@ class _LightDetectorState extends State<LightDetector> {
   @override
   Widget build(BuildContext context) {
     return (MaterialApp(
-        theme: ThemeData(
-          scaffoldBackgroundColor: const Color(0xff0B0533),
-        ),
+        theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
               title: const Text('light_play').tr(),

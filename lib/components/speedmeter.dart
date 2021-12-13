@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'global_variables.dart' as global;
 
 class Speedometer extends StatefulWidget {
   @required
@@ -41,12 +42,12 @@ class _SpeedometerState extends State<Speedometer> {
               builder: (context, value, widget) {
                 updateValue();
                 return Container(
-                    margin: const EdgeInsets.fromLTRB(14, 28, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(14, 26, 0, 0),
                     child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: enabledBars
                             .map((bar) => Container(
-                                width: 11.5,
+                                width: 11.6,
                                 height: bar * 65,
                                 child: SvgPicture.string(
                                   '''<svg xmlns="http://www.w3.org/2000/svg" width="21.255" height="208.821" viewBox="0 0 21.255 208.821">
@@ -166,11 +167,17 @@ class BackgroundPainter extends CustomPainter {
     Paint paint_0_stroke = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = size.width * 0.001528293;
-    paint_0_stroke.color = Color(0xff0B0533).withOpacity(1.0);
+    paint_0_stroke.color = Theme.of(global.navigatorKey.currentContext!)
+        .colorScheme
+        .primary
+        .withOpacity(1.0);
     canvas.drawPath(path_0, paint_0_stroke);
 
     Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = Color(0xff0B0533).withOpacity(1.0);
+    paint_0_fill.color = Theme.of(global.navigatorKey.currentContext!)
+        .colorScheme
+        .primary
+        .withOpacity(1.0);
     canvas.drawPath(path_0, paint_0_fill);
   }
 
@@ -831,7 +838,10 @@ class ForwardPainter extends CustomPainter {
     path_2.close();
 
     Paint paint_2_fill = Paint()..style = PaintingStyle.fill;
-    paint_2_fill.color = Colors.white.withOpacity(1.0);
+    paint_2_fill.color = Theme.of(global.navigatorKey.currentContext!)
+        .colorScheme
+        .secondary
+        .withOpacity(1.0);
     canvas.drawPath(path_2, paint_2_fill);
   }
 
