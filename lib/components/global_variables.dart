@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 late BluetoothConnection activeConnection;
 late BuildContext mainContext;
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 late ThemeData globalTheme = darkTheme;
+late InAppWebViewController? webController;
 
 void displayToast(String message) {
   Fluttertoast.showToast(

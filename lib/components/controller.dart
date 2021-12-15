@@ -8,7 +8,6 @@ import 'Modular_Widgets/Button/buttons.dart';
 import 'global_variables.dart' as global;
 import 'svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'speedmeter.dart';
-import 'speedmeter2.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
