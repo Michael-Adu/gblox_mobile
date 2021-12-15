@@ -33,6 +33,7 @@ class ToolboxCategoryButtons extends StatefulWidget {
 class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
   late Icon toolboxIcon = const Icon(Icons.lightbulb_outline);
   bool pressed = false;
+  bool opened = false;
 
   void initState() {
     super.initState();
@@ -66,6 +67,14 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
         toolboxIcon = const Icon(GBloxCustomSVGs.toolboxcom_1,
             color: Colors.white, size: 10);
         break;
+      case "LEDs":
+        toolboxIcon = const Icon(GBloxCustomSVGs.toolboxled,
+            color: Colors.white, size: 10);
+        break;
+      case "Sound":
+        toolboxIcon = const Icon(GBloxCustomSVGs.toolboxsound,
+            color: Colors.white, size: 10);
+        break;
       default:
         toolboxIcon = const Icon(
           GBloxCustomSVGs.toolboxsound,
@@ -82,11 +91,22 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
         ? ExpansionTile(
             expandedAlignment: Alignment.centerLeft,
             childrenPadding: EdgeInsets.all(0),
+            onExpansionChanged: (state) {
+              setState(() {
+                opened = state;
+              });
+            },
             tilePadding: EdgeInsets.all(0),
             textColor: Colors.white,
-            onExpansionChanged: (changed) {
-              print(widget.categoryChildren);
-            },
+            trailing: opened
+                ? const Icon(
+                    Icons.keyboard_arrow_up,
+                    color: Colors.white,
+                  )
+                : const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                  ),
             title: Row(children: [
               Container(width: 5, height: 35, color: widget.color),
               const SizedBox(width: 10),
@@ -100,7 +120,7 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
                       style: const TextStyle(color: Colors.white)))
             ]),
             children: widget.categoryChildren!
-                .map((e) => ListTile(
+                .map((e) => InkWell(
                     onTap: () {
                       global.webController!.evaluateJavascript(source: '''
                   clickOnToolbox(${e.index});
@@ -109,7 +129,17 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
                         pressed = false;
                       });
                     },
-                    title: AnimatedContainer(
+                    onTapDown: (TapDownDetails) {
+                      setState(() {
+                        pressed = true;
+                      });
+                    },
+                    onTapCancel: () {
+                      setState(() {
+                        pressed = false;
+                      });
+                    },
+                    child: AnimatedContainer(
                       duration: Duration(milliseconds: 10),
                       color: pressed ? widget.color : Colors.transparent,
                       child: Row(

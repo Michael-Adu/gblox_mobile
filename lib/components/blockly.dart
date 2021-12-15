@@ -143,14 +143,6 @@ class _BlocklyState extends State<Blockly> {
                       },
                     );
                   },
-                ),
-                IconButton(
-                  onPressed: () {
-                    global.webController!.evaluateJavascript(source: '''
-                      showToolbox();
-                    ''');
-                  },
-                  icon: const Icon(Icons.one_k, color: Colors.white),
                 )
               ],
               automaticallyImplyLeading: false,
@@ -223,11 +215,6 @@ class _BlocklyState extends State<Blockly> {
               child: ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  ListTile(
-                    enableFeedback: true,
-                    title: const Text('change_theme_settings').tr(),
-                    onTap: () {},
-                  ),
                   ListTile(
                     enableFeedback: true,
                     title: const Text('change_language_settings').tr(),
