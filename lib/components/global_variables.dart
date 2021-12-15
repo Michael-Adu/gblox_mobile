@@ -20,6 +20,13 @@ void displayToast(String message) {
   );
 }
 
+class ToolboxClass {
+  String name;
+  bool category;
+  int index;
+  ToolboxClass(this.name, this.category, this.index);
+}
+
 ThemeData darkTheme = ThemeData(
     primaryColor: const Color(0xff0B0533),
     colorScheme: const ColorScheme(

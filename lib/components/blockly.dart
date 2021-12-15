@@ -27,14 +27,14 @@ class _ToolboxCategoryClass {
   String name;
   int index;
   bool category;
-  List<_ToolboxClass> children;
+  List<global.ToolboxClass> children;
 
   _ToolboxCategoryClass(this.name, this.index, this.category, this.children);
 }
 
 class _BlocklyState extends State<Blockly> {
   late InAppWebViewController? controller;
-  late List<List<String>> toolbox;
+  late List<List<String>> toolbox = List<List<String>>.empty(growable: true);
   var loaded = ValueNotifier<bool>(false);
   late List<_ToolboxClass> renderedToolbox =
       List<_ToolboxClass>.empty(growable: true);
@@ -42,97 +42,68 @@ class _BlocklyState extends State<Blockly> {
   late List<_ToolboxCategoryClass> renderedToolboxCategories =
       List<_ToolboxCategoryClass>.empty(growable: true);
 
+  late String categoryName;
+  late int categoryIndex;
+  late int categoryNumber = 0;
+  bool category = false;
   void initState() {
     super.initState();
     renderedToolbox.add(_ToolboxClass("None", true, 0));
   }
 
   List<_ToolboxClass> updateToolbox() {
-    //widgetToolbox.clear();
-    //renderedToolboxCategories.clear();
+    widgetToolbox.clear();
+    renderedToolboxCategories.clear();
     renderedToolbox.clear();
-    late List<_ToolboxClass> categoryChildren =
-        List<_ToolboxClass>.empty(growable: true);
-
-    late String categoryName;
-    late int categoryIndex;
-    bool category = false;
-
+    late List<global.ToolboxClass> categoryChildren =
+        List<global.ToolboxClass>.empty(growable: true);
     for (int i = 0; i < toolbox.length; i++) {
-      if (category = true) {
-        if ((toolbox[i][2] == "category")) {
-          category = false;
+      print(categoryNumber);
+      if (category) {
+        if (i - categoryNumber < categoryIndex) {
+          categoryChildren.add(global.ToolboxClass(toolbox[i][0], false, i));
+        } else {
+          categoryChildren.add(global.ToolboxClass(toolbox[i][0], false, i));
           setState(() {
             renderedToolboxCategories.add(_ToolboxCategoryClass(
                 categoryName, categoryIndex, true, categoryChildren));
           });
-          categoryChildren.clear();
-        } else {
-          setState(() {
-            renderedToolbox.add(_ToolboxClass(toolbox[i][0], false, i));
-          });
-          categoryChildren.add(_ToolboxClass(toolbox[i][0], false, i));
+          categoryChildren = List<global.ToolboxClass>.empty(growable: true);
+          category = false;
         }
       } else {
         if (toolbox[i][2] == "category") {
-          category = true;
-          categoryName = toolbox[i][0];
-          categoryIndex = i;
           setState(() {
-            renderedToolbox.add(_ToolboxClass(toolbox[i][0], true, i));
+            category = true;
+            categoryName = toolbox[i][0];
+            categoryIndex = i;
+            categoryNumber = int.parse(toolbox[i][3]);
           });
         } else {
-          category = false;
           setState(() {
-            renderedToolbox.add(_ToolboxClass(toolbox[i][0], false, i));
+            renderedToolboxCategories.add(_ToolboxCategoryClass(
+                toolbox[i][0], i, false, categoryChildren));
           });
         }
       }
     }
-    print(renderedToolboxCategories);
-
-    var normalbuttons = renderedToolbox.map((e) {
-      return (ToolboxButtons(
-        pressed: () {
-          controller!.evaluateJavascript(source: '''
-                clickOnToolbox(${e.index});
-                ''');
-          print(renderedToolboxCategories);
-        },
-        color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-            .withOpacity(1.0),
-        name: e.name,
-        category: e.category,
-      ));
-    }).toList();
     var categoryButtons = renderedToolboxCategories.map((e) {
       return ToolboxCategoryButtons(
-        color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-            .withOpacity(1.0),
-        name: e.name,
-        categoryChildren: categoryChildren,
-      );
+          color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+              .withOpacity(1.0),
+          name: e.name,
+          categoryChildren: e.children,
+          category: e.category,
+          pressed: () {
+            controller!.evaluateJavascript(source: '''
+                clickOnToolbox(${e.index});
+                ''');
+          });
     }).toList();
 
-    widgetToolbox = normalbuttons;
+    widgetToolbox = categoryButtons;
     loaded.value = true;
     return renderedToolbox;
-  }
-
-  Widget _buildListItem(BuildContext context, int index) {
-    return Container(
-        child: Container(
-            margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-            child: ToolboxButtons(
-              pressed: () {
-                controller!.evaluateJavascript(source: '''
-                clickOnToolbox(${renderedToolbox[index].index});
-                ''');
-              },
-              color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
-                  .withOpacity(1.0),
-              name: renderedToolbox[index].name,
-            )));
   }
 
   @override
@@ -172,6 +143,14 @@ class _BlocklyState extends State<Blockly> {
                       },
                     );
                   },
+                ),
+                IconButton(
+                  onPressed: () {
+                    global.webController!.evaluateJavascript(source: '''
+                      showToolbox();
+                    ''');
+                  },
+                  icon: const Icon(Icons.one_k, color: Colors.white),
                 )
               ],
               automaticallyImplyLeading: false,
@@ -301,8 +280,9 @@ class _BlocklyState extends State<Blockly> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(100)),
                             onTap: () {
-                              global.displayToast(
-                                  "This feature is not ready yet");
+                              global.displayToast(renderedToolboxCategories[4]
+                                  .children
+                                  .toString());
                             },
                             child: Container(
                                 width: 100,
@@ -354,7 +334,9 @@ class _BlocklyState extends State<Blockly> {
                           (InAppWebViewController controller, Uri? url) {
                         controller.evaluateJavascript(source: '''
                           returnToolbox();
-                        ''').then((value) {});
+                        ''').then((value) {
+                          print("This is the returned value" + value);
+                        });
                       },
                       onConsoleMessage: (InAppWebViewController controller,
                           ConsoleMessage consoleMessage) {
@@ -363,16 +345,17 @@ class _BlocklyState extends State<Blockly> {
                           var temp_toolbox = temp_toolbox_string
                               .split("toolbox:")[1]
                               .split(",");
-                          print(temp_toolbox.length);
                           late List<List<String>> toolbox_list = [];
                           for (int i = 0; i < temp_toolbox.length; i++) {
-                            if (temp_toolbox[i].contains("category")) {
+                            if (temp_toolbox[i] == "category") {
+                              var tt = temp_toolbox.sublist(i - 2, i + 2);
+                              toolbox_list.add(tt);
+                            } else if (temp_toolbox[i] == "non-category") {
                               var tt = temp_toolbox.sublist(i - 2, i + 1);
-                              print(tt);
                               toolbox_list.add(tt);
                             }
                             toolbox = toolbox_list;
-                            renderedToolbox = updateToolbox();
+                            updateToolbox();
                           }
 
                           //temp_toolbox = temp_toolbox;
