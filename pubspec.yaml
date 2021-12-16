@@ -1,5 +1,5 @@
 name: gblox_mobile
-description: A new Flutter project.
+description: Gblox Mobile
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -50,7 +50,7 @@ dependencies:
 
 flutter_native_splash:
   color: "#0B0533"
-  image: "assets/icon/logo.png"
+  image: "assets/icon/splash.png"
   android: true
   ios: true
 
@@ -71,7 +71,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path_android: "assets/icon/logo.png"
+  image_path_android: "assets/icon/splash.png"
+  image_path: "assets/icon/logo.png"
 
 # The following section is specific to Flutter.
 flutter:

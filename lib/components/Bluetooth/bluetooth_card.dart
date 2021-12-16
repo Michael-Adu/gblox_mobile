@@ -96,6 +96,8 @@ class _BluetoothCardState extends State<BluetoothCard> {
                                       children: [
                                         SvgPicture.string(
                                           _cardSVG,
+                                          width: 100,
+                                          height: 100,
                                           alignment: Alignment.center,
                                         ),
                                         Column(children: [

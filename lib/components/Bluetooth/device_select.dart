@@ -55,13 +55,11 @@ class _DiscoveryPage extends State<DiscoveryPage> {
       for (int i = 0; i < bondedDevices.length; i++) {
         if (bondedDevices[i].isConnected == true) {
           try {
-            global.activeConnection =
-                await BluetoothConnection.toAddress(bondedDevices[i].address)
-                    .catchError((onError) async {
+            await BluetoothConnection.toAddress(bondedDevices[i].address)
+                .catchError((onError) async {
               global.activeConnection.finish();
             });
           } catch (ex) {}
-          ;
         }
       }
       setState(() {
@@ -121,13 +119,13 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         // } else {
         if (r.device.name!.contains("HC")) {
           allDevices.add(_DeviceWithAvailability(
-              r.device, _DeviceAvailability.maybe, "Arudino"));
+              r.device, _DeviceAvailability.yes, "Arudino"));
         } else if (r.device.name!.contains("MELLO")) {
           allDevices.add(_DeviceWithAvailability(
-              r.device, _DeviceAvailability.maybe, "Mello"));
+              r.device, _DeviceAvailability.yes, "Mello"));
         } else if (r.device.name!.contains("MINGO")) {
           allDevices.add(_DeviceWithAvailability(
-              r.device, _DeviceAvailability.maybe, "Mingo"));
+              r.device, _DeviceAvailability.yes, "Mingo"));
         }
         //   }
         // }
@@ -306,6 +304,11 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                   ? Text('Discovering devices')
                   : Text('Discovered devices'),
               centerTitle: true,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back)),
               actions: <Widget>[
                 isDiscovering
                     ? FittedBox(
