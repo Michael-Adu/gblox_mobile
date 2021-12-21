@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link href="file:///android_asset/flutter_assets/assets/blockly/google-blockly-fc6a1be/demos/my_tests/scripts/main.js">
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +10,10 @@
   <script src="../../blockly_compressed.js"></script>
   <script src="../../blocks_compressed.js"></script>
   <script src="../../javascript_compressed.js"></script>
+  <script src="./scripts/main.js"></script>
   <script src="../../msg/js/en.js"></script>
 
   <script type="text/javascript">
-    import Actuators from "./SVGs/Actuators.png"
-    import Sensors from "./SVGs/Sensors.png"
-    import COM from "./SVGs/COM.png"
-    import LED from "./SVGs/LED.png"
-    import Default from "./SVGs/Default.png"
-    import Sound from "./SVGs/Sound.png"
-
     Blockly.Blocks['sensor_ultrasonic'] = {
       init: function () {
         this.appendDummyInput()
@@ -932,42 +927,6 @@
       var code = '...;\n';
       return code;
     };
-
-    // Blockly.JavaScript['variable_set'] = function(block) {
-    //   var text_varname = block.getFieldValue('varname');
-    //   var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
-    //   // TODO: Assemble JavaScript into code variable.
-    //   var code = '...;\n';
-    //   code = `${text_varname} = ${value_value};\n`
-    //   return code;
-    // };
-
-    // Blockly.JavaScript['variable_get'] = function(block) {
-    //   var text_varname = block.getFieldValue('varname');
-    //   // TODO: Assemble JavaScript into code variable.
-    //   var code = '...';
-    //   code = `${text_varname}`
-    //   // TODO: Change ORDER_NONE to the correct strength.
-    //   return [code, Blockly.JavaScript.ORDER_NONE];
-    // };
-
-    // Blockly.JavaScript['variable_create_int'] = function(block) {
-    //   var text_varname = block.getFieldValue('varname');
-    //   // TODO: Assemble JavaScript into code variable.
-    //   var code = '...;\n';
-    //   code = `int ${text_varname};\n`
-    //   return code;
-    // };
-
-    // Blockly.JavaScript['variable_create_float'] = function(block) {
-    //   var text_varname = block.getFieldValue('varname');
-    //   // TODO: Assemble JavaScript into code variable.
-    //   var code = '...;\n';
-    //   code = `float ${text_varname};\n`
-    //   return code;
-    // };
-
-    export { peripheral_PreDeclarations, peripheral_BulkFunctions, peripheral_SetupCode, IR_Loop, IR_Statements, US_Trigger, US_Echo, clearvars }
   </script>
 
 
@@ -1562,6 +1521,7 @@
     <category name="Loops">
       <block type="for_loop">
       </block>
+      <block type="en"></block>
       <block type="controls_whileUntil">
         <field name="MODE">WHILE</field>
       </block>
@@ -1807,56 +1767,6 @@
       "toolboxBackgroundColour": "#0B0533",
       "toolboxForegroundColour": "#FFFFFF"
     }
-
-    var toolboxVisible = false;
-    function clickOnToolbox(item) {
-      Blockly.mainWorkspace.toolbox_.selectItemByPosition(item);
-    }
-
-    function returnToolbox() {
-      var toolbox_temp = [];
-      for (var i = 0; i < (Blockly.mainWorkspace.toolbox_.getToolboxItems()).length; i++) {
-        var items = Blockly.mainWorkspace.toolbox_.getToolboxItems();
-        var id = items[i].id_
-        var name = items[i].name_
-        if (items[i].subcategoriesDiv_ === undefined) {
-          toolbox_temp.push([name, id, "non-category"]);
-        }
-        else {
-          var category = Blockly.mainWorkspace.toolbox_.getToolboxItems()[i];
-          category.setExpanded(true)
-          var children_count = (category.getChildToolboxItems()).length
-          toolbox_temp.push([name, id, "category", children_count]);
-        }
-      }
-      console.log("toolbox:" + toolbox_temp);
-      window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
-        window.flutter_inappwebview.callHandler('sendToFlutter', [1, 2])
-      });
-      return toolbox_temp;
-    
-    }
-
-    function showToolbox(){
-      if (toolboxVisible){
-        Blockly.mainWorkspace.toolbox_.setVisible(false)
-      }
-      else{
-        Blockly.mainWorkspace.toolbox_.setVisible(true)
-      }
-    }
-
-    function updateCode() {
-      var code = Blockly.JavaScript.workspaceToCode(Blockly.mainWorkspace);
-      window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
-        console.log(event)
-        window.flutter_inappwebview.callHandler('sendToFlutter', code).then(function (result) {
-          // get result from Flutter side. It will be the number 64.
-          console.log(result);
-        });
-      });
-    }
-
     var dark_theme = Blockly.Theme.defineTheme('dark_theme', {
       'blockStyles': block_styles,
       'fontStyle': font_styles,
@@ -1881,12 +1791,64 @@
         trashcan: false,
         theme: dark_theme
       });
-    Workspace.toolbox_.setVisible(false);
+    Workspace.toolbox_.setVisible(true);
     Workspace.addChangeListener(updateCode);
+    
+    var toolboxVisible = false;
+    function clickOnToolbox(item) {
+      console.log(item);
+      document.getElementById(item).click();
+    }
+
+    function returnToolbox() {
+      var toolbox_temp = [];
+      for (var i = 0; i < (Blockly.mainWorkspace.toolbox_.getToolboxItems()).length; i++) {
+        var items = Blockly.mainWorkspace.toolbox_.getToolboxItems();
+        var id = items[i].id_
+        var name = items[i].name_
+        if (items[i].subcategoriesDiv_ === undefined) {
+          toolbox_temp.push([name, id, "non-category"]);
+        }
+        else {
+          var category = Blockly.mainWorkspace.toolbox_.getToolboxItems()[i];
+          category.setExpanded(true)
+          var children_count = (category.getChildToolboxItems()).length
+          toolbox_temp.push([name, id, "category", children_count]);
+        }
+      }
+      console.log("toolbox:" + toolbox_temp);
+      window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+        window.flutter_inappwebview.callHandler('sendToFlutter', [1, 2])
+      });
+      return toolbox_temp;
+
+    }
+
+    function showToolbox() {
+      if (toolboxVisible) {
+        Blockly.mainWorkspace.toolbox_.setVisible(false)
+      }
+      else {
+        Blockly.mainWorkspace.toolbox_.setVisible(true)
+      }
+    }
+
+    function updateCode() {
+      var code = Blockly.JavaScript.workspaceToCode(Workspace);
+      console.log(code);
+      window.addEventListener("flutterInAppWebViewPlatformReady", function (event) {
+        console.log(event)
+        window.flutter_inappwebview.callHandler('sendToFlutter', code).then(function (result) {
+          // get result from Flutter side. It will be the number 64.
+          console.log(result);
+        });
+      });
+    }
+
     Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.Xml.textToDom(`<xml xmlns="https://developers.google.com/blockly/xml"><block type="m_mainloop" x="430" y="150"></block></xml>`), Workspace)
 
   </script>
-  <script src="scripts/main.js"></script>
+
 </body>
 
 </html>

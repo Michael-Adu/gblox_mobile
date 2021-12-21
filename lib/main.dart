@@ -6,7 +6,6 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 import './components/global_variables.dart' as global;
 import './components/svgs/svgs.dart' as svgs;
 import './components/Modular_Widgets/Cards/cards.dart';
-import './components/recent_projects.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'components/Bluetooth/device_select.dart';
 import './components/Menus/ModeSelector/mode_select.dart';

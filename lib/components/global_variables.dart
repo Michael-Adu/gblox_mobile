@@ -20,11 +20,26 @@ void displayToast(String message) {
   );
 }
 
+double device_width = MediaQuery.of(navigatorKey.currentContext!).size.width;
+double device_height = MediaQuery.of(navigatorKey.currentContext!).size.height;
+
 class ToolboxClass {
   String name;
   bool category;
   int index;
-  ToolboxClass(this.name, this.category, this.index);
+  String click;
+  ToolboxClass(this.name, this.category, this.index, this.click);
+}
+
+class CardDetails {
+  String svg;
+  String title;
+  Color textBackgroundColor;
+  Function? pressed;
+  bool compressSVG;
+
+  CardDetails(this.svg, this.title, this.textBackgroundColor, this.pressed,
+      this.compressSVG);
 }
 
 ThemeData darkTheme = ThemeData(

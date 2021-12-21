@@ -52,12 +52,34 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     FlutterBluetoothSerial.instance
         .getBondedDevices()
         .then((List<BluetoothDevice> bondedDevices) async {
+      var device;
       for (int i = 0; i < bondedDevices.length; i++) {
         if (bondedDevices[i].isConnected == true) {
+          var deviceType;
+          device = bondedDevices[i];
+          if (device.name!.contains("HC")) {
+            deviceType = "HC";
+          } else if (device.name!.contains("MELLO")) {
+            deviceType = "Mello";
+          } else if (device.name!.contains("MINGO")) {
+            deviceType = "Mingo";
+          }
           try {
             await BluetoothConnection.toAddress(bondedDevices[i].address)
                 .catchError((onError) async {
               global.activeConnection.finish();
+              setState(() {
+                allDevices[i] = _DeviceWithAvailability(
+                    BluetoothDevice(
+                      name: bondedDevices[i].name ?? '',
+                      address: bondedDevices[i].address,
+                      type: bondedDevices[i].type,
+                      isConnected: false,
+                      bondState: BluetoothBondState.bonded,
+                    ),
+                    _DeviceAvailability.no,
+                    deviceType);
+              });
             });
           } catch (ex) {}
         }
@@ -81,28 +103,62 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   void _restartDiscovery() {
     setState(() {
+      allDevices.clear();
       results.clear();
       isDiscovering = true;
     });
-
-    _startDiscovery();
-
     FlutterBluetoothSerial.instance
         .getBondedDevices()
-        .then((List<BluetoothDevice> bondedDevices) {
+        .then((List<BluetoothDevice> bondedDevices) async {
+      var device;
+      for (int i = 0; i < bondedDevices.length; i++) {
+        if (bondedDevices[i].isConnected == true) {
+          var deviceType;
+          device = bondedDevices[i];
+          if (device.name!.contains("HC")) {
+            deviceType = "HC";
+          } else if (device.name!.contains("MELLO")) {
+            deviceType = "Mello";
+          } else if (device.name!.contains("MINGO")) {
+            deviceType = "Mingo";
+          }
+          try {
+            await BluetoothConnection.toAddress(bondedDevices[i].address)
+                .catchError((onError) async {
+              global.activeConnection.finish();
+              setState(() {
+                allDevices[i] = _DeviceWithAvailability(
+                    BluetoothDevice(
+                      name: bondedDevices[i].name ?? '',
+                      address: bondedDevices[i].address,
+                      type: bondedDevices[i].type,
+                      isConnected: false,
+                      bondState: BluetoothBondState.bonded,
+                    ),
+                    _DeviceAvailability.no,
+                    deviceType);
+              });
+            });
+          } catch (ex) {}
+        }
+      }
       setState(() {
-        allDevices = bondedDevices
-            .map(
-              (device) => _DeviceWithAvailability(
-                  device,
-                  widget.checkAvailable
-                      ? _DeviceAvailability.maybe
-                      : _DeviceAvailability.yes,
-                  device.name!),
-            )
-            .toList();
+        for (int i = 0; i < bondedDevices.length; i++) {
+          if (bondedDevices[i].name!.contains("HC")) {
+            allDevices.add(_DeviceWithAvailability(
+                bondedDevices[i], _DeviceAvailability.maybe, "Arduino"));
+          } else if (bondedDevices[i].name!.contains("MELLO")) {
+            allDevices.add(_DeviceWithAvailability(
+                bondedDevices[i], _DeviceAvailability.maybe, "Mello"));
+          } else if (bondedDevices[i].name!.contains("MINGO")) {
+            allDevices.add(_DeviceWithAvailability(
+                bondedDevices[i], _DeviceAvailability.maybe, "Mingo"));
+          }
+        }
       });
     });
+
+    _startDiscovery();
   }
 
   void _startDiscovery() {
@@ -115,19 +171,35 @@ class _DiscoveryPage extends State<DiscoveryPage> {
           results[existingIndex] = r;
         else
           results.add(r);
-        // if (allDevices.any((e) => e.device.address == r.device.address)) {
-        // } else {
-        if (r.device.name!.contains("HC")) {
-          allDevices.add(_DeviceWithAvailability(
-              r.device, _DeviceAvailability.yes, "Arudino"));
-        } else if (r.device.name!.contains("MELLO")) {
-          allDevices.add(_DeviceWithAvailability(
-              r.device, _DeviceAvailability.yes, "Mello"));
-        } else if (r.device.name!.contains("MINGO")) {
-          allDevices.add(_DeviceWithAvailability(
-              r.device, _DeviceAvailability.yes, "Mingo"));
+        if (allDevices.any((e) => e.device == r.device)) {
+          var deviceName;
+          if (r.device.name!.contains("HC")) {
+            deviceName = "HC";
+          } else if (r.device.name!.contains("MELLO")) {
+            deviceName = "Mello";
+          } else if (r.device.name!.contains("MINGO")) {
+            deviceName = "Mingo";
+          } else {
+            deviceName = "Arduino";
+          }
+          setState(() {
+            allDevices[allDevices
+                    .indexWhere((element) => element.device == r.device)] =
+                _DeviceWithAvailability(
+                    r.device, _DeviceAvailability.yes, deviceName);
+          });
+        } else {
+          if (r.device.name!.contains("HC")) {
+            allDevices.add(_DeviceWithAvailability(
+                r.device, _DeviceAvailability.yes, "Arudino"));
+          } else if (r.device.name!.contains("MELLO")) {
+            allDevices.add(_DeviceWithAvailability(
+                r.device, _DeviceAvailability.yes, "Mello"));
+          } else if (r.device.name!.contains("MINGO")) {
+            allDevices.add(_DeviceWithAvailability(
+                r.device, _DeviceAvailability.yes, "Mingo"));
+          }
         }
-        //   }
         // }
       });
     });
@@ -159,6 +231,18 @@ class _DiscoveryPage extends State<DiscoveryPage> {
     result = allDevices[index];
     final device = result.device;
     final address = device.address;
+    late bool availability;
+    switch (result.availability) {
+      case _DeviceAvailability.no:
+        availability = false;
+        break;
+      case _DeviceAvailability.yes:
+        availability = true;
+        break;
+      case _DeviceAvailability.maybe:
+        availability = false;
+        break;
+    }
     return Container(
         width: _cardSize,
         height: _cardSize,
@@ -167,36 +251,32 @@ class _DiscoveryPage extends State<DiscoveryPage> {
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
             child: BluetoothCard(
               device: device,
-              enabled: result.availability == _DeviceAvailability.maybe,
+              enabled: availability,
               type: result.type,
               onTap: () async {
                 bool bonded = false;
                 try {
                   if (device.isBonded) {
-                    if (device.isConnected) {
-                      global.displayToast(
-                          "This device is already paired and connected!");
-                    } else {
-                      global.activeConnection =
-                          await BluetoothConnection.toAddress(address)
-                              .whenComplete(() => setState(() {
-                                    allDevices[allDevices.indexOf(result)] =
-                                        _DeviceWithAvailability(
-                                            BluetoothDevice(
-                                              name: device.name ?? '',
-                                              address: address,
-                                              type: device.type,
-                                              bondState: bonded
-                                                  ? BluetoothBondState.bonded
-                                                  : BluetoothBondState.none,
-                                            ),
-                                            result.availability,
-                                            result.type);
-                                    print(bonded
-                                        ? BluetoothBondState.bonded
-                                        : BluetoothBondState.none);
-                                  }));
-                    }
+                    global.activeConnection =
+                        await BluetoothConnection.toAddress(address)
+                            .whenComplete(() => setState(() {
+                                  allDevices[allDevices.indexOf(result)] =
+                                      _DeviceWithAvailability(
+                                          BluetoothDevice(
+                                            name: device.name ?? '',
+                                            address: address,
+                                            type: device.type,
+                                            isConnected: true,
+                                            bondState: bonded
+                                                ? BluetoothBondState.bonded
+                                                : BluetoothBondState.none,
+                                          ),
+                                          result.availability,
+                                          result.type);
+                                  print(bonded
+                                      ? BluetoothBondState.bonded
+                                      : BluetoothBondState.none);
+                                }));
                   } else {
                     bonded = (await FlutterBluetoothSerial.instance
                         .bondDeviceAtAddress(address))!;
@@ -209,9 +289,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                                             name: device.name ?? '',
                                             address: address,
                                             type: device.type,
-                                            bondState: bonded
-                                                ? BluetoothBondState.bonded
-                                                : BluetoothBondState.none,
+                                            bondState:
+                                                BluetoothBondState.bonded,
                                           ),
                                           result.availability,
                                           result.type);

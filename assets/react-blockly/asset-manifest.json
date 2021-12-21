@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "./static/css/main.8664af89.chunk.css",
+    "main.js": "./static/js/main.18252d25.chunk.js",
+    "main.css.map": "./static/css/main.8664af89.chunk.css.map",
+    "main.js.map": "./static/js/main.18252d25.chunk.js.map",
+    "runtime~main.js": "./static/js/runtime~main.cc94a53f.js",
+    "runtime~main.js.map": "./static/js/runtime~main.cc94a53f.js.map",
+    "vendors~main.js": "./static/js/vendors~main.d98b685c.chunk.js",
+    "vendors~main.js.map": "./static/js/vendors~main.d98b685c.chunk.js.map",
+    "static/js/3.821e963f.chunk.js": "./static/js/3.821e963f.chunk.js",
+    "static/js/3.821e963f.chunk.js.map": "./static/js/3.821e963f.chunk.js.map",
+    "index.html": "./index.html",
+    "static/media/VariableSelector.scss": "./static/media/Baloo2-Regular.6208e631.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime~main.cc94a53f.js",
+    "static/js/vendors~main.d98b685c.chunk.js",
+    "static/css/main.8664af89.chunk.css",
+    "static/js/main.18252d25.chunk.js"
+  ]
+}

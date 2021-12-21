@@ -76,11 +76,10 @@ class _GBloxCardsState extends State<GBloxCards> {
                             children: [
                               Container(
                                   width: 100,
-                                  height: 150,
-                                  alignment: Alignment.center,
+                                  height: widget.compressSVG ? 150 : 150,
                                   clipBehavior: Clip.none,
                                   margin: widget.compressSVG
-                                      ? const EdgeInsets.fromLTRB(0, 40, 0, 0)
+                                      ? const EdgeInsets.fromLTRB(0, 20, 0, 0)
                                       : const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                   padding: widget.compressSVG
                                       ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
@@ -95,7 +94,10 @@ class _GBloxCardsState extends State<GBloxCards> {
                                           ? BoxFit.fitHeight
                                           : BoxFit.fitWidth)),
                               Container(
-                                  clipBehavior: Clip.none,
+                                  clipBehavior: Clip.hardEdge,
+                                  margin: widget.compressSVG
+                                      ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
+                                      : const EdgeInsets.fromLTRB(0, 0, 0, 0),
                                   width: 500,
                                   alignment: Alignment.center,
                                   height: 42,

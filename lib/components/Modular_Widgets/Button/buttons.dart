@@ -13,12 +13,14 @@ class GBloxButtons extends StatefulWidget {
   @required
   late final Function? pressed;
   late final int buttonColor;
+  late final String buttonName;
   GBloxButtons(
       {Key? key,
       this.buttonType = "controller_square",
       this.icon = GBloxCustomSVGs.rotateMovement,
       this.pressed,
-      this.buttonColor = 0xffDB8000});
+      this.buttonColor = 0xffDB8000,
+      this.buttonName = "New"});
   @override
   State<StatefulWidget> createState() {
     return _GBloxButtons();
@@ -57,113 +59,152 @@ class _GBloxButtons extends State<GBloxButtons> {
   Widget build(BuildContext context) {
     switch (widget.buttonType) {
       case "controller_square":
-        return (InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(15)),
-          child: AnimatedContainer(
-            width: 105,
-            height: 55,
-            duration: const Duration(seconds: 1),
-            padding: const EdgeInsets.all(5),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 10),
-              child: Icon(widget.icon,
-                  color: _toggledState
-                      ? _toggledContainerColor
-                      : _untoggledContainerColor,
-                  size: 25),
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 2, color: const Color(0xffE6DA2F)),
+        return (AnimatedContainer(
+            duration: const Duration(milliseconds: 10),
+            child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              child: AnimatedContainer(
+                width: 105,
+                height: 55,
+                duration: const Duration(seconds: 1),
+                padding: const EdgeInsets.all(5),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 10),
+                  child: Icon(widget.icon,
+                      color: _toggledState
+                          ? _toggledContainerColor
+                          : _untoggledContainerColor,
+                      size: 25),
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      border:
+                          Border.all(width: 2, color: const Color(0xffE6DA2F)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: _toggledState
+                                ? _untoggledContainerColor
+                                : _toggledContainerColor,
+                            blurRadius: 2,
+                            spreadRadius: 0)
+                      ]),
+                ),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
                   boxShadow: [
                     BoxShadow(
-                        color: _toggledState
-                            ? _untoggledContainerColor
-                            : _toggledContainerColor,
-                        blurRadius: 2,
-                        spreadRadius: 0)
-                  ]),
-            ),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-              boxShadow: [
-                BoxShadow(
-                    color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 2)
-              ],
-            ),
-          ),
-          onTap: () {
-            widget.pressed!();
-            setState(() {
-              _toggledState = false;
-            });
-          },
-          onTapDown: (TapDownDetails) {
-            setState(() {
-              _toggledState = true;
-            });
-          },
-          onTapCancel: () {
-            setState(() {
-              _toggledState = false;
-            });
-          },
-        ));
+                        color: Color(0x506E6EAC),
+                        blurRadius: 1,
+                        spreadRadius: 2)
+                  ],
+                ),
+              ),
+              onTap: () {
+                widget.pressed!();
+                setState(() {
+                  _toggledState = false;
+                });
+              },
+              onTapDown: (TapDownDetails) {
+                setState(() {
+                  _toggledState = true;
+                });
+              },
+              onTapCancel: () {
+                setState(() {
+                  _toggledState = false;
+                });
+              },
+            )));
         break;
       case "controller_circle":
-        return (InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(60)),
-          child: Container(
-            child: Container(
-                height: 60,
-                width: 60,
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: gradient)),
-                child: AnimatedContainer(
-                  height: 60,
-                  width: 60,
-                  child: Icon(widget.icon, color: Colors.white),
-                  duration: const Duration(milliseconds: 10),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors:
-                              _toggledState ? _toggledColor : _untoggledColor)),
-                )),
-            decoration: const BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                    color: Color(0x506E6EAC), blurRadius: 1, spreadRadius: 0)
-              ],
-              shape: BoxShape.circle,
-            ),
+        return (AnimatedContainer(
+            duration: const Duration(milliseconds: 10),
+            child: InkWell(
+              borderRadius: const BorderRadius.all(Radius.circular(60)),
+              child: Container(
+                child: Container(
+                    height: 60,
+                    width: 60,
+                    padding: const EdgeInsets.all(3),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: gradient)),
+                    child: AnimatedContainer(
+                      height: 60,
+                      width: 60,
+                      child: Icon(widget.icon, color: Colors.white),
+                      duration: const Duration(milliseconds: 10),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter,
+                              colors: _toggledState
+                                  ? _toggledColor
+                                  : _untoggledColor)),
+                    )),
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color: Color(0x506E6EAC),
+                        blurRadius: 1,
+                        spreadRadius: 0)
+                  ],
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(5),
+              ),
+              radius: 0,
+              onTap: () {
+                widget.pressed!();
+                setState(() {
+                  _toggledState = false;
+                });
+              },
+              onTapDown: (TapDownDetails) async {
+                setState(() {
+                  _toggledState = true;
+                });
+              },
+              onTapCancel: () {
+                setState(() {
+                  _toggledState = false;
+                });
+              },
+            )));
+        break;
+      case "menuButtons":
+        return (AnimatedContainer(
+            duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-          ),
-          radius: 0,
-          onTap: () {
-            widget.pressed!();
-            setState(() {
-              _toggledState = false;
-            });
-          },
-          onTapDown: (TapDownDetails) async {
-            setState(() {
-              _toggledState = true;
-            });
-          },
-          onTapCancel: () {
-            setState(() {
-              _toggledState = false;
-            });
-          },
-        ));
+            width: 100,
+            height: 35,
+            color: _toggledState ? Colors.blue : Colors.transparent,
+            child: InkWell(
+                onTap: () {
+                  widget.pressed!();
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                onTapDown: (TapDownDetails) {
+                  setState(() {
+                    _toggledState = true;
+                  });
+                },
+                onTapCancel: () {
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                child: Container(
+                    padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+                    child: Text(widget.buttonName,
+                        style: const TextStyle(color: Colors.white))))));
         break;
       default:
         return (InkWell(

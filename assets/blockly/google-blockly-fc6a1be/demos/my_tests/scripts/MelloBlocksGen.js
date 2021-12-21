@@ -21,14 +21,6 @@ const RGB_R = 6;
 const RGB_G = 4;
 const RGB_B = 5;
 
-/*
-const LeftMotorCW =  0;
-const LeftMotorACW = 135;
-const RightMotorCW = 0;
-const RightMotorACW = 135;
-*/
-
-
 const LeftMotorCW = 77;
 const LeftMotorACW = 101;
 const RightMotorCW = 78;

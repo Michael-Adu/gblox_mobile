@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+import 'dart:math' as math;
 import '../../global_variables.dart' as global;
 import '../../svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'toolbox_buttons.dart';
-import 'dart:math' as math;
 
 class ToolboxCategoryButtons extends StatefulWidget {
   @required
@@ -88,77 +89,79 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
   @override
   Widget build(BuildContext context) {
     return widget.category
-        ? ExpansionTile(
-            expandedAlignment: Alignment.centerLeft,
-            childrenPadding: EdgeInsets.all(0),
-            onExpansionChanged: (state) {
-              setState(() {
-                opened = state;
-              });
-            },
-            tilePadding: EdgeInsets.all(0),
-            textColor: Colors.white,
-            trailing: opened
-                ? const Icon(
-                    Icons.keyboard_arrow_up,
-                    color: Colors.white,
-                  )
-                : const Icon(
-                    Icons.keyboard_arrow_down,
-                    color: Colors.white,
-                  ),
-            title: Row(children: [
-              Container(width: 5, height: 35, color: widget.color),
-              const SizedBox(width: 10),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  width: 20,
-                  child: toolboxIcon),
-              Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(widget.name,
-                      style: const TextStyle(color: Colors.white)))
-            ]),
-            children: widget.categoryChildren!
-                .map((e) => InkWell(
-                    onTap: () {
-                      global.webController!.evaluateJavascript(source: '''
-                  clickOnToolbox(${e.index});
+        ? Container(
+            child: ConfigurableExpansionTile(
+                animatedWidgetFollowingHeader: Container(
+                    alignment: Alignment.centerLeft,
+                    child: const Icon(Icons.arrow_downward,
+                        color: Colors.white, size: 10)),
+                onExpansionChanged: (state) {
+                  setState(() {
+                    opened = state;
+                  });
+                },
+                borderColorEnd: widget.color,
+                animatedWidgetPrecedingHeader:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Container(width: 5, height: 35, color: widget.color),
+                  const SizedBox(width: 10),
+                  Container(
+                      alignment: Alignment.centerLeft,
+                      width: 20,
+                      child: toolboxIcon),
+                ]),
+                header: Container(
+                    width: 120,
+                    alignment: Alignment.centerLeft,
+                    child: Text(widget.name,
+                        style: const TextStyle(color: Colors.white))),
+                headerExpanded: Container(
+                    width: 120,
+                    alignment: Alignment.center,
+                    child: Text(widget.name,
+                        style: const TextStyle(color: Colors.white))),
+                children: widget.categoryChildren!
+                    .map((e) => InkWell(
+                        onTap: () {
+                          global.webController!.evaluateJavascript(source: '''
+                  document.getElementById("${e.click}").click();
                   ''');
-                      setState(() {
-                        pressed = false;
-                      });
-                    },
-                    onTapDown: (TapDownDetails) {
-                      setState(() {
-                        pressed = true;
-                      });
-                    },
-                    onTapCancel: () {
-                      setState(() {
-                        pressed = false;
-                      });
-                    },
-                    child: AnimatedContainer(
-                      duration: Duration(milliseconds: 10),
-                      color: pressed ? widget.color : Colors.transparent,
-                      child: Row(
-                        children: [
-                          Container(width: 5, height: 35, color: widget.color),
-                          const SizedBox(width: 10),
-                          Container(
-                              alignment: Alignment.centerLeft,
-                              width: 20,
-                              child: toolboxIcon),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text(e.name,
-                                style: const TextStyle(color: Colors.white)),
-                          )
-                        ],
-                      ),
-                    )))
-                .toList())
+                          setState(() {
+                            pressed = false;
+                          });
+                        },
+                        onTapDown: (TapDownDetails) {
+                          setState(() {
+                            pressed = true;
+                          });
+                        },
+                        onTapCancel: () {
+                          setState(() {
+                            pressed = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 10),
+                          color: pressed ? widget.color : Colors.transparent,
+                          child: Row(
+                            children: [
+                              Container(
+                                  width: 5, height: 35, color: widget.color),
+                              const SizedBox(width: 10),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  width: 20,
+                                  child: toolboxIcon),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(e.name,
+                                    style:
+                                        const TextStyle(color: Colors.white)),
+                              )
+                            ],
+                          ),
+                        )))
+                    .toList()))
         : InkWell(
             onTap: () {
               widget.pressed!();

@@ -105,7 +105,7 @@ class _BluetoothCardState extends State<BluetoothCard> {
                                               ? const Icon(Icons.import_export,
                                                   color: Colors.green)
                                               : Container(),
-                                          widget.device!.isBonded
+                                          widget.enabled!
                                               ? const Icon(Icons.link,
                                                   color: Colors.white)
                                               : Container(),
