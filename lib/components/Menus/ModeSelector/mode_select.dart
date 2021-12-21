@@ -5,7 +5,7 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
-import '../../blockly.dart';
+import '../../Blockly/blockly.dart';
 import '../PlaySelector/play_select.dart';
 
 class ModeSelector extends StatefulWidget {
