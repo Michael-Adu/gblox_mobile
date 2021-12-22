@@ -6,6 +6,7 @@ import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
 import '../../Blockly/blockly.dart';
+import '../../Builds/build.dart';
 import '../PlaySelector/play_select.dart';
 
 class ModeSelector extends StatefulWidget {
@@ -44,7 +45,10 @@ class _ModeSelector extends State<ModeSelector> {
       );
     }));
     modeCards.add(_CardDetails(svgs.buildMode, "build_mode", Colors.orange, () {
-      global.displayToast("Build Mode is not ready yet");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const GBloxBuild()),
+      );
     }));
   }
 

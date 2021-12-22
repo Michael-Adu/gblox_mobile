@@ -1,0 +1,53 @@
+#App {
+    display: block;
+    grid-template-rows: 0fr;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--primary-color);
+    #body-frame {
+        overflow-y: hidden;
+        height: 30px;
+    }
+    #loading-screen {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc(100% - 30px);
+        z-index: 1001;
+        object-fit: fill;
+        transition: all 2s;
+    }
+    #body-container {
+    }
+
+    #comp-details {
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transform: translateX(-50%);
+
+        p{
+            text-decoration: none;
+            color: var(--border-color);
+            cursor: default;
+            margin: 0;
+        }
+        a {
+            text-decoration: none;
+            color: var(--title-text-color);
+            cursor: pointer;
+        }
+    }
+
+    .blocklyFlyoutBackground {
+        text {
+            user-select: none;
+        }
+    }
+}

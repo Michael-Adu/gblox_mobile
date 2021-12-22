@@ -1,0 +1,399 @@
+@keyframes bounce {
+    0% {
+        transform: scale(0);
+    }
+    60% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-extra {
+    0% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes bounce-rotate {
+    from {
+        transform: rotate(-13deg);
+    }
+    to {
+        transform: rotate(-1deg);
+    }
+}
+@keyframes rotate-right {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes reveal {
+    from {
+        clip: rect(0px, 0px, 200px, 0px);
+    }
+    to {
+        clip: rect(0px, 300px, 200px, 0px);
+    }
+}
+
+#Splash-Background {
+    position: absolute;
+    z-index: 0;
+    #background-svg {
+        height: 100%;
+        width: 85vw;
+        transition: width 0.75s cubic-bezier(0.79, 2.38, 0.44, 0.67), height 0.75s cubic-bezier(0.79, 2.38, 0.44, 0.67);
+        
+        #Path_366{
+            fill: var(--primary-color);
+            stroke: var(--border-color);
+        }
+    }
+    .Splash-Items {
+        display: grid;
+        z-index: 1;
+        position: absolute;
+        height: 100%;
+        // min-width: 100vw;
+        left: 50%;
+        transform: translateX(-50%);
+        grid-template-areas:
+            "anim"
+            "title"
+            "contents"
+            "button";
+        grid-template-rows: fit-content(10%) fit-content(10%) fit-content(10%) 1fr;
+        grid-template-columns: 1fr;
+        font-family: "Baloo2-Regular";
+        bottom: 0;
+
+
+        .Animation {
+            grid-area: anim;
+            display: inline-flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 8vh;
+            transition: transform 2s, margin-top 1s;
+            #Leaves {
+                transform-origin: bottom;
+                position: absolute;
+                margin-left: 25%;
+                margin-top: 5%;
+                #Leaf-Right {
+                    position: absolute;
+                    transform: scale(0);
+                    margin-left: 80.9px;
+                    margin-top: 65px;
+                    animation: bounce forwards 1.5s;
+                    animation-delay: 0.2s;
+                    #Path_405{
+                        fill: var(--progress-empty-bar-color)
+                    }
+                }
+                #Leaf-Middle {
+                    position: absolute;
+                    transform: scale(0);
+                    margin-left: 70.4px;
+                    animation: bounce forwards 1.5s;
+                    #Path_405{
+                        fill: var(--progress-empty-bar-color)
+                    }
+                }
+                #Leaf-Pot {
+                    position: absolute;
+                    transform: scale(0);
+                    margin-left: 105px;
+                    margin-top: 310px;
+                    animation: bounce forwards 1.5s;
+
+                }
+                #Leaf-Left {
+                    position: absolute;
+                    transform: scale(0);
+                    margin-top: 57px;
+                    margin-left: -40px;
+                    animation: bounce forwards 1.5s;
+                    animation-delay: 0.4s;
+                    #Path_405{
+                        fill: var(--progress-empty-bar-color)
+                    }
+                }
+                #Leaf-Small {
+                    position: absolute;
+                    transform: scale(0);
+                    margin-top: 160px;
+                    margin-left: 100.4px;
+                    animation: bounce forwards 1.5s;
+                    animation-delay: 0.4s;
+                    #Path_405{
+                        fill: var(--progress-empty-bar-color)
+                    }
+                }
+            }
+            #Gear {
+                position: absolute;
+                margin-top: 45px;
+                margin-left: -515px;
+                transform: scale(0);
+                animation: bounce forwards 0.7s;
+                animation-delay: 0.3;
+                svg {
+                    animation: rotate-right infinite linear 10s;
+                    animation-delay: 0.6s;
+                    #Path_276{
+                        fill: var(--progress-empty-bar-color);
+                    }
+                }
+            }
+            #LaptopDisplay {
+                animation: bounce forwards 0.7s;
+                #Path_80{
+                    fill: var(--primary-color);
+                }
+                #Rectangle_157{
+                    fill: var(--primary-color);
+                }
+                #Ellipse_49{
+                    fill: var(--progress-empty-bar-color);
+                }
+                #Path_355{
+                    fill: var(--primary-color);
+                }
+                #Rectangle_159{
+                    fill: var(--primary-color);
+                }
+            }
+            #Line {
+                position: absolute;
+                margin-top: 45.8px;
+                margin-left: 0px;
+                clip: rect(0px, 100px, 200px, 0px);
+                animation: reveal forwards 3s;
+            }
+            #Blocks {
+                position: absolute;
+                margin-left: -139.5px;
+                margin-top: 123.3px;
+                transform: scale(0);
+                animation: bounce forwards 1.2s;
+                animation-delay: 0.3;
+            }
+            #MingoBlocks {
+                position: absolute;
+                margin-top: 306.9px;
+                margin-left: 160px;
+                transform: scale(0);
+                transform-origin: bottom right;
+                animation: bounce forwards 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+                animation-delay: 0.6s;
+                svg {
+                    transform-origin: bottom right;
+                    transform: rotate(-13deg);
+                    animation: bounce-rotate 1.5s forwards ease-in-out;
+                    animation-delay: 0.6s;
+                }
+            }
+            #Mingo {
+                position: absolute;
+                margin-top: 233.8px;
+                margin-left: 530.4px;
+                transform: scale(0);
+                animation: bounce forwards 1.2s;
+                animation-delay: 0.2s;
+                svg {
+                    transform-origin: bottom right;
+                    transform: rotate(-13deg);
+                    animation: bounce-rotate 0.5s forwards ease-in-out;
+                    animation-delay: 0.5s;
+                }
+            }
+        }
+        .Splash-Title {
+            grid-area: title;
+            justify-content: center;
+            z-index: 1;
+            user-select: none;
+            text-align: center;
+            color: var(--title-text-color);
+            margin-top: 3vh;
+            pointer-events: none;
+            transition: transform 2s, margin-top 1s;
+            font-size: 61pt;
+        }
+        .Splash-Content {
+            // grid-area: contents;
+            justify-content: center;
+            user-select: none;
+            z-index: 1;
+            pointer-events: all;
+            text-align: center;
+            color: var(--text-color);
+            white-space: pre-wrap;
+            font-size: 21pt;
+            transition: transform 2s, margin-top 1s;
+            p {
+                margin: 0;
+                margin-bottom: -10px;
+                a{
+                    text-decoration: none;
+                }
+            }
+        }
+        .Splash-checkbox {
+            background-color: transparent;
+            grid-area: splash-check;
+            color: var(--text-color);
+            font-size: 21pt;
+            font-family: "Baloo2-Regular";
+        }
+        .Start-Button {
+            grid-area: button;
+            position: absolute;
+            display: grid;
+            bottom: 8vh;
+            //margin-top: 4%;
+            grid-template-rows: 0;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30vw;
+            grid-template-areas: "check getstart";
+            transition: transform 2s, margin-top 1s;
+            .Splash-checkbox {
+                grid-area: check;
+                display: inline-flex;
+                margin-top: 3%;
+                margin-left: -5vw;
+                white-space: nowrap;
+                input[type="checkbox"] {
+                    position: relative;
+                    cursor: pointer;
+                    margin-top: 3.5%;
+                }
+                input[type="checkbox"]:before {
+                    content: "";
+                    display: flex;
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    left: 0;
+                    background-color: var(--primary-color);
+                    border: 2px white solid;
+                }
+                input[type="checkbox"]:checked:before {
+                    display: block;
+                    position: absolute;
+                    width: 20px;
+                    height: 20px;
+                    top: 0;
+                    left: 0;
+                    background-color: var(--secondary-color);                    
+                }
+                input[type="checkbox"]:checked:after {
+                    position: absolute;
+                    display: block;
+                    width: 4px;
+                    height: 8px;
+                    top: 25%;
+                    left: 60%;
+                }
+                label{
+                    margin-left: 8%;
+                    user-select: none;
+                }
+            }
+            #button-container {
+                grid-area: getstart;
+            }
+
+            // transform: translate(-90%, -50%);
+        }
+    }
+}
+@media only screen and (max-width: 1300px) and (max-height: 912px) {
+    .Animation {
+        margin-top: 0vh !important;
+        transform: scale(0.6);
+    }
+    .Splash-Title {
+        margin-top: -10vh !important;
+        transform: scale(0.6);
+    }
+    .Splash-Content {
+        margin-top: -5vh !important;
+        transform: scale(0.6);
+    }
+    .Start-Button {
+        transform: scale(0.8);
+    }
+}
+
+@media only screen and (min-width: 1300px) and (max-width: 1500px) and (max-height: 912px) {
+    .Animation {
+        margin-top: 10% !important;
+        transform: scale(0.8);
+    }
+    .Splash-Title {
+        margin-top: -5% !important;
+        transform: scale(0.8);
+    }
+    .Splash-Content {
+        margin-top: -5vh;
+        transform: scale(0.8);
+    }
+    .Start-Button {
+
+        transform: scale(0.8);
+    }
+}
+
+@media only screen and (min-width: 1500px) and (max-width: 1920px) and (max-height: 1000px) {
+    .Animation {
+        margin-top: 10% !important;
+        transform: scale(0.8);
+    }
+    .Splash-Title {
+        margin-top: -5% !important;
+        transform: scale(0.8);
+    }
+    .Splash-Content {
+        margin-top: -5vh;
+        transform: scale(0.8);
+    }
+    .Start-Button {
+
+        transform: scale(0.8);
+    }
+}
+
+@media only screen and (max-width: 1600px) and (min-height: 1000px) and (max-height:1079px) {
+    .Animation {
+        margin-top: -4vh !important;
+        transform: scale(0.7);
+    }
+    .Splash-Title {
+        margin-top: -7% !important;
+        transform: scale(0.7);
+    }
+    .Splash-Content {
+        margin-top: -5%;
+        transform: scale(0.7);
+    }
+    .Start-Button {
+        transform: scale(0.8);
+        bottom: 10.5vh !important;
+
+    }
+}
+
+

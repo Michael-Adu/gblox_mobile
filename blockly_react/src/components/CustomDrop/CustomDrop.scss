@@ -1,0 +1,55 @@
+.c-CustomDrop-a-Container {
+    display: block;
+    position: relative;
+
+    .c-CustomDrop-a-Content:before,
+    .c-CustomDrop-a-Content:after{
+        display: block;
+        overflow: hidden;
+    }
+    .c-CustomDrop-a-Content:after{
+        clear: both;
+    }
+    .c-CustomDrop-a-Content {
+        display: none;
+        position:absolute;
+        background-color: none;
+        min-width: 160px;
+        /*HATE THIS PROPERTY*/
+        top:100%;
+        left: 0px;
+        margin: 0;
+        padding: 0;
+        //z-index: 2;
+        zoom: 1;
+    }
+}
+
+
+.c-CustomDrop-a-MenuButton {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding:0;
+    left: 0;
+    transition: background-color 1s;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    z-index: 30;
+}
+
+.c-CustomDrop-a-ToolboxChildButton {
+    position: relative;
+    display: grid;
+    grid-template-rows: repeat(2, 0fr);
+    grid-template-columns: repeat(6, 0fr);
+    margin: 0;
+    padding:0;
+    left: 13px;
+    transition: background-color 1s;
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+    z-index: 30;
+}

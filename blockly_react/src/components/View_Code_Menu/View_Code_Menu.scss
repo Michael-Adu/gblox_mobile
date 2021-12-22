@@ -1,0 +1,25 @@
+#view-code-menu{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0fr;
+    width: 100%;
+    height: 100%;
+    .text{
+        user-select: none;
+        padding-bottom: 21px;
+        font-size: 21px;
+    }
+}
+.code-viewer{
+    display: inline-flex;
+    width: 150%;
+    height: 100%;
+    color: #4C97FF;
+    margin-bottom: 5%;
+    margin-left: -5%;
+    overflow: auto;
+    pre{
+        width: 70%;
+        background: var(--tetiary-color) !important;
+    }
+}

@@ -1,0 +1,128 @@
+.c-ToolSelector {
+    position: relative;
+    display: block;
+    background-color: var(--primary-color);
+    align-items: center;
+    width: 195.88px;
+    transition: all 0.5s;
+    .toolbox-title {
+        color: var(--text-color);
+        margin: auto;
+        text-align: center;
+        font-family: "Baloo2-Regular"
+    }
+    .c-buttongroup-a-Levels {
+        display: flex;
+        margin: auto;
+        align-items: center;
+    }
+    .level-connector {
+        display: flex;
+        top: 50%;
+        width: 5.3px;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: all 0.5s;
+    }
+    .svg-connector {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 24.4px;
+    }
+    .con-pos-1 {
+        #connector-top {
+            transform: translateX(-82px)
+        }
+
+        #connector-middle {
+            transform: scaleX(-40.5)
+        }
+    }
+
+    .con-pos-2 {
+        #connector-top {
+            transform: translateX(-42px)
+        }
+
+        #connector-middle {
+            transform: scaleX(-20.2)
+        }
+    }
+
+    .con-pos-3 {
+        #connector-top {
+            transform: translateX(0px)
+        }
+
+        #connector-middle {
+            transform: scaleX(1)
+        }
+    }
+
+    .con-pos-4 {
+        #connector-top {
+            transform: translateX(41px)
+        }
+
+        #connector-middle {
+            transform: scaleX(21.2)
+        }
+    }
+
+    .con-pos-5 {
+        #connector-top {
+            transform: translateX(82px)
+        }
+
+        #connector-middle {
+            transform: scaleX(41)
+        }
+    }
+
+    .connector {
+        position: relative;
+        // display: inline-flex;
+        width: 195.88px;
+        height: 24.46px;
+        background-color: var(--primary-color);
+        transition: inherit;
+
+        #connector-top{
+            position: absolute;
+            width:2px;
+            height: 11.44px;
+            background-color: var(--progress-filled-bar-color);
+            left: 50%;
+            top: 0%;
+            margin-left: -1px;
+            transition: transform 0.3s;
+
+        }
+
+        #connector-middle {
+            position: absolute;
+            width:2px;
+            height: 2px;
+            background-color: var(--progress-filled-bar-color);
+            left: 50%;
+            margin-left: -1px;
+            top: 38.7%;
+            transform-origin: left;
+            transition: transform 0.3s;
+
+            .middle{
+                transform-origin: left;
+            }
+        }
+        #connector-bottom {
+            position: absolute;
+            width: 2px;
+            height: 15px;
+            background-color: var(--progress-filled-bar-color);
+            left: 50%;
+            margin-left: -1px;
+            bottom: 0%;
+        }
+    }
+}

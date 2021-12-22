@@ -116,7 +116,6 @@ class _GBloxButtons extends State<GBloxButtons> {
                 });
               },
             )));
-        break;
       case "controller_circle":
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 10),
@@ -176,7 +175,6 @@ class _GBloxButtons extends State<GBloxButtons> {
                 });
               },
             )));
-        break;
       case "menuButtons":
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
@@ -205,7 +203,6 @@ class _GBloxButtons extends State<GBloxButtons> {
                     padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
                     child: Text(widget.buttonName,
                         style: const TextStyle(color: Colors.white))))));
-        break;
       default:
         return (InkWell(
           child: Container(
@@ -214,7 +211,6 @@ class _GBloxButtons extends State<GBloxButtons> {
             ),
           ),
         ));
-        break;
     }
   }
 }

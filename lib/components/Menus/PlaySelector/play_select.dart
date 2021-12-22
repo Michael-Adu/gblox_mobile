@@ -5,7 +5,7 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
-import '../../controller.dart';
+import '../../Controller/controller.dart';
 import '../../piano.dart';
 import '../../SketchingTool/sketcher.dart';
 import '../../Bluetooth/connection_in_progress.dart';

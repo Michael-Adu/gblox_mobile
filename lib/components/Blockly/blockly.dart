@@ -63,7 +63,6 @@ class _BlocklyState extends State<Blockly> {
     late List<global.ToolboxClass> categoryChildren =
         List<global.ToolboxClass>.empty(growable: true);
     for (int i = 0; i < toolbox.length; i++) {
-      print(categoryNumber);
       if (category) {
         if (i - categoryNumber < categoryIndex) {
           categoryChildren
@@ -300,9 +299,9 @@ class _BlocklyState extends State<Blockly> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(100)),
                             onTap: () {
-                              controller!.evaluateJavascript(
-                                  source:
-                                      '''document.getElementById("Arduino Uno").click();''');
+                              print(controller!.takeScreenshot(
+                                  screenshotConfiguration:
+                                      ScreenshotConfiguration()));
                             },
                             child: Container(
                                 width: 100,
@@ -339,18 +338,7 @@ class _BlocklyState extends State<Blockly> {
                       initialFile: 'assets/react-blockly/index.html',
                       onWebViewCreated: (InAppWebViewController defcontroller) {
                         controller = defcontroller;
-
                         global.webController = controller!;
-                        // defcontroller.addJavaScriptHandler(
-                        //     handlerName: "sendToFlutter",
-                        //     callback: (args) {
-                        //       print(args);
-                        //     });
-                        // defcontroller.addJavaScriptHandler(
-                        //     handlerName: "toolBoxReturn",
-                        //     callback: (args) {
-                        //       print(args);
-                        //     });
                       },
                       onLoadStop:
                           (InAppWebViewController controller, Uri? url) {

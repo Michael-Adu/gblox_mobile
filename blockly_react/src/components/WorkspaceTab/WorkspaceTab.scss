@@ -1,0 +1,88 @@
+.c-WorkspaceTab-a-Container {
+    display: inline-flex;
+    position: relative;
+    height: 36px;
+    max-width: 1000px;
+    min-width: 10px;
+    transition: all 0.3s;
+    
+    background-color: var(--tab-color);
+    border: var(--border-color);
+    outline: 2px red  var(--border-color);
+    margin: 0 0 0 0px;
+    justify-content: center;
+    transform: skewX(-45deg);
+
+    &:hover {
+        max-width: fit-content !important;
+        flex-grow: 10 !important;
+        flex-shrink: 0 !important;
+
+        .c-WorkspaceTab-a-Text {
+            max-width: 1000px;
+        }
+        
+    }
+    
+
+    .c-WorkspaceTab-a-Text {
+        user-select: none;
+        pointer-events: none;
+        color: var(--logo-color) !important;
+        transform: skewX(45deg);
+        font-family: "Baloo2-Regular";
+        font-size: 16px;
+        max-width: 1000px;
+        min-width: 10px;
+        overflow: hidden;
+        margin: 5px 4px 0px 16px;
+        white-space: nowrap;  
+        flex-shrink: 1;
+        transition: max-width 1s;
+
+
+    }
+    .i-dropShadow {
+        position: absolute;
+        pointer-events: none;
+        top: 0;
+        right: -5px;
+        height: 20px;
+        width: 2%;
+        margin-left: 0px;
+        margin-top: 5px;
+        background-image: linear-gradient(to right, #0000,#0B053300);
+        //background-color: #0B0533;
+        //transform: skewX(45deg);
+        //outline: green 2px solid;
+        //box-shadow: -2px 0px 1px 1px #0B0533;
+    }
+
+    .c-WorkspaceTab-a-Close {
+        user-select: none;
+        color: #3A7FFF66;
+        transform: skewX(45deg);
+        font-size: 20px;
+        padding-right: 10px;
+        margin: 1px 10px 25px -4px;
+        flex-shrink: 0;
+
+        &:hover {
+            color: var(--text-color);
+        }
+    }
+
+    #saveCircle{
+        user-select: none;
+        pointer-events: none;
+        top: 30%;
+        transform: skewX(45deg) scale(0.9);
+        margin: 10px 0px 25px 5px;
+        flex-shrink: 0;
+
+    
+            circle{
+                fill: var(--text-color)
+            }
+    }
+}

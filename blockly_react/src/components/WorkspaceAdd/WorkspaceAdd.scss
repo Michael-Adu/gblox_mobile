@@ -1,0 +1,36 @@
+
+
+.c-WorkspaceAdd-a-Container {
+    position: relative;
+    height: 36px;
+    width: 80px;
+    margin-left: -5px;
+    //outline: red 2px dashed;
+
+    svg {
+        path {
+            fill: var(--tab-color);
+        }
+        margin-left: -15px;
+        pointer-events: none;
+    }
+
+    &:hover {
+        .c-WorkspaceAdd-a-Plus {
+            color: white;
+        }
+    }
+
+    .c-WorkspaceAdd-a-Plus {
+        top: -14px;
+        left: 10px;
+        position: absolute;
+        user-select: none;
+        color: var(--title-text-color);
+        //transform: skewX(45deg);
+        font-size: 40px;
+        //padding-right: 10px;
+        margin: 1px 0px 25px 8px;
+        pointer-events: none;
+    }
+}

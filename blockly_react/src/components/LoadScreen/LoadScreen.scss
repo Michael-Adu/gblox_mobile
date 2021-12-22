@@ -1,0 +1,540 @@
+@keyframes flashIn {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    35% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+    55% {
+        opacity: 0;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes erraticMovementTop {
+    0% {
+        transform: translate(0px, 25px);
+    }
+    10% {
+        transform: translate(-30px, 25px);
+    }
+    20% {
+        transform: translate(-50px, 25px);
+    }
+    30% {
+        transform: translate(40px, 25px);
+    }
+    60% {
+        transform: translate(-50px, 25px);
+    }
+    70% {
+        transform: translate(-20px, 25px);
+    }
+    90% {
+        transform: translate(-10px, 25px);
+    }
+    100% {
+        transform: translate(0px, 25px);
+    }
+}
+@keyframes erraticMovementBottom {
+    0% {
+        transform: translate(0px, -10px);
+    }
+    10% {
+        transform: translate(-30px, -10px);
+    }
+    20% {
+        transform: translate(-50px, -10px);
+    }
+    30% {
+        transform: translate(40px, -10px);
+    }
+    60% {
+        transform: translate(-50px, -10px);
+    }
+    70% {
+        transform: translate(-20px, -10px);
+    }
+    90% {
+        transform: translate(-10px, -10px);
+    }
+    100% {
+        transform: translate(0px, -10px);
+    }
+}
+@keyframes erraticMovementLeft {
+    0% {
+        transform: translate(0px, 152.7px);
+    }
+    10% {
+        transform: translate(30px, 152.7px);
+    }
+    20% {
+        transform: translate(-20px, 152.7px);
+    }
+    30% {
+        transform: translate(25px, 152.7px);
+    }
+    60% {
+        transform: translate(20px, 152.7px);
+    }
+    70% {
+        transform: translate(-5px, 152.7px);
+    }
+    90% {
+        transform: translate(-30px, 152.7px);
+    }
+    100% {
+        transform: translate(0px, 152.7px);
+    }
+}
+@keyframes erraticMovementMid {
+    0% {
+        transform: translate(0px, 130.7px);
+    }
+    10% {
+        transform: translate(30px, 130.7px);
+    }
+    20% {
+        transform: translate(-20px, 130.7px);
+    }
+    30% {
+        transform: translate(25px, 130.7px);
+    }
+    60% {
+        transform: translate(20px, 130.7px);
+    }
+    70% {
+        transform: translate(-5px, 130.7px);
+    }
+    90% {
+        transform: translate(-30px, 130.7px);
+    }
+    100% {
+        transform: translate(0px, 130.7px);
+    }
+}
+@keyframes dashSmall {
+    from {
+        stroke-dashoffset: 12;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes dashBig {
+    from {
+        stroke-dashoffset: 500;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.c-LoadScreen-a-Container {
+    //--primary: #0b0533;
+    //--border: #0000dc;
+    //--thicc: #110d40;
+    //--logo: var(--logo-color);
+
+    display: block;
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    .c-LoadScreen-a-Background {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: var(--primary-color);
+    }
+    .c-LoadScreen-a-LoadAnim {
+        width: 100%;
+        height: 100%;
+        display: inline-flex;
+        position: relative;
+        top: 0;
+        left: 0;
+
+        #SideSVGS {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: transform 0.75s cubic-bezier(0.79, 2.38, 0.44, 0.67),
+                height 0.75s cubic-bezier(0.79, 2.38, 0.44, 0.67);
+            #RightSide {
+                transform: scaleX(-1);
+            }
+            .MainSVG {
+                z-index: 5;
+                #Group_550 {
+                    opacity: 0;
+                    animation: flashIn 0.5s forwards step-start;
+                }
+                #Path_564 {
+                    opacity: 0;
+                    animation: flashIn 0.5s forwards step-start;
+                    animation-delay: 0.2s;
+                    fill: var(--progress-empty-bar-color);
+                }
+                #Group_551 {
+                    opacity: 0;
+                    animation: flashIn 0.5s forwards step-start;
+                    animation-delay: 0.3s;
+                    #Triangle_End {
+                        animation: flashIn 0.5s forwards step-start infinite;
+                    }
+                }
+                #Rectangle_238 {
+                    opacity: 0;
+                    animation: flashIn 0.5s forwards step-start;
+                    animation-delay: 0.35s;
+                }
+                #Rectangle_237 {
+                    opacity: 0;
+                    animation: flashIn 0.5s forwards step-start;
+                    animation-delay: 0.4s;
+                    fill: var(--secondary-color);
+                }
+                #Line_38,
+                #Line_37 {
+                    stroke-dasharray: 12;
+                    stroke-dashoffset: 12;
+                    animation: dashSmall 0.2s linear forwards;
+                    animation-delay: 0.4s;
+                }
+                #Path_569,
+                #Path_568 {
+                    stroke-dasharray: 500;
+                    stroke-dashoffset: 500;
+                    animation: dashBig 0.7s linear forwards;
+                    animation-delay: 0.6s;
+                }
+                #Group_549 {
+                    opacity: 0;
+                    animation: appear 0.2s forwards step-end;
+                    animation-delay: 1.4s;
+                }
+                #Group_548 {
+                    opacity: 0;
+                    animation: appear 0.2s forwards step-end;
+                    animation-delay: 1.7s;
+                }
+                #Group_547 {
+                    opacity: 0;
+                    animation: appear 0.2s forwards step-end;
+                    animation-delay: 1.9s;
+                }
+            }
+            #ErraticTop {
+                margin-left: 451.7px;
+                margin-top: -50px;
+                transform-origin: center;
+                animation: erraticMovementTop forwards 2s infinite;
+            }
+            #ErraticBottom {
+                margin-left: 451.7px;
+                transform-origin: center;
+                animation: erraticMovementBottom reverse 2s infinite;
+            }
+            #ErraticLeft {
+                position: absolute;
+                z-index: 3;
+                margin-left: 98.6px;
+                transform-origin: center;
+                animation: erraticMovementLeft reverse 2s infinite;
+            }
+            #ErraticMid {
+                position: absolute;
+                z-index: 3;
+                margin-left: 283.6px;
+                transform-origin: center;
+                animation: erraticMovementMid forwards 2s infinite;
+            }
+        }
+
+        .c-LoadScreen-a-OuterCircle {
+            display: block;
+            position: relative;
+            height: fit-content;
+            width: fit-content;
+
+            #i-OC {
+                //outline: 2px red dashed;
+                stroke-dasharray: 1000;
+                stroke-dashoffset: 1000;
+                transform: rotate(270deg) scaleY(-1);
+                color: var(--border-color);
+                opacity: 1;
+                g circle{
+                    stroke: var(--secondary-color) !important;
+                }
+            }
+
+            .c-LoadScreen-a-StaticCircle {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform-origin: center;
+                transform: translate(-50%, -50%);
+                margin: auto;
+                align-self: center;
+                svg {
+                    animation: StaticCircle-Grow 0.8s, StaticCircle-Flicker 2.4s step-start infinite;
+                }
+            }
+            .c-LoadScreen-a-Logo {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform-origin: center;
+                transform: translate(-50%, -50%);
+                margin: auto;
+                align-self: center;
+                svg {
+                    path {
+                        fill: var(--logo-color) !important;
+                    }
+                    animation: StaticCircle-Grow 0.8s;
+                }
+            }
+
+            #i-LongDot {
+                display: block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform-origin: center;
+                transform: translate(-50%, -50%);
+                margin: auto;
+                align-self: center;
+                svg {
+                    stroke-dasharray: 1000;
+                    stroke-dashoffset: 1000;
+                    stroke-linecap: round;
+                }
+            }
+
+            .i-Dot {
+                position: absolute;
+                background-color: var(--border-color);
+                width: 4px;
+                height: 4px;
+                top: 0;
+                left: 50%;
+                border-radius: 50%;
+            }
+
+            .i-DotController {
+                position: absolute;
+                background-color: transparent;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                opacity: 1;
+            }
+        }
+    }
+
+    .i-anim-OuterCircle {
+        animation: OuterCircle-PathTurn 1.2s linear infinite, OuterCircle-PathGrow 1.2s ease-in infinite;
+    }
+    .i-anim-LongDot {
+        animation: LongDot-PathTurn 1.2s linear infinite, LongDot-PathGrow 1.2s ease-in infinite;
+    }
+    .i-anim-DC-0 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0s;
+    }
+    .i-anim-DC-1 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.1s;
+    }
+    .i-anim-DC-2 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.2s;
+    }
+    .i-anim-DC-3 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.3s;
+    }
+    .i-anim-DC-4 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.4s;
+    }
+    .i-anim-DC-5 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.42s;
+    }
+    .i-anim-DC-6 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.43s;
+    }
+    .i-anim-DC-7 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.45s;
+    }
+    .i-anim-DC-8 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.46s;
+    }
+    .i-anim-DC-9 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.48s;
+    }
+    .i-anim-DC-10 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.5s;
+    }
+    .i-anim-DC-11 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.53s;
+    }
+    .i-anim-DC-12 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.55s;
+    }
+    .i-anim-DC-13 {
+        animation: Appear 0.1s, DC-Orbit 1.2s 0.57s;
+    }
+}
+
+@keyframes StaticCircle-Grow {
+    0% {
+        transform: scale(0.1, 0.1);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+
+@keyframes StaticCircle-Flicker {
+    0% {
+        opacity: 1;
+    }
+    6% {
+        opacity: 0;
+    }
+    12% {
+        opacity: 1;
+    }
+    18% {
+        opacity: 0;
+    }
+    24% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes OuterCircle-PathGrow {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    28% {
+        //stroke-dashoffset: 321;
+        stroke-dashoffset: 550;
+    }
+    100% {
+        stroke-dashoffset: 1000;
+    }
+}
+
+@keyframes OuterCircle-PathTurn {
+    0% {
+        transform: rotate(270deg) scaleY(-1);
+    }
+    28% {
+        transform: rotate(235deg) scaleY(-1);
+    }
+    50% {
+        transform: rotate(160deg) scaleY(-1);
+    }
+    100% {
+        transform: rotate(-90deg) scaleY(-1);
+    }
+}
+
+@keyframes LongDot-PathGrow {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+    50% {
+        stroke-dashoffset: 800;
+    }
+    100% {
+        stroke-dashoffset: 1000;
+    }
+}
+
+@keyframes LongDot-PathTurn {
+    0% {
+        transform: rotate(270deg) scaleY(-1);
+    }
+    50% {
+        transform: rotate(50deg) scaleY(-1);
+    }
+    100% {
+        transform: rotate(-90deg) scaleY(-1);
+    }
+}
+
+@keyframes DC-Orbit {
+    0% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(00deg);
+    }
+}
+
+@keyframes Disappear {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes Appear {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@media only screen and (min-width: 1284px) and (min-height: 713px) and (max-height: 960px) {
+    #SideSVGS {
+        margin-top: 0vh !important;
+        transform: scale(0.6);
+    }
+}
+
+@media only screen and (min-width: 1284px) and (min-height: 961px) {
+    #SideSVGS {
+        margin-top: 0vh !important;
+        transform: scale(0.8);
+    }
+}

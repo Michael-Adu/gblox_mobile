@@ -1,0 +1,59 @@
+.modal-container {
+    display: flex;
+    position: relative;
+    background-color: var(--primary-color);
+    //height:484px;
+    flex-direction: column;
+    width: 396px;
+    right: -50px;
+    border-radius: 10px;
+    z-index: 55;
+    transition: all 0.5s;
+    font-family: "Baloo2-Regular";
+    font-size: 15pt;
+
+    h1{
+        color: var(--text-color);
+        font-size: 21px;
+        margin: 0;
+        transition: inherit;
+        pointer-events: none;
+    }
+    
+    div {
+        color: var(--text-color);
+        transition: inherit;
+    }
+    .modal-section-break {
+        display:block;
+        position: relative;
+        height: 1px;
+        background-color: var(--logo-color);
+        transition: inherit;
+    }
+
+    .modal-section {
+        padding-top: 17px;
+        padding-left:31px;   
+        padding-bottom: 45px;
+        position: relative;
+    }
+
+    .modal-lighting-buttons {
+        border-color: var(--border-color) ;
+        height: 43px;
+        width: 160px;
+        border-width: thin;
+        border-radius: 20px;
+        border-style: solid;
+        transition: inherit;
+    }
+    p{
+        pointer-events: none;
+    }
+}
+
+.modal-blank-space {
+    display: block;
+    min-width: 235px;
+}

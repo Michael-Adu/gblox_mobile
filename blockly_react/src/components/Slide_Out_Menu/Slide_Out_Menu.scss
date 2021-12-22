@@ -1,0 +1,85 @@
+@keyframes fadein_menu {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@font-face {
+    font-family: "Baloo2-Regular";
+    src: local("Baloo2-Regular"), url(./../fonts/Baloo2-Regular.ttf) format("truetype");
+}
+
+#sidebar-nav {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    background: #0b053373;
+    overflow-x: hidden;
+    fill: #0000dc;
+    padding-bottom: 23px;
+    animation: fadein_menu forwards;
+    animation-duration: 1s;
+    .initial-text {
+        position: relative;
+        padding: 22px 0px 0px 24px;
+        text-align: left;
+        font-size: 17px;
+        font-family: "Baloo2-Regular";
+        color: #ffffff;
+        display: block;
+        margin: 0px;
+    }
+    .border {
+        position: relative;
+        fill: inherit;
+        display: block;
+        margin: -12px -6px -12px -6px;
+    }
+}
+.devices {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(215.9px, 1fr));
+    max-width: calc(215.9px*5);
+    .device_icon {
+        position: relative;
+        display: flex;
+        .children {
+            position: absolute;
+            display: flex;
+            z-index: 0;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .children svg {
+            display: block;
+            fill: transparent;
+            margin: auto;
+        }
+    }
+}
+
+@media only screen and (max-width: 1275px) {
+    .devices{
+        grid-template-columns: repeat(3, minmax(215.9px, 1fr));
+    }
+}
+@media only screen and (min-width: 1275px) and (max-width: 1480px) {
+    .devices{
+        grid-template-columns: repeat(4, minmax(215.9px, 1fr));
+    }
+}
+
+.device_icon:hover {
+    fill: #0079dc;
+}
+
+.device_icon:active {
+    fill: #ffffff;
+}

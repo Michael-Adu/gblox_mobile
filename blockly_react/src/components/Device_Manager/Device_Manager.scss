@@ -1,0 +1,11 @@
+#c-DeviceManager{
+    display: inline-flex;
+    width: 434.02px;
+    position: relative;
+    #device-manager{
+        display: none;
+        margin-left: 62.9px;
+        transition: display 1s;
+        z-index: 2;
+    }
+}

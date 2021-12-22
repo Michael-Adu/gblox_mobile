@@ -1,0 +1,14 @@
+.c-WorkTabHolder-a-container {
+    //z-index: 500;
+    display: flex;
+    position: absolute;
+    top: 80px;
+    left: 0px;
+    width: calc(100vw - 286px);
+    height: 36px;
+    //outline: 1px red dashed;
+    padding-left: 270px;
+    align-items: center;
+    padding-right: 286px;
+    transition: all 0.5s;
+}

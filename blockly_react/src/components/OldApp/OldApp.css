@@ -1,0 +1,51 @@
+
+.App {
+  width: 100%;
+  height: 100%;
+  margin:0;
+  padding:0;
+  position: relative;
+  display: block;
+}
+.fill-height {
+  position: relative;
+  padding: 0px;
+  left: 0px; 
+  height: 830px;
+  width: 100vw;
+}
+.TitleBar {
+  height: 50px;
+  background-color: dodgerblue;
+}
+.MuiContainer-root {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.footer {
+  margin-top:calc(5% + 60px);
+  bottom: 0;
+}
+
+#blocklyDiv {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#blocklyArea {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+}
+
+/*
+.texter {
+  float: left;
+  height: 90%;
+  width: 49%;
+  resize: none;
+}
+*/

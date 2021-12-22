@@ -1,0 +1,130 @@
+.c-Alert-a-Container {
+    display: grid;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    grid-template-columns: 0fr 2fr;
+    padding: 25px;
+    border-radius: 10px;
+    font-family: "Baloo2-Regular";
+    font-size: 17pt;
+    .c-Alert-SVG {
+        padding: 20px;
+        path {
+            fill: yellow;
+        }
+    }
+    .c-Alert-a-notificationContent {
+        display: grid;
+        grid-template-areas:
+            "content"
+            "ok";
+            .c-Alert-OkButton {
+                grid-area: ok;
+                margin: auto;
+                width: 100%;
+            }
+    }
+    .c-Alert-a-alertContent {
+        display: grid;
+        grid-template-areas:
+            "content content"
+            "close ok";
+        gap: 15px;
+        grid-auto-columns: minmax(120px, auto);;
+        justify-self: center;
+    }
+    .c-Alert-a-selectCOMPORTContent{
+        display: grid;
+        grid-template-areas:
+            "content"
+            "select"
+            "ok";
+            .c-Alert-Alert{
+                p{
+                    margin: 0;
+                }
+            }
+            .c-Alert-OkButton {
+                grid-area: ok;
+                margin: auto;
+                width: 100%;
+            }
+            #comport-selector {
+                grid-area: select;
+                min-width: 250px;
+                white-space: nowrap;
+                display: inline-flex;
+                outline: none;
+                cursor: pointer;
+                line-height: 1.1;
+                font-size: 1.25rem;
+                background-color: white;
+                height: 28px;
+                border: 1px solid var(--border-color);
+                user-select: none;
+                transition: inherit;
+        
+                select {
+                    text-indent: 5%;
+                    color: var(--secondary-color);
+                    padding-right: 14.58px;
+                    outline: red;
+                    option{
+                        border-radius: 0px;
+                    }
+                }
+                &:not(.select--multiple)::after {
+                    pointer-events: none;
+                    position: absolute;
+                    content: "";
+                    margin-left: 240px;
+                    margin-top: 8px;
+                    justify-self: end;
+                    width: 0.8em;
+                    height: 0.5em;
+                    background-color: var(--border-color);
+                    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+                    z-index: 2;
+                }
+            }
+    }
+    .c-Alert-Alert {
+        grid-area: content;
+        user-select: none;
+        text-align: center;
+    }
+    .c-Alert-CloseButton {
+        grid-area: close;
+        margin: auto;
+        width: 108%;  
+    }
+    .c-Alert-OkButton {
+        grid-area: ok;
+        margin: auto;
+        width: 110%;
+    }
+    #button-container {
+        width: 100%;
+        .c-button-a-ExampleButton {
+            background-color: var(--primary-color);
+            p {
+                color: var(--text-color) !important;
+            }
+            z-index: 1;
+        }
+        #c-CloseButton,
+        #c-OkButton {
+            width: 100%;
+            cursor: pointer;
+        }
+        &:hover {
+            .c-button-a-ExampleButton {
+                background-color: var(--secondary-color);
+                p {
+                    color: white !important;
+                }
+            }
+        }
+    }
+
+}

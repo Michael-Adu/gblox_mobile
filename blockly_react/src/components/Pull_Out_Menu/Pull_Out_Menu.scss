@@ -1,0 +1,81 @@
+
+.pull-out-menu {
+    position: relative;
+    display: inline-flex;
+    transition: margin-left 0.5s, opacity 0.5s;
+    z-index: 3;
+    top: 0;
+    height: 421px;
+    pointer-events: none;
+
+    #shadow-container{
+        position: relative;
+        filter: drop-shadow(0px 3px 27px #0011FF);
+        width: 498.54px;
+        display: flex;
+    }
+    #sidebar-overlay {
+        z-index: 0;
+        width: 86px;
+        height: 977px;
+        background: #060841;
+        clip-path: polygon(0.000px 977.000px, 0.000px 977.000px, 30.100px 976.900px, 70.000px 937.100px, 70.000px 914.600px, 70.600px 913.900px, 69.600px 559.500px, 15.400px 559.500px, 15.400px 503.600px, 70.700px 448.600px, 70.300px 32.600px, 40.300px 0.000px, 0.000px 0.100px, 0.000px 0.000px, 87.000px 0.000px, 87.000px 977.000px, 0.000px 977.000px)
+    }
+    .container-background{
+        margin-top: -22.1px;
+        position: absolute;
+        background-color: var(--primary-color);
+        width: 412.54px;
+        height: 976.94px;
+        transition: all 0.5s;
+    }
+    .c-Pull-Out-Menu-a-buttongroup {
+        margin-top: 51.1px;
+        margin-right: -34.7px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        transform-origin: top center;
+        transition: transform 1s;
+        pointer-events: all;
+        #button-container {
+            display: flex;
+            margin-bottom: 10px;
+            transition: margin-bottom 0.3s cubic-bezier(0.79, 2.38, 0.44, 0.67);
+            .c-button-a-CircularOverlayMenuButton{
+                background-color: var(--primary-color);
+                transition: all 0.5s;
+            }
+            .button-svg{
+                g, path, line{
+                    stroke: var(--primary-button-color);
+                    transition: all 0.5s;
+                }
+            }
+            &:hover{
+                margin-bottom: 50px;
+
+                .c-button-a-CircularOverlayMenuButton{
+                background-color: var(--border-color) !important;
+                transition: all 0.5s;
+                }
+            }
+
+        }
+    }
+    .pull-out-container {
+        opacity: 0;
+        margin-top: 16.1px;
+        margin-left: 72px;        
+        position: relative;
+        transition: opacity 1s;
+        pointer-events: all;
+    }
+}
+@media only screen and (max-width: 1500px),
+    screen and (max-height: 800px){
+    .c-Pull-Out-Menu-a-buttongroup{
+        transform: scale(0.8);
+        margin-bottom: 50vh;
+    }
+}

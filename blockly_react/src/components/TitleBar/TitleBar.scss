@@ -1,0 +1,24 @@
+#title-bar{
+   position: relative;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 36px;
+   justify-items: center;
+    
+    #title-background{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        
+        background-color: #0B0533;
+        //filter: blur(5px);
+    }
+    #title-name{
+        position: absolute;
+        color: white;
+
+    }
+}

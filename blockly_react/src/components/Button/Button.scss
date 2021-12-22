@@ -1,0 +1,347 @@
+.empty-button {
+    display: block;
+    position: absolute;
+    border: none;
+    padding: 0;
+    margin-left: 0px;
+    margin-right: 0px;
+    height: fit-content;
+    width: fit-content;
+    text-decoration: none;
+    background: none;
+    left: 0;
+    top: 0;
+}
+
+.modal-lighting-buttons {
+    height: 43px;
+    width: 160px;
+    border: 1px solid #3722ff;
+}
+
+#button-container {
+    display: inline-block;
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+}
+
+#settings-close-button {
+    background-color: #fff0;
+    border-color: #fff0;
+    color: white;
+    margin-right: 0px;
+    position: relative;
+}
+
+.button-text {
+    font-size: 21px;
+    color: white;
+}
+
+.c-Button-a-LanguageMenuButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 306px;
+    height: 20px;
+    background-color: #0b0533;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+
+    .i-FlagBox {
+        width: 29px;
+        height: 15px;
+        background-color: white;
+    }
+
+    .i-Text {
+        color: white;
+        font-size: 16px;
+        padding-left: 26px;
+    }
+}
+
+.c-Button-a-LanguageContentButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 306px;
+    height: 20px;
+    background-color: #0000dc;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+
+    .i-FlagBox {
+        width: 29px;
+        height: 15px;
+        background-color: white;
+    }
+
+    .i-Text {
+        color: white;
+        font-size: 16px;
+        padding-left: 26px;
+    }
+}
+
+.c-button-a-WorkspaceTabButton {
+    user-select: none;
+    position: relative;
+    display: inline-flex;
+    transform: skewX(-45deg);
+    //width: 162px;
+    padding-left: 20px;
+    height: 36px;
+    align-items: center;
+    white-space: nowrap;
+    .workspace-button-text {
+        font-size: 21px;
+        color: white;
+        margin: 0 7px 0 auto;
+        transform: skewX(45deg);
+        text-align: center;
+    }
+    .workspace-close-button {
+        position: relative;
+        display: block;
+        color: white;
+        margin-top: 4px;
+        transform: skewX(45deg);
+        margin: 4.3px 10px 25px 0px;
+        font-size: 15px;
+    }
+}
+
+.workspace-close-button:hover {
+    color: black;
+}
+
+.c-button-a-CircularOverlayMenuButton {
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    filter: drop-shadow(0px 0px 15px var(--inner-shadow-color));
+    .button-svg {
+        position: absolute;
+        display: flex;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        svg {
+            fill: var(--tetiary-color);
+            :hover {
+                fill: var(--border-color) !important;
+            }
+        }
+    }
+}
+.tooltiptext {
+    position: absolute;
+    opacity: 0;
+    filter: none;
+    background: var(--primary-color);
+    border: 1px solid #0000dc;
+    font-family: "Baloo2-Regular";
+    font-size: 10pt;
+    align-items: center;
+    transition: opacity 0.2s;
+    transition-delay: 0.05s;
+    width: 80px;
+    margin-left: -12px;
+    white-space: nowrap;
+    color: var(--text-color);
+    align-items: center;
+    text-align: center;
+    border-radius: 6px;
+    margin-top: -7px;
+    padding: 5px;
+    z-index: 1;
+    user-select: none;
+    pointer-events: none;
+
+    .shortcutText2{
+        color: var(--shortcut_text_color);
+        font: 14pt bold "Baloo2-Regular";
+        //transform: rotate(180deg);
+
+    }
+}
+
+.c-Button-a-FancyButton {
+    display: inline-flex;
+    width: 322px;
+    font-family: "Baloo2-Regular";
+    font-size: 34pt;
+    align-items: center;
+    clip-path: polygon(23.2px 0px, 298.9px 0px, 322.1px 23.5px, 322.1px 72px, 0px 72px, 0px 23.5px, 23.2px 0px);
+    p {
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+        white-space: nowrap;
+        user-select: none;
+        pointer-events: none;
+        text-align: center;
+        color: white;
+        position: absolute;
+    }
+}
+.c-button-a-WorkspaceControlButton {
+    position: relative;
+    display: flex;
+    height: 43px;
+    width: 43px;
+
+    .workspace-control-bordersvg {
+        position: absolute;
+        display: flex;
+        margin-top: -8px;
+        margin-left: -9.5px;
+        svg {
+            pointer-events: none;
+            g {
+                p {
+                    fill: var(--progress-filled-bar-color) !important;
+                }
+            }
+            
+        }
+        
+
+        // transform: translate(-50%, -50%);
+    }
+    .button-text {
+        position: absolute;
+        color: black;
+        margin: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .button-children-svg {
+        position: absolute;
+        display: flex;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        svg {
+            fill: var(--progress-filled-bar-color) !important;
+            
+        }
+        
+    }
+
+
+}
+
+.c-button-WorkspaceControlButton_Previous-After {
+    position: relative;
+    display: flex;
+    height: 43px;
+    width: 49px;
+
+    .workspace-control-bordersvg {
+        position: absolute;
+        display: flex;
+        margin-top: -8px;
+        margin-left: -9.5px;
+        svg {
+            g {
+                p {
+                    fill: var(--border-color) !important;
+                }
+            }
+        }
+
+        // top: 50%;
+        // left: 50%;
+    }
+}
+
+.c-button-a-UploadButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .button-text {
+        position: absolute;
+        display: flex;
+        margin: 0;
+        padding: 0 0 0 71px;
+        font-size: 17px;
+    }
+}
+
+.c-button-a-ToolboxCategoryButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 196px;
+    height: 58px;
+    .c-button-a-ToolboxCategoryContents {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        .button-svg {
+            position: absolute;
+            display: block;
+            margin: auto;
+            transform: translateX(25px);
+        }
+        .button-text {
+            max-width: 118px;
+            position: absolute;
+            font-size: 125%;
+            left: 55.2px;
+            text-align: left;
+            margin: auto;
+            font-family: 'Baloo2-Regular';
+        }
+    }
+}
+.c-button-a-ExampleButton {
+    height: 40px;
+    align-items: center;
+    padding: 0px 5px;
+    p {
+        margin: 0;
+        text-align: center;
+    }
+
+}
+.c-button-a-ToolboxLevel {
+    position: relative;
+    width: 35.24px;
+    height: 30.59px;
+    display: flex;
+    align-items: center;
+    .button-text {
+        left: 50%;
+        margin: 0 auto;
+    }
+}
+.c-Button-a-MenuCloseButton {
+    position: absolute;
+    height: 30px;
+    a {
+        font-size: 20px;
+    }
+}
+.c-Button-a-FrameBarButton{
+    width: 40px;
+    height: 30px;
+    svg{
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    &:hover {
+        background-color: var(--border-color);
+    }
+}

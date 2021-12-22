@@ -1,0 +1,88 @@
+
+#example-code-menu {
+    position: relative;
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "filter"
+    "examples";
+    grid-template-rows: 0fr 0fr;
+    grid-auto-flow: row;
+    gap: 0px;
+    height: 95%;
+    width: 100%;
+    #example-header-text{
+        grid-area: header;
+        font-family: "Baloo2-Regular";
+        font-size: 21pt;
+        color: var(--text-color);
+        padding-bottom: 0px;
+    }
+    #example-filter-button {
+        display: inline-flex;
+        grid-area: filter;
+        max-height: 48px;
+        
+    }
+    #examples {
+        grid-area: examples;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        overflow-y: scroll;
+        .code-example {
+            display: inline-flex;
+            flex-direction: column;
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            // height: 537px;
+            padding: 18px 29px 0px 23px;
+            margin-bottom: 5%;
+            transition: all 0.5s;
+            .code-example-header {
+                color: var(--title-text-color);
+                padding-bottom: 16px;
+                font-size: 21px;
+            }
+            .example-details {
+                display: flex;
+                flex-direction: column;
+                color: var(--text-color);
+                transition: all 0.5s;
+                margin-bottom: 10px;
+                > div {
+                    padding-bottom: 5px;
+                }
+                .blocks_used {
+                    margin-bottom: -5px;
+                    padding: 0px;
+                }
+            }
+            .example-buttons {
+                display: inline-flex;
+                .example-devices {
+                    display: grid;
+                    grid-template-columns: repeat(2, 63px);
+                    gap: 10px;
+                    margin-bottom: 10px;
+                    .device {
+                        width: 63px;
+                        height: 25px;
+                        background-color: var(--secondary-color);
+                        color: white;
+                        transition: all 0.5s;
+                        text-align: center;
+                        user-select: none;
+                    }
+                }
+                #button-container {
+                    left: 35%;
+                    transform: translateX(-50%);
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+}

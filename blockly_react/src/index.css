@@ -1,0 +1,33 @@
+html{
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: #0b0533;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-family: 'Baloo 2', cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+p, div, a, span {
+  font-family: 'Baloo2-Regular';
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+@font-face {
+  font-family: 'Baloo2-Regular';
+  src: local('Baloo2-Regular'), url(./fonts/Baloo2-Regular.ttf) format('truetype');
+}

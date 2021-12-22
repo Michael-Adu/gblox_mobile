@@ -1,0 +1,30 @@
+.empty-button {
+    display: block;
+    position: absolute;
+    border: none;
+    padding:0;
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    background: none;
+    left:0;
+    top:0;
+}
+
+#header-button-container {
+    position:relative;
+    display: inline-block;
+    margin-left:  5px;
+    margin-right: 5px;
+
+    /*
+    &:hover{
+        #Path_33{
+            fill : $header-button-hover-color;
+        }
+    }*/
+    
+}
+

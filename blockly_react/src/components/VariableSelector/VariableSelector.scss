@@ -1,0 +1,167 @@
+@font-face {
+    font-family: "Baloo2-Regular";
+    src: local("Baloo2-Regular"), url(./../fonts/Baloo2-Regular.ttf) format("truetype");
+}
+
+@keyframes fadein_dialog {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadein_button {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadein_input {
+    from {
+        opacity: 0;
+        top: 0%;
+        left: 50%;
+        width: 0%;
+    }
+    to {
+        opacity: 1;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+    }
+}
+
+@keyframes fadein_select {
+    from {
+        opacity: 0;
+        top: 0%;
+        left: 50%;
+        width: 0%;
+    }
+    to {
+        opacity: 1;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+    }
+}
+select {
+    // A reset of styles, including removing the default dropdown arrow
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    // padding: 0 1em 0 0;
+    margin: 0;
+    width: 140%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    z-index: 1;
+}
+
+.dialog-container {
+    display: grid;
+    grid-template-areas:
+        "vartypetext vartypeselect"
+        "varnametext varnameinput"
+        "close ok";
+    width: 398px;
+    max-height: 151px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    font-size: 17pt;
+    font-family: "Baloo2-Regular";
+    padding: 21px;
+    gap: 19px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: all 0.5s;
+
+    #variable-type-text {
+        white-space: nowrap;
+        grid-area: vartypetext;
+        display: inline-flex;
+        color: var(--text-color);
+        transition: inherit;
+    }
+    #variable-type-select {
+        white-space: nowrap;
+        grid-area: vartypeselect;
+        display: inline-flex;
+        outline: none;
+        cursor: pointer;
+        line-height: 1.1;
+        font-size: 1.25rem;
+        background-color: white;
+        height: 28px;
+        border: 1px solid var(--border-color);
+        user-select: none;
+        transition: inherit;
+        
+        select{
+            text-indent: 5%;
+            color: var(--secondary-color);
+            padding-right: 14.58px;
+            outline: none;
+        }
+        &:not(.select--multiple)::after {
+            pointer-events: none;
+            position: absolute;
+            content: "";
+            margin-left: 200px;
+            margin-top: 8px;
+            justify-self: end;
+            width: 0.8em;
+            height: 0.5em;
+            background-color: var(--border-color);
+            clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+            z-index: 2;
+        }
+
+
+    }
+
+
+    #variable-name-text {
+        white-space: nowrap;
+        grid-area: varnametext;
+        display: inline-flex;
+        color: var(--text-color);
+        overflow-x: auto;
+        overflow-y: hidden;
+        user-select: none;
+        transition: inherit;
+    }
+    #variable-name-input {
+        white-space: nowrap;
+        grid-area: varnameinput;
+        height: 28px;
+        color: var(--secondary-color);
+        border: 1px solid var(--border-color);
+        font-size: 17px;
+        padding-left: 5px;
+        transition: inherit;
+    }
+    #close-button {
+        grid-area: close;
+        display: inline-flex;
+        #button-container {
+            width: 78px;
+        }
+    }
+    #ok-button {
+        grid-area: ok;
+        display: inline-flex;
+        #button-container {
+            width: 250px;
+            margin-left: -25px;
+        }
+    }
+}
