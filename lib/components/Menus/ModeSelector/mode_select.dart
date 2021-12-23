@@ -16,40 +16,35 @@ class ModeSelector extends StatefulWidget {
   }
 }
 
-class _CardDetails {
-  String svg;
-  String title;
-  Color textBackgroundColor;
-  Function? pressed;
-
-  _CardDetails(this.svg, this.title, this.textBackgroundColor, this.pressed);
-}
-
 class _ModeSelector extends State<ModeSelector> {
-  List<_CardDetails> modeCards = List<_CardDetails>.empty(growable: true);
+  List<global.CardDetails> modeCards =
+      List<global.CardDetails>.empty(growable: true);
   int _focusedIndex = 0;
   double _cardSize = 250;
 
   void initState() {
     super.initState();
-    modeCards.add(_CardDetails(svgs.codeMode, "code_mode", Colors.orange, () {
+    modeCards
+        .add(global.CardDetails(svgs.codeMode, "code_mode", Colors.orange, () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Blockly()),
       );
-    }));
-    modeCards.add(_CardDetails(svgs.playMode, "play_mode", Colors.purple, () {
+    }, false));
+    modeCards
+        .add(global.CardDetails(svgs.playMode, "play_mode", Colors.purple, () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const PlaySelector()),
       );
-    }));
-    modeCards.add(_CardDetails(svgs.buildMode, "build_mode", Colors.orange, () {
+    }, true));
+    modeCards.add(
+        global.CardDetails(svgs.buildMode, "build_mode", Colors.orange, () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const GBloxBuild()),
       );
-    }));
+    }, true));
   }
 
   Widget _buildListItem(BuildContext context, int index) {
@@ -92,7 +87,7 @@ class _ModeSelector extends State<ModeSelector> {
                 alignment: Alignment.bottomCenter,
               ),
               Container(
-                  padding: const EdgeInsets.all(10),
+                  padding: EdgeInsets.all(global.device_height * 0.05),
                   child: Row(children: <Widget>[
                     Expanded(
                       child: ScrollSnapList(

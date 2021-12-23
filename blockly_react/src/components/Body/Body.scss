@@ -72,10 +72,11 @@
         .workspace-controls {
             pointer-events: all;
             position: absolute;
-            top: 85%;
+            top: 83%;
             left: 10px;
             display: flex;
             flex-direction: row;
+            transform: scale(0.8);
             > div {
                 margin-left: 4.92%;
             }
@@ -95,9 +96,9 @@
             pointer-events: all;
             position: absolute;
             top: 70%;
-            left: 75%; //-820px; //-73px;
+            left: 67%; //-820px; //-73px;
             // margin-left: -32px;
-            transform: scale(0.5);
+            transform: scale(0.7);
 
             #num15trash {
                 pointer-events: all;
@@ -423,8 +424,8 @@
 .blocklyTrash {
     //position: relative;
     //outline: red 2px solid;
-    pointer-events: none;
-    //transform: translate(1579px,825px);
-    transform: translate(15px, 24px) scaleX(2) !important;
+    // pointer-events: none;
+    // //transform: translate(1579px,825px);
+    // transform: translate(15px, 24px) scaleX(2) !important;
     opacity: 0 !important;
 }

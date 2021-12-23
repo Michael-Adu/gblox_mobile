@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gblox_mobile/components/Piano/piano_keys.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
 import '../../Controller/controller.dart';
 import '../../piano.dart';
+import '../../Piano/piano_keys.dart';
 import '../../SketchingTool/sketcher.dart';
 import '../../Bluetooth/connection_in_progress.dart';
 import '../../PathFinder/path_finder.dart';
@@ -20,38 +22,29 @@ class PlaySelector extends StatefulWidget {
   }
 }
 
-class _CardDetails {
-  String svg;
-  String title;
-  Color textBackgroundColor;
-  Function? pressed;
-  bool compressSVG;
-
-  _CardDetails(this.svg, this.title, this.textBackgroundColor, this.pressed,
-      this.compressSVG);
-}
-
 class _PlaySelector extends State<PlaySelector> {
-  List<_CardDetails> playCards = List<_CardDetails>.empty(growable: true);
+  List<global.CardDetails> playCards =
+      List<global.CardDetails>.empty(growable: true);
   int _focusedIndex = 0;
   double _cardSize = 250;
 
   void initState() {
     super.initState();
-    playCards.add(_CardDetails(svgs.drivePlay, "drive_play", Colors.red, () {
+    playCards
+        .add(global.CardDetails(svgs.drivePlay, "drive_play", Colors.red, () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Controller()),
       );
     }, true));
-    playCards
-        .add(_CardDetails(svgs.pathFinderPlay, "path_play", Colors.green, () {
+    playCards.add(
+        global.CardDetails(svgs.pathFinderPlay, "path_play", Colors.green, () {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => PathFinder()),
       );
     }, true));
-    playCards.add(_CardDetails(
+    playCards.add(global.CardDetails(
       svgs.lightDetectorPlay,
       "light_play",
       Colors.orange,
@@ -63,13 +56,14 @@ class _PlaySelector extends State<PlaySelector> {
       },
       true,
     ));
-    playCards.add(_CardDetails(svgs.pianoPlay, "piano_play", Colors.purple, () {
+    playCards.add(
+        global.CardDetails(svgs.pianoPlay, "piano_play", Colors.purple, () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const PianoApp()),
+        MaterialPageRoute(builder: (context) => PianoKeys()),
       );
     }, true));
-    playCards.add(_CardDetails(
+    playCards.add(global.CardDetails(
         svgs.drawFollowPlay, "drawFollow_play", const Color(0xffFA857B), () {
       Navigator.push(
         context,
@@ -131,6 +125,7 @@ class _PlaySelector extends State<PlaySelector> {
                             itemBuilder: _buildListItem,
                             itemCount: playCards.length,
                             reverse: true,
+                            initialIndex: playCards.length.toDouble(),
                           ),
                         ),
                       ]))

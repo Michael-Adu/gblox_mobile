@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -274,7 +272,7 @@ class _BlocklyState extends State<Blockly> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                    width: 175,
+                    width: global.device_width * 0.215,
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -293,7 +291,7 @@ class _BlocklyState extends State<Blockly> {
                                     return Container();
                                   }
                                 }),
-                            height: 220,
+                            height: global.device_height * 0.65,
                           ),
                           InkWell(
                             borderRadius:
@@ -304,7 +302,7 @@ class _BlocklyState extends State<Blockly> {
                                       ScreenshotConfiguration()));
                             },
                             child: Container(
-                                width: 100,
+                                width: global.device_width * 0.15,
                                 padding: const EdgeInsets.all(5),
                                 child: const Icon(Icons.play_arrow,
                                     color: Colors.white),
@@ -319,7 +317,7 @@ class _BlocklyState extends State<Blockly> {
                           )
                         ])),
                 Container(
-                    width: 640,
+                    width: global.device_width * 0.785,
                     alignment: Alignment.centerRight,
                     child: InAppWebView(
                       initialOptions: InAppWebViewGroupOptions(
