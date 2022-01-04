@@ -19,11 +19,11 @@ void main() async {
           [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
       .then((_) {
     runApp(EasyLocalization(
-        supportedLocales: [
-          const Locale('en'),
-          const Locale('fr'),
-          const Locale('pt'),
-          const Locale('de')
+        supportedLocales: const [
+          Locale('en'),
+          Locale('fr'),
+          Locale('pt'),
+          Locale('de')
         ],
         path: 'assets/languages',
         fallbackLocale: const Locale('en'),
