@@ -76,7 +76,7 @@ class _ControllerState extends State<Controller> {
                         backgroundColor: const Color(0xff0000DC),
                         innerCircleColor: Colors.white,
                         iconsColor: Colors.white,
-                        size: global.device_width * 0.3,
+                        size: global.device_width * 0.27,
                       )),
                   Container(
                       width: global.device_width * 0.3,

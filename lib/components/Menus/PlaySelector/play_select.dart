@@ -13,6 +13,7 @@ import '../../SketchingTool/sketcher.dart';
 import '../../Bluetooth/connection_in_progress.dart';
 import '../../PathFinder/path_finder.dart';
 import '../../LightDetector/light_detector.dart';
+import '../../ObstacleDetector/obstacle_detector.dart';
 
 class PlaySelector extends StatefulWidget {
   const PlaySelector({Key? key}) : super(key: key);
@@ -36,13 +37,12 @@ class _PlaySelector extends State<PlaySelector> {
         MaterialPageRoute(builder: (context) => const Controller()),
       );
     }, true));
-    playCards.add(global.CardDetails(svgs.obstacle_detector,
-        "obstacleDetection_play", const Color(0xff4CBFE6), () {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const SketcherWidget()),
-      // );
-      global.displayToast("This mode is not available yet");
+    playCards.add(global.CardDetails(
+        svgs.obstacle_detector, "obstacle_play", const Color(0xff4CBFE6), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ObstacleDetector()),
+      );
     }, true));
     playCards.add(
         global.CardDetails(svgs.pathFinderPlay, "path_play", Colors.green, () {

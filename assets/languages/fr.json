@@ -17,6 +17,8 @@
     "drive_play": " Conduire",
     "path_play": "Expolrateur de chemin",
     "light_play": "Suivre de lumière",
+    
+    "obstacle_play": "Détecteur d'obstacles",
     "piano_play": "Piano",
     "drawFollow_play": "Dessiner et suivre",
     "connect_to_device": "Connexion au dispositif",

@@ -8,14 +8,14 @@ import '../svgs/svgs.dart' as svgs;
 import '../global_variables.dart' as global;
 import 'dart:math' as math;
 
-class LightDetector extends StatefulWidget {
+class ObstacleDetector extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LightDetectorState();
+    return _ObstacleDetectorState();
   }
 }
 
-class _LightDetectorState extends State<LightDetector> {
+class _ObstacleDetectorState extends State<ObstacleDetector> {
   @override
   bool _state = false;
   List<Widget> falseState = [
@@ -46,7 +46,7 @@ class _LightDetectorState extends State<LightDetector> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text('light_play').tr(),
+              title: const Text('obstacle_play').tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {
@@ -59,22 +59,29 @@ class _LightDetectorState extends State<LightDetector> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    alignment: Alignment.topCenter,
-                    margin: EdgeInsets.fromLTRB(
-                        0, global.device_height * 0.12, 0, 0),
+                    alignment: Alignment.center,
+                    clipBehavior: Clip.none,
                     width: global.device_width * 0.5,
-                    height: global.device_height * 0.6,
-                    child: Stack(alignment: Alignment.center, children: [
+                    height: global.device_height * 1,
+                    child: Stack(clipBehavior: Clip.none, children: [
                       Container(
-                          child: SvgPicture.string(svgs.light_detector,
-                              alignment: Alignment.center,
-                              clipBehavior: Clip.none,
-                              fit: BoxFit.cover)),
+                          alignment: Alignment.topCenter,
+                          clipBehavior: Clip.none,
+                          child: Transform(
+                              transform: Matrix4.diagonal3Values(1.5, 1.5, 1),
+                              child: SvgPicture.string(
+                                svgs.obstacle_detect,
+                                alignment: Alignment.center,
+                                fit: BoxFit.contain,
+                              ))),
                       Container(
-                          alignment: Alignment.center,
+                          clipBehavior: Clip.none,
+                          width: global.device_width * 0.5,
                           margin: EdgeInsets.fromLTRB(
-                              0, 0, 0, global.device_height * 0.2),
-                          width: global.device_width * 0.16,
+                              global.device_width * 0.1,
+                              global.device_height * 0.3,
+                              global.device_width * 0.35,
+                              0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: stateWidget,
@@ -84,8 +91,8 @@ class _LightDetectorState extends State<LightDetector> {
                     alignment: Alignment.center,
                     child: GBloxSwitch(
                       icons: const [
-                        GBloxCustomSVGs.followLight,
-                        GBloxCustomSVGs.avoidLight
+                        GBloxCustomSVGs.followobstacle,
+                        GBloxCustomSVGs.avoidobstacle
                       ],
                       switchedFunctions: [
                         () {

@@ -18,6 +18,7 @@
     "path_play": "Path Finder",
     "light_play": "Light Detector",
     "piano_play": "Piano",
+    "obstacle_play": "Obstacle Detector",
     "drawFollow_play": "Draw and Follow",
     "connect_to_device": "Connecting to Device",
     "shapes_page": "Shapes",

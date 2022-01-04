@@ -14,6 +14,8 @@
     "build_mode": "Construir",
     "drive_play": "Dirigir",
     "path_play": "Localizador de caminho",
+    
+    "obstacle_play": "Detector de Obstáculos",
     "light_play": "Detector de luz",
     "piano_play": "Piano",
     "drawFollow_play": "Desenhe e siga",

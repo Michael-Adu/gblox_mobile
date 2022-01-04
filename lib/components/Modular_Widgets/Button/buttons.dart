@@ -156,7 +156,9 @@ class _GBloxButtons extends State<GBloxButtons> {
                           ? Transform.rotate(
                               angle: math.pi / 4,
                               child: Icon(widget.icon, color: Colors.white))
-                          : Icon(widget.icon, color: Colors.white),
+                          : Icon(widget.icon,
+                              color: Colors.white,
+                              size: global.device_height * 0.08),
                       duration: const Duration(milliseconds: 10),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
