@@ -52,7 +52,6 @@ class _CardDetails {
 
 class _GbloxApp extends State<GbloxApp> {
   late List<_CardDetails> startCards = List<_CardDetails>.empty(growable: true);
-  double _cardSize = 250;
   ThemeData _currentTheme = global.darkTheme;
   _GbloxApp();
 
@@ -145,32 +144,23 @@ class _GbloxApp extends State<GbloxApp> {
                     color: Theme.of(context).primaryColor,
                     padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                     child: ListView(padding: EdgeInsets.zero, children: [
-                      ListTile(
-                        enableFeedback: true,
-                        title: const Text('change_theme_settings').tr(),
-                        onTap: () {
-                          if (_currentTheme == global.darkTheme) {
-                            setState(() {
-                              _currentTheme = global.lightTheme;
-                            });
-                          } else {
-                            setState(() {
-                              _currentTheme = global.darkTheme;
-                            });
-                          }
-                        },
-                      ),
                       ConfigurableExpansionTile(
                           animatedWidgetFollowingHeader: Container(
                               alignment: Alignment.centerRight,
-                              child: const Icon(Icons.arrow_downward,
-                                  color: Colors.white, size: 10)),
+                              child: Icon(Icons.arrow_downward,
+                                  color: Colors.white,
+                                  size: MediaQuery.of(context).size.height *
+                                      0.04)),
                           header: Container(
                               width: MediaQuery.of(context).size.width * 0.255,
                               alignment: Alignment.centerLeft,
-                              child: const Text(
+                              child: Text(
                                 'change_language_settings',
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.04),
                               ).tr()),
                           borderColorEnd: Colors.lightGreen,
                           children: [
@@ -182,9 +172,13 @@ class _GbloxApp extends State<GbloxApp> {
                                   padding: EdgeInsets.all(
                                       MediaQuery.of(context).size.height *
                                           0.05),
-                                  child: const Text(
+                                  child: Text(
                                     "English",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.04),
                                   ),
                                 )),
                             InkWell(
@@ -195,9 +189,13 @@ class _GbloxApp extends State<GbloxApp> {
                                   padding: EdgeInsets.all(
                                       MediaQuery.of(context).size.height *
                                           0.05),
-                                  child: const Text(
+                                  child: Text(
                                     "Français",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.04),
                                   ),
                                 )),
                             InkWell(
@@ -229,7 +227,12 @@ class _GbloxApp extends State<GbloxApp> {
                           ]),
                       ListTile(
                           enableFeedback: true,
-                          title: const Text('help_settings').tr(),
+                          title: Text('help_settings',
+                                  style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.04))
+                              .tr(),
                           onTap: () {})
                     ]),
                   )),
@@ -241,7 +244,7 @@ class _GbloxApp extends State<GbloxApp> {
                                 MediaQuery.of(context).padding.top) *
                             0.8),
                         child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
                                   child: Container(

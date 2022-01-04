@@ -24,7 +24,7 @@ double device_width = MediaQuery.of(navigatorKey.currentContext!).size.width;
 double device_height = MediaQuery.of(navigatorKey.currentContext!).size.height;
 double device_status_bar_height =
     MediaQuery.of(navigatorKey.currentContext!).padding.top;
-double cardSize = device_width * 0.6;
+double cardSize = device_width * 0.4;
 
 class ToolboxClass {
   String name;

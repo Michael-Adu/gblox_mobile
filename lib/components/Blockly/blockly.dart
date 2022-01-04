@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../Modular_Widgets/ToolboxButtons/toolbox_category_buttons.dart';
@@ -152,22 +153,6 @@ class _BlocklyState extends State<Blockly> {
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               centerTitle: true,
-              // leading: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       IconButton(
-              //           onPressed: () {
-              //             Navigator.pop(context);
-              //           },
-              //           icon: const Icon(Icons.home, color: Colors.white)),
-              //       Builder(builder: (context) {
-              //         return IconButton(
-              //             onPressed: () {
-              //               Scaffold.of(context).openDrawer();
-              //             },
-              //             icon: const Icon(Icons.menu, color: Colors.white));
-              //       })
-              //     ])
             ),
             drawer: Drawer(
               child: Container(
@@ -238,36 +223,99 @@ class _BlocklyState extends State<Blockly> {
                     ],
                   )),
             ),
-            endDrawer: Drawer(
-                child: Container(
-              color: Theme.of(context).primaryColor,
-              padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  ListTile(
-                    enableFeedback: true,
-                    title: const Text('change_language_settings').tr(),
-                    onTap: () {
-                      {
-                        if (global.navigatorKey.currentContext!.locale ==
-                            const Locale("en")) {
-                          global.navigatorKey.currentContext!
-                              .setLocale(const Locale("fr"));
-                        } else {
-                          global.navigatorKey.currentContext!
-                              .setLocale(const Locale("en"));
-                        }
-                      }
-                    },
-                  ),
+            endDrawer: Container(
+              width: MediaQuery.of(context).size.width * 0.33,
+              child: Drawer(
+                  child: Container(
+                color: Theme.of(context).primaryColor,
+                padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                child: ListView(padding: EdgeInsets.zero, children: [
+                  ConfigurableExpansionTile(
+                      animatedWidgetFollowingHeader: Container(
+                          alignment: Alignment.centerRight,
+                          child: Icon(Icons.arrow_downward,
+                              color: Colors.white,
+                              size: MediaQuery.of(context).size.height * 0.04)),
+                      header: Container(
+                          width: MediaQuery.of(context).size.width * 0.255,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'change_language_settings',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.04),
+                          ).tr()),
+                      borderColorEnd: Colors.lightGreen,
+                      children: [
+                        InkWell(
+                            onTap: () {
+                              context.setLocale(const Locale("en"));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.05),
+                              child: Text(
+                                "English",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.04),
+                              ),
+                            )),
+                        InkWell(
+                            onTap: () {
+                              context.setLocale(const Locale("fr"));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.05),
+                              child: Text(
+                                "Français",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.04),
+                              ),
+                            )),
+                        InkWell(
+                            onTap: () {
+                              context.setLocale(const Locale("pt"));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.05),
+                              child: const Text(
+                                "Português",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )),
+                        InkWell(
+                            onTap: () {
+                              context.setLocale(const Locale("de"));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  MediaQuery.of(context).size.height * 0.05),
+                              child: const Text(
+                                "Deutsch",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            )),
+                      ]),
                   ListTile(
                       enableFeedback: true,
-                      title: const Text('help_settings').tr(),
+                      title: Text('help_settings',
+                              style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.04))
+                          .tr(),
                       onTap: () {})
-                ],
-              ),
-            )),
+                ]),
+              )),
+            ),
             body: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
