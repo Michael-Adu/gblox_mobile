@@ -20,6 +20,7 @@
     "piano_play": "Piano",
     "drawFollow_play": "Draw and Follow",
     "connect_to_device": "Connecting to Device",
-    "shapes_page": "Shapes"
-
+    "shapes_page": "Shapes",
+    "discovering_devices": "Discovering Devices",
+    "discovered_devices": "Discovered Devices"
 }

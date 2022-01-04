@@ -19,60 +19,70 @@ class _GBloxSwitchState extends State<GBloxSwitch> {
     GBloxCustomSVGs.followLight,
     GBloxCustomSVGs.avoidLight
   ];
-  bool _state = false;
+  ValueNotifier<bool> state = ValueNotifier<bool>(false);
+  List<Function> switchedFunctions = List<Function>.empty(growable: true);
 
+  @override
   void initState() {
     if ((widget.icons?.isEmpty) == false) {
       switchIcons = widget.icons!;
     }
+    try {
+      switchedFunctions = widget.switchedFunctions!;
+    } catch (e) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-        duration: const Duration(milliseconds: 10),
-        width: 200,
-        decoration: const BoxDecoration(
-          color: Color(0xff060227),
-          borderRadius: BorderRadius.all(Radius.circular(100)),
-        ),
-        padding: const EdgeInsets.all(10),
-        child: AnimatedContainer(
-            duration: const Duration(milliseconds: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                AnimatedContainer(
-                    duration: const Duration(milliseconds: 10),
-                    child: GBloxButtons(
-                      buttonType: "controller_circle",
-                      icon: switchIcons[0],
-                      buttonColor: _state ? 0xff3EA52C : 0xff060841,
-                      pressed: () {
-                        try {
-                          widget.switchedFunctions![0]();
-                          setState(() {
-                            _state = true;
-                          });
-                        } catch (e) {}
-                      },
-                    )),
-                AnimatedContainer(
-                    duration: const Duration(milliseconds: 10),
-                    child: GBloxButtons(
-                      buttonType: "controller_circle",
-                      icon: switchIcons[1],
-                      buttonColor: _state ? 0xff060841 : 0xffDD0A18,
-                      pressed: () {
-                        try {
-                          widget.switchedFunctions![1]();
-                          setState(() {
-                            _state = false;
-                          });
-                        } catch (e) {}
-                      },
-                    ))
-              ],
-            )));
+    return ValueListenableBuilder(
+        valueListenable: state,
+        builder: (context, value, widget) {
+          return AnimatedContainer(
+              duration: const Duration(milliseconds: 10),
+              decoration: const BoxDecoration(
+                color: Color(0xff060227),
+                borderRadius: BorderRadius.all(Radius.circular(100)),
+              ),
+              padding: const EdgeInsets.all(10),
+              child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      AnimatedContainer(
+                          width: global.device_height * 0.2,
+                          height: global.device_height * 0.2,
+                          duration: const Duration(milliseconds: 10),
+                          padding: EdgeInsets.all(global.device_width * 0.01),
+                          child: GBloxButtons(
+                            buttonType: "controller_circle",
+                            icon: switchIcons[0],
+                            buttonColor: state.value ? 0xff3EA52C : 0xff060841,
+                            pressed: () {
+                              state.value = true;
+                              try {
+                                switchedFunctions[0]();
+                              } catch (e) {}
+                            },
+                          )),
+                      AnimatedContainer(
+                          width: global.device_height * 0.2,
+                          height: global.device_height * 0.2,
+                          duration: const Duration(milliseconds: 10),
+                          padding: EdgeInsets.all(global.device_width * 0.01),
+                          child: GBloxButtons(
+                            buttonType: "controller_circle",
+                            icon: switchIcons[1],
+                            buttonColor: state.value ? 0xff060841 : 0xffDD0A18,
+                            pressed: () {
+                              state.value = false;
+                              try {
+                                switchedFunctions[1]();
+                              } catch (e) {}
+                            },
+                          ))
+                    ],
+                  )));
+        });
   }
 }

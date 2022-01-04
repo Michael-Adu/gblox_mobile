@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
@@ -380,8 +381,8 @@ class _DiscoveryPage extends State<DiscoveryPage> {
         home: Scaffold(
             appBar: AppBar(
               title: isDiscovering
-                  ? Text('Discovering devices')
-                  : Text('Discovered devices'),
+                  ? const Text("discovering_devices").tr()
+                  : const Text("discovered_devices").tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {

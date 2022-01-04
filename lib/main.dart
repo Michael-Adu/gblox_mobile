@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import './components/global_variables.dart' as global;
 import './components/svgs/svgs.dart' as svgs;
 import './components/Modular_Widgets/Cards/cards.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'components/Bluetooth/device_select.dart';
 import './components/Menus/ModeSelector/mode_select.dart';
 
@@ -18,7 +19,12 @@ void main() async {
           [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
       .then((_) {
     runApp(EasyLocalization(
-        supportedLocales: [const Locale('en'), const Locale('fr')],
+        supportedLocales: [
+          const Locale('en'),
+          const Locale('fr'),
+          const Locale('pt'),
+          const Locale('de')
+        ],
         path: 'assets/languages',
         fallbackLocale: const Locale('en'),
         child: const GbloxApp()));
@@ -47,12 +53,12 @@ class _CardDetails {
 class _GbloxApp extends State<GbloxApp> {
   late List<_CardDetails> startCards = List<_CardDetails>.empty(growable: true);
   double _cardSize = 250;
-  int _focusedIndex = 0;
   ThemeData _currentTheme = global.darkTheme;
   _GbloxApp();
 
   void initState() {
     super.initState();
+
     startCards.add(_CardDetails(svgs.playMode, "Select Mode", Colors.red, () {
       Navigator.push(
         context,
@@ -65,24 +71,6 @@ class _GbloxApp extends State<GbloxApp> {
         MaterialPageRoute(builder: (context) => DiscoveryPage()),
       );
     }, false));
-  }
-
-  Widget _buildListItem(BuildContext context, int index) {
-    return Container(
-        width: _cardSize,
-        height: 400,
-        child: Container(
-            child: GBloxCards(
-                svg: startCards[index].svg,
-                text: startCards[index].title,
-                textBackgroundColor: startCards[index].textBackgroundColor,
-                pressed: startCards[index].pressed)));
-  }
-
-  void _onItemFocus(int index) {
-    setState(() {
-      _focusedIndex = index;
-    });
   }
 
   @override
@@ -150,13 +138,13 @@ class _GbloxApp extends State<GbloxApp> {
                     ],
                   ),
                 )),
-                endDrawer: Drawer(
-                    child: Container(
-                  color: Theme.of(context).primaryColor,
-                  padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
+                endDrawer: Container(
+                  width: MediaQuery.of(context).size.width * 0.33,
+                  child: Drawer(
+                      child: Container(
+                    color: Theme.of(context).primaryColor,
+                    padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                    child: ListView(padding: EdgeInsets.zero, children: [
                       ListTile(
                         enableFeedback: true,
                         title: const Text('change_theme_settings').tr(),
@@ -172,58 +160,125 @@ class _GbloxApp extends State<GbloxApp> {
                           }
                         },
                       ),
-                      ListTile(
-                        enableFeedback: true,
-                        title: const Text('change_language_settings').tr(),
-                        onTap: () {
-                          {
-                            if (context.locale == const Locale("en")) {
-                              context.setLocale(const Locale("fr"));
-                            } else {
-                              context.setLocale(const Locale("en"));
-                            }
-                          }
-                        },
-                      ),
+                      ConfigurableExpansionTile(
+                          animatedWidgetFollowingHeader: Container(
+                              alignment: Alignment.centerRight,
+                              child: const Icon(Icons.arrow_downward,
+                                  color: Colors.white, size: 10)),
+                          header: Container(
+                              width: MediaQuery.of(context).size.width * 0.255,
+                              alignment: Alignment.centerLeft,
+                              child: const Text(
+                                'change_language_settings',
+                                style: TextStyle(color: Colors.white),
+                              ).tr()),
+                          borderColorEnd: Colors.lightGreen,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  context.setLocale(const Locale("en"));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.height *
+                                          0.05),
+                                  child: const Text(
+                                    "English",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )),
+                            InkWell(
+                                onTap: () {
+                                  context.setLocale(const Locale("fr"));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.height *
+                                          0.05),
+                                  child: const Text(
+                                    "Français",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )),
+                            InkWell(
+                                onTap: () {
+                                  context.setLocale(const Locale("pt"));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.height *
+                                          0.05),
+                                  child: const Text(
+                                    "Português",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )),
+                            InkWell(
+                                onTap: () {
+                                  context.setLocale(const Locale("de"));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(
+                                      MediaQuery.of(context).size.height *
+                                          0.05),
+                                  child: const Text(
+                                    "Deutsch",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )),
+                          ]),
                       ListTile(
                           enableFeedback: true,
                           title: const Text('help_settings').tr(),
                           onTap: () {})
-                    ],
-                  ),
-                )),
+                    ]),
+                  )),
+                ),
                 body: Center(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                      Container(
-                          width: _cardSize,
-                          height: _cardSize,
-                          child: GBloxCards(
-                              svg: svgs.playMode,
-                              text: "mode_select_page",
-                              textBackgroundColor: Colors.blue,
-                              pressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ModeSelector()),
-                                );
-                              })),
-                      Container(
-                          width: _cardSize,
-                          height: _cardSize,
-                          child: GBloxCards(
-                              svg: svgs.mingo,
-                              text: "select_device_page",
-                              textBackgroundColor: Colors.teal,
-                              pressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DiscoveryPage()),
-                                );
-                              })),
-                    ])))));
+                    child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: ((MediaQuery.of(context).size.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.8),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.4,
+                                      height:
+                                          (MediaQuery.of(context).size.height *
+                                              0.6),
+                                      child: GBloxCards(
+                                          svg: svgs.playMode,
+                                          text: "mode_select_page",
+                                          textBackgroundColor: Colors.blue,
+                                          pressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ModeSelector()),
+                                            );
+                                          }))),
+                              Expanded(
+                                  child: Container(
+                                      height:
+                                          (MediaQuery.of(context).size.height *
+                                              0.6),
+                                      child: GBloxCards(
+                                          svg: svgs.mingo,
+                                          text: "select_device_page",
+                                          textBackgroundColor: Colors.teal,
+                                          pressed: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DiscoveryPage()),
+                                            );
+                                          }))),
+                            ]))))));
   }
 }

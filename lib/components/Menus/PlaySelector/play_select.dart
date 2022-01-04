@@ -26,7 +26,6 @@ class _PlaySelector extends State<PlaySelector> {
   List<global.CardDetails> playCards =
       List<global.CardDetails>.empty(growable: true);
   int _focusedIndex = 0;
-  double _cardSize = 250;
 
   void initState() {
     super.initState();
@@ -36,6 +35,14 @@ class _PlaySelector extends State<PlaySelector> {
         context,
         MaterialPageRoute(builder: (context) => const Controller()),
       );
+    }, true));
+    playCards.add(global.CardDetails(svgs.obstacle_detector,
+        "obstacleDetection_play", const Color(0xff4CBFE6), () {
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const SketcherWidget()),
+      // );
+      global.displayToast("This mode is not available yet");
     }, true));
     playCards.add(
         global.CardDetails(svgs.pathFinderPlay, "path_play", Colors.green, () {
@@ -69,12 +76,12 @@ class _PlaySelector extends State<PlaySelector> {
         context,
         MaterialPageRoute(builder: (context) => const SketcherWidget()),
       );
-    }, false));
+    }, true));
   }
 
   Widget _buildListItem(BuildContext context, int index) {
     return SizedBox(
-        width: _cardSize,
+        width: global.cardSize,
         child: Container(
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: GBloxCards(
@@ -104,31 +111,39 @@ class _PlaySelector extends State<PlaySelector> {
                       Navigator.pop(context);
                     },
                     icon: const Icon(Icons.arrow_back))),
-            body: Stack(children: [
-              SvgPicture.string(
-                svgs.pageCityBackground,
-                alignment: Alignment.bottomCenter,
-              ),
-              Container(
-                  padding: const EdgeInsets.all(20),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Expanded(
-                          child: ScrollSnapList(
-                            onItemFocus: _onItemFocus,
-                            dynamicItemSize: true,
-                            itemSize: _cardSize,
-                            dynamicItemOpacity: 0.5,
-                            duration: 100,
-                            focusOnItemTap: true,
-                            itemBuilder: _buildListItem,
-                            itemCount: playCards.length,
-                            reverse: true,
-                            initialIndex: playCards.length.toDouble(),
-                          ),
-                        ),
-                      ]))
-            ]))));
+            body: Container(
+                alignment: Alignment.center,
+                child: Stack(children: [
+                  SvgPicture.string(
+                    svgs.pageCityBackground,
+                    alignment: Alignment.bottomCenter,
+                  ),
+                  Container(
+                      height: global.device_height * 0.8,
+                      padding: EdgeInsets.fromLTRB(
+                          0,
+                          global.device_height * 0.1,
+                          0,
+                          global.device_height * 0.1),
+                      width: global.device_width * 1,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Expanded(
+                              child: ScrollSnapList(
+                                onItemFocus: _onItemFocus,
+                                dynamicItemSize: true,
+                                itemSize: global.cardSize,
+                                dynamicItemOpacity: 0.5,
+                                duration: 100,
+                                focusOnItemTap: true,
+                                itemBuilder: _buildListItem,
+                                itemCount: playCards.length,
+                                reverse: true,
+                                initialIndex: playCards.length.toDouble(),
+                              ),
+                            ),
+                          ]))
+                ])))));
   }
 }

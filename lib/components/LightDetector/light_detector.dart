@@ -31,21 +31,51 @@ class _LightDetectorState extends State<LightDetector> {
             ),
             body: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    margin: const EdgeInsets.fromLTRB(0, 100, 0, 0),
-                    child: SvgPicture.string(svgs.light_detector,
-                        alignment: Alignment.center,
-                        clipBehavior: Clip.none,
-                        fit: BoxFit.cover),
-                    width: 350,
-                    height: 400),
-                GBloxSwitch(
-                  icons: const [
-                    GBloxCustomSVGs.followLight,
-                    GBloxCustomSVGs.avoidLight
-                  ],
-                )
+                    alignment: Alignment.topCenter,
+                    margin: EdgeInsets.fromLTRB(
+                        0, global.device_height * 0.12, 0, 0),
+                    width: global.device_width * 0.5,
+                    height: global.device_height * 0.6,
+                    child: Stack(alignment: Alignment.center, children: [
+                      Container(
+                          child: SvgPicture.string(svgs.light_detector,
+                              alignment: Alignment.center,
+                              clipBehavior: Clip.none,
+                              fit: BoxFit.cover)),
+                      Container(
+                          alignment: Alignment.center,
+                          margin: EdgeInsets.fromLTRB(
+                              0, 0, 0, global.device_height * 0.2),
+                          width: global.device_width * 0.12,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              SvgPicture.string(svgs.light_detector_follow,
+                                  height: global.device_height * 0.25),
+                              SvgPicture.string(svgs.light_detector_follow,
+                                  height: global.device_height * 0.25),
+                            ],
+                          ))
+                    ])),
+                Container(
+                    alignment: Alignment.center,
+                    child: GBloxSwitch(
+                      icons: const [
+                        GBloxCustomSVGs.followLight,
+                        GBloxCustomSVGs.avoidLight
+                      ],
+                      switchedFunctions: [
+                        () {
+                          print("First");
+                        },
+                        () {
+                          print("Second");
+                        }
+                      ],
+                    ))
               ],
             ))));
   }

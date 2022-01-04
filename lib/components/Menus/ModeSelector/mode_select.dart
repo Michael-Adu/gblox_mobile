@@ -20,7 +20,6 @@ class _ModeSelector extends State<ModeSelector> {
   List<global.CardDetails> modeCards =
       List<global.CardDetails>.empty(growable: true);
   int _focusedIndex = 0;
-  double _cardSize = 250;
 
   void initState() {
     super.initState();
@@ -49,9 +48,9 @@ class _ModeSelector extends State<ModeSelector> {
 
   Widget _buildListItem(BuildContext context, int index) {
     return Container(
-        width: _cardSize,
+        width: global.cardSize,
         child: Container(
-            margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+            margin: const EdgeInsets.fromLTRB(0, 0, 0, 0),
             child: GBloxCards(
                 svg: modeCards[index].svg,
                 text: modeCards[index].title,
@@ -81,29 +80,36 @@ class _ModeSelector extends State<ModeSelector> {
                   icon: const Icon(Icons.arrow_back)),
             ),
             body: Container(
+                alignment: Alignment.center,
                 child: Stack(children: [
-              SvgPicture.string(
-                svgs.pageCityBackground,
-                alignment: Alignment.bottomCenter,
-              ),
-              Container(
-                  padding: EdgeInsets.all(global.device_height * 0.05),
-                  child: Row(children: <Widget>[
-                    Expanded(
-                      child: ScrollSnapList(
-                        onItemFocus: _onItemFocus,
-                        dynamicItemSize: true,
-                        itemSize: _cardSize,
-                        dynamicItemOpacity: 0.5,
-                        duration: 100,
-                        focusOnItemTap: true,
-                        itemBuilder: _buildListItem,
-                        itemCount: modeCards.length,
-                        reverse: true,
-                        initialIndex: 1,
-                      ),
-                    ),
-                  ]))
-            ])))));
+                  SvgPicture.string(
+                    svgs.pageCityBackground,
+                    alignment: Alignment.bottomCenter,
+                  ),
+                  Container(
+                      height: global.device_height * 0.8,
+                      padding: EdgeInsets.fromLTRB(
+                          0,
+                          global.device_height * 0.1,
+                          0,
+                          global.device_height * 0.1),
+                      width: global.device_width * 1,
+                      child: Row(children: <Widget>[
+                        Expanded(
+                          child: ScrollSnapList(
+                            onItemFocus: _onItemFocus,
+                            dynamicItemSize: true,
+                            itemSize: global.cardSize,
+                            dynamicItemOpacity: 0.5,
+                            duration: 100,
+                            focusOnItemTap: true,
+                            itemBuilder: _buildListItem,
+                            itemCount: modeCards.length,
+                            reverse: true,
+                            initialIndex: 1,
+                          ),
+                        ),
+                      ]))
+                ])))));
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import '../../global_variables.dart' as global;
 import '../../svgs/g_blox_custom_s_v_gs_icons.dart';
 
 ///Creates a gBlox button widget
@@ -12,6 +13,7 @@ class GBloxButtons extends StatefulWidget {
   late final IconData icon;
   @required
   late final Function? pressed;
+  late final bool rotate;
   late final int buttonColor;
   late final String buttonName;
   GBloxButtons(
@@ -20,7 +22,8 @@ class GBloxButtons extends StatefulWidget {
       this.icon = GBloxCustomSVGs.rotateMovement,
       this.pressed,
       this.buttonColor = 0xffDB8000,
-      this.buttonName = "New"});
+      this.buttonName = "New",
+      this.rotate = false});
   @override
   State<StatefulWidget> createState() {
     return _GBloxButtons();
@@ -40,6 +43,7 @@ class _GBloxButtons extends State<GBloxButtons> {
   @override
   void initState() {
     super.initState();
+
     try {
       gradient = [
         Color(widget.buttonColor).withOpacity(1.0),
@@ -57,6 +61,15 @@ class _GBloxButtons extends State<GBloxButtons> {
 
   @override
   Widget build(BuildContext context) {
+    gradient = [
+      Color(widget.buttonColor).withOpacity(1.0),
+      Color(widget.buttonColor).withOpacity(0.8)
+    ];
+    _toggledColor = [
+      HSLColor.fromColor(gradient[0]).withLightness(0.3).toColor(),
+      HSLColor.fromColor(gradient[1]).withLightness(0.3).toColor()
+    ];
+    _untoggledColor = [gradient[1], gradient[0]];
     switch (widget.buttonType) {
       case "controller_square":
         return (AnimatedContainer(
@@ -64,17 +77,25 @@ class _GBloxButtons extends State<GBloxButtons> {
             child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               child: AnimatedContainer(
-                width: 105,
-                height: 55,
+                // width: global.device_width * 0.102,
+                // height: global.device_height * 0.08,
                 duration: const Duration(seconds: 1),
                 padding: const EdgeInsets.all(5),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 10),
-                  child: Icon(widget.icon,
-                      color: _toggledState
-                          ? _toggledContainerColor
-                          : _untoggledContainerColor,
-                      size: 25),
+                  child: widget.rotate
+                      ? Transform.rotate(
+                          angle: math.pi / 2,
+                          child: Icon(widget.icon,
+                              color: _toggledState
+                                  ? _toggledContainerColor
+                                  : _untoggledContainerColor,
+                              size: global.device_width * 0.08))
+                      : Icon(widget.icon,
+                          color: _toggledState
+                              ? _toggledContainerColor
+                              : _untoggledContainerColor,
+                          size: global.device_width * 0.025),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -123,8 +144,6 @@ class _GBloxButtons extends State<GBloxButtons> {
               borderRadius: const BorderRadius.all(Radius.circular(60)),
               child: Container(
                 child: Container(
-                    height: 60,
-                    width: 60,
                     padding: const EdgeInsets.all(3),
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -133,9 +152,11 @@ class _GBloxButtons extends State<GBloxButtons> {
                             end: Alignment.topCenter,
                             colors: gradient)),
                     child: AnimatedContainer(
-                      height: 60,
-                      width: 60,
-                      child: Icon(widget.icon, color: Colors.white),
+                      child: widget.rotate
+                          ? Transform.rotate(
+                              angle: math.pi / 4,
+                              child: Icon(widget.icon, color: Colors.white))
+                          : Icon(widget.icon, color: Colors.white),
                       duration: const Duration(milliseconds: 10),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,

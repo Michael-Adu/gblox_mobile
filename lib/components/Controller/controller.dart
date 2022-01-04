@@ -4,10 +4,12 @@ import 'package:control_pad/control_pad.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:math' as math;
 import '../Modular_Widgets/Button/buttons.dart';
 import '../global_variables.dart' as global;
 import '../svgs/g_blox_custom_s_v_gs_icons.dart';
 import 'speedmeter.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -60,7 +62,8 @@ class _ControllerState extends State<Controller> {
             body: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  JoystickView(
+                  Container(
+                      child: JoystickView(
                     onDirectionChanged:
                         (double degrees, double distanceFromCenter) {
                       varDegress = degrees;
@@ -72,9 +75,10 @@ class _ControllerState extends State<Controller> {
                     backgroundColor: const Color(0xff0000DC),
                     innerCircleColor: Colors.white,
                     iconsColor: Colors.white,
-                  ),
+                    size: global.device_width * 0.3,
+                  )),
                   Container(
-                      width: 300,
+                      width: global.device_width * 0.3,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -83,96 +87,163 @@ class _ControllerState extends State<Controller> {
                                 builder: (context, value, widget) {
                                   return Speedometer(speed: currentSpeed);
                                 }),
-                            GBloxButtons(
-                                buttonType: "controller_circle",
-                                icon: GBloxCustomSVGs.gBloxLogo,
-                                pressed: () {},
-                                buttonColor: 0xff1D184B),
+                            SizedBox(
+                              width: global.device_height * 0.2,
+                              height: global.device_height * 0.2,
+                              child: GBloxButtons(
+                                  buttonType: "controller_circle",
+                                  icon: GBloxCustomSVGs.gBloxLogo,
+                                  pressed: () {},
+                                  buttonColor: 0xff1D184B),
+                            ),
                             Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  GBloxButtons(
-                                    buttonType: "controller_square",
-                                    icon: GBloxCustomSVGs.horn,
-                                    pressed: () {
-                                      print("Horn Pressed");
-                                      try {
-                                        global.activeConnection.output.add(
-                                            Uint8List.fromList(
-                                                utf8.encode("a")));
-                                        print(global.activeConnection);
-                                      } catch (e) {
-                                        print(e);
-                                      }
-                                    },
-                                    buttonColor: 0xff1D184B,
+                                  Container(
+                                    width: global.device_width * 0.1,
+                                    child: GBloxButtons(
+                                      buttonType: "controller_square",
+                                      icon: GBloxCustomSVGs.horn,
+                                      pressed: () {
+                                        print("Horn Pressed");
+                                        try {
+                                          global.activeConnection.output.add(
+                                              Uint8List.fromList(
+                                                  utf8.encode("a")));
+                                          print(global.activeConnection);
+                                        } catch (e) {
+                                          print(e);
+                                        }
+                                      },
+                                      buttonColor: 0xff1D184B,
+                                    ),
                                   ),
-                                  GBloxButtons(
-                                    buttonType: "controller_square",
-                                    icon: GBloxCustomSVGs.headlights,
-                                    pressed: () {
-                                      print("Lights Toggled");
-                                      try {
-                                        global.activeConnection.output.add(
-                                            Uint8List.fromList(
-                                                utf8.encode("b")));
-                                        print(global.activeConnection);
-                                      } catch (e) {
-                                        print(e);
-                                      }
-                                    },
-                                    buttonColor: 0xff1D184B,
-                                  )
+                                  Container(
+                                      width: global.device_width * 0.1,
+                                      child: GBloxButtons(
+                                        buttonType: "controller_square",
+                                        icon: GBloxCustomSVGs.headlights,
+                                        pressed: () {
+                                          print("Lights Toggled");
+                                          try {
+                                            global.activeConnection.output.add(
+                                                Uint8List.fromList(
+                                                    utf8.encode("b")));
+                                            print(global.activeConnection);
+                                          } catch (e) {
+                                            print(e);
+                                          }
+                                        },
+                                        buttonColor: 0xff1D184B,
+                                      ))
                                 ])
                           ])),
                   Container(
-                    alignment: Alignment.center,
-                    width: 200,
-                    height: 150,
-                    child: Stack(clipBehavior: Clip.none, children: [
-                      Positioned(
-                        child: GBloxButtons(
-                            buttonType: "controller_circle",
-                            icon: GBloxCustomSVGs.forwardMovement,
-                            pressed: printval,
-                            buttonColor: 0xffDB8000),
-                        top: 0,
-                        right: 75,
-                      ),
-                      Positioned(
-                        child: GBloxButtons(
-                            buttonType: "controller_circle",
-                            icon: GBloxCustomSVGs.rotateMovement,
-                            pressed: () async {
-                              displayToast(
-                                  currentSpeed.value.toInt().toString());
-                            },
-                            buttonColor: 0xff1F81E5),
-                        top: 55,
-                        right: 140,
-                      ),
-                      Positioned(
-                        child: GBloxButtons(
-                            buttonType: "controller_circle",
-                            icon: GBloxCustomSVGs.group_23,
-                            pressed: printval,
-                            buttonColor: 0xff3EA52C),
-                        top: 110,
-                        left: 55,
-                      ),
-                      Positioned(
-                        child: GBloxButtons(
-                            buttonType: "controller_circle",
-                            icon: GBloxCustomSVGs.randomMovement,
-                            pressed: printval,
-                            buttonColor: 0xffA62AB5),
-                        //
-                        top: 55,
-                        left: 125,
-                      )
-                    ]),
-                  )
+                      clipBehavior: Clip.none,
+                      alignment: Alignment.center,
+                      width: global.device_width * 0.3,
+                      height: global.device_height * 0.5,
+                      child: Transform.rotate(
+                          angle: -math.pi / 4,
+                          child: SizedBox(
+                              width: global.device_width * 0.22,
+                              child: GridView(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  childAspectRatio: 1.0,
+                                  mainAxisSpacing: 10.0,
+                                  crossAxisSpacing: 10.0,
+                                ),
+                                physics: const NeverScrollableScrollPhysics(),
+                                children: [
+                                  Container(
+                                    child: GBloxButtons(
+                                      buttonType: "controller_circle",
+                                      icon: GBloxCustomSVGs.forwardMovement,
+                                      pressed: printval,
+                                      buttonColor: 0xffDB8000,
+                                      rotate: true,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: GBloxButtons(
+                                      buttonType: "controller_circle",
+                                      icon: GBloxCustomSVGs.rotateMovement,
+                                      pressed: () async {
+                                        displayToast(currentSpeed.value
+                                            .toInt()
+                                            .toString());
+                                      },
+                                      buttonColor: 0xff1F81E5,
+                                      rotate: true,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: GBloxButtons(
+                                      buttonType: "controller_circle",
+                                      icon: GBloxCustomSVGs.group_23,
+                                      pressed: printval,
+                                      buttonColor: 0xff3EA52C,
+                                      rotate: true,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: GBloxButtons(
+                                      buttonType: "controller_circle",
+                                      icon: GBloxCustomSVGs.randomMovement,
+                                      pressed: printval,
+                                      buttonColor: 0xffA62AB5,
+                                      rotate: true,
+                                    ),
+                                  )
+                                ],
+                              ))
+
+                          // child: Stack(clipBehavior: Clip.none, children: [
+                          //   Positioned(
+                          //     child: GBloxButtons(
+                          //         buttonType: "controller_circle",
+                          //         icon: GBloxCustomSVGs.forwardMovement,
+                          //         pressed: printval,
+                          //         buttonColor: 0xffDB8000),
+                          //     top: global.device_height * 0,
+                          //     right: global.device_width * 0.15,
+                          //   ),
+                          //   Positioned(
+                          //     child: GBloxButtons(
+                          //         buttonType: "controller_circle",
+                          //         icon: GBloxCustomSVGs.rotateMovement,
+                          //         pressed: () async {
+                          //           displayToast(
+                          //               currentSpeed.value.toInt().toString());
+                          //         },
+                          //         buttonColor: 0xff1F81E5),
+                          //     top: global.device_height * 0.15,
+                          //     left: global.device_width * 0,
+                          //   ),
+                          //   Positioned(
+                          //     child: GBloxButtons(
+                          //         buttonType: "controller_circle",
+                          //         icon: GBloxCustomSVGs.group_23,
+                          //         pressed: printval,
+                          //         buttonColor: 0xff3EA52C),
+                          //     top: global.device_height * 0.3,
+                          //     left: global.device_width * 0.15,
+                          //   ),
+                          //   Positioned(
+                          //     child: GBloxButtons(
+                          //         buttonType: "controller_circle",
+                          //         icon: GBloxCustomSVGs.randomMovement,
+                          //         pressed: printval,
+                          //         buttonColor: 0xffA62AB5),
+                          //     //
+                          //     top: 55,
+                          //     left: 125,
+                          //   )
+                          // ]),
+                          ))
                 ])));
   }
 

@@ -6,7 +6,7 @@
     "device_select_drawer": "Sélectionnez l'appareil",
     "change_theme_settings": "Change le thème",
     "change_language_settings": "Changer de langue",
-    "help_settings": "Aider",
+    "help_settings": "Assistance",
     "draw_and_follow_drawer": "Dessiner et suivre",
     "select_device_page": "Sélectionnez l'appareil",
     "mode_select_page": "Sélectionnez le mode",
@@ -16,9 +16,11 @@
     "build_mode": "Construire",
     "drive_play": " Conduire",
     "path_play": "Expolrateur de chemin",
-    "light_play": "Suivi de lumière",
+    "light_play": "Suivre de lumière",
     "piano_play": "Piano",
     "drawFollow_play": "Dessiner et suivre",
     "connect_to_device": "Connexion au dispositif",
-    "shapes_page": "Formes"
+    "shapes_page": "Formes",
+    "discovering_devices": "Découvrir des appareils",
+    "discovered_devices": "Appareils découverts"
 }
