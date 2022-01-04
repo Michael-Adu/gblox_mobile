@@ -103,18 +103,23 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
                 borderColorEnd: widget.color,
                 animatedWidgetPrecedingHeader:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Container(width: 5, height: 35, color: widget.color),
-                  const SizedBox(width: 10),
+                  Container(
+                      width: global.device_width * 0.006,
+                      height: global.device_height * 0.09,
+                      color: widget.color),
+                  SizedBox(width: global.device_width * 0.013),
                   Container(
                       alignment: Alignment.centerLeft,
-                      width: 20,
+                      width: global.device_width * 0.024,
                       child: toolboxIcon),
                 ]),
                 header: Container(
-                    width: 120,
+                    width: global.device_width * 0.1475,
                     alignment: Alignment.centerLeft,
                     child: Text(widget.name,
-                        style: const TextStyle(color: Colors.white))),
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: global.device_width * 0.018))),
                 headerExpanded: Container(
                     width: 120,
                     alignment: Alignment.center,
@@ -184,16 +189,21 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
               color: pressed ? widget.color : Colors.transparent,
               child: Row(
                 children: [
-                  Container(width: 5, height: 35, color: widget.color),
-                  const SizedBox(width: 10),
+                  Container(
+                      width: global.device_width * 0.006,
+                      height: global.device_height * 0.09,
+                      color: widget.color),
+                  SizedBox(width: global.device_width * 0.013),
                   Container(
                       alignment: Alignment.centerLeft,
-                      width: 20,
+                      width: global.device_width * 0.024,
                       child: toolboxIcon),
                   Container(
                       alignment: Alignment.centerLeft,
                       child: Text(widget.name,
-                          style: const TextStyle(color: Colors.white)))
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: global.device_width * 0.018)))
                 ],
               ),
             ));
