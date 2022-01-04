@@ -63,20 +63,21 @@ class _ControllerState extends State<Controller> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
+                      alignment: Alignment.center,
                       child: JoystickView(
-                    onDirectionChanged:
-                        (double degrees, double distanceFromCenter) {
-                      varDegress = degrees;
-                      varDistance = distanceFromCenter;
-                      print("Degrees: " + varDegress.toString());
-                      print("Distance: " + varDistance.toString());
-                      currentSpeed.value = 15 * varDistance;
-                    },
-                    backgroundColor: const Color(0xff0000DC),
-                    innerCircleColor: Colors.white,
-                    iconsColor: Colors.white,
-                    size: global.device_width * 0.3,
-                  )),
+                        onDirectionChanged:
+                            (double degrees, double distanceFromCenter) {
+                          varDegress = degrees;
+                          varDistance = distanceFromCenter;
+                          print("Degrees: " + varDegress.toString());
+                          print("Distance: " + varDistance.toString());
+                          currentSpeed.value = 15 * varDistance;
+                        },
+                        backgroundColor: const Color(0xff0000DC),
+                        innerCircleColor: Colors.white,
+                        iconsColor: Colors.white,
+                        size: global.device_width * 0.3,
+                      )),
                   Container(
                       width: global.device_width * 0.3,
                       child: Column(
@@ -144,106 +145,69 @@ class _ControllerState extends State<Controller> {
                       alignment: Alignment.center,
                       width: global.device_width * 0.3,
                       height: global.device_height * 0.5,
-                      child: Transform.rotate(
-                          angle: -math.pi / 4,
-                          child: SizedBox(
-                              width: global.device_width * 0.22,
-                              child: GridView(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  childAspectRatio: 1.0,
-                                  mainAxisSpacing: 10.0,
-                                  crossAxisSpacing: 10.0,
-                                ),
-                                physics: const NeverScrollableScrollPhysics(),
-                                children: [
-                                  Container(
-                                    child: GBloxButtons(
-                                      buttonType: "controller_circle",
-                                      icon: GBloxCustomSVGs.forwardMovement,
-                                      pressed: printval,
-                                      buttonColor: 0xffDB8000,
-                                      rotate: true,
+                      child: Container(
+                          clipBehavior: Clip.none,
+                          child: Transform.rotate(
+                              angle: -math.pi / 4,
+                              child: Container(
+                                  clipBehavior: Clip.none,
+                                  alignment: Alignment.center,
+                                  width: global.device_width * 0.22,
+                                  height: global.device_height * 0.3,
+                                  child: GridView(
+                                    clipBehavior: Clip.none,
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 1.0,
+                                      mainAxisSpacing: 10.0,
+                                      crossAxisSpacing: 10.0,
                                     ),
-                                  ),
-                                  Container(
-                                    child: GBloxButtons(
-                                      buttonType: "controller_circle",
-                                      icon: GBloxCustomSVGs.rotateMovement,
-                                      pressed: () async {
-                                        displayToast(currentSpeed.value
-                                            .toInt()
-                                            .toString());
-                                      },
-                                      buttonColor: 0xff1F81E5,
-                                      rotate: true,
-                                    ),
-                                  ),
-                                  Container(
-                                    child: GBloxButtons(
-                                      buttonType: "controller_circle",
-                                      icon: GBloxCustomSVGs.group_23,
-                                      pressed: printval,
-                                      buttonColor: 0xff3EA52C,
-                                      rotate: true,
-                                    ),
-                                  ),
-                                  Container(
-                                    child: GBloxButtons(
-                                      buttonType: "controller_circle",
-                                      icon: GBloxCustomSVGs.randomMovement,
-                                      pressed: printval,
-                                      buttonColor: 0xffA62AB5,
-                                      rotate: true,
-                                    ),
-                                  )
-                                ],
-                              ))
-
-                          // child: Stack(clipBehavior: Clip.none, children: [
-                          //   Positioned(
-                          //     child: GBloxButtons(
-                          //         buttonType: "controller_circle",
-                          //         icon: GBloxCustomSVGs.forwardMovement,
-                          //         pressed: printval,
-                          //         buttonColor: 0xffDB8000),
-                          //     top: global.device_height * 0,
-                          //     right: global.device_width * 0.15,
-                          //   ),
-                          //   Positioned(
-                          //     child: GBloxButtons(
-                          //         buttonType: "controller_circle",
-                          //         icon: GBloxCustomSVGs.rotateMovement,
-                          //         pressed: () async {
-                          //           displayToast(
-                          //               currentSpeed.value.toInt().toString());
-                          //         },
-                          //         buttonColor: 0xff1F81E5),
-                          //     top: global.device_height * 0.15,
-                          //     left: global.device_width * 0,
-                          //   ),
-                          //   Positioned(
-                          //     child: GBloxButtons(
-                          //         buttonType: "controller_circle",
-                          //         icon: GBloxCustomSVGs.group_23,
-                          //         pressed: printval,
-                          //         buttonColor: 0xff3EA52C),
-                          //     top: global.device_height * 0.3,
-                          //     left: global.device_width * 0.15,
-                          //   ),
-                          //   Positioned(
-                          //     child: GBloxButtons(
-                          //         buttonType: "controller_circle",
-                          //         icon: GBloxCustomSVGs.randomMovement,
-                          //         pressed: printval,
-                          //         buttonColor: 0xffA62AB5),
-                          //     //
-                          //     top: 55,
-                          //     left: 125,
-                          //   )
-                          // ]),
-                          ))
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    children: [
+                                      Container(
+                                        child: GBloxButtons(
+                                          buttonType: "controller_circle",
+                                          icon: GBloxCustomSVGs.forwardMovement,
+                                          pressed: printval,
+                                          buttonColor: 0xffDB8000,
+                                          rotate: true,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: GBloxButtons(
+                                          buttonType: "controller_circle",
+                                          icon: GBloxCustomSVGs.rotateMovement,
+                                          pressed: () async {
+                                            displayToast(currentSpeed.value
+                                                .toInt()
+                                                .toString());
+                                          },
+                                          buttonColor: 0xff1F81E5,
+                                          rotate: true,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: GBloxButtons(
+                                          buttonType: "controller_circle",
+                                          icon: GBloxCustomSVGs.group_23,
+                                          pressed: printval,
+                                          buttonColor: 0xff3EA52C,
+                                          rotate: true,
+                                        ),
+                                      ),
+                                      Container(
+                                        child: GBloxButtons(
+                                          buttonType: "controller_circle",
+                                          icon: GBloxCustomSVGs.randomMovement,
+                                          pressed: printval,
+                                          buttonColor: 0xffA62AB5,
+                                          rotate: true,
+                                        ),
+                                      )
+                                    ],
+                                  )))))
                 ])));
   }
 
