@@ -25,7 +25,7 @@ class _SketcherState extends State<SketcherWidget> {
           color: Color(0xff060841),
           borderRadius: BorderRadius.all(Radius.circular(5))),
       child: CustomPaint(
-        painter: Sketcher(points),
+        painter: Triangle(),
         child: Container(),
       ),
     );
@@ -120,5 +120,29 @@ class Sketcher extends CustomPainter {
         canvas.drawLine(points[i], points[i + 1], paint);
       }
     }
+  }
+}
+
+class Triangle extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.0;
+
+    Path path0 = Path();
+    path0.moveTo(size.width * 0.1250000, size.height * 0.1000000);
+    path0.lineTo(size.width * 0.5000000, size.height * 0.8000000);
+    path0.lineTo(size.width * 0.8750000, size.height * 0.1000000);
+    path0.lineTo(size.width * 0.1250000, size.height * 0.1000000);
+    path0.close();
+
+    canvas.drawPath(path0, paint0);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
   }
 }
