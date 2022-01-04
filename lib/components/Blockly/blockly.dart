@@ -351,6 +351,7 @@ class _BlocklyState extends State<Blockly> {
                             },
                             child: Container(
                                 width: global.device_width * 0.15,
+                                height: global.device_height * 0.1,
                                 padding: const EdgeInsets.all(5),
                                 child: const Icon(Icons.play_arrow,
                                     color: Colors.white),
