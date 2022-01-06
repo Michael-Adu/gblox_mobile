@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../Modular_Widgets/ToolboxButtons/toolbox_category_buttons.dart';
 import '../Modular_Widgets/Button/buttons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'open_project.dart';
+import 'save_project.dart';
 import '../global_variables.dart' as global;
 import '../svgs/svgs.dart' as svgs;
 import 'dart:math' as math;
@@ -45,6 +47,7 @@ class _BlocklyState extends State<Blockly> {
   late List<_ToolboxCategoryClass> renderedToolboxCategories =
       List<_ToolboxCategoryClass>.empty(growable: true);
 
+  var currentXml = ValueNotifier<String>("");
   late String categoryName;
   late int categoryIndex;
   late int categoryNumber = 0;
@@ -188,15 +191,24 @@ class _BlocklyState extends State<Blockly> {
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Open",
-                        pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                        pressed: () async {
+                          var data = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OpenProject()));
+                          controller!.evaluateJavascript(source: '''
+                                  var xml = window.mainBlockly.Xml.textToDom('${data.toString()}');
+                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+                          ''');
                         },
                       ),
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Save",
                         pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                          controller!.evaluateJavascript(source: '''
+                          console.log("xml: " + window.mainBlockly.Xml.domToText(window.mainBlockly.Xml.workspaceToDom(window.currentWorkspace)))
+                          ''');
                         },
                       ),
                       GBloxButtons(
@@ -395,7 +407,7 @@ class _BlocklyState extends State<Blockly> {
                         ''');
                       },
                       onConsoleMessage: (InAppWebViewController controller,
-                          ConsoleMessage consoleMessage) {
+                          ConsoleMessage consoleMessage) async {
                         if (consoleMessage.message.contains("toolbox:")) {
                           var temp_toolbox_string = consoleMessage.message;
                           var temp_toolbox = temp_toolbox_string
@@ -415,6 +427,17 @@ class _BlocklyState extends State<Blockly> {
                           }
 
                           //temp_toolbox = temp_toolbox;
+                        } else if (consoleMessage.message.contains("xml:")) {
+                          var temp_xml_string = consoleMessage.message;
+                          var temp_xml = temp_xml_string.split("xml: ")[1];
+                          print(temp_xml);
+                          currentXml.value = temp_xml;
+                          var data = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SaveProject(
+                                        saveData: currentXml.value,
+                                      )));
                         } else {
                           print("console message: ${consoleMessage.message}");
                         }

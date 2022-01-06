@@ -226,6 +226,80 @@ class _GBloxButtons extends State<GBloxButtons> {
                     padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
                     child: Text(widget.buttonName,
                         style: const TextStyle(color: Colors.white))))));
+      case "fileButtons":
+        return (AnimatedContainer(
+            duration: const Duration(milliseconds: 1),
+            padding: const EdgeInsets.all(5),
+            width: 100,
+            height: 35,
+            color: _toggledState ? Colors.blue : Colors.transparent,
+            child: InkWell(
+                onTap: () {
+                  widget.pressed!();
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                onTapDown: (TapDownDetails) {
+                  setState(() {
+                    _toggledState = true;
+                  });
+                },
+                onTapCancel: () {
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                child: Container(
+                    padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(widget.buttonName,
+                              style: const TextStyle(color: Colors.white)),
+                          Container(
+                              width: global.device_width * 0.05,
+                              height: global.device_width * 0.05,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(
+                                        (math.Random().nextDouble() * 0xFFFFFF)
+                                            .toInt())
+                                    .withOpacity(1.0),
+                              ))
+                        ])))));
+      case "directoryButtons":
+        return (AnimatedContainer(
+            duration: const Duration(milliseconds: 1),
+            padding: const EdgeInsets.all(5),
+            width: 100,
+            height: 35,
+            color: _toggledState ? Colors.blue : Colors.transparent,
+            child: InkWell(
+                onTap: () {
+                  widget.pressed!();
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                onTapDown: (TapDownDetails) {
+                  setState(() {
+                    _toggledState = true;
+                  });
+                },
+                onTapCancel: () {
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                child: Container(
+                    padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
+                    decoration: BoxDecoration(
+                      color: Color(widget.buttonColor),
+                    ),
+                    child: Text(widget.buttonName,
+                        style: const TextStyle(color: Colors.white))))));
+
       default:
         return (InkWell(
           child: Container(
