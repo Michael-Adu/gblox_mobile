@@ -61,7 +61,11 @@ class _SaveProjectState extends State<SaveProject> {
                 hintText: 'myCode',
               )),
           actions: [
-            ElevatedButton(onPressed: () {}, child: Text("Cancel")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context, 'Canceled');
+                },
+                child: Text("Cancel")),
             ElevatedButton(
                 onPressed: () async {
                   createFile(saveName).then((value) {

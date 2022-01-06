@@ -13,6 +13,7 @@ late BuildContext mainContext;
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 late ThemeData globalTheme = darkTheme;
 late InAppWebViewController? webController;
+late String selectedDevice;
 
 void displayToast(String message) {
   Fluttertoast.showToast(
@@ -46,14 +47,14 @@ class CardDetails {
 }
 
 ThemeData darkTheme = ThemeData(
-    primaryColor: const Color(0xff0B0533),
+    primaryColor: const Color(0xff060841),
     colorScheme: const ColorScheme(
         primary: Color(0xff0B0533),
         primaryVariant: Color(0xff060841),
         secondary: Color(0xff0000DC),
         secondaryVariant: Color(0xff0000DC),
         surface: Colors.black,
-        background: Color(0xff0B0533),
+        background: Color(0xff060841),
         error: Colors.red,
         onPrimary: Color(0xff0000DC),
         onSecondary: Colors.white,
@@ -70,7 +71,8 @@ ThemeData darkTheme = ThemeData(
             fontFamily: "Baloo 2",
             color: Colors.white)),
     backgroundColor: const Color(0xffDEDEF1),
-    scaffoldBackgroundColor: const Color(0xff0B0533),
+    scaffoldBackgroundColor: const Color(0xff060841),
+    drawerTheme: const DrawerThemeData(backgroundColor: Color(0xff060841)),
     cardTheme: const CardTheme(
         shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.all(

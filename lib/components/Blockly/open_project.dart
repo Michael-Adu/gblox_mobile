@@ -8,9 +8,11 @@ import '../svgs/svgs.dart' as svgs;
 import 'dart:math' as math;
 import '../Modular_Widgets/Button/buttons.dart';
 import '../Modular_Widgets/Selector/selector_buttons.dart';
+import 'blockly.dart';
 
 class OpenProject extends StatefulWidget {
-  const OpenProject({Key? key}) : super(key: key);
+  final bool fromHome;
+  OpenProject({Key? key, this.fromHome = false}) : super(key: key);
 
   @override
   _OpenProjectState createState() => _OpenProjectState();
@@ -91,23 +93,20 @@ class _OpenProjectState extends State<OpenProject> {
             children: [
               Container(
                   width: global.device_width * 0.3,
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.red)),
                   child: SelectorButtons(
+                    activeColor: 0xff0000DC,
                     buttons: ["GBlox", "SD Card", "Phone"],
                     functionList: [() {}, () {}, () {}],
                   )),
               Container(
                   width: global.device_width * 0.7,
-                  decoration:
-                      BoxDecoration(border: Border.all(color: Colors.white)),
+                  decoration: BoxDecoration(color: const Color(0xff0B0533)),
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: _folders.map((e) {
                         List<String> pathName = e.toString().split("/");
                         String fileName = pathName.last.replaceAll("'", '');
-                        print("File is ${fileName}");
                         return Container(
                             width: global.device_width * 0.5,
                             child: GBloxButtons(
@@ -116,7 +115,17 @@ class _OpenProjectState extends State<OpenProject> {
                                 pressed: () async {
                                   File file = File(await e.path);
                                   String xml = await file.readAsString();
-                                  Navigator.pop(context, xml);
+                                  if (widget.fromHome) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Blockly(
+                                                initialXML: xml,
+                                              )),
+                                    );
+                                  } else {
+                                    Navigator.pop(context, xml);
+                                  }
                                 }));
                       }).toList()))
             ],

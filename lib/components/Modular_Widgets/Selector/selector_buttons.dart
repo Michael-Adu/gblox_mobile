@@ -9,13 +9,15 @@ class SelectorButtons extends StatefulWidget {
   @required
   final String buttonType;
   final int activeColor;
+  final int initialIndex;
 
   const SelectorButtons(
       {Key? key,
       this.buttons,
       this.functionList,
       this.buttonType = "directoryButtons",
-      this.activeColor = 0xffDB8000})
+      this.activeColor = 0xffDB8000,
+      this.initialIndex = 0})
       : super(key: key);
 
   @override
@@ -35,7 +37,11 @@ class _SelectorButtonsState extends State<SelectorButtons> {
 
   void initState() {
     for (var i = 0; i < widget.buttons!.length; i++) {
-      buttonColors.add(0xffDB8000);
+      if (widget.initialIndex == i) {
+        buttonColors.add(widget.activeColor);
+      } else {
+        buttonColors.add(0x00000000);
+      }
       buttons.add(_SelectButton(
           widget.buttons![i], widget.functionList![i], buttonColors[i]));
     }
@@ -50,6 +56,8 @@ class _SelectorButtonsState extends State<SelectorButtons> {
     }
     return Container(
         child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: buttons.map((e) {
         return GBloxButtons(
           buttonType: widget.buttonType,
@@ -57,7 +65,11 @@ class _SelectorButtonsState extends State<SelectorButtons> {
           buttonColor: e.activeColor,
           pressed: () {
             e.pressed!();
-            setState(() {});
+            var index = widget.buttons!.indexOf(e.title);
+            setState(() {
+              buttonColors.fillRange(0, widget.buttons!.length, 0x00000000);
+              buttonColors[index] = widget.activeColor;
+            });
           },
         );
       }).toList(),

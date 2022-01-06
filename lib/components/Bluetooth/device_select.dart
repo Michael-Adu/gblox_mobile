@@ -65,6 +65,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
           } else if (device.name!.contains("MINGO")) {
             deviceType = "Mingo";
           }
+          
           try {
             await BluetoothConnection.toAddress(bondedDevices[i].address)
                 .catchError((onError) async {

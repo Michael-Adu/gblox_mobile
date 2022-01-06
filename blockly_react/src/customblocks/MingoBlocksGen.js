@@ -11,7 +11,7 @@ const LMotorEN = 4;
 const RMotorEN = 7;
 const LMotorPWM = 5;
 const RMotorPWM = 6;
-const Buzzer_Pin = 7;
+const Buzzer_Pin = 8;
 const BluetoothTX = 12;
 const BluetoothRX = 11;
 const MainSLC = "A4";
@@ -106,93 +106,12 @@ const NeoLEDSetup = {
 const MelodySetup = {
     PreDec: `\n
     #include <melody.h>
-    MelodyPlayer mPlayer();
+    MelodyPlayer mPlayer;
+    int buzz = 8;
     \n`,
     Setup: `\n
     \n`,
     Bulk: `\n
-    int* MerryChristmas() {
-        return {
-          NOTE_C5, 4,  //1
-          NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
-          NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
-          NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
-          NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
-          NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
-          NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-      
-          NOTE_F5, 2, NOTE_C5, 4,  //8
-          NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
-          NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
-          NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
-          NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
-          NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
-          NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-          NOTE_F5, 2, NOTE_C5, 4,
-      
-          NOTE_F5, 4, NOTE_F5, 4, NOTE_F5, 4,  //17
-          NOTE_E5, 2, NOTE_E5, 4,
-          NOTE_F5, 4, NOTE_E5, 4, NOTE_D5, 4,
-          NOTE_C5, 2, NOTE_A5, 4,
-          NOTE_AS5, 4, NOTE_A5, 4, NOTE_G5, 4,
-          NOTE_C6, 4, NOTE_C5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-          NOTE_F5, 2, NOTE_C5, 4,
-          NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
-          NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
-      
-          NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,  //27
-          NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
-          NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
-          NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-          NOTE_F5, 2, NOTE_C5, 4,
-          NOTE_F5, 4, NOTE_F5, 4, NOTE_F5, 4,
-          NOTE_E5, 2, NOTE_E5, 4,
-          NOTE_F5, 4, NOTE_E5, 4, NOTE_D5, 4,
-      
-          NOTE_C5, 2, NOTE_A5, 4,  //36
-          NOTE_AS5, 4, NOTE_A5, 4, NOTE_G5, 4,
-          NOTE_C6, 4, NOTE_C5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-          NOTE_F5, 2, NOTE_C5, 4,
-          NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
-          NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
-          NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
-          NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
-      
-          NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,  //45
-          NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-          NOTE_F5, 2, NOTE_C5, 4,
-          NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
-          NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
-          NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
-          NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
-      
-          NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,  //53
-          NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
-          NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
-          NOTE_F5, 2, REST, 4
-        };
-      }
-
-    int* HappyBirthday() {
-    return {
-        NOTE_C4,4, NOTE_C4,8, 
-        NOTE_D4,-4, NOTE_C4,-4, NOTE_F4,-4,
-        NOTE_E4,-2, NOTE_C4,4, NOTE_C4,8, 
-        NOTE_D4,-4, NOTE_C4,-4, NOTE_G4,-4,
-        NOTE_F4,-2, NOTE_C4,4, NOTE_C4,8,
-
-        NOTE_C5,-4, NOTE_A4,-4, NOTE_F4,-4, 
-        NOTE_E4,-4, NOTE_D4,-4, NOTE_AS4,4, NOTE_AS4,8,
-        NOTE_A4,-4, NOTE_F4,-4, NOTE_G4,-4,
-        NOTE_F4,-2,
-    };
-
     void SirenA(){
         for(int hz = 440; hz < 1000; hz+=25){
           tone(buzz, hz, 50);
@@ -215,7 +134,6 @@ const MelodySetup = {
           delay(5);
           }
       }
-    }
     \n`
 }
 
@@ -603,7 +521,7 @@ Blockly.JavaScript["mingo_led_definite"] = function (block) {
 }
 
 Blockly.JavaScript["mingo_sound_play"] = function (block) {
-    var note = block.getFieldValue('Note');
+    var note = block.getFieldValue('note');
 
     var code = `tone(${Buzzer_Pin}, ${note});\n`;
 
@@ -611,7 +529,7 @@ Blockly.JavaScript["mingo_sound_play"] = function (block) {
 }
 
 Blockly.JavaScript["mingo_sound_play_timed"] = function (block) {
-    var note = block.getFieldValue('Note');
+    var note = block.getFieldValue('note');
     var value_buzzer_time = Blockly.JavaScript.valueToCode(block, 'Buzzer Time', Blockly.JavaScript.ORDER_ATOMIC);
 
     var code = `tone(${Buzzer_Pin}, ${note});\ndelay(${value_buzzer_time * 1000});\nnoTone(${Buzzer_Pin});`;
@@ -640,10 +558,413 @@ Blockly.JavaScript["mingo_sound_play_song"] = function (block) {
     var code = `...\n`;
     switch (song) {
         case "merry":
-            code = `mPlayer.play_melody(140, MerryChristmas()bb);\n`;
+            code = `
+            int MerryChristmas[]= {
+                NOTE_C5, 4,  //1
+                NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
+                NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
+                NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
+                NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
+                NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
+                NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+              
+                NOTE_F5, 2, NOTE_C5, 4,  //8
+                NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
+                NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
+                NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
+                NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
+                NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
+                NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+                NOTE_F5, 2, NOTE_C5, 4,
+              
+                NOTE_F5, 4, NOTE_F5, 4, NOTE_F5, 4,  //17
+                NOTE_E5, 2, NOTE_E5, 4,
+                NOTE_F5, 4, NOTE_E5, 4, NOTE_D5, 4,
+                NOTE_C5, 2, NOTE_A5, 4,
+                NOTE_AS5, 4, NOTE_A5, 4, NOTE_G5, 4,
+                NOTE_C6, 4, NOTE_C5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+                NOTE_F5, 2, NOTE_C5, 4,
+                NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
+                NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
+              
+                NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,  //27
+                NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
+                NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,
+                NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+                NOTE_F5, 2, NOTE_C5, 4,
+                NOTE_F5, 4, NOTE_F5, 4, NOTE_F5, 4,
+                NOTE_E5, 2, NOTE_E5, 4,
+                NOTE_F5, 4, NOTE_E5, 4, NOTE_D5, 4,
+              
+                NOTE_C5, 2, NOTE_A5, 4,  //36
+                NOTE_AS5, 4, NOTE_A5, 4, NOTE_G5, 4,
+                NOTE_C6, 4, NOTE_C5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+                NOTE_F5, 2, NOTE_C5, 4,
+                NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
+                NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
+                NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
+                NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
+              
+                NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,  //45
+                NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+                NOTE_F5, 2, NOTE_C5, 4,
+                NOTE_F5, 4, NOTE_F5, 8, NOTE_G5, 8, NOTE_F5, 8, NOTE_E5, 8,
+                NOTE_D5, 4, NOTE_D5, 4, NOTE_D5, 4,
+                NOTE_G5, 4, NOTE_G5, 8, NOTE_A5, 8, NOTE_G5, 8, NOTE_F5, 8,
+                NOTE_E5, 4, NOTE_C5, 4, NOTE_C5, 4,
+              
+                NOTE_A5, 4, NOTE_A5, 8, NOTE_AS5, 8, NOTE_A5, 8, NOTE_G5, 8,  //53
+                NOTE_F5, 4, NOTE_D5, 4, NOTE_C5, 8, NOTE_C5, 8,
+                NOTE_D5, 4, NOTE_G5, 4, NOTE_E5, 4,
+                NOTE_F5, 2, REST, 4
+              };
+            mPlayer.play_melody(140, MerryChristmas,sizeof(MerryChristmas)/sizeof(MerryChristmas[0]));\n`;
             break;
         case "bday":
-            code = `mPlayer.play_melody(180, HappyBirthday());\n`;
+            code = `
+            int HappyBirthday[] = {
+                NOTE_C4,4, NOTE_C4,8, 
+                NOTE_D4,-4, NOTE_C4,-4, NOTE_F4,-4,
+                NOTE_E4,-2, NOTE_C4,4, NOTE_C4,8, 
+                NOTE_D4,-4, NOTE_C4,-4, NOTE_G4,-4,
+                NOTE_F4,-2, NOTE_C4,4, NOTE_C4,8,
+            
+                NOTE_C5,-4, NOTE_A4,-4, NOTE_F4,-4, 
+                NOTE_E4,-4, NOTE_D4,-4, NOTE_AS4,4, NOTE_AS4,8,
+                NOTE_A4,-4, NOTE_F4,-4, NOTE_G4,-4,
+                NOTE_F4,-2,
+              };
+            mPlayer.play_melody(180, HappyBirthday,sizeof(HappyBirthday)/sizeof(HappyBirthday[0]));\n`;
+            break;
+        case "furelise":
+            code = `
+                const int FurElise[] = {
+                // Fur Elise - Ludwig van Beethovem
+                //starts from 1 ending on 9
+                NOTE_E5, 16, NOTE_DS5, 16, //1
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16,
+                NOTE_C5, 8,  REST, 16, NOTE_E4, 16, NOTE_E5, 16,  NOTE_DS5, 16,
+                
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,//6
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16, 
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16, 
+                NOTE_A4 , 4, REST, 8, //9 - 1st ending
+                //repaets from 1 ending on 10
+                NOTE_E5, 16, NOTE_DS5, 16, //1
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16,
+                NOTE_C5, 8,  REST, 16, NOTE_E4, 16, NOTE_E5, 16,  NOTE_DS5, 16,
+                
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,//6
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16, 
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16, 
+                NOTE_A4, 8, REST, 16, NOTE_B4, 16, NOTE_C5, 16, NOTE_D5, 16, //10 - 2nd ending
+                //continues from 11
+                NOTE_E5, -8, NOTE_G4, 16, NOTE_F5, 16, NOTE_E5, 16, 
+                NOTE_D5, -8, NOTE_F4, 16, NOTE_E5, 16, NOTE_D5, 16, //12
+                
+                NOTE_C5, -8, NOTE_E4, 16, NOTE_D5, 16, NOTE_C5, 16, //13
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, REST, 16,
+                REST, 16, NOTE_E5, 16, NOTE_E6, 16, REST, 16, REST, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, REST, 16, REST, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16, //19
+                NOTE_C5, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16,  NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16,
+                NOTE_A4, 8, REST, 16, NOTE_B4, 16, NOTE_C5, 16, NOTE_D5, 16, //24 (1st ending)
+                
+                //repeats from 11
+                NOTE_E5, -8, NOTE_G4, 16, NOTE_F5, 16, NOTE_E5, 16, 
+                NOTE_D5, -8, NOTE_F4, 16, NOTE_E5, 16, NOTE_D5, 16, //12
+                
+                NOTE_C5, -8, NOTE_E4, 16, NOTE_D5, 16, NOTE_C5, 16, //13
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, REST, 16,
+                REST, 16, NOTE_E5, 16, NOTE_E6, 16, REST, 16, REST, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, REST, 16, REST, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16, //19
+                NOTE_C5, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16,  NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C5, 16, NOTE_C5, 16, NOTE_C5, 16, //25 - 2nd ending
+                //continues from 26
+                NOTE_C5 , 4, NOTE_F5, -16, NOTE_E5, 32, //26
+                NOTE_E5, 8, NOTE_D5, 8, NOTE_AS5, -16, NOTE_A5, 32,
+                NOTE_A5, 16, NOTE_G5, 16, NOTE_F5, 16, NOTE_E5, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_AS4, 8, NOTE_A4, 8, NOTE_A4, 32, NOTE_G4, 32, NOTE_A4, 32, NOTE_B4, 32,
+                NOTE_C5 , 4, NOTE_D5, 16, NOTE_DS5, 16,
+                NOTE_E5, -8, NOTE_E5, 16, NOTE_F5, 16, NOTE_A4, 16,
+                NOTE_C5 , 4,  NOTE_D5, -16, NOTE_B4, 32,
+                
+                
+                NOTE_C5, 32, NOTE_G5, 32, NOTE_G4, 32, NOTE_G5, 32, NOTE_A4, 32, NOTE_G5, 32, NOTE_B4, 32, NOTE_G5, 32, NOTE_C5, 32, NOTE_G5, 32, NOTE_D5, 32, NOTE_G5, 32, //33
+                NOTE_E5, 32, NOTE_G5, 32, NOTE_C6, 32, NOTE_B5, 32, NOTE_A5, 32, NOTE_G5, 32, NOTE_F5, 32, NOTE_E5, 32, NOTE_D5, 32, NOTE_G5, 32, NOTE_F5, 32, NOTE_D5, 32,
+                NOTE_C5, 32, NOTE_G5, 32, NOTE_G4, 32, NOTE_G5, 32, NOTE_A4, 32, NOTE_G5, 32, NOTE_B4, 32, NOTE_G5, 32, NOTE_C5, 32, NOTE_G5, 32, NOTE_D5, 32, NOTE_G5, 32,
+                NOTE_E5, 32, NOTE_G5, 32, NOTE_C6, 32, NOTE_B5, 32, NOTE_A5, 32, NOTE_G5, 32, NOTE_F5, 32, NOTE_E5, 32, NOTE_D5, 32, NOTE_G5, 32, NOTE_F5, 32, NOTE_D5, 32, //36
+                NOTE_E5, 32, NOTE_F5, 32, NOTE_E5, 32, NOTE_DS5, 32, NOTE_E5, 32, NOTE_B4, 32, NOTE_E5, 32, NOTE_DS5, 32, NOTE_E5, 32, NOTE_B4, 32, NOTE_E5, 32, NOTE_DS5, 32,
+                NOTE_E5, -8, NOTE_B4, 16, NOTE_E5, 16, NOTE_DS5, 16,
+                NOTE_E5, -8, NOTE_B4, 16, NOTE_E5, 16, REST, 16,
+                REST, 16, NOTE_DS5, 16, NOTE_E5, 16, REST, 16, REST, 16, NOTE_DS5, 16, //40
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16,
+                NOTE_C5, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16, //46
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16,
+                NOTE_A4, 8, REST, 16, NOTE_B4, 16, NOTE_C5, 16, NOTE_D5, 16,
+                NOTE_E5, -8, NOTE_G4, 16, NOTE_F5, 16, NOTE_E5, 16,
+                NOTE_D5, -8, NOTE_F4, 16, NOTE_E5, 16, NOTE_D5, 16,
+                NOTE_C5, -8, NOTE_E4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, REST, 16,
+                REST, 16, NOTE_E5, 16, NOTE_E6, 16, REST, 16, REST, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, REST, 16, REST, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_D5, 16, //54
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16,
+                NOTE_C5, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                
+                NOTE_A4, 8, REST, 16, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16, //60
+                NOTE_B4, 8, REST, 16, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16,
+                NOTE_A4, 8, REST, 16, REST, 16, REST, 8, 
+                NOTE_CS5 , -4, 
+                NOTE_D5 , 4, NOTE_E5, 16, NOTE_F5, 16,
+                NOTE_F5 , 4, NOTE_F5, 8, 
+                NOTE_E5 , -4,
+                NOTE_D5 , 4, NOTE_C5, 16, NOTE_B4, 16,
+                NOTE_A4 , 4, NOTE_A4, 8,
+                NOTE_A4, 8, NOTE_C5, 8, NOTE_B4, 8,
+                NOTE_A4 , -4,
+                NOTE_CS5 , -4,
+                NOTE_D5 , 4, NOTE_E5, 16, NOTE_F5, 16, //72
+                NOTE_F5 , 4, NOTE_F5, 8,
+                NOTE_F5 , -4,
+                NOTE_DS5 , 4, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_AS4 , 4, NOTE_A4, 8,
+                NOTE_GS4 , 4, NOTE_G4, 8,
+                NOTE_A4 , -4,
+                NOTE_B4 , 4, REST, 8,
+                NOTE_A3, -32, NOTE_C4, -32, NOTE_E4, -32, NOTE_A4, -32, NOTE_C5, -32, NOTE_E5, -32, NOTE_D5, -32, NOTE_C5, -32, NOTE_B4, -32,
+                NOTE_A4, -32, NOTE_C5, -32, NOTE_E5, -32, NOTE_A5, -32, NOTE_C6, -32, NOTE_E6, -32, NOTE_D6, -32, NOTE_C6, -32, NOTE_B5, -32, //80
+                NOTE_A4, -32, NOTE_C5, -32, NOTE_E5, -32, NOTE_A5, -32, NOTE_C6, -32, NOTE_E6, -32, NOTE_D6, -32, NOTE_C6, -32, NOTE_B5, -32,
+                NOTE_AS5, -32, NOTE_A5, -32, NOTE_GS5, -32, NOTE_G5, -32, NOTE_FS5, -32, NOTE_F5, -32, NOTE_E5, -32, NOTE_DS5, -32, NOTE_D5, -32,
+                NOTE_CS5, -32, NOTE_C5, -32, NOTE_B4, -32, NOTE_AS4, -32, NOTE_A4, -32, NOTE_GS4, -32, NOTE_G4, -32, NOTE_FS4, -32, NOTE_F4, -32, //84
+                NOTE_E4, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16,
+                NOTE_C5, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, NOTE_DS5, 16, //88
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16, 
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16, 
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16, 
+                NOTE_A4, -8, REST, -8,
+                REST, -8, NOTE_G4, 16, NOTE_F5, 16, NOTE_E5, 16,
+                NOTE_D5 , 4, REST, 8,
+                REST, -8, NOTE_E4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_E5, 8, //96
+                NOTE_E5, 8, NOTE_E6, -8, NOTE_DS5, 16,
+                NOTE_E5, 16, REST, 16, REST, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_DS5, 16,
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_GS4, 16, NOTE_B4, 16,
+                NOTE_C5, 8, REST, 16, NOTE_E4, 16, NOTE_E5, 16, NOTE_DS5, 16, //102
+                NOTE_E5, 16, NOTE_DS5, 16, NOTE_E5, 16, NOTE_B4, 16, NOTE_D5, 16, NOTE_C5, 16,
+                NOTE_A4, -8, NOTE_C4, 16, NOTE_E4, 16, NOTE_A4, 16,
+                NOTE_B4, -8, NOTE_E4, 16, NOTE_C5, 16, NOTE_B4, 16,
+                NOTE_A4 , -4,
+              };
+              mPlayer.play_melody(80, FurElise,sizeof(FurElise)/sizeof(FurElise[0]));`
+            break;
+        case "silent":
+            code = `
+            int silentNight[] = {
+
+                // Silent Night, Original Version
+                // Score available at https://musescore.com/marcsabatella/scores/3123436
+              
+                NOTE_G4,-4, NOTE_A4,8, NOTE_G4,4,
+                NOTE_E4,-2, 
+                NOTE_G4,-4, NOTE_A4,8, NOTE_G4,4,
+                NOTE_E4,-2, 
+                NOTE_D5,2, NOTE_D5,4,
+                NOTE_B4,-2,
+                NOTE_C5,2, NOTE_C5,4,
+                NOTE_G4,-2,
+              
+                NOTE_A4,2, NOTE_A4,4,
+                NOTE_C5,-4, NOTE_B4,8, NOTE_A4,4,
+                NOTE_G4,-4, NOTE_A4,8, NOTE_G4,4,
+                NOTE_E4,-2, 
+                NOTE_A4,2, NOTE_A4,4,
+                NOTE_C5,-4, NOTE_B4,8, NOTE_A4,4,
+                NOTE_G4,-4, NOTE_A4,8, NOTE_G4,4,
+                NOTE_E4,-2, 
+                
+                NOTE_D5,2, NOTE_D5,4,
+                NOTE_F5,-4, NOTE_D5,8, NOTE_B4,4,
+                NOTE_C5,-2,
+                NOTE_E5,-2,
+                NOTE_C5,4, NOTE_G4,4, NOTE_E4,4,
+                NOTE_G4,-4, NOTE_F4,8, NOTE_D4,4,
+                NOTE_C4,-2,
+                NOTE_C4,-1,
+              };
+            mPlayer.play_melody(144, silentNight,sizeof(silentNight)/sizeof(silentNight[0]));`
+            break;
+        case "lion":
+            code = `
+            int lionSleepsTonight[] = {
+                // The Lion Sleeps Tonight
+               
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //1
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, 1, //1st ending
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //repeats from 1
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, -2,  REST, -8, NOTE_A4, 16, //2nd ending
+                NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, //6
+                NOTE_AS4, -8, NOTE_AS4, 16, NOTE_AS4, -8, NOTE_AS4, 16, NOTE_AS4, -8, NOTE_AS4, 16, NOTE_AS4, -8, NOTE_AS4, 16,
+                NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16,
+                NOTE_G4, -8, NOTE_G4, 16, NOTE_G4, -8, NOTE_G4, 16, NOTE_G4, -8, NOTE_G4, 16, NOTE_G4, -8, NOTE_G4, 16,
+                NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, //10
+                NOTE_AS4, -8, NOTE_AS4, 16, NOTE_AS4, -8, NOTE_AS4, 16, NOTE_AS4, -8, NOTE_AS4, 16, NOTE_AS4, -8, NOTE_AS4, 16,
+                NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16, NOTE_A4, -8, NOTE_A4, 16,
+                NOTE_G4, -8, NOTE_G4, 16, NOTE_G4, -8, NOTE_G4, 16, NOTE_G4, -8, NOTE_G4, 16, NOTE_G4, -8, NOTE_G4, 16,
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //14
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_G4, 4, NOTE_F4, 4, NOTE_A4, 4,
+                NOTE_G4, 1,
+                NOTE_C5, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_A4, 4, NOTE_C5, 8,
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_G4, 4, NOTE_F4, 4, NOTE_A4, 4,
+                NOTE_G4, 1,
+                NOTE_C5, 1, //22
+                NOTE_C5, 4, NOTE_AS4, 8, NOTE_C5, 8, NOTE_AS4, 2,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, 1,
+                REST, 4, NOTE_A4, 8, NOTE_G4, 8, NOTE_F4, 8, NOTE_E4, 8, NOTE_D4, 8, NOTE_C4, 8, 
+                NOTE_D4, 1,
+                REST, 4, NOTE_A4, 8, NOTE_G4, 8, NOTE_F4, 8, NOTE_E4, 8, NOTE_D4, 8, NOTE_C4, 8, 
+                NOTE_D4, 1,
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //repeats from 14
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_G4, 4, NOTE_F4, 4, NOTE_A4, 4,
+                NOTE_G4, 1,
+                NOTE_C5, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_A4, 4, NOTE_C5, 8,
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_G4, 4, NOTE_F4, 4, NOTE_A4, 4,
+                NOTE_G4, 1,
+                NOTE_C5, 1, //22
+                NOTE_C5, 4, NOTE_AS4, 8, NOTE_C5, 8, NOTE_AS4, 2,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, 1,
+                REST, 4, NOTE_A4, 8, NOTE_G4, 8, NOTE_F4, 8, NOTE_E4, 8, NOTE_D4, 8, NOTE_C4, 8, 
+                NOTE_D4, 1,
+                REST, 4, NOTE_A4, 8, NOTE_G4, 8, NOTE_F4, 8, NOTE_E4, 8, NOTE_D4, 8, NOTE_C4, 8, 
+                NOTE_D4, 1,
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //30
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, 1, 
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //repeats from 14 (again)
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_G4, 4, NOTE_F4, 4, NOTE_A4, 4,
+                NOTE_G4, 1,
+                NOTE_C5, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_A4, 4, NOTE_C5, 8,
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_G4, 4, NOTE_F4, 4, NOTE_A4, 4,
+                NOTE_G4, 1,
+                NOTE_C5, 1, //22
+                NOTE_C5, 4, NOTE_AS4, 8, NOTE_C5, 8, NOTE_AS4, 2,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, 1,
+                REST, 4, NOTE_A4, 8, NOTE_G4, 8, NOTE_F4, 8, NOTE_E4, 8, NOTE_D4, 8, NOTE_C4, 8, 
+                NOTE_D4, 1,
+                REST, 4, NOTE_A4, 8, NOTE_G4, 8, NOTE_F4, 8, NOTE_E4, 8, NOTE_D4, 8, NOTE_C4, 8, 
+                NOTE_D4, 1,
+                NOTE_F4, 4, NOTE_G4, 4, NOTE_A4, 8, NOTE_G4, 4, NOTE_A4, 8, //30
+                NOTE_AS4, 4, NOTE_A4, 4, NOTE_G4, 8, NOTE_F4, 4, NOTE_G4, 8,
+                NOTE_A4, 4, NOTE_C4, 8, NOTE_C4, 4, NOTE_C4, 8, NOTE_C4, 4,
+                NOTE_C4, 1, 
+                
+              };
+              
+            mPlayer.play_melody(122, lionSleepsTonight,sizeof(lionSleepsTonight)/sizeof(lionSleepsTonight[0]));`
+            break;
+        case "got":
+            code = `
+            int gotTheme[] = {
+
+                // Game of Thrones
+                // Score available at https://musescore.com/user/8407786/scores/2156716
+              
+                NOTE_G4,8, NOTE_C4,8, NOTE_DS4,16, NOTE_F4,16, NOTE_G4,8, NOTE_C4,8, NOTE_DS4,16, NOTE_F4,16, //1
+                NOTE_G4,8, NOTE_C4,8, NOTE_DS4,16, NOTE_F4,16, NOTE_G4,8, NOTE_C4,8, NOTE_DS4,16, NOTE_F4,16,
+                NOTE_G4,8, NOTE_C4,8, NOTE_E4,16, NOTE_F4,16, NOTE_G4,8, NOTE_C4,8, NOTE_E4,16, NOTE_F4,16,
+                NOTE_G4,8, NOTE_C4,8, NOTE_E4,16, NOTE_F4,16, NOTE_G4,8, NOTE_C4,8, NOTE_E4,16, NOTE_F4,16,
+                NOTE_G4,-4, NOTE_C4,-4,//5
+              
+                NOTE_DS4,16, NOTE_F4,16, NOTE_G4,4, NOTE_C4,4, NOTE_DS4,16, NOTE_F4,16, //6
+                NOTE_D4,-1, //7 and 8
+                NOTE_F4,-4, NOTE_AS3,-4,
+                NOTE_DS4,16, NOTE_D4,16, NOTE_F4,4, NOTE_AS3,-4,
+                NOTE_DS4,16, NOTE_D4,16, NOTE_C4,-1, //11 and 12
+              
+                //repeats from 5
+                NOTE_G4,-4, NOTE_C4,-4,//5
+              
+                NOTE_DS4,16, NOTE_F4,16, NOTE_G4,4, NOTE_C4,4, NOTE_DS4,16, NOTE_F4,16, //6
+                NOTE_D4,-1, //7 and 8
+                NOTE_F4,-4, NOTE_AS3,-4,
+                NOTE_DS4,16, NOTE_D4,16, NOTE_F4,4, NOTE_AS3,-4,
+                NOTE_DS4,16, NOTE_D4,16, NOTE_C4,-1, //11 and 12
+                NOTE_G4,-4, NOTE_C4,-4,
+                NOTE_DS4,16, NOTE_F4,16, NOTE_G4,4,  NOTE_C4,4, NOTE_DS4,16, NOTE_F4,16,
+              
+                NOTE_D4,-2,//15
+                NOTE_F4,-4, NOTE_AS3,-4,
+                NOTE_D4,-8, NOTE_DS4,-8, NOTE_D4,-8, NOTE_AS3,-8,
+                NOTE_C4,-1,
+                NOTE_C5,-2,
+                NOTE_AS4,-2,
+                NOTE_C4,-2,
+                NOTE_G4,-2,
+                NOTE_DS4,-2,
+                NOTE_DS4,-4, NOTE_F4,-4, 
+                NOTE_G4,-1,
+                
+                NOTE_C5,-2,//28
+                NOTE_AS4,-2,
+                NOTE_C4,-2,
+                NOTE_G4,-2, 
+                NOTE_DS4,-2,
+                NOTE_DS4,-4, NOTE_D4,-4,
+                NOTE_C5,8, NOTE_G4,8, NOTE_GS4,16, NOTE_AS4,16, NOTE_C5,8, NOTE_G4,8, NOTE_GS4,16, NOTE_AS4,16,
+                NOTE_C5,8, NOTE_G4,8, NOTE_GS4,16, NOTE_AS4,16, NOTE_C5,8, NOTE_G4,8, NOTE_GS4,16, NOTE_AS4,16,
+                
+                REST,4, NOTE_GS5,16, NOTE_AS5,16, NOTE_C6,8, NOTE_G5,8, NOTE_GS5,16, NOTE_AS5,16,
+                NOTE_C6,8, NOTE_G5,16, NOTE_GS5,16, NOTE_AS5,16, NOTE_C6,8, NOTE_G5,8, NOTE_GS5,16, NOTE_AS5,16,  
+              };
+            mPlayer.play_melody(85, gotTheme,sizeof(gotTheme)/sizeof(gotTheme[0]));`
             break;
         case "sirenA":
             code = `SirenA();\n`
@@ -681,7 +1002,7 @@ Blockly.JavaScript["mingo_light_read"] = function (block) {
             break;
     }
 
-    return code;
+    return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
 Blockly.JavaScript["mingo_line_read"] = function (block) {
@@ -709,12 +1030,11 @@ Blockly.JavaScript["mingo_line_read"] = function (block) {
             break;
     }
 
-    return code;
+    return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
 Blockly.JavaScript["mingo_ultrasonic_sensor"] = function (block) {
     var port = block.getFieldValue('port');
-
     if (UltrasonicDefined === false) {
         if (block.getRootBlock().type == "m_mainloop") {
             peripheral_PreDeclarations += UltrasonicSetup.PreDec;
@@ -725,7 +1045,7 @@ Blockly.JavaScript["mingo_ultrasonic_sensor"] = function (block) {
     }
 
     var code = '...;\n';
-    var selectedPort = 0;
+    var selectedPort = [];
 
     switch (port) {
         case "1":
@@ -735,11 +1055,11 @@ Blockly.JavaScript["mingo_ultrasonic_sensor"] = function (block) {
             selectedPort = Port4;
             break;
     }
-
+    console.log(selectedPort);
     code = `read_ultrasonic( ${selectedPort[2]} , ${selectedPort[3]})`
+    console.log(code);
 
-
-    return code;
+    return [code, Blockly.JavaScript.ORDER_NONE];
 }
 
 Blockly.JavaScript["mingo_ir_begin"] = function (block) {
@@ -763,7 +1083,8 @@ Blockly.JavaScript["mingo_ir_read"] = function (block) {
     var statements_ir_decode_loop = Blockly.JavaScript.statementToCode(block, 'IR_Decode_Loop');
     var code = ``
     if (block.getRootBlock().type == "m_mainloop") {
-        InfraredSetup.Loop += `if(IrReceiver.decodedIRData.command==0x${dropdown_character}){\n${statements_ir_decode_loop}\t\t}\n\t`;
+        //InfraredSetup.Loop += `if(IrReceiver.decodedIRData.command==0x${dropdown_character}){\n${statements_ir_decode_loop}\t\t}\n\t`;
+        code = `if(IrReceiver.decodedIRData.command==0x${dropdown_character}){\n${statements_ir_decode_loop}\t\t}\n\t`;
     }
     return code;
 }
@@ -813,20 +1134,35 @@ Blockly.JavaScript["mingo_bluetooth_send"] = function (block) {
 }
 
 Blockly.JavaScript["mingo_display_text"] = function (block) {
+    var port = block.getFieldValue('port');
+    var text = block.getFieldValue('text');
 
+    var code = ``;
+    return code;
 }
 
 Blockly.JavaScript["mingo_display_clear"] = function (block) {
+    var port = block.getFieldValue('port');
 
+    var code = ``;
+    return code;
 }
 
 Blockly.JavaScript["mingo_display_face"] = function (block) {
+    var port = block.getFieldValue('port');
+    var text = block.getFieldValue('face');
 
+    var code = ``;
+    return code;
 }
 
 Blockly.JavaScript["mingo_display_animation"] = function (block) {
+    var port = block.getFieldValue('port');
+    var text = block.getFieldValue('anim');
 
+    var code = ``;
+    return code;
 }
 
 
-export { peripheral_PreDeclarations, peripheral_BulkFunctions, peripheral_SetupCode, clearvars }
+export { peripheral_PreDeclarations, peripheral_BulkFunctions, peripheral_SetupCode, InfraredSetup, clearvars }

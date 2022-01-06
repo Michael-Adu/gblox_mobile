@@ -299,6 +299,39 @@ class _GBloxButtons extends State<GBloxButtons> {
                     ),
                     child: Text(widget.buttonName,
                         style: const TextStyle(color: Colors.white))))));
+      case "projectButtons":
+        return (AnimatedContainer(
+            duration: const Duration(milliseconds: 1),
+            padding: const EdgeInsets.all(5),
+            width: 100,
+            height: 35,
+            decoration: BoxDecoration(
+              border: Border.all(color: _toggledContainerColor, width: 2),
+              color: _toggledState
+                  ? Color(widget.buttonColor)
+                  : Colors.transparent,
+            ),
+            child: InkWell(
+                onTap: () {
+                  widget.pressed!();
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                onTapDown: (TapDownDetails) {
+                  setState(() {
+                    _toggledState = true;
+                  });
+                },
+                onTapCancel: () {
+                  setState(() {
+                    _toggledState = false;
+                  });
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    child: Text(widget.buttonName,
+                        style: const TextStyle(color: Colors.white))))));
 
       default:
         return (InkWell(

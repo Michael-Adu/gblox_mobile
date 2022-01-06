@@ -34,7 +34,7 @@ Blockly.Blocks['m_mainloop'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage("https://www.clipartmax.com/png/full/219-2194283_open-green-flag-sprite.png", 40, 40, { alt: "*", flipRtl: "FALSE" }))
-            .appendField("When "+ globalToolboxName + " starts,", "MainField");
+            .appendField("When " + globalToolboxName + " starts,", "MainField");
         this.appendDummyInput()
             .appendField("Run Forever")
             .appendField(new Blockly.FieldCheckbox("TRUE"), "LOOP");
@@ -209,9 +209,25 @@ Blockly.JavaScript['m_mainloop'] = function (block) {
     getPeripherals();
     block.setDeletable(false);
     block.setMovable(false);
-    block.setFieldValue("When "+ globalToolboxName + " starts,", "MainField")
+    block.setFieldValue("When " + globalToolboxName + " starts,", "MainField")
 
     var statements_mainloop = Blockly.JavaScript.statementToCode(block, 'mainLoop');
+
+
+    var checkbox_loop = block.getFieldValue("LOOP");
+    try {
+        Total_PreDeclarations += peripherals.peripheral_PreDeclarations;
+        Total_SetupCode += peripherals.peripheral_SetupCode;
+        Total_BulkFunctions += peripherals.peripheral_BulkFunctions;
+        if (peripherals.IR_Loop !== undefined) {
+            if (peripherals.IR_Loop !== ``) {
+                statements_mainloop += `\tif(IrReceiver.decode()){\n\t\t${peripherals.IR_Loop}\nIrReceiver.resume();\n}`;
+            }
+        }
+    }
+    catch (e) {
+    }
+    var code = ""
     if (createdVariables.length != 0) {
         variables_set = createdVariables;
         varcheck = createdVariables
@@ -219,19 +235,6 @@ Blockly.JavaScript['m_mainloop'] = function (block) {
             Total_PreDeclarations += `${variables_set[i][0]};\n`;
         }
     }
-
-    var checkbox_loop = block.getFieldValue("LOOP");
-    try {
-        Total_PreDeclarations += peripherals.peripheral_PreDeclarations;
-        Total_SetupCode += peripherals.peripheral_SetupCode;
-        Total_BulkFunctions += peripherals.peripheral_BulkFunctions;
-        if (peripherals.IR_Loop !== ``) {
-            statements_mainloop += `\tif(IrReceiver.decode()){\n\t\t${peripherals.IR_Loop}\nIrReceiver.resume();\n}`;
-        }
-    }
-    catch (e) {
-    }
-    var code = ""
     if (checkbox_loop == "TRUE") {
         code = `${Total_PreDeclarations} ${Total_SetupCode} \n}\n\nvoid loop(){\n ${statements_mainloop}\n} \n ${Total_BulkFunctions}`;
     }
@@ -287,9 +290,9 @@ Blockly.JavaScript['variable_set'] = function (block) {
     var text_varname = block.getFieldValue('variables_set');
     var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
 
-var code = '';
-code = `${text_varname} = ${value_value};\n`
-return code;
+    var code = '';
+    code = `${text_varname} = ${value_value};\n`
+    return code;
 };
 
 Blockly.JavaScript['variable_get'] = function (block) {
