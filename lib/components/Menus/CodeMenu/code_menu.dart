@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:io';
 import '../../global_variables.dart' as global;
 import 'package:flutter/services.dart';
@@ -23,13 +24,13 @@ class _CodeMenuState extends State<CodeMenu> {
       List<FileSystemEntity>.empty(growable: true);
   List<FileSystemEntity> _internal_folders =
       List<FileSystemEntity>.empty(growable: true);
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
     var gbloxFolder = createFolderInAppDocDir("GBlox");
     getDir("GBlox");
-    print(_folders);
   }
 
   Future<String> createFolderInAppDocDir(String folderName) async {
@@ -70,6 +71,18 @@ class _CodeMenuState extends State<CodeMenu> {
     } catch (e) {}
   }
 
+  _launchURL() async {
+    const url = 'https://mingoblox.business.site/';
+    if (await canLaunch(url)) {
+      await launch(url);
+      setState(() {
+        index = 0;
+      });
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -91,9 +104,24 @@ class _CodeMenuState extends State<CodeMenu> {
               Container(
                   width: global.device_width * 0.3,
                   child: SelectorButtons(
+                    initialIndex: index,
                     activeColor: 0xff0000DC,
                     buttons: ["Recent", "Help", "Robocentre", "Challenge"],
-                    functionList: [() {}, () {}, () {}, () {}],
+                    functionList: [
+                      () {},
+                      () {
+                        setState(() {
+                          index = 0;
+                        });
+                        _launchURL();
+                      },
+                      () {
+                        _launchURL();
+                      },
+                      () {
+                        _launchURL();
+                      }
+                    ],
                   )),
               Container(
                   width: global.device_width * 0.4,

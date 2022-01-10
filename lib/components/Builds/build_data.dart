@@ -39,7 +39,7 @@ class _BuilddataState extends State<Builddata> {
                 child: PdfView(
               controller: PdfController(
                   document: PdfDocument.openAsset(pathPDF),
-                  viewportFraction: 2),
+                  viewportFraction: 1),
             ))));
   }
 }
