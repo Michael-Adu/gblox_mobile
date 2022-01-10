@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import '../global_variables.dart' as global;
 import 'package:flutter/services.dart';
@@ -23,6 +24,7 @@ class _OpenProjectState extends State<OpenProject> {
       List<FileSystemEntity>.empty(growable: true);
   List<FileSystemEntity> _internal_folders =
       List<FileSystemEntity>.empty(growable: true);
+  int index = 0;
 
   @override
   void initState() {
@@ -63,14 +65,30 @@ class _OpenProjectState extends State<OpenProject> {
   }
 
   Future<void> getInteralDir() async {
-    final directory = await getExternalStorageDirectory();
-    try {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.any);
+
+    if (result != null) {
+      String path = result.files.single.path.toString();
+      File file = File(path);
+      String xml = await file.readAsString();
+      if (widget.fromHome) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Blockly(
+                    initialXML: xml,
+                  )),
+        );
+      } else {
+        Navigator.pop(context, xml);
+      }
+    } else {
       setState(() {
-        _internal_folders = directory!.listSync(recursive: true);
+        index = 0;
       });
-      print("Internal Files");
-      print(_internal_folders);
-    } catch (e) {}
+      // User canceled the picker
+    }
   }
 
   @override
@@ -95,8 +113,14 @@ class _OpenProjectState extends State<OpenProject> {
                   width: global.device_width * 0.3,
                   child: SelectorButtons(
                     activeColor: 0xff0000DC,
-                    buttons: ["GBlox", "SD Card", "Phone"],
-                    functionList: [() {}, () {}, () {}],
+                    initialIndex: index,
+                    buttons: ["GBlox", "Phone"],
+                    functionList: [
+                      () {},
+                      () {
+                        getInteralDir();
+                      }
+                    ],
                   )),
               Container(
                   width: global.device_width * 0.7,

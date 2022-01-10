@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:advance_pdf_viewer/advance_pdf_viewer.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../global_variables.dart' as global;
 
@@ -10,26 +15,36 @@ class Builddata extends StatefulWidget {
 }
 
 class _BuilddataState extends State<Builddata> {
+  String pathPDF = "assets/svgs/dsadsa.pdf";
+
+  void initState(){
+    super.initState();
+    
+  }
+
+  Widget _pdfWidget() async{
+    PDFDocument doc = await PDFDocument.fromAsset(pathPDF);
+    return PDFViewer(
+      document: doc);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
-          appBar: AppBar(
-            title: const Text("build_mode").tr(),
-            centerTitle: true,
-            leading: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.arrow_back)),
-          ),
-          body: Container(
+            appBar: AppBar(
+              title: const Text("build_mode").tr(),
+              centerTitle: true,
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.arrow_back)),
+            ),
+            body: Container(
               alignment: Alignment.center,
-              child: Text(
-                "This page is currently in construction",
-                style: TextStyle(color: Colors.white, fontSize: 40),
-              )),
-        ));
+              child: _pdfWidget(),
+            )));
   }
 }

@@ -40,6 +40,13 @@ class _ToolboxCategoryClass {
       this.name, this.index, this.category, this.children, this.click);
 }
 
+class _DeviceProfile {
+  Color color;
+  String svg;
+
+  _DeviceProfile(this.svg, this.color);
+}
+
 class _BlocklyState extends State<Blockly> {
   late InAppWebViewController? controller;
   late List<List<String>> toolbox = List<List<String>>.empty(growable: true);
@@ -172,7 +179,12 @@ class _BlocklyState extends State<Blockly> {
             )
           ],
         ));
-
+    _DeviceProfile device = _DeviceProfile(svgs.mingo, Color(0xff8100FF));
+    if (global.selectedDevice == "Mingo") {
+      device = _DeviceProfile(svgs.mingo, Color(0xff8100FF));
+    } else if (global.selectedDevice == "Mello") {
+      device = _DeviceProfile(svgs.mello, Colors.green);
+    }
     return MaterialApp(
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
@@ -200,8 +212,8 @@ class _BlocklyState extends State<Blockly> {
                         },
                         icon: const Icon(Icons.menu, color: Colors.white));
                   }),
-                  const Expanded(
-                    child: Center(child: Text('Code')),
+                  Expanded(
+                    child: Center(child: Text('code_mode').tr()),
                   )
                 ],
               )),
@@ -247,7 +259,7 @@ class _BlocklyState extends State<Blockly> {
                               child: Stack(children: [
                                 Align(
                                   child:
-                                      SvgPicture.string(svgs.mingo, width: 60),
+                                      SvgPicture.string(device.svg, width: 60),
                                   alignment: Alignment.center,
                                 ),
                                 InkWell(
@@ -271,7 +283,7 @@ class _BlocklyState extends State<Blockly> {
                                       ),
                                     )),
                               ]),
-                              backgroundColor: const Color(0xff8100FF),
+                              backgroundColor: device.color,
                               radius: 40,
                             ),
                           )),
