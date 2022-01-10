@@ -53,6 +53,7 @@ dependencies:
   url_launcher: ^6.0.17
   signal_strength_indicator: ^0.4.1
   advance_pdf_viewer: ^2.0.1
+  flutter_pdfview: ^1.2.1
 
 flutter_native_splash:
   color: "#0B0533"
