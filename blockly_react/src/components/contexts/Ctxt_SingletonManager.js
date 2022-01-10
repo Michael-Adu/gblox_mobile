@@ -5,7 +5,7 @@ import { Dropbox } from "dropbox";
 import AlterBlockly from "../../blocklyextras/blocklyAlters";
 import { mainLoopCode } from "../../customblocks/compiler/arduino_core";
 import { MelloDOM } from "../../customblocks/toolboxes/toolboxes";
-import { ThemeContext } from "./ThemeContext";
+import ThemeContextProvider, { ThemeContext } from "./ThemeContext";
 import Alert_Notification from '../Alert_Notification'
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { tomorrowNightBlue } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -185,6 +185,7 @@ void loop(){
     }, [toolboxUpdate])
 
     useEffect(() => {
+        console.log("variables:"+blocklyVariables)
         createdVariables = blocklyVariables;
     }, [blocklyVariables])
     useEffect(() => {
@@ -237,6 +238,20 @@ void loop(){
         }
 
     });
+
+    function loadBlocklyVariables(vars){
+        var newVariables = vars.split("],")
+        var tempVar = []
+        for (var i = 0; i < newVariables.length; i++){
+            var pt1 = newVariables[i].split(",")[0].replace('[','')
+            var pt2 = newVariables[i].split(",")[1].replace(']','')
+            tempVar.push([pt1,pt2])
+        }
+        setBlocklyVariables(tempVar);
+    }
+
+    window.loadBlocklyVariables = loadBlocklyVariables;
+
     function device_manager(event) {
         var popout = document.getElementById("c-device-manager")
         if (event.target.id === "device-add-button") {
