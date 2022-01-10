@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../Modular_Widgets/ToolboxButtons/toolbox_category_buttons.dart';
 import '../Modular_Widgets/Button/buttons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import '../Modular_Widgets/Cards/cards.dart';
+import 'open_project.dart';
+import 'save_project.dart';
 import '../global_variables.dart' as global;
 import '../svgs/svgs.dart' as svgs;
 import 'dart:math' as math;
 
 //Creates the blockly page containing Flutter buttons on load.
 class Blockly extends StatefulWidget {
-  const Blockly({Key? key}) : super(key: key);
+  final String initialXML;
+
+  Blockly({Key? key, this.initialXML = ""}) : super(key: key);
   @override
   _BlocklyState createState() => _BlocklyState();
 }
@@ -35,16 +40,25 @@ class _ToolboxCategoryClass {
       this.name, this.index, this.category, this.children, this.click);
 }
 
+class _DeviceProfile {
+  Color color;
+  String svg;
+
+  _DeviceProfile(this.svg, this.color);
+}
+
 class _BlocklyState extends State<Blockly> {
   late InAppWebViewController? controller;
   late List<List<String>> toolbox = List<List<String>>.empty(growable: true);
   var loaded = ValueNotifier<bool>(false);
+  bool deviceDrawerOpen = false;
   late List<_ToolboxClass> renderedToolbox =
       List<_ToolboxClass>.empty(growable: true);
   late List<Widget> widgetToolbox = List<Widget>.empty(growable: true);
   late List<_ToolboxCategoryClass> renderedToolboxCategories =
       List<_ToolboxCategoryClass>.empty(growable: true);
 
+  var currentXml = ValueNotifier<String>("");
   late String categoryName;
   late int categoryIndex;
   late int categoryNumber = 0;
@@ -108,14 +122,79 @@ class _BlocklyState extends State<Blockly> {
 
     widgetToolbox = categoryButtons;
     loaded.value = true;
+    if (widget.initialXML.contains("xml")) {
+      currentXml.value = widget.initialXML.toString();
+      controller!.evaluateJavascript(source: '''
+                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
+                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+                          ''');
+    }
     return renderedToolbox;
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget deviceSelector = Container(
+        alignment: Alignment.centerRight,
+        width: global.device_width * 0.6275,
+        color: Color(0xff0B0533),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              height: global.cardSize * 0.7,
+              child: GBloxCards(
+                svg: svgs.mingo,
+                pressed: () {
+                  global.selectedDevice = "Mingo";
+                  global.webController!.evaluateJavascript(source: '''
+                document.getElementById("${global.selectedDevice}").click();
+                ''');
+                  setState(() {
+                    deviceDrawerOpen = false;
+                  });
+                },
+                text: "Mingo",
+                textBackgroundColor: Color(0xff8D00E8),
+                compressSVG: false,
+              ),
+            ),
+            Container(
+              height: global.cardSize * 0.7,
+              child: GBloxCards(
+                svg: svgs.mello,
+                pressed: () {
+                  global.selectedDevice = "Mello";
+                  global.webController!.evaluateJavascript(source: '''
+                document.getElementById("${global.selectedDevice}").click();
+                ''');
+                  setState(() {
+                    deviceDrawerOpen = false;
+                  });
+                },
+                text: "Mello",
+                textBackgroundColor: Color(0xff40BF4A),
+                compressSVG: false,
+              ),
+            )
+          ],
+        ));
+    _DeviceProfile device = _DeviceProfile(svgs.mingo, Color(0xff8100FF));
+    if (global.selectedDevice == "Mingo") {
+      device = _DeviceProfile(svgs.mingo, Color(0xff8100FF));
+    } else if (global.selectedDevice == "Mello") {
+      device = _DeviceProfile(svgs.mello, Colors.green);
+    }
     return MaterialApp(
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
+            onDrawerChanged: (status) {
+              if (status == false) {
+                setState(() {
+                  deviceDrawerOpen = false;
+                });
+              }
+            },
             appBar: AppBar(
               title: Container(
                   child: Row(
@@ -133,8 +212,8 @@ class _BlocklyState extends State<Blockly> {
                         },
                         icon: const Icon(Icons.menu, color: Colors.white));
                   }),
-                  const Expanded(
-                    child: Center(child: Text('Code')),
+                  Expanded(
+                    child: Center(child: Text('code_mode').tr()),
                   )
                 ],
               )),
@@ -154,8 +233,10 @@ class _BlocklyState extends State<Blockly> {
               backgroundColor: Colors.transparent,
               centerTitle: true,
             ),
-            drawer: Drawer(
-              child: Container(
+            drawer: Container(
+              child: Row(children: [
+                Drawer(
+                    child: Container(
                   color: Theme.of(global.navigatorKey.currentContext!)
                       .colorScheme
                       .primary,
@@ -171,13 +252,41 @@ class _BlocklyState extends State<Blockly> {
                               icon: const Icon(Icons.close,
                                   color: Colors.white, size: 20))),
                       Container(
-                        padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                        child: CircleAvatar(
-                          child: SvgPicture.string(svgs.mingo, width: 60),
-                          backgroundColor: const Color(0xff8100FF),
-                          radius: 40,
-                        ),
-                      ),
+                          width: 20,
+                          padding: const EdgeInsets.fromLTRB(110, 0, 110, 30),
+                          child: Container(
+                            child: CircleAvatar(
+                              child: Stack(children: [
+                                Align(
+                                  child:
+                                      SvgPicture.string(device.svg, width: 60),
+                                  alignment: Alignment.center,
+                                ),
+                                InkWell(
+                                    onTap: () {
+                                      if (deviceDrawerOpen) {
+                                        setState(() {
+                                          deviceDrawerOpen = false;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          deviceDrawerOpen = true;
+                                        });
+                                      }
+                                    },
+                                    child: const Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: CircleAvatar(
+                                        radius: 12,
+                                        backgroundColor: Colors.white70,
+                                        child: Icon(Icons.add),
+                                      ),
+                                    )),
+                              ]),
+                              backgroundColor: device.color,
+                              radius: 40,
+                            ),
+                          )),
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "New",
@@ -188,15 +297,26 @@ class _BlocklyState extends State<Blockly> {
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Open",
-                        pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                        pressed: () async {
+                          var data = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OpenProject(
+                                        fromHome: false,
+                                      )));
+                          controller!.evaluateJavascript(source: '''
+                                  var xml = window.mainBlockly.Xml.textToDom('${data.toString()}');
+                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+                          ''');
                         },
                       ),
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Save",
                         pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                          controller!.evaluateJavascript(source: '''
+                          console.log("xml: " + window.mainBlockly.Xml.domToText(window.mainBlockly.Xml.workspaceToDom(window.currentWorkspace)))
+                          ''');
                         },
                       ),
                       GBloxButtons(
@@ -221,7 +341,10 @@ class _BlocklyState extends State<Blockly> {
                         },
                       ),
                     ],
-                  )),
+                  ),
+                )),
+                deviceDrawerOpen ? deviceSelector : Container()
+              ]),
             ),
             endDrawer: Container(
               width: MediaQuery.of(context).size.width * 0.33,
@@ -317,7 +440,7 @@ class _BlocklyState extends State<Blockly> {
               )),
             ),
             body: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                     width: global.device_width * 0.215,
@@ -391,11 +514,11 @@ class _BlocklyState extends State<Blockly> {
                           (InAppWebViewController controller, Uri? url) {
                         controller.evaluateJavascript(source: '''
                         document.getElementById("Mingo").click();
-                        document.getElementById("Mello").click();
+                        document.getElementById("${global.selectedDevice}").click();
                         ''');
                       },
                       onConsoleMessage: (InAppWebViewController controller,
-                          ConsoleMessage consoleMessage) {
+                          ConsoleMessage consoleMessage) async {
                         if (consoleMessage.message.contains("toolbox:")) {
                           var temp_toolbox_string = consoleMessage.message;
                           var temp_toolbox = temp_toolbox_string
@@ -415,6 +538,17 @@ class _BlocklyState extends State<Blockly> {
                           }
 
                           //temp_toolbox = temp_toolbox;
+                        } else if (consoleMessage.message.contains("xml:")) {
+                          var temp_xml_string = consoleMessage.message;
+                          var temp_xml = temp_xml_string.split("xml: ")[1];
+                          print(temp_xml);
+                          currentXml.value = temp_xml;
+                          var data = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SaveProject(
+                                        saveData: currentXml.value,
+                                      )));
                         } else {
                           print("console message: ${consoleMessage.message}");
                         }

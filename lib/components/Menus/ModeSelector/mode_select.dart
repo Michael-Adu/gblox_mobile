@@ -8,6 +8,7 @@ import '../../global_variables.dart' as global;
 import '../../Blockly/blockly.dart';
 import '../../Builds/build.dart';
 import '../PlaySelector/play_select.dart';
+import '../CodeMenu/code_menu.dart';
 
 class ModeSelector extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _ModeSelector extends State<ModeSelector> {
         .add(global.CardDetails(svgs.codeMode, "code_mode", Colors.orange, () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const Blockly()),
+        MaterialPageRoute(builder: (context) => const CodeMenu()),
       );
     }, false));
     modeCards

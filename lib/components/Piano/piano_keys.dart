@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../global_variables.dart' as global;
+import 'dart:convert';
+import 'dart:typed_data';
 
 class _KeyClass {
   String pKey;
@@ -40,7 +42,7 @@ class PianoKeys extends StatefulWidget {
       "A5",
       "A#5",
       "B5",
-      "C5"
+      "C6"
     ],
   }) : super(key: key);
 
@@ -63,7 +65,7 @@ class _PianoKeysState extends State<PianoKeys> {
       } else {
         try {
           var lastAcc = accidental.last;
-          print(widget.keys[i][0]);
+          //print(widget.keys[i][0]);
           if (widget.keys[i - 1].contains(lastAcc.pKey[0])) {
             note.add(_KeyClass(widget.keys[i], false, false));
           } else {
@@ -71,7 +73,7 @@ class _PianoKeysState extends State<PianoKeys> {
             note.add(_KeyClass(widget.keys[i], false, false));
           }
         } catch (e) {
-          print(accidental);
+          //print(accidental);
           note.add(_KeyClass(widget.keys[i], false, false));
         }
       }
@@ -95,12 +97,7 @@ class _PianoKeysState extends State<PianoKeys> {
                   },
                   icon: const Icon(Icons.arrow_back))),
           body: Container(
-              child: GestureDetector(
-                  onPanUpdate: (DragUpdateDetails details) {
-                    print(details.globalPosition);
-                    var position = details.globalPosition;
-                  },
-                  child: Stack(
+              child:Stack(
                     children: [
                       Container(
                           height: global.device_height * 0.85,
@@ -111,12 +108,31 @@ class _PianoKeysState extends State<PianoKeys> {
                                       pianoKey: e.pKey,
                                       empty: e.empty,
                                       pressed: () {
-                                        global
-                                            .displayToast(e.pKey + " pressed");
+                                        var commandArgs = "";
+                                        if(e.acc==false){
+                                          commandArgs = commandArgs +  e.pKey[0] + " " + e.pKey[1];
+                                        } else{
+                                          commandArgs = commandArgs +  e.pKey[0] + "" + e.pKey[1] + " " + e.pKey[2];
+                                          //global.displayToast(commandArgs);
+                                        }
+                                          //global.displayToast("p " + commandArgs + ";");
+                                        try {
+                                          global.activeConnection.output.add(
+                                              Uint8List.fromList(utf8.encode(
+                                                  "p " + commandArgs + ";")));
+                                        } catch (e) {
+                                          //print(e);
+                                        }
                                       },
                                       onRelease: () {
-                                        global
-                                            .displayToast(e.pKey + " released");
+                                        try {
+                                          global.activeConnection.output.add(
+                                              Uint8List.fromList(utf8.encode(
+                                                  "pn;")));
+                                          print("Key Released");
+                                        } catch (e) {
+                                          //print(e);
+                                        }
                                       },
                                     ))
                                 .toList(),
@@ -133,17 +149,36 @@ class _PianoKeysState extends State<PianoKeys> {
                                         pianoKey: e.pKey,
                                         empty: e.empty,
                                         pressed: () {
-                                          global.displayToast(
-                                              e.pKey + " pressed");
-                                        },
-                                        onRelease: () {
-                                          global.displayToast(
-                                              e.pKey + " released");
-                                        },
+                                        var commandArgs = "";
+                                        if(e.acc==false){
+                                          commandArgs = commandArgs +  e.pKey[0] + " " + e.pKey[1];
+                                        } else{
+                                          commandArgs = commandArgs +  e.pKey[0] + "" + e.pKey[1] + " " + e.pKey[2];
+                                          //global.displayToast(commandArgs);
+                                        }
+                                          //global.displayToast("p " + commandArgs + ";");
+                                        try {
+                                          global.activeConnection.output.add(
+                                              Uint8List.fromList(utf8.encode(
+                                                  "p " + commandArgs + ";")));
+                                        } catch (e) {
+                                          //print(e);
+                                        }
+                                      },
+                                      onRelease: () {
+                                        try {
+                                          global.activeConnection.output.add(
+                                              Uint8List.fromList(utf8.encode(
+                                                  "pn;")));
+                                          print("Key Released");
+                                        } catch (e) {
+                                          //print(e);
+                                        }
+                                      },
                                       ))
                                   .toList()))
                     ],
-                  )))),
+                  ))),
     );
   }
 }

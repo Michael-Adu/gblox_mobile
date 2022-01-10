@@ -6,6 +6,7 @@ import './VariableSelector.scss'
 
 function Index(props) {
     const { name, state, children, ...rest } = props;
+    const [variableName, setVariableName] = useState("");
     const { 
         closeVariableDialog
     } = useContext(Ctxt_SingletonManager)
@@ -22,7 +23,11 @@ function Index(props) {
             <div id="variable-name-text">
                 Variable Name:
             </div>
-            <input type="text" id="variable-name-input"></input>
+            <input type="text" id="variable-name-input" onChange = {
+                (e) => {
+                    setVariableName(e.target.value);
+                }
+            }></input>
             <div id="close-button">
                 <Button
                     type="ExampleButton"
@@ -33,7 +38,9 @@ function Index(props) {
                     hoverColor="#060841"
                     text={"Close"}
                     hoverEffect="fill"
-                    onClick={closeVariableDialog}
+                    onClick={(e) => {
+                        closeVariableDialog(e, variableName)}
+                    }
                     >
                 </Button>
             </div>
@@ -47,7 +54,9 @@ function Index(props) {
                     hoverColor="#060841"
                     text={"Create New Variable"}
                     hoverEffect="fill"
-                    onClick={closeVariableDialog}>
+                    onClick={(e) => {
+                        closeVariableDialog(e, variableName)}
+                    }>
                         
                 </Button>
             </div>

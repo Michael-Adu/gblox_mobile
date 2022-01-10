@@ -7,7 +7,7 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 import './components/global_variables.dart' as global;
 import './components/svgs/svgs.dart' as svgs;
 import './components/Modular_Widgets/Cards/cards.dart';
-
+import './components/DeviceSelect/device_select.dart';
 import 'components/Bluetooth/device_select.dart';
 import './components/Menus/ModeSelector/mode_select.dart';
 
@@ -80,208 +80,204 @@ class _GbloxApp extends State<GbloxApp> {
         locale: context.locale,
         navigatorKey: global.navigatorKey,
         theme: _currentTheme,
-        home: Builder(
-            builder: (context) => Scaffold(
-                appBar: AppBar(
-                    title: const Text('applicationName').tr(),
-                    centerTitle: true,
-                    leading: Builder(
+        home: Builder(builder: (context) {
+          return Scaffold(
+              appBar: AppBar(
+                  title: const Text('applicationName').tr(),
+                  centerTitle: true,
+                  leading: Builder(
+                    builder: (context) {
+                      return IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                      );
+                    },
+                  ),
+                  actions: <Widget>[
+                    Builder(
                       builder: (context) {
                         return IconButton(
-                          icon: const Icon(Icons.menu),
+                          icon: const Icon(Icons.settings),
                           onPressed: () {
-                            Scaffold.of(context).openDrawer();
+                            Scaffold.of(context).openEndDrawer();
                           },
                         );
                       },
-                    ),
-                    actions: <Widget>[
-                      Builder(
-                        builder: (context) {
-                          return IconButton(
-                            icon: const Icon(Icons.settings),
-                            onPressed: () {
-                              Scaffold.of(context).openEndDrawer();
-                            },
+                    )
+                  ]),
+              drawer: Drawer(
+                  child: Container(
+                padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
+                color: Theme.of(context).colorScheme.background,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    ListTile(
+                        enableFeedback: true,
+                        title: const Text('mode_select_page').tr(),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ModeSelector()),
                           );
-                        },
-                      )
-                    ]),
-                drawer: Drawer(
+                        }),
+                    ListTile(
+                        enableFeedback: true,
+                        title: const Text('device_select_drawer').tr(),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DeviceSelect()),
+                          );
+                        }),
+                  ],
+                ),
+              )),
+              endDrawer: Container(
+                width: MediaQuery.of(context).size.width * 0.33,
+                child: Drawer(
                     child: Container(
+                  color: Theme.of(context).primaryColor,
                   padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-                  color: Theme.of(context).colorScheme.background,
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
-                      ListTile(
-                          enableFeedback: true,
-                          title: const Text('mode_select_page').tr(),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ModeSelector()),
-                            );
-                          }),
-                      ListTile(
-                          enableFeedback: true,
-                          title: const Text('device_select_drawer').tr(),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DiscoveryPage()),
-                            );
-                          }),
-                    ],
-                  ),
-                )),
-                endDrawer: Container(
-                  width: MediaQuery.of(context).size.width * 0.33,
-                  child: Drawer(
-                      child: Container(
-                    color: Theme.of(context).primaryColor,
-                    padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-                    child: ListView(padding: EdgeInsets.zero, children: [
-                      ConfigurableExpansionTile(
-                          animatedWidgetFollowingHeader: Container(
-                              alignment: Alignment.centerRight,
-                              child: Icon(Icons.arrow_downward,
+                  child: ListView(padding: EdgeInsets.zero, children: [
+                    ConfigurableExpansionTile(
+                        animatedWidgetFollowingHeader: Container(
+                            alignment: Alignment.centerRight,
+                            child: Icon(Icons.arrow_downward,
+                                color: Colors.white,
+                                size:
+                                    MediaQuery.of(context).size.height * 0.04)),
+                        header: Container(
+                            width: MediaQuery.of(context).size.width * 0.255,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'change_language_settings',
+                              style: TextStyle(
                                   color: Colors.white,
-                                  size: MediaQuery.of(context).size.height *
-                                      0.04)),
-                          header: Container(
-                              width: MediaQuery.of(context).size.width * 0.255,
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'change_language_settings',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.04),
-                              ).tr()),
-                          borderColorEnd: Colors.lightGreen,
-                          children: [
-                            InkWell(
-                                onTap: () {
-                                  context.setLocale(const Locale("en"));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height *
-                                          0.05),
-                                  child: Text(
-                                    "English",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.04),
-                                  ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  context.setLocale(const Locale("fr"));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height *
-                                          0.05),
-                                  child: Text(
-                                    "Français",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.04),
-                                  ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  context.setLocale(const Locale("pt"));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height *
-                                          0.05),
-                                  child: const Text(
-                                    "Português",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )),
-                            InkWell(
-                                onTap: () {
-                                  context.setLocale(const Locale("de"));
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(
-                                      MediaQuery.of(context).size.height *
-                                          0.05),
-                                  child: const Text(
-                                    "Deutsch",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )),
-                          ]),
-                      ListTile(
-                          enableFeedback: true,
-                          title: Text('help_settings',
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.04),
+                            ).tr()),
+                        borderColorEnd: Colors.lightGreen,
+                        children: [
+                          InkWell(
+                              onTap: () {
+                                context.setLocale(const Locale("en"));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(
+                                    MediaQuery.of(context).size.height * 0.05),
+                                child: Text(
+                                  "English",
                                   style: TextStyle(
+                                      color: Colors.white,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
-                                              0.04))
-                              .tr(),
-                          onTap: () {})
-                    ]),
-                  )),
-                ),
-                body: Center(
-                    child: Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: ((MediaQuery.of(context).size.height -
-                                MediaQuery.of(context).padding.top) *
-                            0.8),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                  child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.4,
-                                      height:
-                                          (MediaQuery.of(context).size.height *
-                                              0.6),
-                                      child: GBloxCards(
-                                          svg: svgs.playMode,
-                                          text: "mode_select_page",
-                                          textBackgroundColor: Colors.blue,
-                                          pressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ModeSelector()),
-                                            );
-                                          }))),
-                              Expanded(
-                                  child: Container(
-                                      height:
-                                          (MediaQuery.of(context).size.height *
-                                              0.6),
-                                      child: GBloxCards(
-                                          svg: svgs.mingo,
-                                          text: "select_device_page",
-                                          textBackgroundColor: Colors.teal,
-                                          pressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DiscoveryPage()),
-                                            );
-                                          }))),
-                            ]))))));
+                                              0.04),
+                                ),
+                              )),
+                          InkWell(
+                              onTap: () {
+                                context.setLocale(const Locale("fr"));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(
+                                    MediaQuery.of(context).size.height * 0.05),
+                                child: Text(
+                                  "Français",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.04),
+                                ),
+                              )),
+                          InkWell(
+                              onTap: () {
+                                context.setLocale(const Locale("pt"));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(
+                                    MediaQuery.of(context).size.height * 0.05),
+                                child: const Text(
+                                  "Português",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )),
+                          InkWell(
+                              onTap: () {
+                                context.setLocale(const Locale("de"));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(
+                                    MediaQuery.of(context).size.height * 0.05),
+                                child: const Text(
+                                  "Deutsch",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )),
+                        ]),
+                    ListTile(
+                        enableFeedback: true,
+                        title: Text('help_settings',
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.04))
+                            .tr(),
+                        onTap: () {})
+                  ]),
+                )),
+              ),
+              body: Center(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: ((MediaQuery.of(context).size.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.8),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                                child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
+                                    height:
+                                        (MediaQuery.of(context).size.height *
+                                            0.6),
+                                    child: GBloxCards(
+                                        svg: svgs.playMode,
+                                        text: "mode_select_page",
+                                        textBackgroundColor: Colors.blue,
+                                        pressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ModeSelector()),
+                                          );
+                                        }))),
+                            Expanded(
+                                child: Container(
+                                    height:
+                                        (MediaQuery.of(context).size.height *
+                                            0.6),
+                                    child: GBloxCards(
+                                        svg: svgs.mingo,
+                                        text: "select_device_page",
+                                        textBackgroundColor: Colors.teal,
+                                        pressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DiscoveryPage()),
+                                          );
+                                        }))),
+                          ]))));
+        }));
   }
 }

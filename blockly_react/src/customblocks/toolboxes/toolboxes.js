@@ -486,23 +486,17 @@ const MingoToolbox = `<xml xmlns="https://developers.google.com/blockly/xml" id=
     </category>
 </category>
 <category css-icon="customIcon fa fa-cog" name="Sensors">
-    <category name="Ultrasonic">
         <block type="mingo_ultrasonic_sensor">
             <field name="port">1</field>
         </block>
-    </category>
-    <category name="Light Sensor">
         <block type="mingo_light_read">
             <field name="sensor">left</field>
             <field name="port">3</field>
         </block>
-    </category>
-    <category name="Line Follower">
         <block type="mingo_line_read">
             <field name="sensor">left</field>
             <field name="port">1</field>
         </block>
-    </category>
 </category>
 <category css-icon="customIcon fa fa-cog" name="COM">
     <category name="IR">

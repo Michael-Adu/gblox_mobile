@@ -378,7 +378,7 @@ void loop(){
     function openVariableDialog() {
         document.getElementById("c-variableSelector").style.display = "block";
     }
-    function closeVariableDialog(event) {
+    function closeVariableDialog(event, varName) {
         document.getElementById("variable-name-input").value = ""
         if (event.target.id == "a-CloseButton") {
             document.getElementById("c-variableSelector").style.display = "none";
@@ -391,7 +391,7 @@ void loop(){
             else if (newvariable_type === "String") {
                 newvariable_type = "string"
             }
-            var newvariable_name = document.getElementById("variable-name-input").value
+            var newvariable_name = varName;
             setBlocklyVariables((blocklyVariables => [...blocklyVariables, [`${newvariable_type} ${newvariable_name}`, `${newvariable_name}`]]))
             document.getElementById("c-variableSelector").style.display = "none";
 
