@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:flutter/services.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../global_variables.dart' as global;
@@ -15,15 +15,10 @@ class Builddata extends StatefulWidget {
 }
 
 class _BuilddataState extends State<Builddata> {
-  String pathPDF = "assets/svgs/dsadsa.pdf";
-
+  String pathPDF = 'assets/svgs/dsadsa.pdf';
+  var pdfController;
   void initState() {
     super.initState();
-  }
-
-  Widget _pdfWidget() {
-    return PDFView(
-      filePath: pathPDF);
   }
 
   @override
@@ -41,8 +36,10 @@ class _BuilddataState extends State<Builddata> {
                   icon: const Icon(Icons.arrow_back)),
             ),
             body: Container(
-              alignment: Alignment.center,
-              child: _pdfWidget(),
-            )));
+                child: PdfView(
+              controller: PdfController(
+                  document: PdfDocument.openAsset(pathPDF),
+                  viewportFraction: 2),
+            ))));
   }
 }
