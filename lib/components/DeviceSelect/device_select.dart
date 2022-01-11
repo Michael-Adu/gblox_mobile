@@ -23,17 +23,19 @@ class _DeviceSelectState extends State<DeviceSelect> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("select_device_page").tr(),
+              title: Text("select_device_page",
+                      style: TextStyle(fontSize: global.device_height * 0.04))
+                  .tr(),
               centerTitle: true,
             ),
             body: Container(
-                alignment: Alignment.center,
-                height: 280,
+                padding: EdgeInsets.all(global.device_height * 0.1),
+                height: global.device_height * 0.8,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      height: 220,
+                    Expanded(
                       child: GBloxCards(
                         svg: svgs.mingo,
                         pressed: () {
@@ -52,8 +54,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                         compressSVG: false,
                       ),
                     ),
-                    Container(
-                      height: 220,
+                    Expanded(
                       child: GBloxCards(
                         svg: svgs.mello,
                         pressed: () {

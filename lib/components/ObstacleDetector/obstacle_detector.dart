@@ -46,7 +46,9 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text('obstacle_play').tr(),
+              title: Text('obstacle_play',
+                      style: TextStyle(fontSize: global.device_height * 0.02))
+                  .tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {
@@ -67,23 +69,19 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
                       Container(
                           alignment: Alignment.topCenter,
                           clipBehavior: Clip.none,
-                          child: Transform(
-                              transform: Matrix4.diagonal3Values(1.5, 1.5, 1),
-                              child: SvgPicture.string(
-                                svgs.obstacle_detect,
-                                alignment: Alignment.center,
-                                fit: BoxFit.contain,
-                              ))),
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: SvgPicture.string(
+                            svgs.obstacle_detect,
+                            allowDrawingOutsideViewBox: true,
+                            height: global.device_height * 1.5,
+                            alignment: Alignment.topCenter,
+                            fit: BoxFit.none,
+                          )),
                       Container(
-                          clipBehavior: Clip.none,
+                          alignment: Alignment.center,
                           width: global.device_width * 0.5,
-                          margin: EdgeInsets.fromLTRB(
-                              global.device_width * 0.1,
-                              global.device_height * 0.3,
-                              global.device_width * 0.35,
-                              0),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: stateWidget,
                           ))
                     ])),

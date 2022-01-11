@@ -19,7 +19,9 @@ class _GBloxBuildState extends State<GBloxBuild> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("build_mode").tr(),
+              title: Text("build_mode",
+                      style: TextStyle(fontSize: global.device_height * 0.04))
+                  .tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {
@@ -29,12 +31,13 @@ class _GBloxBuildState extends State<GBloxBuild> {
             ),
             body: Container(
                 alignment: Alignment.center,
-                height: 280,
+                padding: EdgeInsets.all(global.device_height * 0.1),
+                height: global.device_height * 0.8,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      height: 220,
+                    Expanded(
                       child: GBloxCards(
                         svg: svgs.mingo,
                         pressed: () {
@@ -49,8 +52,7 @@ class _GBloxBuildState extends State<GBloxBuild> {
                         compressSVG: false,
                       ),
                     ),
-                    Container(
-                      height: 220,
+                    Expanded(
                       child: GBloxCards(
                         svg: svgs.mello,
                         pressed: () {

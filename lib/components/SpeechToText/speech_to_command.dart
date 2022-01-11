@@ -49,7 +49,9 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text('Speech to Command').tr(),
+              title: Text('Speech to Command',
+                      style: TextStyle(fontSize: global.device_height * 0.02))
+                  .tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {

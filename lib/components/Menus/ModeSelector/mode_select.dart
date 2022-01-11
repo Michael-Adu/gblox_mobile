@@ -82,7 +82,9 @@ class _ModeSelector extends State<ModeSelector> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("mode_select_page").tr(),
+              title: Text("mode_select_page",
+                      style: TextStyle(fontSize: global.device_height * 0.04))
+                  .tr(),
               backgroundColor: Colors.transparent,
               centerTitle: true,
               leading: IconButton(
@@ -94,9 +96,12 @@ class _ModeSelector extends State<ModeSelector> {
             body: Container(
                 alignment: Alignment.center,
                 child: Stack(children: [
-                  SvgPicture.string(
-                    svgs.pageCityBackground,
+                  Container(
                     alignment: Alignment.bottomCenter,
+                    child: SvgPicture.string(
+                      svgs.pageCityBackground,
+                      alignment: Alignment.bottomCenter,
+                    ),
                   ),
                   Container(
                       height: global.device_height * 0.8,

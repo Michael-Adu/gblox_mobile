@@ -52,7 +52,9 @@ class _ControllerState extends State<Controller> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-                title: const Text("controller_drawer").tr(),
+                title: Text("controller_drawer",
+                        style: TextStyle(fontSize: global.device_height * 0.02))
+                    .tr(),
                 centerTitle: true,
                 leading: IconButton(
                     onPressed: () {

@@ -19,7 +19,9 @@ class _PathFinderState extends State<PathFinder> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text('path_play').tr(),
+              title: Text('path_play',
+                      style: TextStyle(fontSize: global.device_height * 0.04))
+                  .tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {

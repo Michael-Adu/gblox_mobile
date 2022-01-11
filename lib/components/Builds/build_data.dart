@@ -27,7 +27,9 @@ class _BuilddataState extends State<Builddata> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("build_mode").tr(),
+              title: Text("build_mode",
+                      style: TextStyle(fontSize: global.device_height * 0.04))
+                  .tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {

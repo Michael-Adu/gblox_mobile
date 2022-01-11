@@ -72,10 +72,12 @@ class _GBloxCardsState extends State<GBloxCards> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
+                          decoration: BoxDecoration(
+                            color: Theme.of(global.navigatorKey.currentContext!)
+                                .primaryColor,
+                          ),
                           width: global.device_width * 0.5,
-                          height: widget.compressSVG
-                              ? global.device_height * 0.25
-                              : global.device_height * 0.25,
+                          height: global.device_height * 0.35,
                           clipBehavior: Clip.none,
                           margin: widget.compressSVG
                               ? const EdgeInsets.fromLTRB(0, 20, 0, 0)
@@ -83,8 +85,6 @@ class _GBloxCardsState extends State<GBloxCards> {
                           padding: widget.compressSVG
                               ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
                               : const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          color: Theme.of(global.navigatorKey.currentContext!)
-                              .primaryColor,
                           child: SvgPicture.string(widget.svg!,
                               height: widget.compressSVG
                                   ? global.device_height * 0.14

@@ -84,7 +84,10 @@ class _GbloxApp extends State<GbloxApp> {
         home: Builder(builder: (context) {
           return Scaffold(
               appBar: AppBar(
-                  title: const Text('applicationName').tr(),
+                  title: Text('applicationName',
+                          style:
+                              TextStyle(fontSize: global.device_height * 0.04))
+                      .tr(),
                   centerTitle: true,
                   leading: Builder(
                     builder: (context) {

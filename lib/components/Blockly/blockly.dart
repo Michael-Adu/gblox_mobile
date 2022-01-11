@@ -222,7 +222,11 @@ class _BlocklyState extends State<Blockly> {
                         icon: const Icon(Icons.menu, color: Colors.white));
                   }),
                   Expanded(
-                    child: Center(child: Text('code_mode').tr()),
+                    child: Center(
+                        child: Text('code_mode',
+                                style: TextStyle(
+                                    fontSize: global.device_height * 0.04))
+                            .tr()),
                   )
                 ],
               )),
@@ -315,20 +319,22 @@ class _BlocklyState extends State<Blockly> {
                                   builder: (context) => OpenProject(
                                         fromHome: false,
                                       )));
-                          variables = data[1].toString();
-                          currentXml.value = data[0].toString();
-                          controller!.evaluateJavascript(
-                              source:
-                                  '''loadBlocklyVariables("${variables}")''');
-                          controller!.evaluateJavascript(source: '''
-                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
-                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
-                          ''').then((response) {
+                          try {
+                            variables = data[1].toString();
+                            currentXml.value = data[0].toString();
+                            controller!.evaluateJavascript(
+                                source:
+                                    '''loadBlocklyVariables("${variables}")''');
                             controller!.evaluateJavascript(source: '''
                                   var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
                                   window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+                          ''').then((response) {
+                              controller!.evaluateJavascript(source: '''
+                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
+                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
                           ''');
-                          });
+                            });
+                          } catch (e) {}
                         },
                       ),
                       GBloxButtons(

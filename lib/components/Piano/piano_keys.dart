@@ -88,7 +88,8 @@ class _PianoKeysState extends State<PianoKeys> {
       ),
       home: Scaffold(
           appBar: AppBar(
-              title: const Text("Piano"),
+              title: Text("Piano",
+                  style: TextStyle(fontSize: global.device_height * 0.04)),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               leading: IconButton(
@@ -97,88 +98,88 @@ class _PianoKeysState extends State<PianoKeys> {
                   },
                   icon: const Icon(Icons.arrow_back))),
           body: Container(
-              child:Stack(
-                    children: [
-                      Container(
-                          height: global.device_height * 0.85,
-                          child: Row(
-                            children: note
-                                .map((e) => PianoKey(
-                                      accidental: e.acc,
-                                      pianoKey: e.pKey,
-                                      empty: e.empty,
-                                      pressed: () {
-                                        var commandArgs = "";
-                                        if(e.acc==false){
-                                          commandArgs = commandArgs +  e.pKey[0] + " " + e.pKey[1];
-                                        } else{
-                                          commandArgs = commandArgs +  e.pKey[0] + "" + e.pKey[1] + " " + e.pKey[2];
-                                          //global.displayToast(commandArgs);
-                                        }
-                                          //global.displayToast("p " + commandArgs + ";");
-                                        try {
-                                          global.activeConnection.output.add(
-                                              Uint8List.fromList(utf8.encode(
-                                                  "p " + commandArgs + ";")));
-                                        } catch (e) {
-                                          //print(e);
-                                        }
-                                      },
-                                      onRelease: () {
-                                        try {
-                                          global.activeConnection.output.add(
-                                              Uint8List.fromList(utf8.encode(
-                                                  "pn;")));
-                                          print("Key Released");
-                                        } catch (e) {
-                                          //print(e);
-                                        }
-                                      },
-                                    ))
-                                .toList(),
-                          )),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(
-                              global.device_width * 0.03, 0, 0, 0),
-                          alignment: Alignment.topCenter,
-                          height: global.device_height * 0.5,
-                          child: Row(
-                              children: accidental
-                                  .map((e) => PianoKey(
-                                        accidental: e.acc,
-                                        pianoKey: e.pKey,
-                                        empty: e.empty,
-                                        pressed: () {
-                                        var commandArgs = "";
-                                        if(e.acc==false){
-                                          commandArgs = commandArgs +  e.pKey[0] + " " + e.pKey[1];
-                                        } else{
-                                          commandArgs = commandArgs +  e.pKey[0] + "" + e.pKey[1] + " " + e.pKey[2];
-                                          //global.displayToast(commandArgs);
-                                        }
-                                          //global.displayToast("p " + commandArgs + ";");
-                                        try {
-                                          global.activeConnection.output.add(
-                                              Uint8List.fromList(utf8.encode(
-                                                  "p " + commandArgs + ";")));
-                                        } catch (e) {
-                                          //print(e);
-                                        }
-                                      },
-                                      onRelease: () {
-                                        try {
-                                          global.activeConnection.output.add(
-                                              Uint8List.fromList(utf8.encode(
-                                                  "pn;")));
-                                          print("Key Released");
-                                        } catch (e) {
-                                          //print(e);
-                                        }
-                                      },
-                                      ))
-                                  .toList()))
-                    ],
-                  ))),
+              child: Stack(
+            children: [
+              Container(
+                  height: global.device_height * 0.85,
+                  child: Row(
+                    children: note
+                        .map((e) => PianoKey(
+                              accidental: e.acc,
+                              pianoKey: e.pKey,
+                              empty: e.empty,
+                              pressed: () {
+                                var commandArgs = "";
+                                if (e.acc == false) {
+                                  commandArgs =
+                                      commandArgs + e.pKey[0] + " " + e.pKey[1];
+                                } else {
+                                  commandArgs = commandArgs +
+                                      e.pKey[0] +
+                                      "" +
+                                      e.pKey[1] +
+                                      " " +
+                                      e.pKey[2];
+                                }
+                                try {
+                                  global.activeConnection.output.add(
+                                      Uint8List.fromList(utf8
+                                          .encode("p " + commandArgs + ";")));
+                                } catch (e) {}
+                              },
+                              onRelease: () {
+                                try {
+                                  global.activeConnection.output.add(
+                                      Uint8List.fromList(utf8.encode("pn;")));
+                                  print("Key Released");
+                                } catch (e) {}
+                              },
+                            ))
+                        .toList(),
+                  )),
+              Container(
+                  margin:
+                      EdgeInsets.fromLTRB(global.device_width * 0.03, 0, 0, 0),
+                  alignment: Alignment.topCenter,
+                  height: global.device_height * 0.5,
+                  child: Row(
+                      children: accidental
+                          .map((e) => PianoKey(
+                                accidental: e.acc,
+                                pianoKey: e.pKey,
+                                empty: e.empty,
+                                pressed: () {
+                                  var commandArgs = "";
+                                  if (e.acc == false) {
+                                    commandArgs = commandArgs +
+                                        e.pKey[0] +
+                                        " " +
+                                        e.pKey[1];
+                                  } else {
+                                    commandArgs = commandArgs +
+                                        e.pKey[0] +
+                                        "" +
+                                        e.pKey[1] +
+                                        " " +
+                                        e.pKey[2];
+                                  }
+                                  try {
+                                    global.activeConnection.output.add(
+                                        Uint8List.fromList(utf8
+                                            .encode("p " + commandArgs + ";")));
+                                  } catch (e) {}
+                                },
+                                onRelease: () {
+                                  try {
+                                    global.activeConnection.output.add(
+                                        Uint8List.fromList(utf8.encode("pn;")));
+                                    print("Key Released");
+                                  } catch (e) {}
+                                },
+                              ))
+                          .toList()))
+            ],
+          ))),
     );
   }
 }
@@ -266,8 +267,10 @@ class _PianoKeyState extends State<PianoKey> {
                       style: widget.accidental
                           ? TextStyle(
                               color: Colors.white,
-                            )
-                          : TextStyle(color: Colors.black),
+                              fontSize: global.device_width * 0.02)
+                          : TextStyle(
+                              color: Colors.black,
+                              fontSize: global.device_width * 0.02),
                     ))));
         break;
       default:

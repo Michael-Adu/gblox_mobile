@@ -204,8 +204,8 @@ class _GBloxButtons extends State<GBloxButtons> {
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-            width: 100,
-            height: 35,
+            width: global.device_width * 0.1,
+            height: global.device_height * 0.1,
             color: _toggledState ? Colors.blue : Colors.transparent,
             child: InkWell(
                 onTap: () {
@@ -227,13 +227,15 @@ class _GBloxButtons extends State<GBloxButtons> {
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
                     child: Text(widget.buttonName,
-                        style: const TextStyle(color: Colors.white))))));
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: global.device_height * 0.04))))));
       case "fileButtons":
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
             width: 100,
-            height: 35,
+            height: global.device_height * 0.1,
             color: _toggledState ? Colors.blue : Colors.transparent,
             child: InkWell(
                 onTap: () {
@@ -261,7 +263,9 @@ class _GBloxButtons extends State<GBloxButtons> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(widget.buttonName,
-                              style: const TextStyle(color: Colors.white)),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: global.device_height * 0.04)),
                           Container(
                               width: global.device_width * 0.05,
                               height: global.device_width * 0.05,
@@ -277,8 +281,8 @@ class _GBloxButtons extends State<GBloxButtons> {
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-            width: 100,
-            height: 35,
+            width: global.device_width * 0.1,
+            height: global.device_height * 0.1,
             color: _toggledState ? Colors.blue : Colors.transparent,
             child: InkWell(
                 onTap: () {
@@ -303,13 +307,15 @@ class _GBloxButtons extends State<GBloxButtons> {
                       color: Color(widget.buttonColor),
                     ),
                     child: Text(widget.buttonName,
-                        style: const TextStyle(color: Colors.white))))));
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: global.device_height * 0.04))))));
       case "projectButtons":
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-            width: 100,
-            height: 35,
+            width: global.device_width * 0.1,
+            height: global.device_height * 0.1,
             decoration: BoxDecoration(
               border: Border.all(color: _toggledContainerColor, width: 2),
               color: _toggledState
@@ -336,7 +342,9 @@ class _GBloxButtons extends State<GBloxButtons> {
                 child: Container(
                     alignment: Alignment.center,
                     child: Text(widget.buttonName,
-                        style: const TextStyle(color: Colors.white))))));
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: global.device_height * 0.04))))));
 
       default:
         return (InkWell(

@@ -7,7 +7,6 @@ import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
 import '../../Controller/controller.dart';
-import '../../piano.dart';
 import '../../Piano/piano_keys.dart';
 import '../../SketchingTool/sketcher.dart';
 import '../../Bluetooth/connection_in_progress.dart';
@@ -104,7 +103,9 @@ class _PlaySelector extends State<PlaySelector> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-                title: const Text("play_select_page").tr(),
+                title: Text("play_select_page",
+                        style: TextStyle(fontSize: global.device_height * 0.04))
+                    .tr(),
                 centerTitle: true,
                 leading: IconButton(
                     onPressed: () {
@@ -114,9 +115,12 @@ class _PlaySelector extends State<PlaySelector> {
             body: Container(
                 alignment: Alignment.center,
                 child: Stack(children: [
-                  SvgPicture.string(
-                    svgs.pageCityBackground,
+                  Container(
                     alignment: Alignment.bottomCenter,
+                    child: SvgPicture.string(
+                      svgs.pageCityBackground,
+                      alignment: Alignment.bottomCenter,
+                    ),
                   ),
                   Container(
                       height: global.device_height * 0.8,

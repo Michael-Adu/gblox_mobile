@@ -221,7 +221,6 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   @override
   void dispose() {
-    // Avoid memory leak (`setState` after dispose) and cancel discovery
     _streamSubscription?.cancel();
 
     super.dispose();
@@ -629,8 +628,14 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       isDiscovering
-                          ? const Text("discovering_devices").tr()
-                          : const Text("discovered_devices").tr(),
+                          ? Text("discovering_devices",
+                                  style: TextStyle(
+                                      fontSize: global.device_height * 0.04))
+                              .tr()
+                          : Text("discovered_devices",
+                                  style: TextStyle(
+                                      fontSize: global.device_height * 0.04))
+                              .tr(),
                       Container(
                           width: global.device_width * 0.4,
                           child: _searchBox()),

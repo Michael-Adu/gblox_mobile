@@ -46,7 +46,9 @@ class _LightDetectorState extends State<LightDetector> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text('light_play').tr(),
+              title: Text('light_play',
+                      style: TextStyle(fontSize: global.device_height * 0.04))
+                  .tr(),
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {
@@ -59,24 +61,25 @@ class _LightDetectorState extends State<LightDetector> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                    alignment: Alignment.topCenter,
-                    margin: EdgeInsets.fromLTRB(
-                        0, global.device_height * 0.12, 0, 0),
+                    clipBehavior: Clip.none,
+                    alignment: Alignment.center,
                     width: global.device_width * 0.5,
-                    height: global.device_height * 0.6,
+                    height: global.device_height * 0.95,
                     child: Stack(alignment: Alignment.center, children: [
                       Container(
+                          alignment: Alignment.bottomCenter,
                           child: SvgPicture.string(svgs.light_detector,
-                              alignment: Alignment.center,
+                              alignment: Alignment.topCenter,
                               clipBehavior: Clip.none,
-                              fit: BoxFit.cover)),
+                              allowDrawingOutsideViewBox: true,
+                              height: global.device_height * 1,
+                              fit: BoxFit.none)),
                       Container(
                           alignment: Alignment.center,
-                          margin: EdgeInsets.fromLTRB(
-                              0, 0, 0, global.device_height * 0.2),
-                          width: global.device_width * 0.16,
+                          width: global.device_width * 0.4,
+                          height: global.device_height * 0.25,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: stateWidget,
                           ))
                     ])),

@@ -29,46 +29,6 @@ class _CodeMenuState extends State<CodeMenu> {
   @override
   void initState() {
     super.initState();
-    var gbloxFolder = createFolderInAppDocDir("GBlox");
-    getDir("GBlox");
-  }
-
-  Future<String> createFolderInAppDocDir(String folderName) async {
-    final Directory _appDocDir = await getApplicationDocumentsDirectory();
-    //App Document Directory + folder name
-    final Directory _appDocDirFolder =
-        Directory('${_appDocDir.path}/$folderName/');
-
-    if (await _appDocDirFolder.exists()) {
-      //if folder already exists return path
-      return _appDocDirFolder.path;
-    } else {
-      //if folder not exists create folder and then return its path
-      final Directory _appDocDirNewFolder =
-          await _appDocDirFolder.create(recursive: true);
-      return _appDocDirNewFolder.path;
-    }
-  }
-
-  Future<void> getDir(String folderName) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final dir = directory.path;
-    String gBloxDirectory = '$dir/$folderName';
-    final myDir = Directory(gBloxDirectory);
-    try {
-      setState(() {
-        _folders = myDir.listSync(recursive: true, followLinks: false);
-      });
-    } catch (e) {}
-  }
-
-  Future<void> getInteralDir() async {
-    final directory = await getExternalStorageDirectory();
-    try {
-      setState(() {
-        _internal_folders = directory!.listSync(recursive: true);
-      });
-    } catch (e) {}
   }
 
   _launchURL() async {
@@ -89,7 +49,9 @@ class _CodeMenuState extends State<CodeMenu> {
       theme: Theme.of(global.navigatorKey.currentContext!),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Home').tr(),
+          title: Text('Home',
+                  style: TextStyle(fontSize: global.device_height * 0.04))
+              .tr(),
           centerTitle: true,
           leading: IconButton(
               onPressed: () {
