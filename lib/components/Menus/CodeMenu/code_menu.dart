@@ -125,30 +125,10 @@ class _CodeMenuState extends State<CodeMenu> {
                   )),
               Container(
                   width: global.device_width * 0.4,
-                  decoration: BoxDecoration(color: const Color(0xff0B0533)),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: _folders.map((e) {
-                        List<String> pathName = e.toString().split("/");
-                        String fileName = pathName.last.replaceAll("'", '');
-                        return Container(
-                            width: global.device_width * 0.5,
-                            child: GBloxButtons(
-                                buttonType: "fileButtons",
-                                buttonName: fileName,
-                                pressed: () async {
-                                  File file = File(await e.path);
-                                  String xml = await file.readAsString();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Blockly(
-                                              initialXML: xml,
-                                            )),
-                                  );
-                                }));
-                      }).toList())),
+                  child: OpenProject(
+                    fromHome: true,
+                    fullPage: false,
+                  )),
               Container(
                   width: global.device_width * 0.3,
                   decoration: const BoxDecoration(color: Color(0xff0B0533)),
