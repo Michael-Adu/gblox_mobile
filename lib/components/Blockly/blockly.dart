@@ -15,8 +15,10 @@ import 'dart:math' as math;
 //Creates the blockly page containing Flutter buttons on load.
 class Blockly extends StatefulWidget {
   final String initialXML;
+  final String variables;
 
-  Blockly({Key? key, this.initialXML = ""}) : super(key: key);
+  Blockly({Key? key, this.initialXML = "", this.variables = ""})
+      : super(key: key);
   @override
   _BlocklyState createState() => _BlocklyState();
 }
@@ -59,10 +61,12 @@ class _BlocklyState extends State<Blockly> {
       List<_ToolboxCategoryClass>.empty(growable: true);
 
   var currentXml = ValueNotifier<String>("");
+  String variables = "[int sample_var, sample_var]";
   late String categoryName;
   late int categoryIndex;
   late int categoryNumber = 0;
   bool category = false;
+
   @override
   void initState() {
     super.initState();
@@ -122,12 +126,17 @@ class _BlocklyState extends State<Blockly> {
 
     widgetToolbox = categoryButtons;
     loaded.value = true;
+    if (widget.variables.isNotEmpty) {
+      variables = widget.variables;
+      controller!.evaluateJavascript(
+          source: '''loadBlocklyVariables("${variables}")''');
+    }
     if (widget.initialXML.contains("xml")) {
       currentXml.value = widget.initialXML.toString();
       controller!.evaluateJavascript(source: '''
-                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
-                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
-                          ''');
+        var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
+        window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+    ''');
     }
     return renderedToolbox;
   }
@@ -291,7 +300,9 @@ class _BlocklyState extends State<Blockly> {
                         buttonType: "menuButtons",
                         buttonName: "New",
                         pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                          controller!.evaluateJavascript(source: '''
+                          currentWorkspace.clear()
+                          ''');
                         },
                       ),
                       GBloxButtons(
@@ -304,10 +315,20 @@ class _BlocklyState extends State<Blockly> {
                                   builder: (context) => OpenProject(
                                         fromHome: false,
                                       )));
+                          variables = data[1].toString();
+                          currentXml.value = data[0].toString();
+                          controller!.evaluateJavascript(
+                              source:
+                                  '''loadBlocklyVariables("${variables}")''');
                           controller!.evaluateJavascript(source: '''
-                                  var xml = window.mainBlockly.Xml.textToDom('${data.toString()}');
+                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
+                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+                          ''').then((response) {
+                            controller!.evaluateJavascript(source: '''
+                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
                                   window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
                           ''');
+                          });
                         },
                       ),
                       GBloxButtons(
@@ -515,6 +536,7 @@ class _BlocklyState extends State<Blockly> {
                         controller.evaluateJavascript(source: '''
                         document.getElementById("Mingo").click();
                         document.getElementById("${global.selectedDevice}").click();
+                        
                         ''');
                       },
                       onConsoleMessage: (InAppWebViewController controller,
@@ -547,10 +569,22 @@ class _BlocklyState extends State<Blockly> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => SaveProject(
-                                        saveData: currentXml.value,
-                                      )));
+                                      saveData: currentXml.value,
+                                      variables: variables,
+                                      device: global.selectedDevice)));
+                        } else if (consoleMessage.message
+                            .contains("variables")) {
+                          print(consoleMessage.message);
+                          var temp_variables_string = consoleMessage.message;
+                          var temp_variables =
+                              temp_variables_string.split("variables:")[1];
+                          print(temp_variables);
+                          setState(() {
+                            variables = "[$temp_variables]";
+                          });
                         } else {
-                          print("console message: ${consoleMessage.message}");
+                          print(
+                              "console message: ${consoleMessage.message.toString()}");
                         }
                       },
                     )),

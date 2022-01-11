@@ -1,8 +1,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gblox_mobile">
     <uses-permission android:name="android.permission.INTERNET" />
+     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <queries>
+    <intent>
+        <action android:name="android.speech.RecognitionService" />
+    </intent>
+</queries>
+
    <application
-        android:label="gblox_mobile"
+        android:label="gBlox Mobile"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">
         <activity

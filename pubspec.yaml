@@ -53,6 +53,7 @@ dependencies:
   url_launcher: ^6.0.17
   signal_strength_indicator: ^0.4.1
   native_pdf_view: ^5.0.0
+  speech_to_text: ^5.3.0
 
 flutter_native_splash:
   color: "#0B0533"

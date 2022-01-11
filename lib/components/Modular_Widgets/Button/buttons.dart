@@ -13,6 +13,7 @@ class GBloxButtons extends StatefulWidget {
   late final IconData icon;
   @required
   late final Function? pressed;
+  late final Function? onLongPress;
   late final bool rotate;
   late final int buttonColor;
   late final String buttonName;
@@ -23,7 +24,8 @@ class GBloxButtons extends StatefulWidget {
       this.pressed,
       this.buttonColor = 0xffDB8000,
       this.buttonName = "New",
-      this.rotate = false});
+      this.rotate = false,
+      this.onLongPress});
   @override
   State<StatefulWidget> createState() {
     return _GBloxButtons();
@@ -249,6 +251,9 @@ class _GBloxButtons extends State<GBloxButtons> {
                   setState(() {
                     _toggledState = false;
                   });
+                },
+                onLongPress: () {
+                  widget.onLongPress!();
                 },
                 child: Container(
                     padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),

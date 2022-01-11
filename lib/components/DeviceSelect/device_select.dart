@@ -8,7 +8,10 @@ import '../global_variables.dart' as global;
 
 class DeviceSelect extends StatefulWidget {
   final bool isHome;
-  DeviceSelect({Key? key, this.isHome = true}) : super(key: key);
+  DeviceSelect({
+    Key? key,
+    this.isHome = true,
+  }) : super(key: key);
   @override
   _DeviceSelectState createState() => _DeviceSelectState();
 }

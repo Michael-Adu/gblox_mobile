@@ -10,10 +10,11 @@ import './components/Modular_Widgets/Cards/cards.dart';
 import './components/DeviceSelect/device_select.dart';
 import 'components/Bluetooth/device_select.dart';
 import './components/Menus/ModeSelector/mode_select.dart';
+import './components/SpeechToText/speech_to_command.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations(
           [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight])
@@ -132,6 +133,16 @@ class _GbloxApp extends State<GbloxApp> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DeviceSelect()),
+                          );
+                        }),
+                    ListTile(
+                        enableFeedback: true,
+                        title: const Text('Speech to Command').tr(),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SpeechToCommand()),
                           );
                         }),
                   ],

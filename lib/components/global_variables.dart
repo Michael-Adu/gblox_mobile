@@ -13,7 +13,7 @@ late BuildContext mainContext;
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 late ThemeData globalTheme = darkTheme;
 late InAppWebViewController? webController;
-late String selectedDevice;
+late String selectedDevice = "";
 
 void displayToast(String message) {
   Fluttertoast.showToast(

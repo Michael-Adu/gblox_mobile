@@ -9,6 +9,7 @@ import '../../Blockly/blockly.dart';
 import '../../Builds/build.dart';
 import '../PlaySelector/play_select.dart';
 import '../CodeMenu/code_menu.dart';
+import '../../DeviceSelect/device_select.dart';
 
 class ModeSelector extends StatefulWidget {
   @override
@@ -26,10 +27,20 @@ class _ModeSelector extends State<ModeSelector> {
     super.initState();
     modeCards
         .add(global.CardDetails(svgs.codeMode, "code_mode", Colors.orange, () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const CodeMenu()),
-      );
+      if (global.selectedDevice.isNotEmpty) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CodeMenu()),
+        );
+      } else {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DeviceSelect(
+                    isHome: false,
+                  )),
+        );
+      }
     }, false));
     modeCards
         .add(global.CardDetails(svgs.playMode, "play_mode", Colors.purple, () {

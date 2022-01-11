@@ -11,20 +11,29 @@ import '../svgs/svgs.dart' as svgs;
 class SaveProject extends StatefulWidget {
   @required
   late String? saveData;
-  SaveProject({Key? key, this.saveData}) : super(key: key);
+  @required
+  late String? device;
+  final String? variables;
+
+  SaveProject({Key? key, this.saveData, this.variables, this.device})
+      : super(key: key);
 
   @override
   _SaveProjectState createState() => _SaveProjectState();
 }
 
 class _SaveProjectState extends State<SaveProject> {
-  late String data;
+  late List<String> data = List<String>.empty(growable: true);
   late String saveName;
 
   @override
   void initState() {
     super.initState();
-    data = widget.saveData!;
+    data.add("xml: ${widget.saveData!};\n");
+    data.add("device: ${widget.device!};\n");
+    if (widget.variables! != "[int sample_var, sample_var]") {
+      data.add("variables: ${widget.variables!};\n");
+    }
   }
 
   Future<String> createFile(String fileName) async {
@@ -35,11 +44,13 @@ class _SaveProjectState extends State<SaveProject> {
       print(await file.readAsString());
       file.delete();
       file.create();
-      file.writeAsString(data);
+      print(data.toString());
+      file.writeAsString(data.toString());
       return "File rewritten successfully";
     } else {
       file.create();
-      file.writeAsString(data);
+      print(data.toString());
+      file.writeAsString(data.toString());
       return "File saved successfully";
     }
   }

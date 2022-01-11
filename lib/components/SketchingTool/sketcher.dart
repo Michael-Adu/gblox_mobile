@@ -20,12 +20,13 @@ class _SketcherState extends State<SketcherWidget> {
   Widget build(BuildContext context) {
     final Container sketchArea = Container(
       margin: const EdgeInsets.all(0.0),
+      width: global.device_width * 0.7,
       alignment: Alignment.topLeft,
       decoration: const BoxDecoration(
           color: Color(0xff060841),
           borderRadius: BorderRadius.all(Radius.circular(5))),
       child: CustomPaint(
-        painter: Triangle(),
+        painter: Sketcher(points),
         child: Container(),
       ),
     );
@@ -52,12 +53,13 @@ class _SketcherState extends State<SketcherWidget> {
                   icon: const Icon(Icons.arrow_upward))
             ],
           ),
-          body: Stack(clipBehavior: Clip.none, children: [
+          body:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Container(
-                width: 600,
+                width: global.device_width * 0.7,
                 child: ClipRect(
                     child: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
+                  behavior: HitTestBehavior.deferToChild,
                   onPanStart: (details) {
                     points.clear();
                   },
@@ -76,9 +78,9 @@ class _SketcherState extends State<SketcherWidget> {
                   },
                   child: sketchArea,
                 ))),
-            Positioned(
-              top: 100,
-              left: 660,
+            Container(
+              width: global.device_width * 0.2,
+              height: global.device_height * 0.2,
               child: GBloxButtons(
                   buttonType: "controller_circle",
                   icon: Icons.play_arrow,

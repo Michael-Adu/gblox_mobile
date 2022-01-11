@@ -22,8 +22,6 @@ class OpenProject extends StatefulWidget {
 class _OpenProjectState extends State<OpenProject> {
   List<FileSystemEntity> _folders =
       List<FileSystemEntity>.empty(growable: true);
-  List<FileSystemEntity> _internal_folders =
-      List<FileSystemEntity>.empty(growable: true);
   int index = 0;
 
   @override
@@ -136,19 +134,41 @@ class _OpenProjectState extends State<OpenProject> {
                             child: GBloxButtons(
                                 buttonType: "fileButtons",
                                 buttonName: fileName,
+                                onLongPress: () async {
+                                  File file = File(await e.path);
+                                  print(
+                                      "file at ${_folders.indexWhere((element) => element.path == e.path)}");
+                                  file.delete();
+                                  setState(() {
+                                    _folders.removeAt(_folders.indexWhere(
+                                        (element) => element.path == e.path));
+                                  });
+                                },
                                 pressed: () async {
                                   File file = File(await e.path);
-                                  String xml = await file.readAsString();
+                                  String rawData = await file.readAsString();
+                                  List<String> saveData = rawData.split(";\n");
+                                  String xml = saveData[0].split("xml: ")[1];
+                                  String device =
+                                      saveData[1].split(" device: ")[1];
+                                  global.selectedDevice = device;
+                                  String variables =
+                                      "[int sample_var, sample_var]";
+                                  if (saveData.length > 2) {
+                                    variables =
+                                        saveData[2].split(" variables: ")[1];
+                                  }
                                   if (widget.fromHome) {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => Blockly(
                                                 initialXML: xml,
+                                                variables: variables,
                                               )),
                                     );
                                   } else {
-                                    Navigator.pop(context, xml);
+                                    Navigator.pop(context, [xml, variables]);
                                   }
                                 }));
                       }).toList()))

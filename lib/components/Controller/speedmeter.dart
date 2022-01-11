@@ -18,6 +18,8 @@ class Speedometer extends StatefulWidget {
 class _SpeedometerState extends State<Speedometer> {
   late Widget meter;
   late List<int> enabledBars = [];
+  final GlobalKey _speedometerKey = GlobalKey();
+  Size bar_size = Size(11.6, 65);
   _SpeedometerState();
   void initState() {
     super.initState();
@@ -34,42 +36,53 @@ class _SpeedometerState extends State<Speedometer> {
   @override
   Widget build(BuildContext context) {
     return (Container(
-        height: 100,
-        width: 200,
+        height: global.device_height * 0.3,
+        width: global.device_width * 0.3,
         child: Stack(children: [
           ValueListenableBuilder(
               valueListenable: widget.speed!,
               builder: (context, value, widget) {
                 updateValue();
+                try {
+                  final RenderBox renderBox = _speedometerKey.currentContext
+                      ?.findRenderObject() as RenderBox;
+                  final Size size = renderBox.size;
+                  print(size);
+                  bar_size = Size(size.width * 0.08, size.height * 0.5);
+                } catch (e) {}
                 return Container(
-                    margin: const EdgeInsets.fromLTRB(14, 26, 0, 0),
+                    height: bar_size.height * 1.8,
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    margin: EdgeInsets.fromLTRB(bar_size.width * 0.9,
+                        bar_size.height * 0.3, 0, bar_size.height * 0.3),
                     child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: enabledBars
                             .map((bar) => Container(
-                                width: 11.6,
-                                height: bar * 65,
+                                width: bar_size.width * 0.5,
+                                margin: EdgeInsets.fromLTRB(
+                                    0, 0, bar_size.width * 0.235, 0),
                                 child: SvgPicture.string(
                                   '''<svg xmlns="http://www.w3.org/2000/svg" width="21.255" height="208.821" viewBox="0 0 21.255 208.821">
   <path id="Path_120" data-name="Path 120" d="M1551.224,145.084V352.457h-20.255V158.615Q1541.17,151.973,1551.224,145.084Z" transform="translate(-1530.469 -144.136)" fill="#4a4f68" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
 </svg>
 ''',
-                                  width: 480,
-                                  // fit: BoxFit.scaleDown,
+                                  fit: BoxFit.fill,
                                   color: Colors.green,
                                 )))
                             .toList()));
               }),
           Container(
+              key: _speedometerKey,
               margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: CustomPaint(
                 painter: BackgroundPainter(),
-                child: Container(width: 200),
+                child: Container(width: global.device_width * 0.3),
               )),
           Container(
               child: CustomPaint(
             painter: ForwardPainter(),
-            child: Container(width: 400),
+            child: Container(width: global.device_width * 0.3),
           ))
         ])));
   }
