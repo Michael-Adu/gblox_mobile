@@ -87,13 +87,14 @@ class _GBloxCardsState extends State<GBloxCards> {
                               : const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: SvgPicture.string(widget.svg!,
                               height: widget.compressSVG
-                                  ? global.device_height * 0.14
+                                  ? global.device_height * 0.12
                                   : global.device_height * 0.12,
+                              allowDrawingOutsideViewBox: true,
                               clipBehavior: Clip.none,
                               fit: widget.compressSVG
                                   ? BoxFit.cover
                                   : BoxFit.contain)),
-                      SizedBox(height: global.device_height * 0.1),
+                      SizedBox(height: global.device_height * 0.05),
                       Container(
                           clipBehavior: Clip.hardEdge,
                           margin: widget.compressSVG

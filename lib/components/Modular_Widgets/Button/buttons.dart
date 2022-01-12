@@ -258,6 +258,12 @@ class _GBloxButtons extends State<GBloxButtons> {
                   widget.onLongPress!();
                 },
                 child: Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              width: global.device_height * 0.001,
+                              color: Color(0xff0000DC))),
+                    ),
                     padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -267,8 +273,8 @@ class _GBloxButtons extends State<GBloxButtons> {
                                   color: Colors.white,
                                   fontSize: global.device_height * 0.04)),
                           Container(
-                              width: global.device_width * 0.05,
-                              height: global.device_width * 0.05,
+                              width: global.device_width * 0.04,
+                              height: global.device_width * 0.04,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(

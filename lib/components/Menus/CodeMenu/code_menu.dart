@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:io';
 import '../../global_variables.dart' as global;
 import 'package:flutter/services.dart';
@@ -65,26 +66,41 @@ class _CodeMenuState extends State<CodeMenu> {
             children: [
               Container(
                   width: global.device_width * 0.3,
-                  child: SelectorButtons(
-                    initialIndex: index,
-                    activeColor: 0xff0000DC,
-                    buttons: ["Recent", "Help", "Robocentre", "Challenge"],
-                    functionList: [
-                      () {},
-                      () {
-                        setState(() {
-                          index = 0;
-                        });
-                        _launchURL();
-                      },
-                      () {
-                        _launchURL();
-                      },
-                      () {
-                        _launchURL();
-                      }
-                    ],
-                  )),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                            width: global.device_width * 0.2,
+                            height: global.device_height * 0.2,
+                            child: SvgPicture.string(svgs.blockly_home)),
+                        Container(
+                            child: SelectorButtons(
+                          initialIndex: index,
+                          activeColor: 0xff0000DC,
+                          buttons: [
+                            "Recent",
+                            "Help",
+                            "Robocentre",
+                            "Challenge"
+                          ],
+                          functionList: [
+                            () {},
+                            () {
+                              setState(() {
+                                index = 0;
+                              });
+                              _launchURL();
+                            },
+                            () {
+                              _launchURL();
+                            },
+                            () {
+                              _launchURL();
+                            }
+                          ],
+                        ))
+                      ])),
               Container(
                   width: global.device_width * 0.4,
                   child: OpenProject(

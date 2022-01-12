@@ -53,7 +53,7 @@ class _ControllerState extends State<Controller> {
         home: Scaffold(
             appBar: AppBar(
                 title: Text("controller_drawer",
-                        style: TextStyle(fontSize: global.device_height * 0.02))
+                        style: TextStyle(fontSize: global.device_height * 0.04))
                     .tr(),
                 centerTitle: true,
                 leading: IconButton(

@@ -28,7 +28,9 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
   }
 
   void _startListening() async {
-    await _speechToText.listen(onResult: _onSpeechResult);
+    await _speechToText.listen(
+      onResult: _onSpeechResult,
+    );
     setState(() {});
   }
 
@@ -50,7 +52,7 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('Speech to Command',
-                      style: TextStyle(fontSize: global.device_height * 0.02))
+                      style: TextStyle(fontSize: global.device_height * 0.04))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -75,7 +77,9 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
                           : _speechEnabled
                               ? 'Tap the microphone to start listening...'
                               : 'Speech not available',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: global.device_height * 0.05),
                     ),
                   ),
                   Container(

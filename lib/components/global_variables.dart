@@ -46,6 +46,18 @@ class CardDetails {
       this.compressSVG);
 }
 
+class SaveInformation {
+  String xml;
+  String device;
+  String variables;
+  String filename;
+  String filepath;
+  bool internal;
+
+  SaveInformation(this.xml, this.device, this.variables, this.filename,
+      this.filepath, this.internal);
+}
+
 ThemeData darkTheme = ThemeData(
     primaryColor: const Color(0xff060841),
     colorScheme: const ColorScheme(

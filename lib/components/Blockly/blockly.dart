@@ -15,9 +15,20 @@ import 'dart:math' as math;
 //Creates the blockly page containing Flutter buttons on load.
 class Blockly extends StatefulWidget {
   final String initialXML;
+  final String initialDevice;
   final String variables;
+  final String fileName;
+  final String filePath;
+  final bool internalStorage;
 
-  Blockly({Key? key, this.initialXML = "", this.variables = ""})
+  Blockly(
+      {Key? key,
+      this.initialXML = "",
+      this.variables = "",
+      this.fileName = "",
+      this.filePath = "",
+      this.initialDevice = "",
+      this.internalStorage = true})
       : super(key: key);
   @override
   _BlocklyState createState() => _BlocklyState();
@@ -59,7 +70,9 @@ class _BlocklyState extends State<Blockly> {
   late List<Widget> widgetToolbox = List<Widget>.empty(growable: true);
   late List<_ToolboxCategoryClass> renderedToolboxCategories =
       List<_ToolboxCategoryClass>.empty(growable: true);
-
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  global.SaveInformation saveinfo =
+      global.SaveInformation("", "", "", "", "", false);
   var currentXml = ValueNotifier<String>("");
   String variables = "[int sample_var, sample_var]";
   late String categoryName;
@@ -71,6 +84,15 @@ class _BlocklyState extends State<Blockly> {
   void initState() {
     super.initState();
     renderedToolbox.add(_ToolboxClass("None", true, 0, "blockly-0"));
+    if (widget.fileName.length > 1) {
+      saveinfo = global.SaveInformation(
+          widget.initialXML,
+          widget.initialDevice,
+          widget.variables,
+          widget.fileName,
+          widget.filePath,
+          widget.internalStorage);
+    }
   }
 
   List<_ToolboxClass> updateToolbox() {
@@ -136,7 +158,12 @@ class _BlocklyState extends State<Blockly> {
       controller!.evaluateJavascript(source: '''
         var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
         window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
-    ''');
+    ''').then((response) {
+        controller!.evaluateJavascript(source: '''
+                                  var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
+                                  window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
+                          ''');
+      });
     }
     return renderedToolbox;
   }
@@ -194,9 +221,11 @@ class _BlocklyState extends State<Blockly> {
     } else if (global.selectedDevice == "Mello") {
       device = _DeviceProfile(svgs.mello, Colors.green);
     }
+
     return MaterialApp(
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
+            key: _scaffoldKey,
             onDrawerChanged: (status) {
               if (status == false) {
                 setState(() {
@@ -257,10 +286,11 @@ class _BlocklyState extends State<Blockly> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
+                          height: global.device_height * 0.05,
                           alignment: Alignment.centerRight,
                           child: IconButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                Navigator.pop(context);
                               },
                               icon: const Icon(Icons.close,
                                   color: Colors.white, size: 20))),
@@ -307,6 +337,10 @@ class _BlocklyState extends State<Blockly> {
                           controller!.evaluateJavascript(source: '''
                           currentWorkspace.clear()
                           ''');
+                          setState(() {
+                            saveinfo = global.SaveInformation(
+                                "", "", "", "", "", false);
+                          });
                         },
                       ),
                       GBloxButtons(
@@ -320,8 +354,11 @@ class _BlocklyState extends State<Blockly> {
                                         fromHome: false,
                                       )));
                           try {
-                            variables = data[1].toString();
-                            currentXml.value = data[0].toString();
+                            setState(() {
+                              saveinfo = data;
+                            });
+                            variables = saveinfo.variables.toString();
+                            currentXml.value = saveinfo.xml.toString();
                             controller!.evaluateJavascript(
                                 source:
                                     '''loadBlocklyVariables("${variables}")''');
@@ -340,17 +377,52 @@ class _BlocklyState extends State<Blockly> {
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Save",
-                        pressed: () {
-                          controller!.evaluateJavascript(source: '''
+                        pressed: () async {
+                          await controller!.evaluateJavascript(source: '''
                           console.log("xml: " + window.mainBlockly.Xml.domToText(window.mainBlockly.Xml.workspaceToDom(window.currentWorkspace)))
-                          ''');
+                          ''').then((value) async {
+                            if (saveinfo.filename.isEmpty) {
+                              saveinfo = global.SaveInformation(
+                                  currentXml.value,
+                                  global.selectedDevice,
+                                  variables,
+                                  "",
+                                  "",
+                                  false);
+                              var data = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SaveProject(
+                                          saveAs: true, saveData: saveinfo)));
+                              setState(() {
+                                saveinfo = data;
+                              });
+                            } else {
+                              saveinfo.xml = currentXml.value;
+                              saveinfo.variables = variables;
+                              saveinfo.device = global.selectedDevice;
+                              var data = await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SaveProject(
+                                          saveAs: false, saveData: saveinfo)));
+                            }
+                          });
                         },
                       ),
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Save as",
-                        pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                        pressed: () async {
+                          controller!.evaluateJavascript(source: '''
+                          console.log("xml: " + window.mainBlockly.Xml.domToText(window.mainBlockly.Xml.workspaceToDom(window.currentWorkspace)))
+                          ''').then((value) async {
+                            var data = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SaveProject(
+                                        saveAs: true, saveData: saveinfo)));
+                          });
                         },
                       ),
                       GBloxButtons(
@@ -380,6 +452,9 @@ class _BlocklyState extends State<Blockly> {
                 color: Theme.of(context).primaryColor,
                 padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                 child: ListView(padding: EdgeInsets.zero, children: [
+                  Text(saveinfo.filename),
+                  Text(saveinfo.filepath),
+                  Text(saveinfo.internal.toString()),
                   ConfigurableExpansionTile(
                       animatedWidgetFollowingHeader: Container(
                           alignment: Alignment.centerRight,
@@ -571,13 +646,6 @@ class _BlocklyState extends State<Blockly> {
                           var temp_xml = temp_xml_string.split("xml: ")[1];
                           print(temp_xml);
                           currentXml.value = temp_xml;
-                          var data = await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SaveProject(
-                                      saveData: currentXml.value,
-                                      variables: variables,
-                                      device: global.selectedDevice)));
                         } else if (consoleMessage.message
                             .contains("variables")) {
                           print(consoleMessage.message);
