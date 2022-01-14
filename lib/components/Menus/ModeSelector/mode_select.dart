@@ -83,7 +83,8 @@ class _ModeSelector extends State<ModeSelector> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("mode_select_page",
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               backgroundColor: Colors.transparent,
               centerTitle: true,
@@ -104,13 +105,13 @@ class _ModeSelector extends State<ModeSelector> {
                     ),
                   ),
                   Container(
-                      height: global.device_height * 0.8,
+                      height: global.device_size.height * 0.8,
                       padding: EdgeInsets.fromLTRB(
                           0,
-                          global.device_height * 0.1,
+                          global.device_size.height * 0.1,
                           0,
-                          global.device_height * 0.1),
-                      width: global.device_width * 1,
+                          global.device_size.height * 0.1),
+                      width: global.device_size.width * 1,
                       child: Row(children: <Widget>[
                         Expanded(
                           child: ScrollSnapList(

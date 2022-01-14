@@ -596,7 +596,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
 
   Widget _searchBox() {
     return Padding(
-      padding: EdgeInsets.all(global.device_height * 0.01),
+      padding: EdgeInsets.all(global.device_size.height * 0.01),
       child: Card(
         child: ListTile(
           leading: Icon(Icons.search),
@@ -630,14 +630,16 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                       isDiscovering
                           ? Text("discovering_devices",
                                   style: TextStyle(
-                                      fontSize: global.device_height * 0.04))
+                                      fontSize:
+                                          global.device_size.height * 0.04))
                               .tr()
                           : Text("discovered_devices",
                                   style: TextStyle(
-                                      fontSize: global.device_height * 0.04))
+                                      fontSize:
+                                          global.device_size.height * 0.04))
                               .tr(),
                       Container(
-                          width: global.device_width * 0.4,
+                          width: global.device_size.width * 0.4,
                           child: _searchBox()),
                     ]),
                 centerTitle: true,

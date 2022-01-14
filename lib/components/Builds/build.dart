@@ -20,7 +20,8 @@ class _GBloxBuildState extends State<GBloxBuild> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("build_mode",
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -31,8 +32,8 @@ class _GBloxBuildState extends State<GBloxBuild> {
             ),
             body: Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.all(global.device_height * 0.1),
-                height: global.device_height * 0.8,
+                padding: EdgeInsets.all(global.device_size.height * 0.1),
+                height: global.device_size.height * 0.8,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -79,8 +79,8 @@ class _GBloxButtons extends State<GBloxButtons> {
             child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(15)),
               child: AnimatedContainer(
-                // width: global.device_width * 0.102,
-                // height: global.device_height * 0.08,
+                // width: global.device_size.width * 0.102,
+                // height: global.device_size.height * 0.08,
                 duration: const Duration(seconds: 1),
                 padding: const EdgeInsets.all(5),
                 child: AnimatedContainer(
@@ -92,12 +92,12 @@ class _GBloxButtons extends State<GBloxButtons> {
                               color: _toggledState
                                   ? _toggledContainerColor
                                   : _untoggledContainerColor,
-                              size: global.device_width * 0.08))
+                              size: global.device_size.width * 0.08))
                       : Icon(widget.icon,
                           color: _toggledState
                               ? _toggledContainerColor
                               : _untoggledContainerColor,
-                          size: global.device_width * 0.025),
+                          size: global.device_size.width * 0.025),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -160,7 +160,7 @@ class _GBloxButtons extends State<GBloxButtons> {
                               child: Icon(widget.icon, color: Colors.white))
                           : Icon(widget.icon,
                               color: Colors.white,
-                              size: global.device_height * 0.08),
+                              size: global.device_size.height * 0.08),
                       duration: const Duration(milliseconds: 10),
                       decoration: BoxDecoration(
                           shape: BoxShape.circle,
@@ -204,8 +204,8 @@ class _GBloxButtons extends State<GBloxButtons> {
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-            width: global.device_width * 0.1,
-            height: global.device_height * 0.1,
+            width: global.device_size.width * 0.1,
+            height: global.device_size.height * 0.1,
             color: _toggledState ? Colors.blue : Colors.transparent,
             child: InkWell(
                 onTap: () {
@@ -229,13 +229,13 @@ class _GBloxButtons extends State<GBloxButtons> {
                     child: Text(widget.buttonName,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.device_height * 0.04))))));
+                            fontSize: global.device_size.height * 0.04))))));
       case "fileButtons":
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
             width: 100,
-            height: global.device_height * 0.1,
+            height: global.device_size.height * 0.1,
             color: _toggledState ? Colors.blue : Colors.transparent,
             child: InkWell(
                 onTap: () {
@@ -261,7 +261,7 @@ class _GBloxButtons extends State<GBloxButtons> {
                     decoration: BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
-                              width: global.device_height * 0.001,
+                              width: global.device_size.height * 0.001,
                               color: Color(0xff0000DC))),
                     ),
                     padding: const EdgeInsets.fromLTRB(40, 0, 0, 0),
@@ -271,10 +271,10 @@ class _GBloxButtons extends State<GBloxButtons> {
                           Text(widget.buttonName,
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: global.device_height * 0.04)),
+                                  fontSize: global.device_size.height * 0.04)),
                           Container(
-                              width: global.device_width * 0.04,
-                              height: global.device_width * 0.04,
+                              width: global.device_size.width * 0.04,
+                              height: global.device_size.width * 0.04,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(
@@ -287,8 +287,8 @@ class _GBloxButtons extends State<GBloxButtons> {
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-            width: global.device_width * 0.1,
-            height: global.device_height * 0.1,
+            width: global.device_size.width * 0.1,
+            height: global.device_size.height * 0.1,
             color: _toggledState ? Colors.blue : Colors.transparent,
             child: InkWell(
                 onTap: () {
@@ -315,13 +315,13 @@ class _GBloxButtons extends State<GBloxButtons> {
                     child: Text(widget.buttonName,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.device_height * 0.04))))));
+                            fontSize: global.device_size.height * 0.04))))));
       case "projectButtons":
         return (AnimatedContainer(
             duration: const Duration(milliseconds: 1),
             padding: const EdgeInsets.all(5),
-            width: global.device_width * 0.1,
-            height: global.device_height * 0.1,
+            width: global.device_size.width * 0.1,
+            height: global.device_size.height * 0.1,
             decoration: BoxDecoration(
               border: Border.all(color: _toggledContainerColor, width: 2),
               color: _toggledState
@@ -350,7 +350,7 @@ class _GBloxButtons extends State<GBloxButtons> {
                     child: Text(widget.buttonName,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.device_height * 0.04))))));
+                            fontSize: global.device_size.height * 0.04))))));
 
       default:
         return (InkWell(

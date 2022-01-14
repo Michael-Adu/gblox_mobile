@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="103.218" height="124" viewBox="0 0 103.218 124">
+  <defs>
+    <filter id="Path_81" x="0.218" y="29" width="62.049" height="26.565" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-color="#2000ff"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Path_82" x="0" y="38.395" width="62.944" height="67.105" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4.5" result="blur-2"/>
+      <feFlood flood-color="#3a00ff" flood-opacity="0.659"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="sprites" transform="translate(7.218)">
+    <rect id="background" width="96" height="124" fill="none"/>
+    <g id="Group_1" data-name="Group 1">
+      <path id="Path_1" data-name="Path 1" d="M13,1.5v13L1.74,8Z"/>
+      <path id="Path_2" data-name="Path 2" d="M17.5,3h13L24,14.26Z"/>
+      <path id="Path_3" data-name="Path 3" d="M35,1.5v13L46.26,8Z"/>
+    </g>
+    <g id="Group_2" data-name="Group 2" transform="translate(0 16)">
+      <path id="Path_4" data-name="Path 4" d="M13,1.5v13L1.74,8Z" fill="#fff"/>
+      <path id="Path_5" data-name="Path 5" d="M17.5,3h13L24,14.26Z" fill="#fff"/>
+      <path id="Path_6" data-name="Path 6" d="M35,1.5v13L46.26,8Z" fill="#fff"/>
+    </g>
+    <text id="_" data-name="✓" transform="translate(55.5 28)" font-size="13.33" font-family="SegoeUIEmoji, Segoe UI Emoji"><tspan x="-4.992" y="0">✓</tspan></text>
+    <g id="Group_3" data-name="Group 3">
+      <g transform="matrix(1, 0, 0, 1, -7.22, 0)" filter="url(#Path_81)">
+        <path id="Path_81-2" data-name="Path 81" d="M1849.7,938.283h-10.84v-1.969l-1.052-1.052h-8.6L1827.943,934H1821.9v4.283h-10.4l-3.059,2.141v2.141h44.049v-2.141Z" transform="translate(-1799.22 -896)" fill="#e9e9ff"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, -7.22, 0)" filter="url(#Path_82)">
+        <path id="Path_82-2" data-name="Path 82" d="M1812.688,946.74V959.4l2.371,2.688v19.337l4.78,5.42h25.428v-16.52l3.365-3.815V946.74Zm10.129,36.766-2.175-2.176V951.6h2.175Zm5.8-2.176-2.175,2.176V951.6h2.175Zm5.8,2.176-2.175-2.176V951.6h2.175Zm5.8-2.176-2.175,2.176V951.6h2.175Z" transform="translate(-1799.19 -894.84)" fill="#e9e9ff"/>
+      </g>
+    </g>
+    <g id="Group_4" data-name="Group 4">
+      <circle id="Ellipse_1" data-name="Ellipse 1" cx="11.5" cy="11.5" r="11.5" transform="translate(4.5 96.5)" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <circle id="Ellipse_2" data-name="Ellipse 2" cx="4.3" cy="4.3" r="4.3" transform="translate(11.7 103.7)" fill="#888" stroke="#888" stroke-linecap="round" stroke-width="0"/>
+      <path id="Path_8" data-name="Path 8" d="M28,108h3" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_9" data-name="Path 9" d="M1,108H4" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_10" data-name="Path 10" d="M16,120v3" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_11" data-name="Path 11" d="M16,93v3" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+    </g>
+    <g id="Group_5" data-name="Group 5">
+      <circle id="Ellipse_3" data-name="Ellipse 3" cx="15" cy="15" r="15" transform="translate(33 93)" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_12" data-name="Path 12" d="M48,101.6v12.8" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_13" data-name="Path 13" d="M41.6,108H54.4" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+    </g>
+    <g id="Group_6" data-name="Group 6">
+      <circle id="Ellipse_4" data-name="Ellipse 4" cx="15" cy="15" r="15" transform="translate(65 93)" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_14" data-name="Path 14" d="M73.6,108H86.4" fill="none" stroke="#888" stroke-linecap="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

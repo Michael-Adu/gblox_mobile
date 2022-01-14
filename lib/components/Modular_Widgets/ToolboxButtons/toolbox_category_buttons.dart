@@ -3,7 +3,6 @@ import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'dart:math' as math;
 import '../../global_variables.dart' as global;
 import '../../svgs/g_blox_custom_s_v_gs_icons.dart';
-import 'toolbox_buttons.dart';
 
 class ToolboxCategoryButtons extends StatefulWidget {
   @required
@@ -104,29 +103,29 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
                 animatedWidgetPrecedingHeader:
                     Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                   Container(
-                      width: global.device_width * 0.006,
-                      height: global.device_height * 0.09,
+                      width: global.device_size.width * 0.006,
+                      height: global.device_size.height * 0.09,
                       color: widget.color),
-                  SizedBox(width: global.device_width * 0.013),
+                  SizedBox(width: global.device_size.width * 0.013),
                   Container(
                       alignment: Alignment.centerLeft,
-                      width: global.device_width * 0.024,
+                      width: global.device_size.width * 0.024,
                       child: toolboxIcon),
                 ]),
                 header: Container(
-                    width: global.device_width * 0.1475,
+                    width: global.device_size.width * 0.1475,
                     alignment: Alignment.centerLeft,
                     child: Text(widget.name,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.device_width * 0.018))),
+                            fontSize: global.device_size.width * 0.018))),
                 headerExpanded: Container(
-                    width: global.device_width * 0.1475,
+                    width: global.device_size.width * 0.1475,
                     alignment: Alignment.center,
                     child: Text(widget.name,
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: global.device_width * 0.018))),
+                            fontSize: global.device_size.width * 0.018))),
                 children: widget.categoryChildren!
                     .map((e) => InkWell(
                         onTap: () {
@@ -153,20 +152,21 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
                           child: Row(
                             children: [
                               Container(
-                                  width: global.device_width * 0.006,
-                                  height: global.device_height * 0.09,
+                                  width: global.device_size.width * 0.006,
+                                  height: global.device_size.height * 0.09,
                                   color: widget.color),
-                              SizedBox(width: global.device_width * 0.013),
+                              SizedBox(width: global.device_size.width * 0.013),
                               Container(
                                   alignment: Alignment.centerLeft,
-                                  width: global.device_width * 0.024,
+                                  width: global.device_size.width * 0.024,
                                   child: toolboxIcon),
                               Container(
                                 alignment: Alignment.centerLeft,
                                 child: Text(e.name,
                                     style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: global.device_width * 0.018)),
+                                        fontSize:
+                                            global.device_size.width * 0.018)),
                               )
                             ],
                           ),
@@ -195,20 +195,20 @@ class _ToolboxCategoryButtonsState extends State<ToolboxCategoryButtons> {
               child: Row(
                 children: [
                   Container(
-                      width: global.device_width * 0.006,
-                      height: global.device_height * 0.09,
+                      width: global.device_size.width * 0.006,
+                      height: global.device_size.height * 0.09,
                       color: widget.color),
-                  SizedBox(width: global.device_width * 0.013),
+                  SizedBox(width: global.device_size.width * 0.013),
                   Container(
                       alignment: Alignment.centerLeft,
-                      width: global.device_width * 0.024,
+                      width: global.device_size.width * 0.024,
                       child: toolboxIcon),
                   Container(
                       alignment: Alignment.centerLeft,
                       child: Text(widget.name,
                           style: TextStyle(
                               color: Colors.white,
-                              fontSize: global.device_width * 0.018)))
+                              fontSize: global.device_size.width * 0.018)))
                 ],
               ),
             ));

@@ -61,7 +61,7 @@ class _GBloxCardsState extends State<GBloxCards> {
                       topLeft: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0))),
               child: Container(
-                width: global.device_width * 0.25,
+                width: global.device_size.width * 0.25,
                 decoration: BoxDecoration(
                   color: Theme.of(global.navigatorKey.currentContext!)
                       .primaryColor,
@@ -76,8 +76,8 @@ class _GBloxCardsState extends State<GBloxCards> {
                             color: Theme.of(global.navigatorKey.currentContext!)
                                 .primaryColor,
                           ),
-                          width: global.device_width * 0.5,
-                          height: global.device_height * 0.35,
+                          width: global.device_size.width * 0.5,
+                          height: global.device_size.height * 0.35,
                           clipBehavior: Clip.none,
                           margin: widget.compressSVG
                               ? const EdgeInsets.fromLTRB(0, 20, 0, 0)
@@ -87,21 +87,21 @@ class _GBloxCardsState extends State<GBloxCards> {
                               : const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: SvgPicture.string(widget.svg!,
                               height: widget.compressSVG
-                                  ? global.device_height * 0.12
-                                  : global.device_height * 0.12,
+                                  ? global.device_size.height * 0.12
+                                  : global.device_size.height * 0.12,
                               allowDrawingOutsideViewBox: true,
                               clipBehavior: Clip.none,
                               fit: widget.compressSVG
                                   ? BoxFit.cover
                                   : BoxFit.contain)),
-                      SizedBox(height: global.device_height * 0.05),
+                      SizedBox(height: global.device_size.height * 0.05),
                       Container(
                           clipBehavior: Clip.hardEdge,
                           margin: widget.compressSVG
                               ? const EdgeInsets.fromLTRB(0, 0, 0, 0)
                               : const EdgeInsets.fromLTRB(0, 0, 0, 0),
                           alignment: Alignment.center,
-                          height: global.device_height * 0.08,
+                          height: global.device_size.height * 0.08,
                           decoration: BoxDecoration(
                               color: widget.textBackgroundColor,
                               border: Border.all(color: Colors.blueAccent)),
@@ -110,7 +110,7 @@ class _GBloxCardsState extends State<GBloxCards> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
-                                fontSize: global.device_height * 0.04),
+                                fontSize: global.device_size.height * 0.04),
                           ).tr())
                     ]),
               ))),

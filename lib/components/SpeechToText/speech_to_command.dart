@@ -52,7 +52,8 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('Speech to Command',
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -66,7 +67,7 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                   Container(
-                    width: global.device_width * 0.7,
+                    width: global.device_size.width * 0.7,
                     alignment: Alignment.center,
                     decoration:
                         BoxDecoration(border: Border.all(color: Colors.white)),
@@ -79,11 +80,11 @@ class _SpeechToCommandState extends State<SpeechToCommand> {
                               : 'Speech not available',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: global.device_height * 0.05),
+                          fontSize: global.device_size.height * 0.05),
                     ),
                   ),
                   Container(
-                    width: global.device_width * 0.3,
+                    width: global.device_size.width * 0.3,
                     alignment: Alignment.center,
                     child: FloatingActionButton(
                       onPressed:

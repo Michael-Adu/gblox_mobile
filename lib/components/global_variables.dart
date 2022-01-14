@@ -9,7 +9,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 late BluetoothConnection activeConnection;
-late BuildContext mainContext;
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 late ThemeData globalTheme = darkTheme;
 late InAppWebViewController? webController;
@@ -21,11 +20,14 @@ void displayToast(String message) {
   );
 }
 
-double device_width = MediaQuery.of(navigatorKey.currentContext!).size.width;
-double device_height = MediaQuery.of(navigatorKey.currentContext!).size.height;
+Size device_size = MediaQuery.of(navigatorKey.currentContext!).size;
 double device_status_bar_height =
     MediaQuery.of(navigatorKey.currentContext!).padding.top;
-double cardSize = device_width * 0.4;
+double cardSize = device_size.width * 0.4;
+
+void updateDeviceSize() {
+  device_size = MediaQuery.of(navigatorKey.currentContext!).size;
+}
 
 class ToolboxClass {
   String name;
@@ -56,6 +58,13 @@ class SaveInformation {
 
   SaveInformation(this.xml, this.device, this.variables, this.filename,
       this.filepath, this.internal);
+}
+
+class ShapeData {
+  final String name;
+  final String svg;
+  final Path path;
+  ShapeData(this.name, this.svg, this.path);
 }
 
 ThemeData darkTheme = ThemeData(

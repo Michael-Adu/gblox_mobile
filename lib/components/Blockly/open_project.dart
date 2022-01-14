@@ -103,7 +103,7 @@ class _OpenProjectState extends State<OpenProject> {
                   )),
         );
       } else {
-        Navigator.pop(context, xml);
+        Navigator.pop(context, allData);
       }
     } else {
       setState(() {
@@ -116,8 +116,8 @@ class _OpenProjectState extends State<OpenProject> {
   void showFileDialog(File file, BuildContext context) {
     AwesomeDialog(
         context: context,
-        width: global.device_width * 0.7,
-        padding: EdgeInsets.all(global.device_height * 0.1),
+        width: global.device_size.width * 0.7,
+        padding: EdgeInsets.all(global.device_size.height * 0.1),
         dialogType: DialogType.NO_HEADER,
         title: "Thats a cool file! What do you want to do with it?",
         body: Row(children: [
@@ -128,7 +128,7 @@ class _OpenProjectState extends State<OpenProject> {
 What do you wanna do with it?''',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: global.device_height * 0.04,
+                        fontSize: global.device_size.height * 0.04,
                         color: const Color(0xff0000DC)))),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,25 +137,25 @@ What do you wanna do with it?''',
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
                         textStyle: TextStyle(
-                            fontSize: global.device_height * 0.04,
+                            fontSize: global.device_size.height * 0.04,
                             color: Colors.red)),
                     onPressed: () {
                       file.delete();
                       setState(() {
                         _folders.removeAt(_folders.indexWhere(
                             (element) => element.path == file.path));
-                        _fileDialog = Container();
+                        AwesomeDialog(context: context).dismiss();
                       });
                     },
                     child: Text("Delete this File",
                         style: TextStyle(
-                            fontSize: global.device_height * 0.04,
+                            fontSize: global.device_size.height * 0.04,
                             color: Colors.red))),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: Colors.white,
                         textStyle: TextStyle(
-                            fontSize: global.device_height * 0.04,
+                            fontSize: global.device_size.height * 0.04,
                             color: Colors.green)),
                     onPressed: () {
                       Share.shareFiles(['${file.path}'],
@@ -163,7 +163,7 @@ What do you wanna do with it?''',
                     },
                     child: Text("Share this File",
                         style: TextStyle(
-                            fontSize: global.device_height * 0.04,
+                            fontSize: global.device_size.height * 0.04,
                             color: Colors.green)))
               ],
             )
@@ -175,7 +175,7 @@ What do you wanna do with it?''',
               Icon(Icons.file_copy),
               Container(
                   alignment: Alignment.center,
-                  width: global.device_width * 0.15,
+                  width: global.device_size.width * 0.15,
                   child: Text(
                       file.path.split(".gbx")[0].split("GBlox/")[1] + ".gbx"))
             ],
@@ -205,7 +205,7 @@ What do you wanna do with it?''',
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Container(
-                    width: global.device_width * 0.3,
+                    width: global.device_size.width * 0.3,
                     child: SelectorButtons(
                       activeColor: 0xff0000DC,
                       initialIndex: index,
@@ -218,7 +218,7 @@ What do you wanna do with it?''',
                       ],
                     )),
                 Container(
-                    width: global.device_width * 0.7,
+                    width: global.device_size.width * 0.7,
                     decoration: BoxDecoration(color: const Color(0xff0B0533)),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -227,7 +227,7 @@ What do you wanna do with it?''',
                           List<String> pathName = e.toString().split("/");
                           String fileName = pathName.last.replaceAll("'", '');
                           return Container(
-                              width: global.device_width * 0.5,
+                              width: global.device_size.width * 0.5,
                               child: GBloxButtons(
                                   buttonType: "fileButtons",
                                   buttonName: fileName,
@@ -289,7 +289,7 @@ What do you wanna do with it?''',
                   List<String> pathName = e.toString().split("/");
                   String fileName = pathName.last.replaceAll("'", '');
                   return Container(
-                      width: global.device_width * 0.5,
+                      width: global.device_size.width * 0.5,
                       child: GBloxButtons(
                           buttonType: "fileButtons",
                           buttonName: fileName,

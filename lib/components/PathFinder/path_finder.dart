@@ -20,7 +20,8 @@ class _PathFinderState extends State<PathFinder> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('path_play',
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -29,26 +30,33 @@ class _PathFinderState extends State<PathFinder> {
                   },
                   icon: const Icon(Icons.arrow_back)),
             ),
-            body: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                    child: SvgPicture.string(
-                      svgs.pathFinder,
-                      alignment: Alignment.center,
-                    ),
-                    width: 500,
-                    height: 400),
-                GBloxButtons(
-                  buttonType: "controller_circle",
-                  icon: Icons.play_arrow,
-                  pressed: () {
-                    global.displayToast(
-                        "This feature has not been implemented yet.");
-                  },
-                  buttonColor: 0xff3EA52C,
-                )
-              ],
-            ))));
+            body: Container(
+                alignment: Alignment.center,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        child: SvgPicture.string(
+                          svgs.pathFinder,
+                          alignment: Alignment.center,
+                        ),
+                        width: global.device_size.width * 0.65,
+                        height: global.device_size.height * 0.75),
+                    Container(
+                        width: global.device_size.width * 0.2,
+                        height: global.device_size.height * 0.2,
+                        child: GBloxButtons(
+                          buttonType: "controller_circle",
+                          icon: Icons.play_arrow,
+                          pressed: () {
+                            global.displayToast(
+                                "This feature has not been implemented yet.");
+                          },
+                          buttonColor: 0xff3EA52C,
+                        ))
+                  ],
+                )))));
   }
 }

@@ -71,14 +71,13 @@ select {
         "vartypetext vartypeselect"
         "varnametext varnameinput"
         "close ok";
-    width: 398px;
-    max-height: 151px;
+    height: 80%;
     background-color: var(--primary-color);
     border: 1px solid var(--border-color);
-    font-size: 17pt;
+    font-size: 120%;
     font-family: "Baloo2-Regular";
-    padding: 21px;
-    gap: 19px;
+    padding: 10%;
+    gap: 10%;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -96,6 +95,7 @@ select {
         grid-area: vartypeselect;
         display: inline-flex;
         outline: none;
+        width: 80%;
         cursor: pointer;
         line-height: 1.1;
         font-size: 1.25rem;
@@ -108,15 +108,15 @@ select {
         select{
             text-indent: 5%;
             color: var(--secondary-color);
-            padding-right: 14.58px;
+            padding-right: 10%;
             outline: none;
         }
         &:not(.select--multiple)::after {
             pointer-events: none;
             position: absolute;
             content: "";
-            margin-left: 200px;
-            margin-top: 8px;
+            margin-left: 20%;
+            margin-top: 5%;
             justify-self: end;
             width: 0.8em;
             height: 0.5em;
@@ -143,6 +143,7 @@ select {
         white-space: nowrap;
         grid-area: varnameinput;
         height: 28px;
+        width: 80%;
         color: var(--secondary-color);
         border: 1px solid var(--border-color);
         font-size: 17px;
@@ -153,15 +154,15 @@ select {
         grid-area: close;
         display: inline-flex;
         #button-container {
-            width: 78px;
+            width: 25%;
         }
     }
     #ok-button {
         grid-area: ok;
         display: inline-flex;
         #button-container {
-            width: 250px;
-            margin-left: -25px;
+            width: 100%;
+            margin-left: -5%;
         }
     }
 }

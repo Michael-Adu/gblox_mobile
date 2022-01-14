@@ -36,7 +36,7 @@ class GbloxApp extends StatefulWidget {
   const GbloxApp({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
-    return _GbloxApp();
+    return _GbloxAppState();
   }
 }
 
@@ -51,10 +51,10 @@ class _CardDetails {
       this.compressSVG);
 }
 
-class _GbloxApp extends State<GbloxApp> {
+class _GbloxAppState extends State<GbloxApp> {
   late List<_CardDetails> startCards = List<_CardDetails>.empty(growable: true);
   ThemeData _currentTheme = global.darkTheme;
-  _GbloxApp();
+  _GbloxAppState();
 
   void initState() {
     super.initState();
@@ -82,11 +82,12 @@ class _GbloxApp extends State<GbloxApp> {
         navigatorKey: global.navigatorKey,
         theme: _currentTheme,
         home: Builder(builder: (context) {
+          global.updateDeviceSize();
           return Scaffold(
               appBar: AppBar(
                   title: Text('applicationName',
-                          style:
-                              TextStyle(fontSize: global.device_height * 0.04))
+                          style: TextStyle(
+                              fontSize: global.device_size.height * 0.04))
                       .tr(),
                   centerTitle: true,
                   leading: Builder(

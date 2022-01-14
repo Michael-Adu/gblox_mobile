@@ -18,6 +18,7 @@ xmlns:tools="http://schemas.android.com/tools"
    <application
         android:label="gBlox Mobile"
         android:icon="@mipmap/ic_launcher"
+        android.screenOrientation="landscape"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
         

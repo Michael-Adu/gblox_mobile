@@ -307,6 +307,12 @@ const Body = (props) => {
         }
     }, [upload_status])
     useEffect(() => {
+        try{
+            var blocklyTrash = document.getElementsByClassName("blocklyTrash")[0]
+            var newTrash = document.getElementById("TrashTotal");
+            blocklyTrash.replaceChildren(newTrash);
+        }
+        catch(e){}
         setBodyLoaded(true);
     }, [])
     return (

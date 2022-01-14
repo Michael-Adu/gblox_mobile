@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../global_variables.dart' as global;
 import '../svgs/svgs.dart' as svgs;
+import 'shape_paths.dart' as shapes;
 
 class SketchShapes extends StatefulWidget {
   @override
@@ -12,15 +14,27 @@ class SketchShapes extends StatefulWidget {
 
 class _SketchShapesStates extends State<SketchShapes> {
   @override
-  List<String> shapes_svg = [
-    svgs.triangle,
-    svgs.circle,
-    svgs.square,
-    svgs.hexagon,
-    svgs.pentagon,
-    svgs.heart
-  ];
+  List<global.ShapeData> shapes_svg =
+      List<global.ShapeData>.empty(growable: true);
+
+  void initState() {
+    super.initState();
+    shapes_svg.add(global.ShapeData(
+        "triangle", svgs.triangle, shapes.Triangle().returnPath()));
+    shapes_svg.add(
+        global.ShapeData("circle", svgs.circle, shapes.Circle().returnPath()));
+    shapes_svg.add(
+        global.ShapeData("square", svgs.square, shapes.Square().returnPath()));
+    shapes_svg.add(global.ShapeData(
+        "hexagon", svgs.hexagon, shapes.Hexagon().returnPath()));
+    shapes_svg.add(global.ShapeData(
+        "pentagon", svgs.pentagon, shapes.Pentagon().returnPath()));
+    shapes_svg.add(
+        global.ShapeData("heart", svgs.heart, shapes.Heart().returnPath()));
+  }
+
   Widget build(BuildContext context) {
+    var thedata;
     return (MaterialApp(
         theme: ThemeData(
           primaryColor: const Color(0xff060841),
@@ -48,13 +62,20 @@ class _SketchShapesStates extends State<SketchShapes> {
                             childAspectRatio: 2.5),
                     itemCount: shapes_svg.length,
                     padding: EdgeInsets.all(20),
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (BuildContext builderContext, int index) {
                       return (InkWell(
+                          onTap: () {
+                            thedata = {
+                              "data": shapes_svg[index],
+                              "message": "data is returned"
+                            };
+                            Navigator.pop(context, thedata);
+                          },
                           child: Container(
                               width: 500,
                               constraints: BoxConstraints.tight(Size(500, 500)),
                               padding: const EdgeInsets.all(10),
-                              child: SvgPicture.string(shapes_svg[index]),
+                              child: SvgPicture.string(shapes_svg[index].svg),
                               decoration: BoxDecoration(
                                   color: const Color(0xff060841),
                                   border: Border.all(

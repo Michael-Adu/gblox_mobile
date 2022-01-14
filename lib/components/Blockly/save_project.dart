@@ -136,15 +136,15 @@ class _SaveProjectState extends State<SaveProject> {
                 child: Row(
               children: [
                 Container(
-                  width: global.device_width * 0.7,
+                  width: global.device_size.width * 0.7,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(global.device_height * 0.005))),
+                            borderRadius: BorderRadius.all(Radius.circular(
+                                global.device_size.height * 0.005))),
                         child: TextField(
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
@@ -170,25 +170,32 @@ class _SaveProjectState extends State<SaveProject> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              width: global.device_width * (0.7 / 2.5),
+                              width: global.device_size.width * (0.7 / 2.5),
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       primary: Colors.white,
                                       textStyle: TextStyle(
-                                        fontSize: global.device_height * 0.04,
+                                        fontSize:
+                                            global.device_size.height * 0.04,
                                       )),
                                   onPressed: () {
-                                    Navigator.pop(context, 'Canceled');
+                                    Navigator.pop(
+                                        context,
+                                        global.SaveInformation(
+                                            "", "", "", "", "", false));
                                   },
-                                  child: Text("Cancel")),
+                                  child: Text(
+                                    "Cancel",
+                                  )),
                             ),
                             Container(
-                                width: global.device_width * (0.7 / 2.5),
+                                width: global.device_size.width * (0.7 / 2.5),
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.white,
                                         textStyle: TextStyle(
-                                          fontSize: global.device_height * 0.04,
+                                          fontSize:
+                                              global.device_size.height * 0.04,
                                         )),
                                     onPressed: () async {
                                       if (internalSave) {
@@ -212,7 +219,7 @@ class _SaveProjectState extends State<SaveProject> {
                   ),
                 ),
                 Container(
-                    width: global.device_width * 0.3,
+                    width: global.device_size.width * 0.3,
                     child: SelectorButtons(
                       buttons: ["Save Internally", "Save to Phone"],
                       functionList: [

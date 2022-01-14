@@ -23,15 +23,15 @@ class _LightDetectorState extends State<LightDetector> {
         alignment: Alignment.center,
         transform: Matrix4.rotationY(math.pi),
         child: SvgPicture.string(svgs.light_detector_away,
-            height: global.device_height * 0.25)),
+            height: global.device_size.height * 0.25)),
     SvgPicture.string(svgs.light_detector_away,
-        height: global.device_height * 0.25),
+        height: global.device_size.height * 0.25),
   ];
   List<Widget> trueState = [
     SvgPicture.string(svgs.light_detector_follow,
-        height: global.device_height * 0.25),
+        height: global.device_size.height * 0.25),
     SvgPicture.string(svgs.light_detector_follow,
-        height: global.device_height * 0.25),
+        height: global.device_size.height * 0.25),
   ];
 
   late List<Widget> stateWidget = List<Widget>.empty(growable: true);
@@ -47,7 +47,8 @@ class _LightDetectorState extends State<LightDetector> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('light_play',
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -63,8 +64,8 @@ class _LightDetectorState extends State<LightDetector> {
                 Container(
                     clipBehavior: Clip.none,
                     alignment: Alignment.center,
-                    width: global.device_width * 0.5,
-                    height: global.device_height * 0.95,
+                    width: global.device_size.width * 0.5,
+                    height: global.device_size.height * 0.95,
                     child: Stack(alignment: Alignment.center, children: [
                       Container(
                           alignment: Alignment.bottomCenter,
@@ -72,12 +73,12 @@ class _LightDetectorState extends State<LightDetector> {
                               alignment: Alignment.topCenter,
                               clipBehavior: Clip.none,
                               allowDrawingOutsideViewBox: true,
-                              height: global.device_height * 1,
+                              height: global.device_size.height * 1,
                               fit: BoxFit.none)),
                       Container(
                           alignment: Alignment.center,
-                          width: global.device_width * 0.4,
-                          height: global.device_height * 0.25,
+                          width: global.device_size.width * 0.4,
+                          height: global.device_size.height * 0.25,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: stateWidget,

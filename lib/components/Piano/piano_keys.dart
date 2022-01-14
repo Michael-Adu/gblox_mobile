@@ -89,7 +89,7 @@ class _PianoKeysState extends State<PianoKeys> {
       home: Scaffold(
           appBar: AppBar(
               title: Text("Piano",
-                  style: TextStyle(fontSize: global.device_height * 0.04)),
+                  style: TextStyle(fontSize: global.device_size.height * 0.04)),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               leading: IconButton(
@@ -101,7 +101,7 @@ class _PianoKeysState extends State<PianoKeys> {
               child: Stack(
             children: [
               Container(
-                  height: global.device_height * 0.85,
+                  height: global.device_size.height * 0.85,
                   child: Row(
                     children: note
                         .map((e) => PianoKey(
@@ -138,10 +138,10 @@ class _PianoKeysState extends State<PianoKeys> {
                         .toList(),
                   )),
               Container(
-                  margin:
-                      EdgeInsets.fromLTRB(global.device_width * 0.03, 0, 0, 0),
+                  margin: EdgeInsets.fromLTRB(
+                      global.device_size.width * 0.03, 0, 0, 0),
                   alignment: Alignment.topCenter,
-                  height: global.device_height * 0.5,
+                  height: global.device_size.height * 0.5,
                   child: Row(
                       children: accidental
                           .map((e) => PianoKey(
@@ -209,7 +209,7 @@ class PianoKey extends StatefulWidget {
 
 class _PianoKeyState extends State<PianoKey> {
   bool state = false;
-  double keyWidth = global.device_width * 0.0665;
+  double keyWidth = global.device_size.width * 0.0665;
   @override
   Widget build(BuildContext context) {
     switch (widget.empty) {
@@ -267,10 +267,10 @@ class _PianoKeyState extends State<PianoKey> {
                       style: widget.accidental
                           ? TextStyle(
                               color: Colors.white,
-                              fontSize: global.device_width * 0.02)
+                              fontSize: global.device_size.width * 0.02)
                           : TextStyle(
                               color: Colors.black,
-                              fontSize: global.device_width * 0.02),
+                              fontSize: global.device_size.width * 0.02),
                     ))));
         break;
       default:

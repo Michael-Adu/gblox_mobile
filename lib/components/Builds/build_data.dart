@@ -28,7 +28,8 @@ class _BuilddataState extends State<Builddata> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("build_mode",
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               centerTitle: true,
               leading: IconButton(

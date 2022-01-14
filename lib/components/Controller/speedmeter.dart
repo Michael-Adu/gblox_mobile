@@ -36,8 +36,8 @@ class _SpeedometerState extends State<Speedometer> {
   @override
   Widget build(BuildContext context) {
     return (Container(
-        height: global.device_height * 0.3,
-        width: global.device_width * 0.3,
+        height: global.device_size.height * 0.3,
+        width: global.device_size.width * 0.3,
         child: Stack(children: [
           ValueListenableBuilder(
               valueListenable: widget.speed!,
@@ -77,12 +77,12 @@ class _SpeedometerState extends State<Speedometer> {
               margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
               child: CustomPaint(
                 painter: BackgroundPainter(),
-                child: Container(width: global.device_width * 0.3),
+                child: Container(width: global.device_size.width * 0.3),
               )),
           Container(
               child: CustomPaint(
             painter: ForwardPainter(),
-            child: Container(width: global.device_width * 0.3),
+            child: Container(width: global.device_size.width * 0.3),
           ))
         ])));
   }

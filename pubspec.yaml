@@ -57,6 +57,7 @@ dependencies:
   flutter_file_dialog: ^2.3.0
   share: ^2.0.4
   awesome_dialog: ^2.1.2
+  animations: ^2.0.2
 
 flutter_native_splash:
   color: "#0B0533"

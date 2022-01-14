@@ -3,6 +3,8 @@ import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:animations/animations.dart';
+import 'package:share/share.dart';
 import '../Modular_Widgets/ToolboxButtons/toolbox_category_buttons.dart';
 import '../Modular_Widgets/Button/buttons.dart';
 import '../Modular_Widgets/Cards/cards.dart';
@@ -65,8 +67,6 @@ class _BlocklyState extends State<Blockly> {
   late List<List<String>> toolbox = List<List<String>>.empty(growable: true);
   var loaded = ValueNotifier<bool>(false);
   bool deviceDrawerOpen = false;
-  late List<_ToolboxClass> renderedToolbox =
-      List<_ToolboxClass>.empty(growable: true);
   late List<Widget> widgetToolbox = List<Widget>.empty(growable: true);
   late List<_ToolboxCategoryClass> renderedToolboxCategories =
       List<_ToolboxCategoryClass>.empty(growable: true);
@@ -83,7 +83,6 @@ class _BlocklyState extends State<Blockly> {
   @override
   void initState() {
     super.initState();
-    renderedToolbox.add(_ToolboxClass("None", true, 0, "blockly-0"));
     if (widget.fileName.length > 1) {
       saveinfo = global.SaveInformation(
           widget.initialXML,
@@ -95,10 +94,9 @@ class _BlocklyState extends State<Blockly> {
     }
   }
 
-  List<_ToolboxClass> updateToolbox() {
-    widgetToolbox.clear();
-    renderedToolboxCategories.clear();
-    renderedToolbox.clear();
+  void updateToolbox() {
+    widgetToolbox.clear(); //clear widgetToolbox
+    renderedToolboxCategories.clear(); //clear the toolboxCategories
     late List<global.ToolboxClass> categoryChildren =
         List<global.ToolboxClass>.empty(growable: true);
     for (int i = 0; i < toolbox.length; i++) {
@@ -165,14 +163,13 @@ class _BlocklyState extends State<Blockly> {
                           ''');
       });
     }
-    return renderedToolbox;
   }
 
   @override
   Widget build(BuildContext context) {
     Widget deviceSelector = Container(
         alignment: Alignment.centerRight,
-        width: global.device_width * 0.6275,
+        width: global.device_size.width * 0.6275,
         color: Color(0xff0B0533),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -254,7 +251,7 @@ class _BlocklyState extends State<Blockly> {
                     child: Center(
                         child: Text('code_mode',
                                 style: TextStyle(
-                                    fontSize: global.device_height * 0.04))
+                                    fontSize: global.device_size.height * 0.04))
                             .tr()),
                   )
                 ],
@@ -286,7 +283,7 @@ class _BlocklyState extends State<Blockly> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                          height: global.device_height * 0.05,
+                          height: global.device_size.height * 0.05,
                           alignment: Alignment.centerRight,
                           child: IconButton(
                               onPressed: () {
@@ -357,6 +354,7 @@ class _BlocklyState extends State<Blockly> {
                             setState(() {
                               saveinfo = data;
                             });
+                            global.selectedDevice = saveinfo.device;
                             variables = saveinfo.variables.toString();
                             currentXml.value = saveinfo.xml.toString();
                             controller!.evaluateJavascript(
@@ -406,6 +404,9 @@ class _BlocklyState extends State<Blockly> {
                                   MaterialPageRoute(
                                       builder: (context) => SaveProject(
                                           saveAs: false, saveData: saveinfo)));
+                              setState(() {
+                                saveinfo = data;
+                              });
                             }
                           });
                         },
@@ -422,6 +423,9 @@ class _BlocklyState extends State<Blockly> {
                                 MaterialPageRoute(
                                     builder: (context) => SaveProject(
                                         saveAs: true, saveData: saveinfo)));
+                            setState(() {
+                              saveinfo = data;
+                            });
                           });
                         },
                       ),
@@ -429,14 +433,20 @@ class _BlocklyState extends State<Blockly> {
                         buttonType: "menuButtons",
                         buttonName: "Share",
                         pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                          if (saveinfo.filepath.isNotEmpty) {
+                            Share.shareFiles(['${saveinfo.filepath}'],
+                                text: 'Check out my gBlox Mobile Code!');
+                          } else {
+                            global.displayToast(
+                                "No file has been saved or loaded!");
+                          }
                         },
                       ),
                       GBloxButtons(
                         buttonType: "menuButtons",
                         buttonName: "Exit",
                         pressed: () {
-                          global.displayToast("This feature is not ready yet");
+                          Navigator.pop(context);
                         },
                       ),
                     ],
@@ -452,9 +462,16 @@ class _BlocklyState extends State<Blockly> {
                 color: Theme.of(context).primaryColor,
                 padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
                 child: ListView(padding: EdgeInsets.zero, children: [
-                  Text(saveinfo.filename),
-                  Text(saveinfo.filepath),
-                  Text(saveinfo.internal.toString()),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Icon(
+                      Icons.file_copy,
+                      color: Colors.white,
+                    ),
+                    Text(saveinfo.filename,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: global.device_size.height * 0.05))
+                  ]),
                   ConfigurableExpansionTile(
                       animatedWidgetFollowingHeader: Container(
                           alignment: Alignment.centerRight,
@@ -545,7 +562,7 @@ class _BlocklyState extends State<Blockly> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                    width: global.device_width * 0.215,
+                    width: global.device_size.width * 0.215,
                     padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -564,7 +581,7 @@ class _BlocklyState extends State<Blockly> {
                                     return Container();
                                   }
                                 }),
-                            height: global.device_height * 0.65,
+                            height: global.device_size.height * 0.65,
                           ),
                           InkWell(
                             borderRadius:
@@ -575,8 +592,8 @@ class _BlocklyState extends State<Blockly> {
                                       ScreenshotConfiguration()));
                             },
                             child: Container(
-                                width: global.device_width * 0.15,
-                                height: global.device_height * 0.1,
+                                width: global.device_size.width * 0.15,
+                                height: global.device_size.height * 0.1,
                                 padding: const EdgeInsets.all(5),
                                 child: const Icon(Icons.play_arrow,
                                     color: Colors.white),
@@ -591,7 +608,7 @@ class _BlocklyState extends State<Blockly> {
                           )
                         ])),
                 Container(
-                    width: global.device_width * 0.785,
+                    width: global.device_size.width * 0.785,
                     alignment: Alignment.centerRight,
                     child: InAppWebView(
                       initialOptions: InAppWebViewGroupOptions(

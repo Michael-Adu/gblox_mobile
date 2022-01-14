@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../Modular_Widgets/Cards/cards.dart';
 import '../Menus/ModeSelector/mode_select.dart';
+import '../Menus/CodeMenu/code_menu.dart';
 import '../svgs/svgs.dart' as svgs;
 import '../global_variables.dart' as global;
 
@@ -24,13 +25,20 @@ class _DeviceSelectState extends State<DeviceSelect> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("select_device_page",
-                      style: TextStyle(fontSize: global.device_height * 0.04))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.04))
                   .tr(),
               centerTitle: true,
+              leading: widget.isHome
+                  ? Container()
+                  : IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () => Navigator.pop(context),
+                    ),
             ),
             body: Container(
-                padding: EdgeInsets.all(global.device_height * 0.1),
-                height: global.device_height * 0.8,
+                padding: EdgeInsets.all(global.device_size.height * 0.1),
+                height: global.device_size.height * 0.8,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,7 +54,10 @@ class _DeviceSelectState extends State<DeviceSelect> {
                                 MaterialPageRoute(
                                     builder: (context) => ModeSelector()));
                           } else {
-                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CodeMenu()));
                           }
                         },
                         text: "Mingo",
@@ -65,7 +76,10 @@ class _DeviceSelectState extends State<DeviceSelect> {
                                 MaterialPageRoute(
                                     builder: (context) => ModeSelector()));
                           } else {
-                            Navigator.pop(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CodeMenu()));
                           }
                         },
                         text: "Mello",

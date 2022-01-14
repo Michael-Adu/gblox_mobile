@@ -104,7 +104,8 @@ class _PlaySelector extends State<PlaySelector> {
         home: Scaffold(
             appBar: AppBar(
                 title: Text("play_select_page",
-                        style: TextStyle(fontSize: global.device_height * 0.04))
+                        style: TextStyle(
+                            fontSize: global.device_size.height * 0.04))
                     .tr(),
                 centerTitle: true,
                 leading: IconButton(
@@ -123,13 +124,13 @@ class _PlaySelector extends State<PlaySelector> {
                     ),
                   ),
                   Container(
-                      height: global.device_height * 0.8,
+                      height: global.device_size.height * 0.8,
                       padding: EdgeInsets.fromLTRB(
                           0,
-                          global.device_height * 0.1,
+                          global.device_size.height * 0.1,
                           0,
-                          global.device_height * 0.1),
-                      width: global.device_width * 1,
+                          global.device_size.height * 0.1),
+                      width: global.device_size.width * 1,
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[

@@ -53,7 +53,8 @@ class _ControllerState extends State<Controller> {
         home: Scaffold(
             appBar: AppBar(
                 title: Text("controller_drawer",
-                        style: TextStyle(fontSize: global.device_height * 0.04))
+                        style: TextStyle(
+                            fontSize: global.device_size.height * 0.04))
                     .tr(),
                 centerTitle: true,
                 leading: IconButton(
@@ -78,10 +79,10 @@ class _ControllerState extends State<Controller> {
                         backgroundColor: const Color(0xff0000DC),
                         innerCircleColor: Colors.white,
                         iconsColor: Colors.white,
-                        size: global.device_width * 0.27,
+                        size: global.device_size.width * 0.27,
                       )),
                   Container(
-                      width: global.device_width * 0.3,
+                      width: global.device_size.width * 0.3,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -91,8 +92,8 @@ class _ControllerState extends State<Controller> {
                                   return Speedometer(speed: currentSpeed);
                                 }),
                             SizedBox(
-                              width: global.device_height * 0.2,
-                              height: global.device_height * 0.2,
+                              width: global.device_size.height * 0.2,
+                              height: global.device_size.height * 0.2,
                               child: GBloxButtons(
                                   buttonType: "controller_circle",
                                   icon: GBloxCustomSVGs.gBloxLogo,
@@ -104,7 +105,7 @@ class _ControllerState extends State<Controller> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
-                                    width: global.device_width * 0.1,
+                                    width: global.device_size.width * 0.1,
                                     child: GBloxButtons(
                                       buttonType: "controller_square",
                                       icon: GBloxCustomSVGs.horn,
@@ -123,7 +124,7 @@ class _ControllerState extends State<Controller> {
                                     ),
                                   ),
                                   Container(
-                                      width: global.device_width * 0.1,
+                                      width: global.device_size.width * 0.1,
                                       child: GBloxButtons(
                                         buttonType: "controller_square",
                                         icon: GBloxCustomSVGs.headlights,
@@ -145,8 +146,8 @@ class _ControllerState extends State<Controller> {
                   Container(
                       clipBehavior: Clip.none,
                       alignment: Alignment.center,
-                      width: global.device_width * 0.3,
-                      height: global.device_height * 0.5,
+                      width: global.device_size.width * 0.3,
+                      height: global.device_size.height * 0.5,
                       child: Container(
                           clipBehavior: Clip.none,
                           child: Transform.rotate(
@@ -154,8 +155,8 @@ class _ControllerState extends State<Controller> {
                               child: Container(
                                   clipBehavior: Clip.none,
                                   alignment: Alignment.center,
-                                  width: global.device_width * 0.22,
-                                  height: global.device_height * 0.3,
+                                  width: global.device_size.width * 0.22,
+                                  height: global.device_size.height * 0.3,
                                   child: GridView(
                                     clipBehavior: Clip.none,
                                     gridDelegate:

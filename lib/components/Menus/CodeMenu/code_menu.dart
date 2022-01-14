@@ -51,7 +51,7 @@ class _CodeMenuState extends State<CodeMenu> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Home',
-                  style: TextStyle(fontSize: global.device_height * 0.04))
+                  style: TextStyle(fontSize: global.device_size.height * 0.04))
               .tr(),
           centerTitle: true,
           leading: IconButton(
@@ -65,14 +65,14 @@ class _CodeMenuState extends State<CodeMenu> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                  width: global.device_width * 0.3,
+                  width: global.device_size.width * 0.3,
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                            width: global.device_width * 0.2,
-                            height: global.device_height * 0.2,
+                            width: global.device_size.width * 0.2,
+                            height: global.device_size.height * 0.2,
                             child: SvgPicture.string(svgs.blockly_home)),
                         Container(
                             child: SelectorButtons(
@@ -102,23 +102,23 @@ class _CodeMenuState extends State<CodeMenu> {
                         ))
                       ])),
               Container(
-                  width: global.device_width * 0.4,
+                  width: global.device_size.width * 0.4,
                   child: OpenProject(
                     fromHome: true,
                     fullPage: false,
                   )),
               Container(
-                  width: global.device_width * 0.3,
+                  width: global.device_size.width * 0.3,
                   decoration: const BoxDecoration(color: Color(0xff0B0533)),
                   alignment: Alignment.topCenter,
                   padding: EdgeInsets.fromLTRB(
-                      global.device_width * 0.05,
-                      global.device_height * 0.05,
-                      global.device_width * 0.05,
+                      global.device_size.width * 0.05,
+                      global.device_size.height * 0.05,
+                      global.device_size.width * 0.05,
                       0),
                   child: Container(
                       alignment: Alignment.topCenter,
-                      height: global.device_height * 0.25,
+                      height: global.device_size.height * 0.25,
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

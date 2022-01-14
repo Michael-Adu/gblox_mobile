@@ -50,10 +50,11 @@ class _GBloxSwitchState extends State<GBloxSwitch> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       AnimatedContainer(
-                          width: global.device_height * 0.2,
-                          height: global.device_height * 0.2,
+                          width: global.device_size.height * 0.2,
+                          height: global.device_size.height * 0.2,
                           duration: const Duration(milliseconds: 10),
-                          padding: EdgeInsets.all(global.device_width * 0.01),
+                          padding:
+                              EdgeInsets.all(global.device_size.width * 0.01),
                           child: GBloxButtons(
                             buttonType: "controller_circle",
                             icon: switchIcons[0],
@@ -66,10 +67,11 @@ class _GBloxSwitchState extends State<GBloxSwitch> {
                             },
                           )),
                       AnimatedContainer(
-                          width: global.device_height * 0.2,
-                          height: global.device_height * 0.2,
+                          width: global.device_size.height * 0.2,
+                          height: global.device_size.height * 0.2,
                           duration: const Duration(milliseconds: 10),
-                          padding: EdgeInsets.all(global.device_width * 0.01),
+                          padding:
+                              EdgeInsets.all(global.device_size.width * 0.01),
                           child: GBloxButtons(
                             buttonType: "controller_circle",
                             icon: switchIcons[1],

@@ -399,6 +399,8 @@
         display: none;
         left: 20%;
         top: 20%;
+        height: 50%;
+        width: 50%;
         z-index: 53;
     }
     #c-Body-Notification {
@@ -427,5 +429,5 @@
     // pointer-events: none;
     // //transform: translate(1579px,825px);
     // transform: translate(15px, 24px) scaleX(2) !important;
-    opacity: 0 !important;
+    // opacity: 0 !important;
 }

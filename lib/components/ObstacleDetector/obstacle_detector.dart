@@ -23,15 +23,15 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
         alignment: Alignment.center,
         transform: Matrix4.rotationY(math.pi),
         child: SvgPicture.string(svgs.light_detector_away,
-            height: global.device_height * 0.25)),
+            height: global.device_size.height * 0.25)),
     SvgPicture.string(svgs.light_detector_away,
-        height: global.device_height * 0.25),
+        height: global.device_size.height * 0.25),
   ];
   List<Widget> trueState = [
     SvgPicture.string(svgs.light_detector_follow,
-        height: global.device_height * 0.25),
+        height: global.device_size.height * 0.25),
     SvgPicture.string(svgs.light_detector_follow,
-        height: global.device_height * 0.25),
+        height: global.device_size.height * 0.25),
   ];
 
   late List<Widget> stateWidget = List<Widget>.empty(growable: true);
@@ -47,7 +47,8 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('obstacle_play',
-                      style: TextStyle(fontSize: global.device_height * 0.02))
+                      style:
+                          TextStyle(fontSize: global.device_size.height * 0.02))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -63,8 +64,8 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
                 Container(
                     alignment: Alignment.center,
                     clipBehavior: Clip.none,
-                    width: global.device_width * 0.5,
-                    height: global.device_height * 1,
+                    width: global.device_size.width * 0.5,
+                    height: global.device_size.height * 1,
                     child: Stack(clipBehavior: Clip.none, children: [
                       Container(
                           alignment: Alignment.topCenter,
@@ -73,13 +74,13 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
                           child: SvgPicture.string(
                             svgs.obstacle_detect,
                             allowDrawingOutsideViewBox: true,
-                            height: global.device_height * 1.5,
+                            height: global.device_size.height * 1.5,
                             alignment: Alignment.topCenter,
                             fit: BoxFit.none,
                           )),
                       Container(
                           alignment: Alignment.center,
-                          width: global.device_width * 0.5,
+                          width: global.device_size.width * 0.5,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: stateWidget,

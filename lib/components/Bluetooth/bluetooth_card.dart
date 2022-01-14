@@ -107,8 +107,10 @@ class _BluetoothCardState extends State<BluetoothCard> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Container(
-                                            width: global.device_width * 0.2,
-                                            height: global.device_height * 0.3,
+                                            width:
+                                                global.device_size.width * 0.2,
+                                            height:
+                                                global.device_size.height * 0.3,
                                             child: SvgPicture.string(
                                               _cardSVG,
                                               fit: BoxFit.contain,
@@ -134,12 +136,14 @@ class _BluetoothCardState extends State<BluetoothCard> {
                                         style: TextStyle(color: Colors.white)),
                                     widget.rssi! != 0
                                         ? Container(
-                                            width: global.device_width * 0.05,
+                                            width:
+                                                global.device_size.width * 0.05,
                                             child: SignalStrengthIndicator.bars(
                                               value: rssi,
                                               minValue: 1,
                                               maxValue: 4,
-                                              size: global.device_height * 0.1,
+                                              size: global.device_size.height *
+                                                  0.1,
                                               barCount: 4,
                                               spacing: 0.1,
                                               inactiveColor: Colors.grey[900],
