@@ -190,7 +190,9 @@ What do you wanna do with it?''',
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('Open').tr(),
+            title: Text('Open',
+                    style: TextStyle(fontSize: global.deviceText.title))
+                .tr(),
             centerTitle: true,
             leading: IconButton(
                 onPressed: () {

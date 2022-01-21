@@ -89,7 +89,7 @@ class _PianoKeysState extends State<PianoKeys> {
       home: Scaffold(
           appBar: AppBar(
               title: Text("Piano",
-                  style: TextStyle(fontSize: global.device_size.height * 0.04)),
+                  style: TextStyle(fontSize: global.deviceText.title)),
               centerTitle: true,
               backgroundColor: Colors.transparent,
               leading: IconButton(

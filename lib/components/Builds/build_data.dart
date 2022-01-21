@@ -1,9 +1,5 @@
-import 'dart:io';
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../global_variables.dart' as global;
 
@@ -15,7 +11,7 @@ class Builddata extends StatefulWidget {
 }
 
 class _BuilddataState extends State<Builddata> {
-  String pathPDF = 'assets/svgs/dsadsa.pdf';
+  String pathPDF = 'assets/pdfs/dsadsa.pdf';
   var pdfController;
   void initState() {
     super.initState();

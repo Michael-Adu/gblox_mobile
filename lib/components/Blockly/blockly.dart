@@ -251,7 +251,7 @@ class _BlocklyState extends State<Blockly> {
                     child: Center(
                         child: Text('code_mode',
                                 style: TextStyle(
-                                    fontSize: global.device_size.height * 0.04))
+                                    fontSize: global.deviceText.title))
                             .tr()),
                   )
                 ],
@@ -634,7 +634,7 @@ class _BlocklyState extends State<Blockly> {
                         controller.evaluateJavascript(source: '''
                         document.getElementById("Mingo").click();
                         document.getElementById("${global.selectedDevice}").click();
-                        
+                        document.getElementById("TrashTotal").style.display="none";
                         ''');
                       },
                       onConsoleMessage: (InAppWebViewController controller,

@@ -48,7 +48,7 @@ class _LightDetectorState extends State<LightDetector> {
             appBar: AppBar(
               title: Text('light_play',
                       style:
-                          TextStyle(fontSize: global.device_size.height * 0.04))
+                          TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               centerTitle: true,
               leading: IconButton(

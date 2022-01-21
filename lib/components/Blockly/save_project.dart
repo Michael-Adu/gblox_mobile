@@ -129,7 +129,9 @@ class _SaveProjectState extends State<SaveProject> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("Save As").tr(),
+              title: Text("Save As",
+                      style: TextStyle(fontSize: global.deviceText.title))
+                  .tr(),
               centerTitle: true,
             ),
             body: Container(

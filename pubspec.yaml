@@ -58,6 +58,7 @@ dependencies:
   share: ^2.0.4
   awesome_dialog: ^2.1.2
   animations: ^2.0.2
+  rive: ^0.8.1
 
 flutter_native_splash:
   color: "#0B0533"
@@ -102,7 +103,8 @@ flutter:
     - assets/react-blockly/static/js/
     - assets/react-blockly/static/css/
     - assets/svgs/
-    - assets/svgs/dsadsa.pdf
+    - assets/pdfs/
+    - assets/animationFiles/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

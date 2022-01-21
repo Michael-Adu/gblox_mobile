@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../Modular_Widgets/Button/buttons.dart';
+import 'package:rive/rive.dart';
 import '../svgs/svgs.dart' as svgs;
 import '../global_variables.dart' as global;
 
@@ -21,7 +22,7 @@ class _PathFinderState extends State<PathFinder> {
             appBar: AppBar(
               title: Text('path_play',
                       style:
-                          TextStyle(fontSize: global.device_size.height * 0.04))
+                          TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -38,10 +39,7 @@ class _PathFinderState extends State<PathFinder> {
                   children: [
                     Container(
                         alignment: Alignment.center,
-                        child: SvgPicture.string(
-                          svgs.pathFinder,
-                          alignment: Alignment.center,
-                        ),
+                        child: RiveAnimation.asset('assets/animationFiles/pathFinder.riv',),
                         width: global.device_size.width * 0.65,
                         height: global.device_size.height * 0.75),
                     Container(

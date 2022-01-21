@@ -47,8 +47,7 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('obstacle_play',
-                      style:
-                          TextStyle(fontSize: global.device_size.height * 0.02))
+                      style: TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               centerTitle: true,
               leading: IconButton(

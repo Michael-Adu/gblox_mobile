@@ -1,0 +1,753 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Modular Widgets</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(145, 145, 142, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(187, 132, 108, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(215, 129, 58, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 148, 51, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(108, 155, 125, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(91, 151, 189, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(167, 130, 195, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(205, 116, 159, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(225, 111, 100, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="72c25ed1-6f33-4935-a10e-40f350c66396" class="page sans"><header><h1 class="page-title">Modular Widgets</h1><table class="properties"><tbody><tr class="property-row property-row-select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M7,13 C10.31348,13 13,10.31371 13,7 C13,3.68629 10.31348,1 7,1 C3.68652,1 1,3.68629 1,7 C1,10.31371 3.68652,13 7,13 Z M3.75098,5.32278 C3.64893,5.19142 3.74268,5 3.90869,5 L10.09131,5 C10.25732,5 10.35107,5.19142 10.24902,5.32278 L7.15771,9.29703 C7.07764,9.39998 6.92236,9.39998 6.84229,9.29703 L3.75098,5.32278 Z"></path></svg></span>Fully Documented</th><td><span class="selected-value select-value-color-green">Fully Documented</span></td></tr></tbody></table></header><div class="page-body"><p id="5f07850f-9283-4f4f-973b-d5fb54e09332" class="">Modular Widgets<div class="indented"><h1 id="f8732d70-83cd-4872-ac30-a1893b8e3227" class="">Modular Widgets</h1><ul id="4d01cf81-c5d8-46c0-9e36-fc14d8a2ac25" class="bulleted-list"><li style="list-style-type:disc">Custom Widgets created for various features of the application.</li></ul><h2 id="775e1690-71ae-4b31-a76a-e6ca0708d010" class="">Button</h2><ul id="fae90648-708b-4b91-8b19-e8e6326a724e" class="bulleted-list"><li style="list-style-type:disc">Generates <code>GBloxButtons</code> used in various pages.</li></ul><p id="d10527df-aa14-4a93-8cc6-9d0f644e00f3" class="">Use case Example</p><pre id="27a9b70a-f956-4045-ae9d-1d378c2ee885" class="code"><code>GBloxButtons(
+	buttonType: &quot;controller_circle&quot;,
+  icon: GBloxCustomSVGs.gBloxLogo,
+  pressed: () {},
+  buttonColor: 0xff1D184B),</code></pre><pre id="3e3457ff-423c-42b7-8297-f192cebb758c" class="code"><code>@required
+  late final String buttonType;
+  @required
+  late final IconData icon;
+  @required
+  late final Function? pressed;
+  late final Function? onLongPress;
+  late final bool rotate;
+  late final int buttonColor;
+  late final String buttonName;</code></pre><h3 id="70920c0a-b2ce-446d-8f67-547fcb9a6991" class="">Arguments:</h3><hr id="43f59d2c-f873-42d4-bec2-6a19b66df4e2"/><ul id="f0a06bae-896b-41e3-bc33-eb5fed2f9a71" class="toggle"><li><details open=""><summary><code>buttonType</code> - <strong>required</strong></summary><p id="10af41f2-f52c-4e79-8307-fde4371283fb" class=""><div class="indented"><div id="aaa729cc-7240-4fa8-bb59-59569d2f4164" class="column-list"><div id="eae2bfae-46d9-43e7-a59b-35dd2df7d651" style="width:50%" class="column"><ul id="e7764709-9f4c-4bdd-bf97-4896cc305f87" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>String</code></li></ul><ul id="571ab344-e083-4a9b-a00d-e47e08672f70" class="bulleted-list"><li style="list-style-type:disc">Used in a switch statement to determine what type of button to return</li></ul></div><div id="b1610d4f-fa94-47db-ae59-96282f1d3729" style="width:50%" class="column"><ul id="9876385b-e0f5-4576-ad08-a4c70bad73ec" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="624602c0-7d3f-47c9-9712-4f73713f32c1" class="code"><code>buttonType: &quot;controller_circle&quot;,</code></pre><ul id="6fab6917-7342-4b4b-a841-5c12e17bbd69" class="bulleted-list"><li style="list-style-type:disc">List of buttonTypes:<ul id="f029637b-d347-453b-8610-cb24187c171b" class="toggle"><li><details open=""><summary><code>“controller_square”</code></summary><figure id="20b85735-3f10-4033-aaa2-293461da0b93" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled.png"><img style="width:108px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled.png"/></a></figure></details></li></ul><ul id="e0157c6d-e3f8-4627-9b25-0f6104dd19f1" class="toggle"><li><details open=""><summary><code>“controller_circle”</code></summary><figure id="10df81b2-7cf7-4245-aee3-9b716d9e58e9" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%201.png"><img style="width:84px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%201.png"/></a></figure></details></li></ul><ul id="e3d9e3b1-cc7b-4395-b551-bc3eca59c90e" class="toggle"><li><details open=""><summary><code>“menuButtons”</code></summary><figure id="194f3aee-00da-4b26-855a-ebcc4e991e7c" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%202.png"><img style="width:336px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%202.png"/></a></figure></details></li></ul><ul id="51434744-2f80-42e0-847c-d7a3b9cdeef6" class="toggle"><li><details open=""><summary><code>“fileButtons”</code></summary><figure id="2f07716c-0be9-4303-bf42-b88ac7397413" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%203.png"><img style="width:384px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%203.png"/></a></figure></details></li></ul><ul id="0c259ad2-7648-4cc8-b197-09dd56d15307" class="toggle"><li><details open=""><summary><code>“directoryButtons”</code></summary><figure id="0f3f0cc7-1445-4279-badc-990dd31052fa" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%204.png"><img style="width:336px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%204.png"/></a></figure></details></li></ul><ul id="68ecd278-1ac4-4797-a0ad-9ebb7566c64a" class="toggle"><li><details open=""><summary><code>“projectButtons”</code></summary><figure id="8cf95c6b-cf90-48c7-af1a-1e12468e309e" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%205.png"><img style="width:240px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%205.png"/></a></figure></details></li></ul></li></ul></div></div></div></p></details></li></ul><hr id="84e0dbe1-d0ec-42a9-9efb-050dc48dc9ff"/><ul id="799102a8-207b-4bc7-98d0-1f7c12489c7d" class="toggle"><li><details open=""><summary><code>icon </code>- <strong>required</strong></summary><p id="2b3ddac0-fb3c-4f4c-912b-04dab98548e5" class=""><div class="indented"><div id="7b239ede-383a-46d3-88d0-af83eaa49b55" class="column-list"><div id="5523286e-3109-4935-8d4b-2b1b5de46695" style="width:50%" class="column"><ul id="b98bed64-7500-4411-b7d4-1b3d433b12fd" class="bulleted-list"><li style="list-style-type:disc">Accepts <code>IconData</code></li></ul><ul id="905065f8-7644-417b-be80-36cafafa6199" class="bulleted-list"><li style="list-style-type:disc">Used to display Icon for certain <code>buttonTypes</code></li></ul></div><div id="66880c57-87e2-4b61-8b65-eb2c619ca3c3" style="width:50%" class="column"><ul id="8d4dd596-ea67-4cde-8173-68caa3091cde" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="028b0b4d-5465-4552-b0fb-09af75f8733b" class="code"><code>icon: Icons.home,</code></pre></div></div></div></p></details></li></ul><hr id="206dba71-c9f2-4e33-a5eb-3b2fdc67edfa"/><ul id="d0c6d0ab-1e7d-4892-a7bd-c44df9b36ecf" class="toggle"><li><details open=""><summary><code>pressed</code> - <strong>required</strong></summary><p id="e64ab341-2a86-4549-b2ce-966ec8776e8c" class=""><div class="indented"><div id="3d7eaa66-4626-4a22-9e99-fa39b1ba19bf" class="column-list"><div id="bffcfc73-28fc-4c02-89a8-1d7e5a75f9f2" style="width:50%" class="column"><ul id="73a79830-ed65-4042-bd53-f51e6da676a5" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Function</code></li></ul><ul id="a03578b0-c411-4a36-a9d9-01dba2ad047c" class="bulleted-list"><li style="list-style-type:disc">Runs function when button is tapped/pressed</li></ul></div><div id="cf9c4f89-37b1-4a56-aea7-c5af4bf534fb" style="width:50%" class="column"><ul id="5fb69bdd-4d08-435d-89bc-444de73519f2" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="2f4d8416-1099-4d43-8f46-a7b4b02471c8" class="code"><code>pressed: (){
+	print(&quot;This button has been pressed&quot;);
+},</code></pre></div></div></div></p></details></li></ul><hr id="db86196d-f93f-4fb6-a084-8774b79d61df"/><ul id="66cc8ba8-a2cd-4f4a-b5d6-7729441f112f" class="toggle"><li><details open=""><summary><code>onLongPress</code></summary><p id="3a4f56ed-7313-43c7-8fc4-4c1d7be6fa86" class=""><div class="indented"><div id="586b73ee-ba1f-42ab-bf6a-55295cd86a9f" class="column-list"><div id="061b94ee-4bc9-4fac-82dd-456d135c422f" style="width:50%" class="column"><ul id="dac228fa-d6b4-46e9-9bb6-0f2c1e33f7aa" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Function</code></li></ul><ul id="bec2d5a4-caaa-431f-a86d-c5adf231e577" class="bulleted-list"><li style="list-style-type:disc">Runs function when button is pressed and held</li></ul></div><div id="224eb63a-5ede-42d1-a91c-8d59db94a539" style="width:50%" class="column"><ul id="6d9db4e7-a465-4aa8-875d-ed6c7dcbd02b" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="096a7a31-b14a-460f-8fce-7cc745dd3766" class="code"><code>onLongPress: (){
+	print(&quot;This button has been pressed&quot;);
+},</code></pre></div></div></div></p></details></li></ul><hr id="aca0e53e-6ebd-470a-bc6d-ec5a5c356905"/><ul id="4d610158-2eec-4f6b-b2d0-df7877003c1f" class="toggle"><li><details open=""><summary><code>rotate</code></summary><p id="7330cb99-b87b-4f74-b384-2d2c3d74e9e9" class=""><div class="indented"><div id="abed416e-f1e4-4ae5-8c34-108c5d024ac3" class="column-list"><div id="406d4480-c9ff-402f-95ef-c0676c8b2a7b" style="width:50%" class="column"><ul id="0f5d3f12-7578-47c8-95ff-05191e2e88a4" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>bool</code></li></ul><ul id="a3b71c46-3a4a-4ef5-a038-6fd714cf7927" class="bulleted-list"><li style="list-style-type:disc">Determines if button icon is rotated</li></ul></div><div id="b4389da3-7131-4d95-81f3-1ae742e02ac2" style="width:50%" class="column"><ul id="903e1532-653d-4b2a-8d64-56555ea978b0" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="57dafeef-83f2-43e2-a564-ab05ae9f45d6" class="code"><code>rotate: true,</code></pre></div></div></div></p></details></li></ul><hr id="2fe3633b-348d-4bd8-b8b6-62b455f88f6c"/><ul id="284bab56-67fd-4f36-948d-3230d1ce274d" class="toggle"><li><details open=""><summary><code>buttonColor</code></summary><p id="350f6145-a025-4ee6-abd4-b60eece8af86" class=""><div class="indented"><div id="d3f62be3-dd52-4629-98bb-ed3ca897cc31" class="column-list"><div id="dd2b51d3-c104-47c5-b24b-8b04af31c262" style="width:50%" class="column"><ul id="3a8e4174-8033-430a-aa51-db3932ad6096" class="bulleted-list"><li style="list-style-type:disc">Accepts an <code>integer</code> as a hex</li></ul><ul id="08be1f34-059e-414a-9c44-0d159245bacf" class="bulleted-list"><li style="list-style-type:disc">Used to return the color of the button with applied effects</li></ul></div><div id="118090a0-7587-4329-aabc-7c534ed5af86" style="width:50%" class="column"><ul id="0377a10a-64de-47c9-9167-ca42a0e0b98b" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="f71650e4-6cad-412a-a9b0-2cc2d4a478f1" class="code"><code>buttonColor: 0xff0000DC,</code></pre></div></div></div></p></details></li></ul><hr id="8ef941b6-1171-43a5-b4ab-8bbae69864e8"/><ul id="a790a5bc-7ad8-4709-8ff9-6e3bee56e9e1" class="toggle"><li><details open=""><summary><code>buttonName</code></summary><p id="b30f0969-fa4e-497c-8080-65050be0a94f" class=""><div class="indented"><div id="1a2c4df7-1efb-4665-bc09-76ae227686a1" class="column-list"><div id="c62ca501-8637-4546-b634-0ffbb32071e0" style="width:50%" class="column"><ul id="f4846163-ea12-4fd1-a6e7-39375b275bc2" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>String</code></li></ul><ul id="958e7112-ea22-4011-9531-6f66c879087a" class="bulleted-list"><li style="list-style-type:disc">Used to display the button name for some buttonTypes</li></ul></div><div id="6c704b37-3a40-4afc-bdf9-c1691558e674" style="width:50%" class="column"><ul id="15877aae-1409-42a4-bbd0-1b8048d529bb" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="8fbc053e-92d3-43db-b375-b234316c42a6" class="code"><code>buttonName: &quot;New Project&quot;</code></pre></div></div></div></p></details></li></ul><hr id="f3799c59-2ded-486b-8472-56963ca2199a"/><p id="a279cb04-4733-4ca1-8e1c-5269be86801e" class="">
+</p><h2 id="e0f616df-0d72-4122-9e9f-80ece2431839" class="">Cards</h2><ul id="63718bcf-2cbc-4370-8e63-9ecb42732cf4" class="bulleted-list"><li style="list-style-type:disc">Generates <code>GBloxCards</code> used in various pages.</li></ul><figure id="34d8ad08-91b7-4afe-ad0d-d499ee8eee05" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%206.png"><img style="width:144px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%206.png"/></a></figure><p id="ec75fb8b-c9d4-4767-a7d6-e0bc44549589" class="">Use case Example</p><pre id="625abf53-1472-4b50-a72a-c2bb92c1d1a5" class="code"><code>GBloxCards(
+	svg: svgs.playMode,
+	text: &quot;mode_select_page&quot;,
+	textBackgroundColor: Colors.blue,
+	pressed: () {
+		Navigator.push(
+			context,
+			MaterialPageRoute(
+				builder: (context) =&gt;ModeSelector()),
+		);
+	})</code></pre><h3 id="e4ed5789-ce4f-4355-aec5-7ca59ba45a05" class="">Arguments:</h3><hr id="1efe1e59-a9ed-4ea4-9528-b2b1c1fd9a1f"/><ul id="12b9c5eb-656e-4159-808c-8a3e575f41eb" class="toggle"><li><details open=""><summary><code>svg</code> - <strong>required</strong></summary><p id="69c0e6b3-ff18-4e3a-a1a4-e6e8a92cf22e" class=""><div class="indented"><div id="c7e0a412-f7c2-4989-a6d9-288255017c33" class="column-list"><div id="091fa366-764a-4868-b8f8-ef0619139c9a" style="width:50%" class="column"><ul id="c9f8d6c6-cba6-4cda-b7c4-61504bbb1b8b" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>String</code> svg.</li></ul><ul id="dd921f72-850c-4437-b222-fb293c806cc7" class="bulleted-list"><li style="list-style-type:disc">Displays svg on the card.</li></ul></div><div id="9ab1fdb1-e2ab-4672-80f4-81b7e2aede6e" style="width:50%" class="column"><ul id="8f068b9d-d779-4ae8-8b23-5e4ab0e7db19" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="c97532a2-4dba-4ec3-8924-48d333f2c072" class="code"><code>svg: &quot;&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;294.225&quot; height=&quot;294.225&quot; viewBox=&quot;0 0 294.225 294.225&quot;&gt;
+  &lt;g id=&quot;Group_785&quot; data-name=&quot;Group 785&quot; transform=&quot;translate(0 0)&quot;&gt;
+    &lt;path id=&quot;Path_1363&quot; data-name=&quot;Path 1363&quot; d=&quot;M276.762,96.673A48.384,48.384,0,0,1,230.851,63.5H88.571A48.351,48.351,0,0,1,0,71.083H42.661V25.59H0a48.362,48.362,0,0,1,88.57,7.582H230.852a48.351,48.351,0,0,1,88.571-7.582H276.762V71.083h42.661a48.263,48.263,0,0,1-42.661,25.59Z&quot; transform=&quot;translate(294.224 68.358) rotate(135)&quot; fill=&quot;#e9e9ff&quot;/&gt;
+    &lt;path id=&quot;Path_1362&quot; data-name=&quot;Path 1362&quot; d=&quot;M276.762,48.337H42.661V25.59H0a48.362,48.362,0,0,1,88.57,7.582H230.852a48.351,48.351,0,0,1,88.571-7.582H276.762V48.336Z&quot; transform=&quot;translate(294.224 68.358) rotate(135)&quot; fill=&quot;#cecee3&quot;/&gt;
+    &lt;path id=&quot;Path_1366&quot; data-name=&quot;Path 1366&quot; d=&quot;M0,42.649V14.458L64.02,0,91.1,13.269H309.622V45.493H88.282l-23.427,12.7Z&quot; transform=&quot;translate(53.173 5.811) rotate(45)&quot; fill=&quot;#e9e9ff&quot;/&gt;
+    &lt;path id=&quot;Path_1367&quot; data-name=&quot;Path 1367&quot; d=&quot;M26.538,0h89.091a26.538,26.538,0,0,1,26.538,26.538V43.6a26.538,26.538,0,0,1-26.538,26.538H26.538A26.538,26.538,0,0,1,0,43.6V26.538A26.538,26.538,0,0,1,26.538,0Z&quot; transform=&quot;translate(193.697 138.293) rotate(45)&quot; fill=&quot;#979797&quot;/&gt;
+    &lt;path id=&quot;Path_1365&quot; data-name=&quot;Path 1365&quot; d=&quot;M64.855,28.809h0L0,13.268V0H309.622V16.111H88.282l-23.427,12.7Z&quot; transform=&quot;translate(32.397 26.586) rotate(45)&quot; fill=&quot;#cecee3&quot;/&gt;
+    &lt;path id=&quot;Path_1368&quot; data-name=&quot;Path 1368&quot; d=&quot;M115.629,35.068H26.539A26.456,26.456,0,0,1,7.773,27.295,26.455,26.455,0,0,1,0,8.53V0H142.167V8.53a26.568,26.568,0,0,1-16.208,24.452A26.371,26.371,0,0,1,115.629,35.068Z&quot; transform=&quot;translate(168.901 163.09) rotate(45)&quot; fill=&quot;gray&quot;/&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;&quot;</code></pre></div></div></div></p></details></li></ul><hr id="a132b95e-21a1-4dc4-9cc0-47649ba74465"/><ul id="51301696-49c5-4faf-942d-5ea46142cfde" class="toggle"><li><details open=""><summary><code>pressed</code> - <strong>required</strong></summary><p id="5a5394d0-caa2-4dca-aeeb-dca610cc1490" class=""><div class="indented"><div id="5d7fd6e4-fe8c-4a55-805f-07eebd2218ee" class="column-list"><div id="748cb895-7c11-4b00-a080-48cf3c185b9d" style="width:50%" class="column"><ul id="66e50731-3cc1-4868-9af6-74ad6766148f" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Function</code></li></ul><ul id="ac248443-f51c-46f8-8241-d90258b26979" class="bulleted-list"><li style="list-style-type:disc">Runs function when card is tapped/pressed</li></ul></div><div id="c4dee155-fc08-4c0a-9304-272aa3ed97ce" style="width:50%" class="column"><ul id="c582f27e-77c5-472d-820f-c66271a6bd1f" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="76c46bbf-04eb-43fb-b1d0-12169dba37ce" class="code"><code>pressed: (){
+	print(&quot;This button has been pressed&quot;);
+},</code></pre></div></div></div></p></details></li></ul><hr id="68efe2a0-163f-413c-b904-7c67cdd62357"/><ul id="249bde93-53a0-40c3-b359-db6c84524679" class="toggle"><li><details open=""><summary><code>compressSVG</code></summary><p id="48cad3ba-c97c-41e9-8234-fe36142a630c" class=""><div class="indented"><div id="68b0ec7b-1791-45da-bd0f-cc03389aecb4" class="column-list"><div id="98fb35c9-f974-429b-bb7c-94c5e7afcc51" style="width:50%" class="column"><ul id="75bffff2-85f1-4161-a8d4-2924da722d2a" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>bool</code></li></ul><ul id="435b5334-a530-42e4-be1c-3ab183898943" class="bulleted-list"><li style="list-style-type:disc">Used to determine if the <code>svg</code> is compressed into the space or not.</li></ul></div><div id="c17b57a2-a48d-4a37-a5a9-01c6969821a9" style="width:50%" class="column"><ul id="587d71e7-621a-4058-82ab-3464c10d92ef" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="4bd33fc4-32b9-4bf2-aad5-fa715ea7e579" class="code"><code>compressSVG: true,</code></pre></div></div></div></p></details></li></ul><hr id="4c99805e-eca0-490f-a323-0f296d3eff90"/><ul id="f2e16ae6-6ce5-4b6a-8bbd-f245b3f281fa" class="toggle"><li><details open=""><summary><code>textBackgroundColor</code>- <strong>required</strong></summary><p id="a8d4371a-0699-4ec9-8578-f797a74dc705" class=""><div class="indented"><div id="c45b1030-87c7-4d67-9ab1-a470655086c9" class="column-list"><div id="57240efb-e9b0-4e56-baa3-482e263acbd3" style="width:50%" class="column"><ul id="391eff0c-e462-4298-88f7-f426e2b239fc" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Color</code></li></ul><ul id="8b6d1b6e-bc64-4b81-85ad-a8d33af6fe55" class="bulleted-list"><li style="list-style-type:disc">Fills the text background of the card with the color</li></ul></div><div id="2249f7a8-28c8-4e37-8986-b9cd2ebe7fe8" style="width:50%" class="column"><ul id="e31d27b6-b16e-4a31-94b9-813f08a379a7" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="536c187e-b61e-458e-a271-69359072815c" class="code"><code>textBackgroundColor:Color(0xff0000DC),</code></pre></div></div></div></p></details></li></ul><hr id="f4fa4b6b-1469-42cf-81ca-f7992c357f4f"/><ul id="3af977eb-31ed-4269-b544-9eb7a67bd21f" class="toggle"><li><details open=""><summary><code>backgroundColor</code> - <strong>required</strong></summary><p id="3c15dd81-06f6-491f-8a93-cd22b2ca8ace" class=""><div class="indented"><div id="88830903-71c9-410b-a5a4-6477b6197ff5" class="column-list"><div id="36b2c0e0-6760-4520-81fb-835b032da7e6" style="width:50%" class="column"><ul id="95c1dcf4-befe-49c4-8d9d-fa815d44cb0f" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Color</code></li></ul><ul id="bd50ad7c-c8e1-4e59-98e2-ac4e55ad1a22" class="bulleted-list"><li style="list-style-type:disc">Fills the card with the color</li></ul></div><div id="f20d765f-6d83-45e9-8ec7-8300da6e8d6d" style="width:50%" class="column"><ul id="3a16628d-1dca-4211-b997-4a27c870b28f" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="9baf6d1e-a9d6-42af-bedb-a6535f31008f" class="code"><code>backgroundColor:Color(0xff0000DC),</code></pre></div></div></div></p></details></li></ul><hr id="44c86eef-8f04-48a0-90c0-650e0ce4077f"/><ul id="19a60c5e-8e97-4184-ab7e-0c018e279476" class="toggle"><li><details open=""><summary><code>text</code></summary><p id="79d4ee21-e3fb-426f-9d5e-f0b2a4d3cb2e" class=""><div class="indented"><div id="8bed66ff-2305-4e6a-bc5c-797e03d2db68" class="column-list"><div id="e72a46e7-81d0-46da-b344-e7264a46bf75" style="width:50%" class="column"><ul id="cac1d67a-18e9-4825-b2b7-2f37904c9d73" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>String</code></li></ul><ul id="2489d25f-8341-49a6-9fa7-1baf0d010375" class="bulleted-list"><li style="list-style-type:disc">Used to display the Card name</li></ul></div><div id="d9c37d1e-8390-47f5-9333-d3f8c871b568" style="width:50%" class="column"><ul id="f49c4c7b-8c47-449c-af5e-204ba8355e54" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="262aa77a-cf04-4c4b-945c-39682b0d9369" class="code"><code>text: &quot;Build&quot;</code></pre></div></div></div></p></details></li></ul><hr id="b7cc9262-2b92-4e5c-8859-e3079667e944"/><p id="01791ebf-eff9-4a20-b511-47f13ff2bc5f" class="">
+</p><h2 id="bf43a661-98b7-43c7-bba7-36560bdcc170" class="">Selector</h2><ul id="cb002352-d3ad-4b74-a597-3df3dcc3239a" class="bulleted-list"><li style="list-style-type:disc">Generates <code>SelectorButtons</code> used in various pages.</li></ul><figure id="5b3f35c9-8452-4c8f-b7c5-f087a1c514e7" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%207.png"><img style="width:288px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%207.png"/></a></figure><p id="9f7b0c45-ec1a-433e-a28b-415c9c07aeee" class="">Use case Example</p><pre id="ef73d57d-0a69-42f9-8694-69e98ee85253" class="code"><code>SelectorButtons(
+	activeColor: 0xff0000DC,
+	initialIndex: index,
+	buttons: [&quot;GBlox&quot;, &quot;Phone&quot;],
+	functionList: [
+		() {},
+		() {
+			getInteralDir();
+			}
+	],
+)),</code></pre><h3 id="c1aee4c7-a6a6-4bcb-86ed-9ad3243a750e" class="">Arguments:</h3><hr id="9ee988a1-97c5-451d-b02a-67c8a5b39207"/><ul id="a060ed2f-849a-42ef-a06e-464185595089" class="toggle"><li><details open=""><summary><code>buttons</code> - <strong>required</strong></summary><p id="4a40876e-3ba0-449a-b57f-a5edfb16ed4c" class=""><div class="indented"><div id="d68a1e9e-1572-4f93-ac54-8655a235472c" class="column-list"><div id="14bf2711-3dbc-44b5-8df4-0eedf352bb68" style="width:50%" class="column"><ul id="8e712c8a-e305-43f5-b8fe-1f171ca58c69" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>List&lt;String&gt;</code>.</li></ul><ul id="7f4921d0-cca2-47a7-b2e2-5cf84ed11e81" class="bulleted-list"><li style="list-style-type:disc">Names for buttons generated</li></ul></div><div id="b50104ca-9275-4c4d-8c4a-898eb4c517f3" style="width:50%" class="column"><ul id="e46123b1-2283-41ad-a5b0-2b1a76b9d75a" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="069bdc8a-bae0-46da-a47a-8923a193d667" class="code"><code>buttons: [
+	&quot;Recent&quot;,
+	&quot;Help&quot;
+],</code></pre></div></div></div></p></details></li></ul><hr id="f1d49c51-77b1-4e82-83ff-fc5165524bd5"/><ul id="6f550f22-90f6-4c56-929d-cba99d600873" class="toggle"><li><details open=""><summary><code>functionList</code> - <strong>required</strong></summary><p id="b8c258f0-26b9-43c8-abc3-b145ca37e8dc" class=""><div class="indented"><div id="215ec3e5-ca17-42fd-8f61-ae2195b2712d" class="column-list"><div id="3c41f157-9a43-4e6b-a58a-b0609cc7694f" style="width:50%" class="column"><ul id="2d6485d1-3f0f-4bcf-b52c-895fa4956711" class="bulleted-list"><li style="list-style-type:disc">Accepts a List of functions corresponding to each button</li></ul><ul id="7751d9f5-ef7c-47b3-91c5-c768f417e122" class="bulleted-list"><li style="list-style-type:disc">Runs function based on the list</li></ul></div><div id="da0ed95b-6b84-44a0-b43b-dbf651aa65f7" style="width:50%" class="column"><ul id="1e8e545f-9cc7-484a-b640-7e98c5f33597" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="d778c494-dc39-4979-aad5-3d3b8fada55f" class="code"><code>functionList: [
+	(){
+	print(&quot;This button has been pressed&quot;);
+	}, 
+	(){
+	}],</code></pre></div></div></div></p></details></li></ul><hr id="f1733071-2844-48b6-ad87-abe61c022ed1"/><ul id="3f7742f7-2855-43ca-912d-15724b3759f0" class="toggle"><li><details open=""><summary><code>buttonType</code></summary><p id="b31482ec-7b9a-4254-9dcb-d456006e3279" class=""><div class="indented"><div id="75ca3dd3-726e-449e-a036-126525acf7fe" class="column-list"><div id="c46e7ef9-4091-40e3-9ebe-20bf3f0dee45" style="width:50%" class="column"><ul id="a12bf2e6-df00-4e6c-9c58-f349b641bccb" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>String</code></li></ul><ul id="8b4fb383-d098-4dbb-9de4-26ed74031c67" class="bulleted-list"><li style="list-style-type:disc">Generates the buttons based on <span style="border-bottom:0.05em solid"><strong>Button</strong></span> <code>buttonTypes</code></li></ul></div><div id="c56bf53e-58b0-4da9-84b1-5fbef71095b9" style="width:50%" class="column"><ul id="b8d79375-957e-4c8e-b1bf-f9f932d9ed05" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="421cccc6-255b-4c96-a8e1-77fae551fea5" class="code"><code>buttonType: &quot;projectButtons&quot;,</code></pre></div></div></div></p></details></li></ul><hr id="c6cd0ce0-2725-4338-818a-4a064501195f"/><ul id="091b4f62-b202-4440-8158-9c6d4fc6ac8b" class="toggle"><li><details open=""><summary><code>activeColor</code></summary><p id="80829af8-056a-4935-bae6-3437c30e6a08" class=""><div class="indented"><div id="1a38cf0a-33f7-4532-9a9f-d69b556fa8e4" class="column-list"><div id="cea49e0c-28da-452c-941e-09107d54efdc" style="width:50%" class="column"><ul id="1110e3af-5ec4-4a8a-b7bd-a376aebb70e4" class="bulleted-list"><li style="list-style-type:disc">Accepts an <code>integer</code></li></ul><ul id="4327e7e8-26d5-41d5-bc65-66d249baede5" class="bulleted-list"><li style="list-style-type:disc">Generates <code>Color</code> used for highlighted button</li></ul></div><div id="35b632d9-c0a0-4879-bc99-f6819d09ad43" style="width:50%" class="column"><ul id="9f592c0d-ad00-4ced-a2b5-55635e06110e" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="54c60e9d-7c59-4d61-9de7-e8bfa3480f14" class="code"><code>activeColor: 0xff0000DC,</code></pre></div></div></div></p></details></li></ul><hr id="34f2f182-6057-42eb-9cde-70fc43dfaa80"/><ul id="84b85b8a-7977-4212-8fd8-f9bfdfa6d4fd" class="toggle"><li><details open=""><summary><code>initialIndex</code> </summary><p id="01c2d975-2c47-45f0-adb8-8959d1f6619a" class=""><div class="indented"><div id="5d4ff142-3bbf-410b-a11c-533526c158ab" class="column-list"><div id="77a72285-00f8-4da5-a9a2-4dd244bdbfe4" style="width:50%" class="column"><ul id="3026857d-a945-4cd9-9949-dd15f562b5e2" class="bulleted-list"><li style="list-style-type:disc">Accepts an integer</li></ul><ul id="b338ea4b-11cb-4018-8f8a-58449fa6c6ed" class="bulleted-list"><li style="list-style-type:disc">Selects the initial selected button</li></ul></div><div id="0c9a9056-86c0-40f4-834b-75d3a91d61db" style="width:50%" class="column"><ul id="07ad53ac-9f67-4804-bca3-e01be16dc797" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="7a51cfcc-d4dd-4254-b4c6-4a8d31141246" class="code"><code>initialIndex: 1,</code></pre></div></div></div></p></details></li></ul><hr id="d0d1a1f2-e11e-49a8-a7a3-6f216384b708"/><h2 id="aef5b429-4da6-4b9d-a5e2-619ee398a24a" class="">Switch</h2><ul id="abc4b92a-b124-4e9a-9fd0-465d9a9ce4b7" class="bulleted-list"><li style="list-style-type:disc">Generates <code>GBloxSwitch</code> used in various pages.</li></ul><figure id="98fe6bd9-d10d-48c4-94d6-5f4ac1e830c4" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%208.png"><img style="width:240px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%208.png"/></a></figure><p id="be60b59e-81af-4ba0-a4b6-5fd2d32e4bf3" class="">Use case Example</p><pre id="73481770-98c1-4478-ab69-5968c02740c5" class="code"><code>GBloxSwitch(
+	icons: const [
+	  GBloxCustomSVGs.followLight,
+	  GBloxCustomSVGs.avoidLight
+  ],
+  switchedFunctions: [
+	  () {
+			    setState(() {
+	          stateWidget = trueState;
+	        });
+        },
+    () {
+          setState(() {
+			      stateWidget = falseState;
+          });
+       }
+  ],
+)</code></pre><h3 id="f83ab140-3621-4ad8-80a0-1b8d67f47f6a" class="">Arguments:</h3><hr id="bc93f104-a098-49ad-8db6-f6ea2e0826f5"/><ul id="8f91eff4-96c1-4cd9-925b-0d7fbabcc835" class="toggle"><li><details open=""><summary><code>icons</code> - <strong>required</strong></summary><p id="41957051-1cb2-44c9-8cd3-4c76dfe15db3" class=""><div class="indented"><div id="e2cec0a4-1545-4f59-8cdf-807151dd2e22" class="column-list"><div id="b242fdcd-522e-4a25-9698-a0aea3a5d08d" style="width:50%" class="column"><ul id="0f863368-c63e-4e41-8210-951436eb081f" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>List&lt;IconData&gt;</code>.</li></ul><ul id="58533e69-798c-43ba-8033-9a539f6c8e17" class="bulleted-list"><li style="list-style-type:disc">Icons used for the two buttons</li></ul></div><div id="efb36aa1-422c-45ab-8380-fa59391c1716" style="width:50%" class="column"><ul id="922ca4fb-2127-4083-98c2-b70a8b7d8db3" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="f06f9846-70b7-48fa-8ea4-6fb69d202639" class="code"><code>icons: const [
+	  Icons.home,
+	  Icons.adb
+  ],</code></pre></div></div></div></p></details></li></ul><hr id="615b6c87-7c3a-41b9-8852-57eba29f195d"/><ul id="a2f81306-f7b7-4344-9ad2-8d72570d07b0" class="toggle"><li><details open=""><summary><code>switchedFunctions</code> - <strong>required</strong></summary><p id="bc39c177-2488-4a21-97ac-07793d3b3748" class=""><div class="indented"><div id="52419a59-7fed-4d26-b3b6-b913fa3166c5" class="column-list"><div id="35309ae7-6e38-4bf4-91a2-720300c0fab4" style="width:50%" class="column"><ul id="73783a3a-7b9b-4fc7-8002-65d6242a5c0d" class="bulleted-list"><li style="list-style-type:disc">Accepts a List of functions corresponding to each button</li></ul><ul id="75516005-ff57-4833-81fe-8076ac503bac" class="bulleted-list"><li style="list-style-type:disc">Runs function based on the list</li></ul></div><div id="6faa4cfd-9869-4269-9645-fad1aa4553e7" style="width:50%" class="column"><ul id="770fad2c-1c7b-4fad-b291-792f726967a9" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="289ed3ad-959d-414d-8a72-095b6e04cdec" class="code"><code>functionList: [
+	(){
+	print(&quot;This button has been pressed&quot;);
+	}, 
+	(){
+	}
+],</code></pre></div></div></div></p></details></li></ul><hr id="8e69d8ca-95be-4a0f-ae34-66ec5ba88d52"/><h2 id="1bc2ba77-e793-4d42-946f-89633158c13c" class="">Toolbox Buttons</h2><ul id="d4477c05-a1ac-4bbc-a85f-4d0e5437a9a8" class="bulleted-list"><li style="list-style-type:disc">Generates <code>ToolboxCategoryButtons</code> used in various pages.</li></ul><figure id="69f0b0c5-e553-4e41-8076-24b4853e19b3" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%209.png"><img style="width:249px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%209.png"/></a></figure><figure id="e9839a86-72de-40c0-bd9b-1652376d989f" class="image"><a href="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%2010.png"><img style="width:240px" src="Modular%20Widgets%2072c25ed16f334935a10e40f350c66396/Untitled%2010.png"/></a></figure><p id="0724cd9f-ce71-4593-a6d9-686376e8ee57" class="">Use case Example</p><pre id="5efce28e-32cb-4ba8-805b-7e2e44268930" class="code"><code>ToolboxCategoryButtons(
+	color: Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+		.withOpacity(1.0),
+  name: &quot;Loop&quot;,
+	categoryChildren: children,
+	category: false,
+	pressed: () {
+		controller!.evaluateJavascript(source: &#x27;&#x27;&#x27;
+		document.getElementById(&quot;${blockly-a}&quot;).click();
+		&#x27;&#x27;&#x27;);
+	})</code></pre><h3 id="b13671f6-63a8-448c-8362-f5e28cbde080" class="">Arguments:</h3><hr id="74ad7a0b-38e0-4354-bcc8-6296f6f677d1"/><ul id="6ac5ce0b-6398-4c6e-9a2c-47997d2ef2f9" class="toggle"><li><details open=""><summary>name - <strong>required</strong></summary><p id="6201294e-99cc-422a-847c-db8869d66ca1" class=""><div class="indented"><div id="b2f28be1-2413-4a3d-b6d9-050b2cad4867" class="column-list"><div id="a67d10ab-03ad-45db-b7e2-5ac686b52185" style="width:50%" class="column"><ul id="d8965477-6346-4e06-bb7f-c02987c89174" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>String</code>.</li></ul><ul id="44aad49a-2734-4d55-bf8d-d9e0cf303da2" class="bulleted-list"><li style="list-style-type:disc">Name of toolbox button generated</li></ul></div><div id="d5103ffe-857b-4e32-aadf-b221c0af5533" style="width:50%" class="column"><ul id="40afcc36-107a-4912-9941-7e1c79150413" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="c17fdfe0-5e51-4f58-812f-c0e7fe8859fd" class="code"><code>name: &quot;Logic&quot;,</code></pre></div></div></div></p></details></li></ul><hr id="04e0e365-c653-4071-a720-09ad843dbacc"/><ul id="043bf7e0-fefb-4334-a3d2-6a06199c489f" class="toggle"><li><details open=""><summary>color - <strong>required</strong></summary><p id="cdceafef-f6a3-44ae-9bac-46bb3364ac2a" class=""><div class="indented"><div id="b569fe9b-cf89-4158-95ee-453501347dd7" class="column-list"><div id="b3f66f3b-971f-4397-b4de-f737ccd95367" style="width:50%" class="column"><ul id="0f608653-ebdd-4af4-8135-80cbdb26255c" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Color</code></li></ul><ul id="a4592ef8-57e4-46c4-81f3-7d7b4573be51" class="bulleted-list"><li style="list-style-type:disc">Assigns that Color to the toolbox</li></ul></div><div id="ffead861-3db5-4a4e-b649-3ccecd4d004a" style="width:50%" class="column"><ul id="3e325c33-57ed-44c6-87ee-a6278e2f60d9" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="31ffa916-5d0e-48fa-85a3-6bac5863756c" class="code"><code>color: Colors.red,</code></pre></div></div></div></p></details></li></ul><hr id="0557e903-154e-44bc-afd1-872dab07f8a7"/><ul id="4a0a2fe7-8e19-4cfa-935c-fe6d70393da9" class="toggle"><li><details open=""><summary>pressed - <strong>required</strong></summary><p id="06d7c2f8-0221-4ed2-8471-34a118149f5e" class=""><div class="indented"><div id="fe52b38d-6e41-4b4c-bdfa-c445eb8cd7da" class="column-list"><div id="0ea60e72-e58c-459d-8720-b4e28d52c866" style="width:50%" class="column"><ul id="dd46d2a8-c527-4dff-9d66-e58662f42835" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>Function</code></li></ul><ul id="06fa4bad-740f-470d-9414-3f59f4a644f5" class="bulleted-list"><li style="list-style-type:disc">Runs function when button is tapped/pressed</li></ul></div><div id="300be7fe-6462-44cc-adfd-1efeede2ecdc" style="width:50%" class="column"><ul id="94462aad-1d4b-408e-bd54-5a54b1ba870c" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="e76f83cf-a14c-410e-80b0-b66b78627508" class="code"><code>pressed: (){
+	print(&quot;Loops button pressed&quot;);
+},</code></pre></div></div></div></p></details></li></ul><hr id="c653b290-8fa6-45b5-8955-ede88f5691a3"/><ul id="e7820eaf-25e3-465a-bf0e-8c60f1ce1a88" class="toggle"><li><details open=""><summary>category - <strong>required</strong></summary><p id="f0d2638e-1a9e-473e-b5c5-99bb31aadea1" class=""><div class="indented"><div id="dcd94ea2-7aec-4b4f-89ec-492d60ac274c" class="column-list"><div id="d7140103-6aaf-4c50-91ca-8cc197edb7c2" style="width:50%" class="column"><ul id="9996fe05-1281-4309-b1c7-8e07cc208e38" class="bulleted-list"><li style="list-style-type:disc">Accepts an <code>bool</code></li></ul><ul id="78e2771c-9582-46eb-ba76-0d4d6ac294da" class="bulleted-list"><li style="list-style-type:disc">Used to determine if the toolbox is a category button</li></ul></div><div id="050f6a4a-e56a-4316-8962-1bcc1935efd0" style="width:50%" class="column"><ul id="27803b2c-a959-4aaf-8994-851287ba8b7e" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="b1a108d4-8939-422e-844b-2c7672a10268" class="code"><code>category: true,</code></pre></div></div></div></p></details></li></ul><hr id="e5977242-0f0d-48ab-a547-d28cb3147163"/><ul id="565ed4fd-aa16-4b72-b87b-d9c2ef27a940" class="toggle"><li><details open=""><summary>categoryChildren - <strong>required</strong></summary><p id="0cdc864c-c448-4f61-8dad-adc9d25a4d7d" class=""><div class="indented"><div id="2d3c06e2-fb29-4932-a135-3eff402fd784" class="column-list"><div id="7745e2f9-ba3c-4e0f-ba9d-5456173bda25" style="width:50%" class="column"><ul id="5778be9e-6961-4ed9-8709-be0a3b1f6504" class="bulleted-list"><li style="list-style-type:disc">Accepts a <code>List&lt;ToolboxClass&gt;</code></li></ul><ul id="f59b10cc-9f5c-4270-bef0-79196c4bb063" class="bulleted-list"><li style="list-style-type:disc">Used to generate toolbox buttons under category</li></ul></div><div id="7f663b9b-89fa-44d9-9067-6f195cdb99f9" style="width:50%" class="column"><ul id="b95d0500-708c-49d8-8c5d-4afc3185d04c" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="ef1e5e17-e5a5-44a0-925a-5268b9ea2b67" class="code"><code>categoryChildren: [global.ToolboxClass(&quot;Motor&quot;, false, 5, &quot;blockly-f&quot;)],</code></pre></div></div></div></p></details></li></ul><hr id="f68debc8-4cc5-42c1-92f6-0cd944784b71"/><ul id="6d2a7b08-ab05-4c7d-8a5c-378de1c078a9" class="toggle"><li><details open=""><summary>toolboxIcon</summary><p id="4509ee38-e76f-4b14-b611-9311a1d5bb8a" class=""><div class="indented"><div id="7bfb2881-768e-4126-af9d-a825b2b3922b" class="column-list"><div id="6a4af1ea-0877-4dad-90d6-02f95d4ee837" style="width:50%" class="column"><ul id="26ec060b-8465-476a-8f2d-2728864754b2" class="bulleted-list"><li style="list-style-type:disc">Accepts an <code>Icon</code></li></ul><ul id="7b45aa8e-1eb8-47dd-ac07-32366aae8130" class="bulleted-list"><li style="list-style-type:disc">Adds an Icon to the toolbox button</li></ul></div><div id="715eecd2-3bcb-4de0-aafb-dd0a8d7207d2" style="width:50%" class="column"><ul id="50d803e1-1e73-4ddb-8b67-a5e76b1528d1" class="bulleted-list"><li style="list-style-type:disc">e.g</li></ul><pre id="ece2ee5f-7970-44d2-8248-8973631f52de" class="code"><code>toolboxIcon: Icons.home,</code></pre></div></div></div></p></details></li></ul></div></p></div></article></body></html>

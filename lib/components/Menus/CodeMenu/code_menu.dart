@@ -50,9 +50,9 @@ class _CodeMenuState extends State<CodeMenu> {
       theme: Theme.of(global.navigatorKey.currentContext!),
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Home',
-                  style: TextStyle(fontSize: global.device_size.height * 0.04))
-              .tr(),
+          title:
+              Text('Home', style: TextStyle(fontSize: global.deviceText.title))
+                  .tr(),
           centerTitle: true,
           leading: IconButton(
               onPressed: () {

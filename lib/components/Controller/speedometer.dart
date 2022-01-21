@@ -19,11 +19,10 @@ class _SpeedometerState extends State<Speedometer> {
   late Widget meter;
   late List<int> enabledBars = [];
   final GlobalKey _speedometerKey = GlobalKey();
-  Size bar_size = Size(11.6, 65);
+  Size bar_size = const Size(11.6, 65);
   _SpeedometerState();
   void initState() {
     super.initState();
-    displayToast(widget.speed!.value.toInt().toString());
   }
 
   void updateValue() {
@@ -47,12 +46,11 @@ class _SpeedometerState extends State<Speedometer> {
                   final RenderBox renderBox = _speedometerKey.currentContext
                       ?.findRenderObject() as RenderBox;
                   final Size size = renderBox.size;
-                  print(size);
                   bar_size = Size(size.width * 0.08, size.height * 0.5);
                 } catch (e) {}
                 return Container(
                     height: bar_size.height * 1.8,
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                     margin: EdgeInsets.fromLTRB(bar_size.width * 0.9,
                         bar_size.height * 0.3, 0, bar_size.height * 0.3),
                     child: Row(
@@ -81,16 +79,10 @@ class _SpeedometerState extends State<Speedometer> {
               )),
           Container(
               child: CustomPaint(
-            painter: ForwardPainter(),
+            painter: ShapePainter(),
             child: Container(width: global.device_size.width * 0.3),
           ))
         ])));
-  }
-
-  void displayToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-    );
   }
 }
 
@@ -185,7 +177,7 @@ class BackgroundPainter extends CustomPainter {
     paint_0_stroke.color = Theme.of(global.navigatorKey.currentContext!)
         .colorScheme
         .primary
-        .withOpacity(1.0);
+        .withOpacity(0.0);
     canvas.drawPath(path_0, paint_0_stroke);
 
     Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
@@ -202,7 +194,7 @@ class BackgroundPainter extends CustomPainter {
   }
 }
 
-class ForwardPainter extends CustomPainter {
+class ShapePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path path_0 = Path();
@@ -853,10 +845,7 @@ class ForwardPainter extends CustomPainter {
     path_2.close();
 
     Paint paint_2_fill = Paint()..style = PaintingStyle.fill;
-    paint_2_fill.color = Theme.of(global.navigatorKey.currentContext!)
-        .colorScheme
-        .secondary
-        .withOpacity(1.0);
+    paint_2_fill.color = Colors.white;
     canvas.drawPath(path_2, paint_2_fill);
   }
 

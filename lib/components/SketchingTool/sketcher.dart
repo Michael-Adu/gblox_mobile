@@ -29,7 +29,9 @@ class _SketcherState extends State<SketcherWidget> {
         theme: Theme.of(global.navigatorKey.currentContext!),
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('draw_and_follow_drawer').tr(),
+            title: Text('draw_and_follow_drawer',
+                    style: TextStyle(fontSize: global.deviceText.title))
+                .tr(),
             centerTitle: true,
             leading: IconButton(
                 onPressed: () {

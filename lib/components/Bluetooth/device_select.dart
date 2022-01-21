@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'bluetooth_card.dart';
+import 'connection_in_progress.dart';
 import '../global_variables.dart' as global;
 
 class DiscoveryPage extends StatefulWidget {
@@ -630,8 +631,7 @@ class _DiscoveryPage extends State<DiscoveryPage> {
                       isDiscovering
                           ? Text("discovering_devices",
                                   style: TextStyle(
-                                      fontSize:
-                                          global.device_size.height * 0.04))
+                                      fontSize: global.deviceText.title))
                               .tr()
                           : Text("discovered_devices",
                                   style: TextStyle(

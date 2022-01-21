@@ -83,8 +83,7 @@ class _ModeSelector extends State<ModeSelector> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("mode_select_page",
-                      style:
-                          TextStyle(fontSize: global.device_size.height * 0.04))
+                      style: TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               backgroundColor: Colors.transparent,
               centerTitle: true,

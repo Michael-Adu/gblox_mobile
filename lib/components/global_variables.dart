@@ -24,9 +24,17 @@ Size device_size = MediaQuery.of(navigatorKey.currentContext!).size;
 double device_status_bar_height =
     MediaQuery.of(navigatorKey.currentContext!).padding.top;
 double cardSize = device_size.width * 0.4;
+TextSize deviceText =
+    TextSize(device_size.width * 0.0225, device_size.width * 0.02);
 
 void updateDeviceSize() {
   device_size = MediaQuery.of(navigatorKey.currentContext!).size;
+}
+
+class TextSize {
+  double title;
+  double normal;
+  TextSize(this.title, this.normal);
 }
 
 class ToolboxClass {
@@ -70,7 +78,7 @@ class ShapeData {
 ThemeData darkTheme = ThemeData(
     primaryColor: const Color(0xff060841),
     colorScheme: const ColorScheme(
-        primary: Color(0xff0B0533),
+        primary: Color(0xff060841),
         primaryVariant: Color(0xff060841),
         secondary: Color(0xff0000DC),
         secondaryVariant: Color(0xff0000DC),
@@ -91,7 +99,7 @@ ThemeData darkTheme = ThemeData(
             backgroundColor: Colors.transparent,
             fontFamily: "Baloo 2",
             color: Colors.white)),
-    backgroundColor: const Color(0xffDEDEF1),
+    backgroundColor: const Color(0xff060841),
     scaffoldBackgroundColor: const Color(0xff060841),
     drawerTheme: const DrawerThemeData(backgroundColor: Color(0xff060841)),
     cardTheme: const CardTheme(

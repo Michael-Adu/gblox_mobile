@@ -20,8 +20,7 @@ class _GBloxBuildState extends State<GBloxBuild> {
         home: Scaffold(
             appBar: AppBar(
               title: Text("build_mode",
-                      style:
-                          TextStyle(fontSize: global.device_size.height * 0.04))
+                      style: TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
