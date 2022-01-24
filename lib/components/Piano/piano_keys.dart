@@ -11,11 +11,9 @@ class _KeyClass {
   _KeyClass(this.pKey, this.acc, this.empty);
 }
 
-class PianoKeys extends StatefulWidget {
-  @required
-  List<String> keys;
-  @required
-  PianoKeys({
+class Piano extends StatefulWidget {
+  late List<String> keys;
+  Piano({
     Key? key,
     this.keys = const [
       "C4",
@@ -47,13 +45,12 @@ class PianoKeys extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _PianoKeysState createState() => _PianoKeysState();
+  _PianoState createState() => _PianoState();
 }
 
-class _PianoKeysState extends State<PianoKeys> {
-  late List<_KeyClass> note = List<_KeyClass>.empty(growable: true);
-  late List<_KeyClass> accidental = List<_KeyClass>.empty(growable: true);
-  late List<Widget> allKeys = List<Widget>.empty(growable: true);
+class _PianoState extends State<Piano> {
+  late List<_KeyClass> notes = List<_KeyClass>.empty(growable: true);
+  late List<_KeyClass> accidentals = List<_KeyClass>.empty(growable: true);
 
   @override
   void initState() {
@@ -61,20 +58,20 @@ class _PianoKeysState extends State<PianoKeys> {
 
     for (int i = 0; i < widget.keys.length; i++) {
       if (widget.keys[i].contains("#")) {
-        accidental.add(_KeyClass(widget.keys[i], true, false));
+        accidentals.add(_KeyClass(widget.keys[i], true, false));
       } else {
         try {
-          var lastAcc = accidental.last;
+          var lastAcc = accidentals.last;
           //print(widget.keys[i][0]);
           if (widget.keys[i - 1].contains(lastAcc.pKey[0])) {
-            note.add(_KeyClass(widget.keys[i], false, false));
+            notes.add(_KeyClass(widget.keys[i], false, false));
           } else {
-            accidental.add(_KeyClass(widget.keys[i], true, true));
-            note.add(_KeyClass(widget.keys[i], false, false));
+            accidentals.add(_KeyClass(widget.keys[i], true, true));
+            notes.add(_KeyClass(widget.keys[i], false, false));
           }
         } catch (e) {
           //print(accidental);
-          note.add(_KeyClass(widget.keys[i], false, false));
+          notes.add(_KeyClass(widget.keys[i], false, false));
         }
       }
     }
@@ -103,7 +100,7 @@ class _PianoKeysState extends State<PianoKeys> {
               Container(
                   height: global.device_size.height * 0.85,
                   child: Row(
-                    children: note
+                    children: notes
                         .map((e) => PianoKey(
                               accidental: e.acc,
                               pianoKey: e.pKey,
@@ -143,7 +140,7 @@ class _PianoKeysState extends State<PianoKeys> {
                   alignment: Alignment.topCenter,
                   height: global.device_size.height * 0.5,
                   child: Row(
-                      children: accidental
+                      children: accidentals
                           .map((e) => PianoKey(
                                 accidental: e.acc,
                                 pianoKey: e.pKey,
