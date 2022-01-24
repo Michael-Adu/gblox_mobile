@@ -1,7 +1,5 @@
 # gBlox Mobile Documentation
 
-Created: January 14, 2022 10:48 AM
-Last Edited Time: January 24, 2022 2:42 PM
 Created By: Michael Adu, Terry Tettey
 
 # Overview
