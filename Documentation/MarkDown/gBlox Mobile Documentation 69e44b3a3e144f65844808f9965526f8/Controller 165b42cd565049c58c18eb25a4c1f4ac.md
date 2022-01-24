@@ -1,68 +1,32 @@
-import 'dart:convert';
-import 'dart:typed_data';
-import 'dart:math' as math;
-import 'package:flutter/material.dart';
-import 'package:control_pad/control_pad.dart';
-import 'package:easy_localization/easy_localization.dart';
-import '../Modular_Widgets/Button/buttons.dart';
-import '../global_variables.dart' as global;
-import '../svgs/g_blox_custom_s_v_gs_icons.dart';
-import 'speedometer.dart';
+# Controller
 
-double varDegress = 0.0;
-double varDistance = 0.0;
+<aside>
+💡 Used to drive the robot using a controller. Shows speed of the robot and can send instructions to the robot to perform special tasks
 
-class Controller extends StatefulWidget {
-  const Controller({Key? key}) : super(key: key);
-  @override
-  State<StatefulWidget> createState() {
-    return _ControllerState();
-  }
-}
+</aside>
 
-class _ControllerState extends State<Controller> {
-  _ControllerState();
-  var currentSpeed = ValueNotifier<double>(0);
+# Packages Used
 
-  void printval() {
-    print("Test");
-  }
+1. Control Pad
+    
+    [control_pad | Flutter Package](https://pub.dev/packages/control_pad)
+    
+2. Flutter Shape Maker
+    
+    [Flutter Shape Maker - The Only Custom Paint Toolset You'll Ever Need!](https://fluttershapemaker.com/)
+    
 
-  bool _connectedDevice = false;
-  Color _connectedColor = const Color(0xff3E3B73);
+# Modular Widgets Used
 
-  void initState() {
-    super.initState();
-    try {
-      if (global.activeConnection.isConnected) {
-        setState(() {
-          _connectedDevice = true;
-        });
-      }
-    } catch (e) {}
-  }
+1. Speedometer - *`gblox_mobile\lib\components\Controller\speedometer.dart`*
+2. *Button - `gblox_mobile\lib\components\Modular_Widgets\Button`*
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: Theme.of(global.navigatorKey.currentContext!),
-        home: Scaffold(
-            appBar: AppBar(
-                title: Text("controller_drawer",
-                        style: TextStyle(fontSize: global.deviceText.title))
-                    .tr(),
-                centerTitle: true,
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(Icons.arrow_back))),
-            body: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      alignment: Alignment.center,
-                      child: JoystickView(
+![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled.png)
+
+# Control Pad
+
+```dart
+JoystickView(
                         onDirectionChanged:
                             (double degrees, double distanceFromCenter) {
                           varDegress = degrees;
@@ -75,27 +39,104 @@ class _ControllerState extends State<Controller> {
                         innerCircleColor: Colors.white,
                         iconsColor: Colors.white,
                         size: global.device_size.width * 0.27,
-                      )),
-                  Container(
-                      width: global.device_size.width * 0.3,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            ValueListenableBuilder(
+                      )
+```
+
+- Using the Control Pad package, the joystick is generated and returns values for the distance from center and its degrees.
+- The current speed of the device is calculated by multiplying the distance from center by 15. This is assigned to the value of `currentSpeed`, a `ValueNotifier` used to rebuild the Speedometer widget.
+
+<aside>
+⚠️ Attempting to use `setState` in the Joystick resets the initial position of the stick. Use Value Notifiers to mitigate this issue.
+
+</aside>
+
+![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%201.png)
+
+# Speedometer
+
+```dart
+ValueListenableBuilder(
                                 valueListenable: currentSpeed,
                                 builder: (context, value, widget) {
                                   return Speedometer(speed: currentSpeed);
                                 }),
-                            SizedBox(
-                              width: global.device_size.height * 0.2,
-                              height: global.device_size.height * 0.2,
-                              child: GBloxButtons(
-                                  buttonType: "controller_circle",
-                                  icon: GBloxCustomSVGs.gBloxLogo,
-                                  pressed: () {},
-                                  buttonColor: 0xff1D184B),
-                            ),
-                            Row(
+```
+
+```dart
+Stack(children: [
+          ValueListenableBuilder(
+              valueListenable: widget.speed!,
+              builder: (context, value, widget) {
+                updateValue();
+                try {
+                  final RenderBox renderBox = _speedometerKey.currentContext
+                      ?.findRenderObject() as RenderBox;
+                  final Size size = renderBox.size;
+                  bar_size = Size(size.width * 0.08, size.height * 0.5);
+                } catch (e) {}
+                return Container(
+                    height: bar_size.height * 1.8,
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    margin: EdgeInsets.fromLTRB(bar_size.width * 0.9,
+                        bar_size.height * 0.3, 0, bar_size.height * 0.3),
+                    child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: enabledBars
+                            .map((bar) => Container(
+                                width: bar_size.width * 0.5,
+                                margin: EdgeInsets.fromLTRB(
+                                    0, 0, bar_size.width * 0.235, 0),
+                                child: SvgPicture.string(
+                                  '''<svg xmlns="http://www.w3.org/2000/svg" width="21.255" height="208.821" viewBox="0 0 21.255 208.821">
+  <path id="Path_120" data-name="Path 120" d="M1551.224,145.084V352.457h-20.255V158.615Q1541.17,151.973,1551.224,145.084Z" transform="translate(-1530.469 -144.136)" fill="#4a4f68" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1"/>
+</svg>
+''',
+                                  fit: BoxFit.fill,
+                                  color: Colors.green,
+                                )))
+                            .toList()));
+              }),
+          Container(
+              key: _speedometerKey,
+              margin: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+              child: CustomPaint(
+                painter: BackgroundPainter(),
+                child: Container(width: global.device_size.width * 0.3),
+              )),
+          Container(
+              child: CustomPaint(
+            painter: ForwardPainter(),
+            child: Container(width: global.device_size.width * 0.3),
+          ))
+        ]
+```
+
+![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%202.png)
+
+- This widget accepts a `ValueNotifier<double>` to fill the empty bars.
+- The size of the speedometer is adjusted based on the screen size.
+- It uses a Stack of 3 widgets:
+    1. The bars indicating the speed, generated based on the value of the current speed passed into the widget. A list generated with a length of the current speed is used to map and return containers containing the green svgs. Its size and spacing is determined by the size allocated to the entire widget.
+        
+        ![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%203.png)
+        
+    2. The top curve that covers the bars itself. A `CustomPainter` called `BackgroundPainter` is used to paint over the bars. This was generated from the flutter shape maker with an SVG.
+        
+        ![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%204.png)
+        
+    3. The actual shape of the speedometer. A `CustomPainter` called `ShapePainter` is used to paint over the bars. This was generated from the flutter shape maker with an SVG.
+        
+        ![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%205.png)
+        
+
+# Buttons
+
+- These buttons, as shown in `GBloxButtons`, are used to send commands to the robot.
+
+ 
+
+```dart
+Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
@@ -137,8 +178,14 @@ class _ControllerState extends State<Controller> {
                                         buttonColor: 0xff1D184B,
                                       ))
                                 ])
-                          ])),
-                  Container(
+```
+
+![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%206.png)
+
+- Horn and Lights
+
+```dart
+Container(
                       clipBehavior: Clip.none,
                       alignment: Alignment.center,
                       width: global.device_size.width * 0.3,
@@ -178,8 +225,7 @@ class _ControllerState extends State<Controller> {
                                           buttonType: "controller_circle",
                                           icon: GBloxCustomSVGs.rotateMovement,
                                           pressed: () async {
-                                            global.displayToast(currentSpeed
-                                                .value
+                                            global.displayToast(currentSpeed.value
                                                 .toInt()
                                                 .toString());
                                           },
@@ -207,6 +253,12 @@ class _ControllerState extends State<Controller> {
                                       )
                                     ],
                                   )))))
-                ])));
-  }
-}
+```
+
+![Untitled](Controller%20165b42cd565049c58c18eb25a4c1f4ac/Untitled%207.png)
+
+- Buttons to make the robot perform special tasks, such as random movement, move forward quickly, rotate the robot etc.
+
+# What is Left?
+
+- Sending the appropriate commands to the robot.

@@ -65,9 +65,9 @@ class _DeviceSelectState extends State<DeviceSelect> {
                       ),
                       Expanded(
                         child: GBloxCards(
-                          svg: svgs.mello,
+                          svg: svgs.arduino,
                           pressed: () {
-                            global.selectedDevice = "Mello";
+                            global.selectedDevice = "Arduino";
                             if (widget.isHome) {
                               Navigator.push(
                                   context,
@@ -80,7 +80,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                                       builder: (context) => CodeMenu()));
                             }
                           },
-                          text: "Mello",
+                          text: "Arduino",
                           textBackgroundColor: Color(0xff40BF4A),
                           compressSVG: false,
                         ),
@@ -101,10 +101,8 @@ class _DeviceSelectState extends State<DeviceSelect> {
                   pressed: () {
                     global.selectedDevice = "Mingo";
                     if (widget.isHome) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ModeMenu()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ModeMenu()));
                     } else {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CodeMenu()));
@@ -121,10 +119,8 @@ class _DeviceSelectState extends State<DeviceSelect> {
                   pressed: () {
                     global.selectedDevice = "Mello";
                     if (widget.isHome) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ModeMenu()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ModeMenu()));
                     } else {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CodeMenu()));
