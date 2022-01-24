@@ -6,9 +6,6 @@ import 'package:share/share.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'dart:io';
 import '../global_variables.dart' as global;
-import 'package:flutter/services.dart';
-import '../svgs/svgs.dart' as svgs;
-import 'dart:math' as math;
 import '../Modular_Widgets/Button/buttons.dart';
 import '../Modular_Widgets/Selector/selector_buttons.dart';
 import 'blockly.dart';
@@ -24,8 +21,7 @@ class OpenProject extends StatefulWidget {
 }
 
 class _OpenProjectState extends State<OpenProject> {
-  List<FileSystemEntity> _folders =
-      List<FileSystemEntity>.empty(growable: true);
+  List<FileSystemEntity> _files = List<FileSystemEntity>.empty(growable: true);
   int index = 0;
   late String globalFileName;
   late String globalFilePath;
@@ -36,7 +32,6 @@ class _OpenProjectState extends State<OpenProject> {
     super.initState();
     var gbloxFolder = createFolderInAppDocDir("GBlox");
     getDir("GBlox");
-    print(_folders);
   }
 
   Future<String> createFolderInAppDocDir(String folderName) async {
@@ -63,47 +58,52 @@ class _OpenProjectState extends State<OpenProject> {
     final myDir = Directory(gBloxDirectory);
     try {
       setState(() {
-        _folders = myDir.listSync(recursive: true, followLinks: false);
+        _files = myDir.listSync(recursive: true, followLinks: false);
       });
-      print(_folders);
+      print(_files);
     } catch (e) {}
   }
 
-  Future<void> getInteralDir() async {
+  Future<void> getExternalDir() async {
     FilePickerResult? result =
         await FilePicker.platform.pickFiles(type: FileType.any);
 
     if (result != null) {
-      String path = result.files.single.path.toString();
-      File file = File(path);
-      String rawData = await file.readAsString();
-      final fileName =
-          path.split(".gbx")[0].split("picker/")[1].toString() + ".gbx";
-      List<String> saveData = rawData.split(";\n");
-      String xml = saveData[0].split("xml: ")[1];
-      String device = saveData[1].split("device: ")[1];
-      global.selectedDevice = device;
-      String variables = "[int sample_var, sample_var]";
-      if (saveData.length > 2) {
-        variables = saveData[2].split("variables: ")[1];
-      }
-      global.SaveInformation allData =
-          global.SaveInformation(xml, device, variables, fileName, path, true);
-      if (widget.fromHome) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Blockly(
-                    initialXML: allData.xml,
-                    variables: allData.variables,
-                    fileName: allData.filename,
-                    filePath: allData.filepath,
-                    initialDevice: allData.device,
-                    internalStorage: allData.internal,
-                  )),
-        );
-      } else {
-        Navigator.pop(context, allData);
+      try {
+        String path = result.files.single.path.toString();
+        File file = File(path);
+        String rawData = await file.readAsString();
+        final fileName =
+            path.split(".gbx")[0].split("picker/")[1].toString() + ".gbx";
+        List<String> saveData = rawData.split(";\n");
+        String xml = saveData[0].split("xml: ")[1];
+        String device = saveData[1].split("device: ")[1];
+        global.selectedDevice = device;
+        String variables = "[int sample_var, sample_var]";
+        if (saveData.length > 2) {
+          variables = saveData[2].split("variables: ")[1];
+        }
+        global.SaveInformation allData = global.SaveInformation(
+            xml, device, variables, fileName, path, true);
+        if (widget.fromHome) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Blockly(
+                      initialXML: allData.xml,
+                      variables: allData.variables,
+                      fileName: allData.filename,
+                      filePath: allData.filepath,
+                      initialDevice: allData.device,
+                      internalStorage: allData.internal,
+                    )),
+          );
+        } else {
+          Navigator.pop(context, allData);
+        }
+      } catch (e) {
+        global.displayToast(
+            "This file could not be opened! Please make sure the file is a valid .gbx file");
       }
     } else {
       setState(() {
@@ -142,7 +142,7 @@ What do you wanna do with it?''',
                     onPressed: () {
                       file.delete();
                       setState(() {
-                        _folders.removeAt(_folders.indexWhere(
+                        _files.removeAt(_files.indexWhere(
                             (element) => element.path == file.path));
                         AwesomeDialog(context: context).dismiss();
                       });
@@ -203,9 +203,6 @@ What do you wanna do with it?''',
           ),
           body: Container(
               child: Stack(children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child:
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -218,67 +215,88 @@ What do you wanna do with it?''',
                       functionList: [
                         () {},
                         () {
-                          getInteralDir();
+                          getExternalDir();
                         }
                       ],
                     )),
                 Container(
                     width: global.device_size.width * 0.7,
+                    height: global.device_size.height -
+                        global.device_status_bar_height,
                     decoration: BoxDecoration(color: const Color(0xff0B0533)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: _folders.map((e) {
-                          List<String> pathName = e.toString().split("/");
-                          String fileName = pathName.last.replaceAll("'", '');
-                          return Container(
-                              width: global.device_size.width * 0.5,
-                              child: GBloxButtons(
-                                  buttonType: "fileButtons",
-                                  buttonName: fileName,
-                                  onLongPress: () async {
-                                    File file = File(await e.path);
-                                    showFileDialog(file, context);
-                                  },
-                                  pressed: () async {
-                                    File file = File(await e.path);
-                                    String rawData = await file.readAsString();
-                                    List<String> saveData =
-                                        rawData.split(";\n");
-                                    String xml = saveData[0].split("xml: ")[1];
-                                    String device =
-                                        saveData[1].split("device: ")[1];
-                                    global.selectedDevice = device;
-                                    String variables =
-                                        "[int sample_var, sample_var]";
-                                    if (saveData.length > 2) {
-                                      variables =
-                                          saveData[2].split("variables: ")[1];
-                                    }
-                                    global.SaveInformation allData =
-                                        global.SaveInformation(xml, device,
-                                            variables, fileName, e.path, true);
-                                    if (widget.fromHome) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Blockly(
-                                                  initialXML: allData.xml,
-                                                  variables: allData.variables,
-                                                  fileName: allData.filename,
-                                                  filePath: allData.filepath,
-                                                  initialDevice: allData.device,
-                                                  internalStorage:
-                                                      allData.internal,
-                                                )),
-                                      );
-                                    } else {
-                                      Navigator.pop(context, allData);
-                                    }
-                                  }));
-                        }).toList()))
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.fromLTRB(
+                            global.device_size.width * 0.01,
+                            global.device_size.height * 0.1,
+                            0,
+                            global.device_size.height * 0.05),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: _files.map((e) {
+                              List<String> pathName = e.toString().split("/");
+                              String fileName =
+                                  pathName.last.replaceAll("'", '');
+                              return Container(
+                                  width: global.device_size.width * 0.5,
+                                  child: GBloxButtons(
+                                      buttonType: "fileButtons",
+                                      buttonName: fileName,
+                                      onLongPress: () async {
+                                        File file = File(await e.path);
+                                        showFileDialog(file, context);
+                                      },
+                                      pressed: () async {
+                                        File file = File(await e.path);
+                                        String rawData =
+                                            await file.readAsString();
+                                        List<String> saveData =
+                                            rawData.split(";\n");
+                                        String xml =
+                                            saveData[0].split("xml: ")[1];
+                                        String device =
+                                            saveData[1].split("device: ")[1];
+                                        global.selectedDevice = device;
+                                        String variables =
+                                            "[int sample_var, sample_var]";
+                                        if (saveData.length > 2) {
+                                          variables = saveData[2]
+                                              .split("variables: ")[1];
+                                        }
+                                        global.SaveInformation allData =
+                                            global.SaveInformation(
+                                                xml,
+                                                device,
+                                                variables,
+                                                fileName,
+                                                e.path,
+                                                true);
+                                        if (widget.fromHome) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Blockly(
+                                                      initialXML: allData.xml,
+                                                      variables:
+                                                          allData.variables,
+                                                      fileName:
+                                                          allData.filename,
+                                                      filePath:
+                                                          allData.filepath,
+                                                      initialDevice:
+                                                          allData.device,
+                                                      internalStorage:
+                                                          allData.internal,
+                                                    )),
+                                          );
+                                        } else {
+                                          Navigator.pop(context, allData);
+                                        }
+                                      }));
+                            }).toList()))),
               ],
-            )),
+            ),
             _fileDialog
           ])),
         ),
@@ -287,53 +305,63 @@ What do you wanna do with it?''',
       return Container(
           decoration: BoxDecoration(color: const Color(0xff0B0533)),
           child: Stack(children: [
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _folders.map((e) {
-                  List<String> pathName = e.toString().split("/");
-                  String fileName = pathName.last.replaceAll("'", '');
-                  return Container(
-                      width: global.device_size.width * 0.5,
-                      child: GBloxButtons(
-                          buttonType: "fileButtons",
-                          buttonName: fileName,
-                          onLongPress: () async {
-                            File file = File(await e.path);
-                            showFileDialog(file, context);
-                          },
-                          pressed: () async {
-                            File file = File(await e.path);
-                            String rawData = await file.readAsString();
-                            List<String> saveData = rawData.split(";\n");
-                            String xml = saveData[0].split("xml: ")[1];
-                            String device = saveData[1].split("device: ")[1];
-                            global.selectedDevice = device;
-                            String variables = "[int sample_var, sample_var]";
-                            if (saveData.length > 2) {
-                              variables = saveData[2].split("variables: ")[1];
-                            }
-                            global.SaveInformation allData =
-                                global.SaveInformation(xml, device, variables,
-                                    fileName, e.path, true);
-                            if (widget.fromHome) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Blockly(
-                                          initialXML: allData.xml,
-                                          variables: allData.variables,
-                                          fileName: allData.filename,
-                                          filePath: allData.filepath,
-                                          initialDevice: allData.device,
-                                          internalStorage: allData.internal,
-                                        )),
-                              );
-                            } else {
-                              Navigator.pop(context, allData);
-                            }
-                          }));
-                }).toList()),
+            SingleChildScrollView(
+                padding: EdgeInsets.fromLTRB(
+                    global.device_size.width * 0.01,
+                    global.device_size.height * 0.1,
+                    0,
+                    global.device_size.height * 0.05),
+                scrollDirection: Axis.vertical,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: _files.map((e) {
+                      List<String> pathName = e.toString().split("/");
+                      String fileName = pathName.last.replaceAll("'", '');
+                      return Container(
+                          width: global.device_size.width * 0.5,
+                          child: GBloxButtons(
+                              buttonType: "fileButtons",
+                              buttonName: fileName,
+                              onLongPress: () async {
+                                File file = File(await e.path);
+                                showFileDialog(file, context);
+                              },
+                              pressed: () async {
+                                File file = File(await e.path);
+                                String rawData = await file.readAsString();
+                                List<String> saveData = rawData.split(";\n");
+                                String xml = saveData[0].split("xml: ")[1];
+                                String device =
+                                    saveData[1].split("device: ")[1];
+                                global.selectedDevice = device;
+                                String variables =
+                                    "[int sample_var, sample_var]";
+                                if (saveData.length > 2) {
+                                  variables =
+                                      saveData[2].split("variables: ")[1];
+                                }
+                                global.SaveInformation allData =
+                                    global.SaveInformation(xml, device,
+                                        variables, fileName, e.path, true);
+                                if (widget.fromHome) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Blockly(
+                                              initialXML: allData.xml,
+                                              variables: allData.variables,
+                                              fileName: allData.filename,
+                                              filePath: allData.filepath,
+                                              initialDevice: allData.device,
+                                              internalStorage: allData.internal,
+                                            )),
+                                  );
+                                } else {
+                                  Navigator.pop(context, allData);
+                                }
+                              }));
+                    }).toList())),
             _fileDialog
           ]));
     }

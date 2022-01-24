@@ -273,8 +273,10 @@ class _GBloxButtons extends State<GBloxButtons> {
                                   color: Colors.white,
                                   fontSize: global.device_size.height * 0.04)),
                           Container(
-                              width: global.device_size.width * 0.04,
-                              height: global.device_size.width * 0.04,
+                              padding: EdgeInsets.all(
+                                  global.device_size.width * 0.01),
+                              width: global.device_size.width * 0.025,
+                              height: global.device_size.width * 0.025,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Color(

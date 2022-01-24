@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gblox_mobile/components/Piano/piano_keys.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
@@ -66,7 +65,7 @@ class _PlaySelector extends State<PlayMenu> {
         global.CardDetails(svgs.pianoPlay, "piano_play", Colors.purple, () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => PianoKeys()),
+        MaterialPageRoute(builder: (context) => Piano()),
       );
     }, true));
     playCards.add(global.CardDetails(

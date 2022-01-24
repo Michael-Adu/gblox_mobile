@@ -3,13 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'dart:io';
-import 'dart:math' as math;
-import 'dart:convert';
 import '../Modular_Widgets/Selector/selector_buttons.dart';
 import '../global_variables.dart' as global;
-import '../svgs/svgs.dart' as svgs;
 
 class SaveProject extends StatefulWidget {
   @required
@@ -136,17 +132,39 @@ class _SaveProjectState extends State<SaveProject> {
             ),
             body: Container(
                 child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Container(
+                    width: global.device_size.width * 0.3,
+                    child: SelectorButtons(
+                      activeColor: 0xff0000DC,
+                      buttons: ["Save Internally", "Save to Phone"],
+                      functionList: [
+                        () {
+                          setState(() {
+                            internalSave = true;
+                          });
+                        },
+                        () {
+                          setState(() {
+                            internalSave = false;
+                          });
+                        }
+                      ],
+                    )),
                 Container(
                   width: global.device_size.width * 0.7,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
+                        padding:
+                            EdgeInsets.all(global.device_size.height * 0.02),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(
-                                global.device_size.height * 0.005))),
+                                global.device_size.height * 0.04))),
                         child: TextField(
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
@@ -162,7 +180,7 @@ class _SaveProjectState extends State<SaveProject> {
                               color: Color(0xff0000DC),
                             ),
                             decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
+                              border: InputBorder.none,
                               hintText: 'myCode',
                               fillColor: Colors.white,
                             )),
@@ -200,43 +218,29 @@ class _SaveProjectState extends State<SaveProject> {
                                               global.device_size.height * 0.04,
                                         )),
                                     onPressed: () async {
-                                      if (internalSave) {
-                                        createFile(widget.saveAs, saveName, "")
-                                            .then((value) {
-                                          var data = value;
-                                          Navigator.pop(context, value);
-                                        });
-                                      } else {
-                                        saveFileToStorage(saveName)
-                                            .then((value) {
-                                          var data = value;
-                                          Navigator.pop(context, value);
-                                        });
-                                        ;
-                                      }
+                                      if (saveName.length > 0) {
+                                        if (internalSave) {
+                                          createFile(
+                                                  widget.saveAs, saveName, "")
+                                              .then((value) {
+                                            var data = value;
+                                            Navigator.pop(context, value);
+                                          });
+                                        } else {
+                                          saveFileToStorage(saveName)
+                                              .then((value) {
+                                            var data = value;
+                                            Navigator.pop(context, value);
+                                          });
+                                          ;
+                                        }
+                                      } else {}
                                     },
                                     child: Text("Save")))
                           ])
                     ],
                   ),
                 ),
-                Container(
-                    width: global.device_size.width * 0.3,
-                    child: SelectorButtons(
-                      buttons: ["Save Internally", "Save to Phone"],
-                      functionList: [
-                        () {
-                          setState(() {
-                            internalSave = true;
-                          });
-                        },
-                        () {
-                          setState(() {
-                            internalSave = false;
-                          });
-                        }
-                      ],
-                    ))
               ],
             ))));
   }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../Modular_Widgets/Button/buttons.dart';
 import 'package:rive/rive.dart';
-import '../svgs/svgs.dart' as svgs;
+import '../Modular_Widgets/Button/buttons.dart';
 import '../global_variables.dart' as global;
 
 class PathFinder extends StatefulWidget {
@@ -21,8 +19,7 @@ class _PathFinderState extends State<PathFinder> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('path_play',
-                      style:
-                          TextStyle(fontSize: global.deviceText.title))
+                      style: TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -39,11 +36,13 @@ class _PathFinderState extends State<PathFinder> {
                   children: [
                     Container(
                         alignment: Alignment.center,
-                        child: RiveAnimation.asset('assets/animationFiles/pathFinder.riv',),
+                        child: RiveAnimation.asset(
+                          'assets/animationFiles/pathFinder.riv',
+                        ),
                         width: global.device_size.width * 0.65,
                         height: global.device_size.height * 0.75),
                     Container(
-                        width: global.device_size.width * 0.2,
+                        width: global.device_size.width * 0.1,
                         height: global.device_size.height * 0.2,
                         child: GBloxButtons(
                           buttonType: "controller_circle",
