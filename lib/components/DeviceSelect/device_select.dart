@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../Modular_Widgets/Cards/cards.dart';
-import '../Menus/ModeSelector/mode_select.dart';
+import '../Menus/ModeMenu/mode_menu.dart';
 import '../Menus/CodeMenu/code_menu.dart';
 import '../svgs/svgs.dart' as svgs;
 import '../global_variables.dart' as global;
@@ -10,7 +9,7 @@ import '../global_variables.dart' as global;
 class DeviceSelect extends StatefulWidget {
   final bool isHome;
   final bool fullPage;
-  DeviceSelect({Key? key, this.isHome = true, this.fullPage = true})
+  const DeviceSelect({Key? key, this.isHome = true, this.fullPage = true})
       : super(key: key);
   @override
   _DeviceSelectState createState() => _DeviceSelectState();
@@ -51,7 +50,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ModeSelector()));
+                                      builder: (context) => ModeMenu()));
                             } else {
                               Navigator.push(
                                   context,
@@ -73,7 +72,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ModeSelector()));
+                                      builder: (context) => ModeMenu()));
                             } else {
                               Navigator.push(
                                   context,
@@ -105,7 +104,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ModeSelector()));
+                              builder: (context) => ModeMenu()));
                     } else {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CodeMenu()));
@@ -125,7 +124,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ModeSelector()));
+                              builder: (context) => ModeMenu()));
                     } else {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CodeMenu()));

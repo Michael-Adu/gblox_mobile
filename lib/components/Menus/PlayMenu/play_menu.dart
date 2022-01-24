@@ -14,15 +14,15 @@ import '../../PathFinder/path_finder.dart';
 import '../../LightDetector/light_detector.dart';
 import '../../ObstacleDetector/obstacle_detector.dart';
 
-class PlaySelector extends StatefulWidget {
-  const PlaySelector({Key? key}) : super(key: key);
+class PlayMenu extends StatefulWidget {
+  const PlayMenu({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return _PlaySelector();
   }
 }
 
-class _PlaySelector extends State<PlaySelector> {
+class _PlaySelector extends State<PlayMenu> {
   List<global.CardDetails> playCards =
       List<global.CardDetails>.empty(growable: true);
   int _focusedIndex = 0;

@@ -1,13 +1,12 @@
+import 'dart:io';
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:io';
 import '../../global_variables.dart' as global;
 import 'package:flutter/services.dart';
 import '../../svgs/svgs.dart' as svgs;
-import 'dart:math' as math;
 import '../../Modular_Widgets/Button/buttons.dart';
 import '../../Modular_Widgets/Selector/selector_buttons.dart';
 import '../../Blockly/blockly.dart';
@@ -21,10 +20,6 @@ class CodeMenu extends StatefulWidget {
 }
 
 class _CodeMenuState extends State<CodeMenu> {
-  List<FileSystemEntity> _folders =
-      List<FileSystemEntity>.empty(growable: true);
-  List<FileSystemEntity> _internal_folders =
-      List<FileSystemEntity>.empty(growable: true);
   int index = 0;
 
   @override

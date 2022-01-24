@@ -5,26 +5,40 @@ import 'package:scroll_snap_list/scroll_snap_list.dart';
 import '../../Modular_Widgets/Cards/cards.dart';
 import '../../svgs/svgs.dart' as svgs;
 import '../../global_variables.dart' as global;
-import '../../Blockly/blockly.dart';
 import '../../Builds/build.dart';
-import '../PlaySelector/play_select.dart';
+import '../Playmenu/play_menu.dart';
 import '../CodeMenu/code_menu.dart';
 import '../../DeviceSelect/device_select.dart';
 
-class ModeSelector extends StatefulWidget {
+class ModeMenu extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _ModeSelector();
   }
 }
 
-class _ModeSelector extends State<ModeSelector> {
+class _ModeSelector extends State<ModeMenu> {
   List<global.CardDetails> modeCards =
       List<global.CardDetails>.empty(growable: true);
   int _focusedIndex = 0;
 
   void initState() {
     super.initState();
+    modeCards.add(
+        global.CardDetails(svgs.buildMode, "build_mode", Colors.orange, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const GBloxBuild()),
+      );
+    }, true));
+
+    modeCards
+        .add(global.CardDetails(svgs.playMode, "play_mode", Colors.purple, () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const PlayMenu()),
+      );
+    }, true));
     modeCards
         .add(global.CardDetails(svgs.codeMode, "code_mode", Colors.orange, () {
       if (global.selectedDevice.isNotEmpty) {
@@ -42,20 +56,6 @@ class _ModeSelector extends State<ModeSelector> {
         );
       }
     }, false));
-    modeCards
-        .add(global.CardDetails(svgs.playMode, "play_mode", Colors.purple, () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const PlaySelector()),
-      );
-    }, true));
-    modeCards.add(
-        global.CardDetails(svgs.buildMode, "build_mode", Colors.orange, () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const GBloxBuild()),
-      );
-    }, true));
   }
 
   Widget _buildListItem(BuildContext context, int index) {

@@ -40,7 +40,6 @@ dependencies:
   webview_flutter_plus: ^0.2.3
   flutter_inappwebview: ^5.3.2
   control_pad: ^1.1.1+1
-  piano: ^1.0.3+1
   flutter_bluetooth_serial: ^0.4.0
   easy_localization: ^3.0.0
   flutter_launcher_icons: ^0.9.2
@@ -96,7 +95,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/languages/
-    - assets/sounds/Piano.SF2
     - assets/icon/
     - assets/react-blockly/
     - assets/react-blockly/static/

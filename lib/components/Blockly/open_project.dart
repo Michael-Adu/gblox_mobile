@@ -203,6 +203,9 @@ What do you wanna do with it?''',
           ),
           body: Container(
               child: Stack(children: [
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child:
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -275,7 +278,7 @@ What do you wanna do with it?''',
                                   }));
                         }).toList()))
               ],
-            ),
+            )),
             _fileDialog
           ])),
         ),

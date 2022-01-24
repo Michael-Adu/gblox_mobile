@@ -9,7 +9,7 @@ import './components/svgs/svgs.dart' as svgs;
 import './components/Modular_Widgets/Cards/cards.dart';
 import './components/DeviceSelect/device_select.dart';
 import 'components/Bluetooth/device_select.dart';
-import './components/Menus/ModeSelector/mode_select.dart';
+import 'components/Menus/ModeMenu/mode_menu.dart';
 import './components/SpeechToText/speech_to_command.dart';
 
 void main() async {
@@ -62,7 +62,7 @@ class _GbloxAppState extends State<GbloxApp> {
     startCards.add(_CardDetails(svgs.playMode, "Select Mode", Colors.red, () {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ModeSelector()),
+        MaterialPageRoute(builder: (context) => ModeMenu()),
       );
     }, false));
     startCards.add(_CardDetails(svgs.mingo, "Select Device", Colors.orange, () {
@@ -125,8 +125,7 @@ class _GbloxAppState extends State<GbloxApp> {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => ModeSelector()),
+                            MaterialPageRoute(builder: (context) => ModeMenu()),
                           );
                         }),
                     ListTile(
@@ -272,7 +271,7 @@ class _GbloxAppState extends State<GbloxApp> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    ModeSelector()),
+                                                    ModeMenu()),
                                           );
                                         }))),
                             Expanded(
