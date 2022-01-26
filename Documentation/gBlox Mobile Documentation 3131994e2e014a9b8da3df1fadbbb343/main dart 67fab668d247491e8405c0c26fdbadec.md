@@ -1,5 +1,23 @@
 # main.dart
 
+![Untitled](main%20dart%2067fab668d247491e8405c0c26fdbadec/Untitled.png)
+
+# Packages Used
+
+1. [flutter_svg](https://pub.dev/packages/flutter_svg)
+2. [Scroll Snap List](https://pub.dev/packages/scroll_snap_list)
+
+# Modular Widgets Used
+
+1. GBloxCards *[Modular Widgets](Modular%20Widgets%2072c25ed16f334935a10e40f350c66396.md)  - `gblox_mobile\lib\components\Modular_Widgets\Cards`*
+
+# Pages Used
+
+1. [DeviceSelect](DeviceSelect%207db49aaa7e38469d913e8d66cc712966.md) 
+2. [Bluetooth](Bluetooth%208bc8d4623c54494ca438a6e1766c4b11.md) 
+3. [Speech to Command](Speech%20to%20Command%203edceb0fd71b4292ac2d5b2937130503.md) 
+4. [Mode Menu](Menus%203811786855f945b395875ac60ae391b5/Mode%20Menu%20765e1693a2e54b0b81c16545c03c91ff.md) 
+
 # `void main`
 
 - Responsible for the initialization of
