@@ -529,9 +529,13 @@ class _BlocklyState extends State<Blockly> {
                             child: Container(
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.height * 0.05),
-                              child: const Text(
+                              child: Text(
                                 "Português",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.04),
                               ),
                             )),
                         InkWell(
@@ -541,9 +545,13 @@ class _BlocklyState extends State<Blockly> {
                             child: Container(
                               padding: EdgeInsets.all(
                                   MediaQuery.of(context).size.height * 0.05),
-                              child: const Text(
+                              child: Text(
                                 "Deutsch",
-                                style: TextStyle(color: Colors.white),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.04),
                               ),
                             )),
                       ]),

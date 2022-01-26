@@ -216,9 +216,13 @@ class _GbloxAppState extends State<GbloxApp> {
                               child: Container(
                                 padding: EdgeInsets.all(
                                     MediaQuery.of(context).size.height * 0.05),
-                                child: const Text(
+                                child: Text(
                                   "Português",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.04),
                                 ),
                               )),
                           InkWell(
@@ -228,9 +232,13 @@ class _GbloxAppState extends State<GbloxApp> {
                               child: Container(
                                 padding: EdgeInsets.all(
                                     MediaQuery.of(context).size.height * 0.05),
-                                child: const Text(
+                                child: Text(
                                   "Deutsch",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.04),
                                 ),
                               )),
                         ]),
