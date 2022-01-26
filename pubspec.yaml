@@ -1,6 +1,10 @@
 name: gblox_mobile
 description: Gblox Mobile
-
+authors:
+  - Michael Nimdea-Gyan Adu <michaelngadu@gmail.com>
+  - Terry Selasie Tettey <seltettey@googlemail.com>
+  - Samuel Osei <>
+  - Gideon Ankonu <>
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -100,11 +104,8 @@ flutter:
     - assets/react-blockly/static/
     - assets/react-blockly/static/js/
     - assets/react-blockly/static/css/
-    - assets/svgs/
     - assets/pdfs/
     - assets/animationFiles/
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
