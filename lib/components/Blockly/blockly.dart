@@ -195,9 +195,9 @@ class _BlocklyState extends State<Blockly> {
             Container(
               height: global.cardSize * 0.7,
               child: GBloxCards(
-                svg: svgs.mello,
+                svg: svgs.arduino,
                 pressed: () {
-                  global.selectedDevice = "Mello";
+                  global.selectedDevice = "Arduino Uno";
                   global.webController!.evaluateJavascript(source: '''
                 document.getElementById("${global.selectedDevice}").click();
                 ''');
@@ -205,7 +205,7 @@ class _BlocklyState extends State<Blockly> {
                     deviceDrawerOpen = false;
                   });
                 },
-                text: "Mello",
+                text: "Arduino Uno",
                 textBackgroundColor: Color(0xff40BF4A),
                 compressSVG: false,
               ),
@@ -215,8 +215,8 @@ class _BlocklyState extends State<Blockly> {
     _DeviceProfile device = _DeviceProfile(svgs.mingo, Color(0xff8100FF));
     if (global.selectedDevice == "Mingo") {
       device = _DeviceProfile(svgs.mingo, Color(0xff8100FF));
-    } else if (global.selectedDevice == "Mello") {
-      device = _DeviceProfile(svgs.mello, Colors.green);
+    } else if (global.selectedDevice == "Arduino Uno") {
+      device = _DeviceProfile(svgs.arduino, Colors.green);
     }
 
     return MaterialApp(

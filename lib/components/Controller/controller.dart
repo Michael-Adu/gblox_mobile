@@ -63,6 +63,7 @@ class _ControllerState extends State<Controller> {
                   Container(
                       alignment: Alignment.center,
                       child: JoystickView(
+                        interval: const Duration(milliseconds: 100),
                         onDirectionChanged:
                             (double degrees, double distanceFromCenter) {
                           varDegress = degrees;
@@ -200,7 +201,7 @@ class _ControllerState extends State<Controller> {
                                         child: GBloxButtons(
                                           buttonType: "controller_circle",
                                           icon: GBloxCustomSVGs.randomMovement,
-                                          pressed: printval,
+                                          pressed: () async {},
                                           buttonColor: 0xffA62AB5,
                                           rotate: true,
                                         ),

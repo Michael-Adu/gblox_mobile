@@ -73,7 +73,7 @@ class _CodeMenuState extends State<CodeMenu> {
                             child: SelectorButtons(
                           initialIndex: index,
                           activeColor: 0xff0000DC,
-                          buttons: [
+                          buttons: const [
                             "Recent",
                             "Help",
                             "Robocentre",

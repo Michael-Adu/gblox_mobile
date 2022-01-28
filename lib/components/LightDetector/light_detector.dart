@@ -47,8 +47,7 @@ class _LightDetectorState extends State<LightDetector> {
         home: Scaffold(
             appBar: AppBar(
               title: Text('light_play',
-                      style:
-                          TextStyle(fontSize: global.deviceText.title))
+                      style: TextStyle(fontSize: global.deviceText.title))
                   .tr(),
               centerTitle: true,
               leading: IconButton(
@@ -74,7 +73,7 @@ class _LightDetectorState extends State<LightDetector> {
                               clipBehavior: Clip.none,
                               allowDrawingOutsideViewBox: true,
                               height: global.device_size.height * 1,
-                              fit: BoxFit.none)),
+                              fit: BoxFit.cover)),
                       Container(
                           alignment: Alignment.center,
                           width: global.device_size.width * 0.4,

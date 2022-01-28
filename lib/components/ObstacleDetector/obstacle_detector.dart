@@ -75,7 +75,7 @@ class _ObstacleDetectorState extends State<ObstacleDetector> {
                             allowDrawingOutsideViewBox: true,
                             height: global.device_size.height * 1.5,
                             alignment: Alignment.topCenter,
-                            fit: BoxFit.none,
+                            fit: BoxFit.cover,
                           )),
                       Container(
                           alignment: Alignment.center,

@@ -67,7 +67,7 @@ class _DeviceSelectState extends State<DeviceSelect> {
                         child: GBloxCards(
                           svg: svgs.arduino,
                           pressed: () {
-                            global.selectedDevice = "Arduino";
+                            global.selectedDevice = "Arduino Uno";
                             if (widget.isHome) {
                               Navigator.push(
                                   context,
