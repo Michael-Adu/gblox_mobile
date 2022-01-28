@@ -5,6 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:animations/animations.dart';
 import 'package:share/share.dart';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:async';
 import '../Modular_Widgets/ToolboxButtons/toolbox_category_buttons.dart';
 import '../Modular_Widgets/Button/buttons.dart';
 import '../Modular_Widgets/Cards/cards.dart';
@@ -75,10 +78,14 @@ class _BlocklyState extends State<Blockly> {
       global.SaveInformation("", "", "", "", "", false);
   var currentXml = ValueNotifier<String>("");
   String variables = "[int sample_var, sample_var]";
+  late String code_generated = "";
   late String categoryName;
   late int categoryIndex;
   late int categoryNumber = 0;
   bool category = false;
+  bool code_running = false;
+
+  late Timer time;
 
   @override
   void initState() {
@@ -92,6 +99,14 @@ class _BlocklyState extends State<Blockly> {
           widget.filePath,
           widget.internalStorage);
     }
+  }
+
+  @override
+  void dispose() {
+    time.cancel();
+    setState(() {
+      code_running = false;
+    });
   }
 
   void updateToolbox() {
@@ -161,6 +176,21 @@ class _BlocklyState extends State<Blockly> {
                                   var xml = window.mainBlockly.Xml.textToDom('${currentXml.value}');
                                   window.mainBlockly.Xml.clearWorkspaceAndLoadFromXml(xml,window.currentWorkspace)
                           ''');
+      });
+    }
+  }
+
+  void runCode() {
+    setState(() {
+      code_running = true;
+    });
+    if (code_generated.contains("repeat_forever")) {
+      time = Timer.periodic(Duration(milliseconds: 500), (timer) {
+        try {
+          global.displayToast(code_generated);
+          global.activeConnection.output
+              .add(Uint8List.fromList(utf8.encode(code_generated)));
+        } catch (e) {}
       });
     }
   }
@@ -595,16 +625,24 @@ class _BlocklyState extends State<Blockly> {
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(100)),
                             onTap: () {
-                              print(controller!.takeScreenshot(
-                                  screenshotConfiguration:
-                                      ScreenshotConfiguration()));
+                              if (code_running) {
+                                dispose();
+                              } else {
+                                runCode();
+                              }
                             },
                             child: Container(
                                 width: global.device_size.width * 0.15,
                                 height: global.device_size.height * 0.1,
                                 padding: const EdgeInsets.all(5),
-                                child: const Icon(Icons.play_arrow,
-                                    color: Colors.white),
+                                child: code_running
+                                    ? CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
+                                      )
+                                    : Icon(Icons.play_arrow,
+                                        color: Colors.white),
                                 decoration: const BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(100)),
@@ -681,6 +719,10 @@ class _BlocklyState extends State<Blockly> {
                           setState(() {
                             variables = "[$temp_variables]";
                           });
+                        } else if (consoleMessage.message.contains("code: ")) {
+                          var temp_code_string = consoleMessage.message;
+                          var temp_code = temp_code_string.split("code: ")[1];
+                          code_generated = temp_code;
                         } else {
                           print(
                               "console message: ${consoleMessage.message.toString()}");
