@@ -236,10 +236,10 @@ Blockly.JavaScript['m_mainloop'] = function (block) {
         }
     }
     if (checkbox_loop == "TRUE") {
-        code = `${Total_PreDeclarations} ${Total_SetupCode} \n}\n\nvoid loop(){\n ${statements_mainloop}\n} \n ${Total_BulkFunctions}`;
+        code = `repeat_forever: ${statements_mainloop}`;
     }
     else {
-        code = `${Total_PreDeclarations} \nint runOnce;\n ${Total_SetupCode} \nrunOnce = 0;\n}\n\nvoid loop(){\n\tif(runOnce == 0){\n${statements_mainloop}\nrunOnce = 1;}\n}\n${Total_BulkFunctions}`;
+        code = statements_mainloop;
     }
     Total_PreDeclarations = "";
     Total_SetupCode = "\nvoid setup(){\n";
@@ -255,7 +255,7 @@ Blockly.JavaScript['m_mainloop'] = function (block) {
 
 Blockly.JavaScript['delay_core'] = function (block) {
     var value_seconds = Blockly.JavaScript.valueToCode(block, 'seconds', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = `\ndelay(${value_seconds * 1000});\n`;
+    var code = `dy ${value_seconds * 1000};\n`;
     return code;
 };
 
@@ -298,7 +298,7 @@ Blockly.JavaScript['variable_set'] = function (block) {
 Blockly.JavaScript['variable_get'] = function (block) {
     var text_varname = block.getFieldValue('variables_set');
     var code = '...';
-    code = `${text_varname}`
+    code = `variable ${text_varname}`
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
 

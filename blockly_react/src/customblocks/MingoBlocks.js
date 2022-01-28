@@ -18,30 +18,8 @@ Blockly.Blocks['mingo_motor_move_indef'] = {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage(Actuators, 25, 25, { alt: "*", flipRtl: "FALSE" }))
             .appendField("")
-            .appendField(new Blockly.FieldDropdown([["move forward", "forward"], ["move backward", "backward"], ["turn left", "left"], ["turn right", "right"], ["rotate left", "rleft"], ["rotate right", "rright"]]), "direction")
-            .appendField("at")
-            .appendField(new Blockly.FieldNumber(50, 0, 100, 1), "speed")
-            .appendField("% speed");
-        this.setInputsInline(true);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(120);
-        this.setTooltip("");
-        this.setStyle("actuator_blocks");
-        this.setHelpUrl("");
-    }
-};
+            .appendField(new Blockly.FieldDropdown([["move forward", "forward"], ["move backward", "backward"], ["turn left", "left"], ["turn right", "right"]]), "direction")
 
-Blockly.Blocks['mingo_motor_single_move_indef'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField(new Blockly.FieldImage(Actuators, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField("turn")
-            .appendField(new Blockly.FieldDropdown([["Left Motor", "lm"], ["Right Motor", "rm"]]), "motorselect")
-            .appendField(new Blockly.FieldDropdown([["forward", "forward"], ["backward", "backward"], ["to a stop", "stop"]]), "direction")
-            .appendField("at")
-            .appendField(new Blockly.FieldNumber(50, 0, 100, 1), "speed")
-            .appendField("% speed");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -56,8 +34,7 @@ Blockly.Blocks['mingo_motor_stop_indef'] = {
     init: function () {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage(Actuators, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField("stop")
-            .appendField(new Blockly.FieldDropdown([["all motors", "all"], ["left motor", "left"], ["right motor", "right"]]), "motor");
+            .appendField("stop Mingo");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -136,31 +113,31 @@ Blockly.Blocks['mingo_sound_play'] = {
         this.appendDummyInput()
             .appendField(new Blockly.FieldImage(Sound, 25, 25, { alt: "*", flipRtl: "FALSE" }))
             .appendField("play note ")
-            .appendField(new Blockly.FieldDropdown([["C4", "262"],
-            ["C#4", "277"],
-            ["D4", "294"],
-            ["Eb4", "311"],
-            ["E4", "330"],
-            ["F4", "349"],
-            ["F#4", "370"],
-            ["G4", "392"],
-            ["G#4", "415"],
-            ["A4", "440"],
-            ["Bb4", "466"],
-            ["B4", "494"],
-            ["C5", "523"],
-            ["C#5", "554"],
-            ["D5", "587"],
-            ["Eb5", "622"],
-            ["E5", "659"],
-            ["F5", "699"],
-            ["F#5", "740"],
-            ["G5", "784"],
-            ["G#5", "831"],
-            ["A5", "880"],
-            ["Bb5", "932"],
-            ["B5", "988"],
-            ["C6", "1047"]]), "Note");
+            .appendField(new Blockly.FieldDropdown([["C4", "C 4"],
+            ["C#4", "C# 4"],
+            ["D4", "D 4"],
+            ["D#4", "D# 4"],
+            ["E4", "E 4"],
+            ["F4", "F 4"],
+            ["F#4", "F# 4"],
+            ["G4", "G 4"],
+            ["G#4", "G# 4"],
+            ["A4", "A 4"],
+            ["A#4", "A# 4"],
+            ["B4", "B 4"],
+            ["C5", "C 5"],
+            ["C#5", "C# 5"],
+            ["D5", "D 5"],
+            ["D#5", "D# 5"],
+            ["E5", "E 5"],
+            ["F5", "F 5"],
+            ["F#5", "F# 5"],
+            ["G5", "G 5"],
+            ["G#5", "G# 5"],
+            ["A5", "A 5"],
+            ["A#5", "A# 5"],
+            ["B5", "B 5"],
+            ["C6", "C 6"]]), "Note");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(230);
@@ -178,31 +155,31 @@ Blockly.Blocks['mingo_sound_play_timed'] = {
             .appendField(new Blockly.FieldImage(Sound, 25, 25, { alt: "*", flipRtl: "FALSE" }))
             .appendField(" play note")
             .appendField(new Blockly.FieldDropdown([
-                ["C4", "262"],
-                ["C#4", "277"],
-                ["D4", "294"],
-                ["Eb4", "311"],
-                ["E4", "330"],
-                ["F4", "349"],
-                ["F#4", "370"],
-                ["G4", "392"],
-                ["G#4", "415"],
-                ["A4", "440"],
-                ["Bb4", "466"],
-                ["B4", "494"],
-                ["C5", "523"],
-                ["C#5", "554"],
-                ["D5", "587"],
-                ["Eb5", "622"],
-                ["E5", "659"],
-                ["F5", "699"],
-                ["F#5", "740"],
-                ["G5", "784"],
-                ["G#5", "831"],
-                ["A5", "880"],
-                ["Bb5", "932"],
-                ["B5", "988"],
-                ["C6", "1047"]
+                ["C4", "C 4"],
+            ["C#4", "C# 4"],
+            ["D4", "D 4"],
+            ["D#4", "D# 4"],
+            ["E4", "E 4"],
+            ["F4", "F 4"],
+            ["F#4", "F# 4"],
+            ["G4", "G 4"],
+            ["G#4", "G# 4"],
+            ["A4", "A 4"],
+            ["A#4", "A# 4"],
+            ["B4", "B 4"],
+            ["C5", "C 5"],
+            ["C#5", "C# 5"],
+            ["D5", "D 5"],
+            ["D#5", "D# 5"],
+            ["E5", "E 5"],
+            ["F5", "F 5"],
+            ["F#5", "F# 5"],
+            ["G5", "G 5"],
+            ["G#5", "G# 5"],
+            ["A5", "A 5"],
+            ["A#5", "A# 5"],
+            ["B5", "B 5"],
+            ["C6", "C 6"]
             ]), "note")
             .appendField("for");
         this.appendDummyInput()
@@ -301,85 +278,6 @@ Blockly.Blocks['mingo_ultrasonic_sensor'] = {
         this.setInputsInline(true);
         this.setTooltip("");
         this.setStyle("sensor_blocks");
-        this.setHelpUrl("");
-    }
-};
-
-Blockly.Blocks['mingo_ir_begin'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField(new Blockly.FieldImage(COM, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField("start infrared communication");
-        this.setInputsInline(true);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(230);
-        this.setTooltip("");
-        this.setStyle("communication_blocks");
-        this.setHelpUrl("");
-    }
-};
-
-Blockly.Blocks['mingo_ir_read'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField(new Blockly.FieldImage(COM, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField("When Remote button ")
-            .appendField(new Blockly.FieldDropdown([["Up", "46"], ["Down", "15"], ["Right", "43"], ["Left", "44"], ["Ok", "40"], ["1", "16"], ["2", "19"], ["3", "D"], ["4", "C"], ["5", "18"], ["6", "5E"], ["7", "8"], ["8", "1C"], ["9", "5A"], ["0", "52"], ["#", "4A"], ["*", "42"]]), "Received_Character")
-            .appendField("is pressed");
-        this.appendStatementInput("IR_Decode_Loop")
-            .setCheck(null);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(230);
-        this.setTooltip("");
-        this.setStyle("communication_blocks");
-        this.setHelpUrl("");
-    }
-};
-
-Blockly.Blocks['mingo_bluetooth_begin'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField(new Blockly.FieldImage(COM, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField(" start Bluetooth Communication");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(230);
-        this.setInputsInline(true);
-        this.setTooltip("");
-        this.setStyle("communication_blocks");
-        this.setHelpUrl("");
-    }
-};
-
-Blockly.Blocks['mingo_bluetooth_read'] = {
-    init: function () {
-        this.appendValueInput("NAME")
-            .setCheck(["Number", "String"])
-            .appendField(new Blockly.FieldImage(COM, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField("When Bluetooth Character is");
-        this.setInputsInline(true);
-        this.setOutput(true, null);
-        this.setColour(230);
-        this.setTooltip("");
-        this.setStyle("communication_blocks");
-        this.setHelpUrl("");
-    }
-};
-
-Blockly.Blocks['mingo_bluetooth_send'] = {
-    init: function () {
-        this.appendValueInput("NAME")
-            .setCheck(null)
-            .appendField(new Blockly.FieldImage(COM, 25, 25, { alt: "*", flipRtl: "FALSE" }))
-            .appendField(" send Bluetooth Character ");
-        this.setInputsInline(true);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(230);
-        this.setTooltip("");
-        this.setStyle("communication_blocks");
         this.setHelpUrl("");
     }
 };

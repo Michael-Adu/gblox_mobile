@@ -431,15 +431,7 @@ const defaults = `<xml xmlns="https://developers.google.com/blockly/xml" id="too
               </shadow>
           </value>
       </block>
-  </category>
-  <category css-icon="customIcon fa fa-cog" name="Text">
-      <block type="text">
-        <field name="TEXT"></field>
-      </block>
-      <block type="text_join">
-        <mutation items="2"></mutation>
-      </block>
-    </category>`
+  </category>`
 
 function device(device_name, compiler, microcontroller, toolbox, default_workspace, peripherals_used, peripherals_pins) {
   this.device_name = device_name;
@@ -614,11 +606,6 @@ const Mingo_Bot = new device(
               <field name="direction">forward</field>
               <field name="speed">50</field>
           </block>
-          <block type="mingo_motor_single_move_indef">
-              <field name="motorselect">lm</field>
-              <field name="direction">forward</field>
-              <field name="speed">50</field>
-          </block>
           <block type="mingo_motor_stop_indef">
               <field name="motor">all</field>
           </block>
@@ -639,29 +626,6 @@ const Mingo_Bot = new device(
               <field name="sensor">left</field>
               <field name="port">1</field>
           </block>
-  </category>
-  <category css-icon="customIcon fa fa-cog" name="COM">
-          <block type="mingo_ir_begin"></block>
-          <block type="mingo_ir_read">
-              <field name="Received_Character">15</field>
-          </block>
-          <block type="mingo_bluetooth_begin"></block>
-          <block type="mingo_bluetooth_read">
-              <value name="NAME">
-                  <block type="text">
-                      <field name="TEXT"></field>
-                  </block>
-              </value>
-          </block>
-          <block type="mingo_bluetooth_send">
-              <value name="NAME">
-                  <block type="text">
-                      <field name="TEXT"></field>
-                  </block>
-              </value>
-          </block>
-          <block type="communication_serial_print"></block>
-          <block type="communication_serial_read"></block>
   </category>
   <category css-icon="customIcon fa fa-cog" name="LEDs">
           <block type="mingo_led_range">
@@ -705,25 +669,7 @@ const Mingo_Bot = new device(
       <block type="mingo_sound_play_song">
           <field name="song">merry</field>
       </block>
-  </category>
-  <category css-icon="customIcon fa fa-cog" name="Display">
-      <block type="mingo_display_text">
-          <field name="text">text</field>
-          <field name="port">1</field>
-      </block>
-      <block type="mingo_display_face">
-          <field name="face">1</field>
-          <field name="port">1</field>
-      </block>
-      <block type="mingo_display_animation">
-          <field name="anim">1</field>
-          <field name="port">1</field>
-      </block>
-      <block type="mingo_display_clear">
-          <field name="port">1</field>
-      </block>
-  </category>
-  
+  </category>  
   <category name="Variables">
       <button text="Create New Variable" callbackKey="createvar"></button>
       <block type="variable_get"></block>
