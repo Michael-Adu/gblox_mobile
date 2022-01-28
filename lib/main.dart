@@ -40,6 +40,8 @@ class GbloxApp extends StatefulWidget {
   }
 }
 
+
+
 class _CardDetails {
   String svg;
   String title;
@@ -56,6 +58,7 @@ class _GbloxAppState extends State<GbloxApp> {
   ThemeData _currentTheme = global.darkTheme;
   _GbloxAppState();
 
+  @override
   void initState() {
     super.initState();
 
